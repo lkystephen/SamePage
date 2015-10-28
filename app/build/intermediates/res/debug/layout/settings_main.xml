@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/tools"
+    xmlns:projecttesting="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/friends_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:adjustViewBounds="true"
+    android:background="@null"
+    android:orientation="vertical"
+    android:scaleType="fitCenter">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/facebook_name"
+        android:textSize="30sp"/>
+
+    <com.facebook.login.widget.ProfilePictureView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/facebook_dp"/>
+
+
+</LinearLayout><!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/ProjectTesting2/app/src/main/res/layout/settings_main.xml -->

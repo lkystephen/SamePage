@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:projecttesting="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/eventScrollLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ECEFF1"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="55dp"
+                android:layout_height="match_parent"
+                android:gravity="center" >
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/map25" />
+            </LinearLayout>
+
+            <AutoCompleteTextView
+                android:id="@+id/eventPlaceAutocomplete"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:completionThreshold="3"
+                android:dropDownVerticalOffset="1dp"
+                android:dropDownAnchor="@+id/listviewAnchor"
+                android:hint="Add location"
+                android:singleLine="true"
+                android:textSize="16sp"
+                android:transitionName="Place" >
+            </AutoCompleteTextView>
+        </LinearLayout>
+
+        <View style="@style/EventDivider"
+            android:id="@+id/listviewAnchor"
+            android:transitionName="PlaceLine"/>
+
+
+    </LinearLayout>
+
+</ScrollView><!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/ProjectTesting2/app/src/main/res/layout/event_location_input.xml -->

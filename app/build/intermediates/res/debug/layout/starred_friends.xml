@@ -1,0 +1,27 @@
+<!-- res/layout/list_item.xml -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@null"
+    android:orientation="horizontal" >
+
+    <ListView
+        android:id="@+id/starredfriendslist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+
+     />
+
+    <com.example.projecttesting.MyTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No starred friends. Add them!"
+        android:textSize="16sp"
+        custom:fontName="sf_reg.ttf"
+        android:visibility="gone"
+        android:id="@+id/nostarfriendstext"/>
+
+</LinearLayout><!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/ProjectTesting2/app/src/main/res/layout/starred_friends.xml -->

@@ -1,0 +1,10 @@
+<!-- res/layout/list_item.xml -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="54dp"
+    android:background="#FFFFFF"
+    android:orientation="horizontal" >
+
+
+</LinearLayout><!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/ProjectTesting2/app/src/main/res/layout/eventdisplay.xml -->

@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/eventScrollLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#CFD8DC"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ECEFF1"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/eventNameInput"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:background="@null"
+            android:hint="Enter event title"
+            android:singleLine="true" />
+
+        <View style="@style/EventDivider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="55dp"
+                    android:layout_height="45dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:background="@null"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/time7" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/eventStartInput"
+                    style="@android:style/Widget.Holo.Light.Spinner"
+                    android:layout_width="120dp"
+                    android:layout_height="60dp"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/timeStartInput"
+                    style="@android:style/Widget.Holo.Light.Spinner"
+                    android:layout_width="75dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:hint="Start time"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/eventEndInput"
+                    android:text="Length"
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="55dp"
+                    android:layout_marginStart="55dp"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/timeEndInput"
+                    android:text="2 hours"
+                    android:layout_width="75dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View style="@style/EventDivider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="55dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/map25" />
+            </LinearLayout>
+
+            <AutoCompleteTextView
+                android:id="@+id/eventPlaceAutocomplete"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:completionThreshold="3"
+                android:dropDownVerticalOffset="1dp"
+                android:dropDownAnchor="@+id/listviewAnchor"
+                android:hint="Add location"
+                android:singleLine="true"
+                android:textSize="16sp"
+                android:transitionName="Place" >
+            </AutoCompleteTextView>
+        </LinearLayout>
+
+        <View style="@style/EventDivider"
+            android:id="@+id/listviewAnchor"
+            android:transitionName="PlaceLine"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="55dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/user77"
+                    android:transitionName="PeopleImage"
+                    />
+            </LinearLayout>
+
+            <AutoCompleteTextView
+                android:id="@+id/eventPeopleAutocomplete"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:completionThreshold="2"
+                android:dropDownAnchor="@+id/selectedFriendDisplay"
+                android:dropDownVerticalOffset="1dp"
+                android:hint="Add people"
+                android:popupBackground="@null"
+                android:singleLine="true"
+                android:textSize="16sp"
+                android:transitionName="People" />
+        </LinearLayout>
+
+        <View
+            style="@style/EventDivider"
+            android:transitionName="PeopleLine" />
+
+        <TextView
+            android:id="@+id/more_options"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginLeft="55dp"
+            android:gravity="center_vertical"
+            android:text="More options"
+            android:textSize="16sp" />
+
+        <View
+            android:id="@+id/dividerBeforeMoreOption"
+            style="@style/EventDivider" />
+
+        <LinearLayout
+            android:id="@+id/more_options_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/allow_Invite"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="55dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:adjustViewBounds="true"
+                        android:background="@null"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/envelope4" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="Allow invitation: "
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/allow_Invite_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="25dp"
+                    android:gravity="center_vertical"
+                    android:text="Yes"
+                    android:textColor="#000000"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <View style="@style/EventDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="55dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|center_horizontal"
+                        android:adjustViewBounds="true"
+                        android:background="@null"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/bell13" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="In-map notification"
+                    android:textSize="16sp" />
+
+                <Spinner
+                    android:id="@+id/spinner_notify_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:entries="@array/notification_time"
+                    android:gravity="center_vertical" />
+
+            </LinearLayout>
+
+            <View style="@style/EventDivider" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="55dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:background="@null"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/refresh36" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="Does not repeat"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="temp submit button"
+            android:id="@+id/submit"/>
+
+    </LinearLayout>
+
+</ScrollView>

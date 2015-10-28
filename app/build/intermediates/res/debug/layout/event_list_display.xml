@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/event_display_bg"
+    android:background="@null"
+    android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/organiser_image"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="9"
+        android:orientation="vertical">
+
+
+        <com.example.projecttesting.MyTextView
+            android:id="@+id/event_name_list_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#b4040509"
+            android:textSize="24sp"
+            custom:fontName="sf_reg.ttf" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/event_time" />
+
+
+            <com.example.projecttesting.MyTextView
+                android:id="@+id/event_date_list_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffa4a4a4"
+                android:layout_marginLeft="2dp"
+                android:layout_marginStart="2dp"
+                android:textSize="15sp"
+                custom:fontName="sf_reg.ttf" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/location_marker" />
+
+
+            <com.example.projecttesting.MyTextView
+                android:id="@+id/event_location_list_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffa4a4a4"
+                android:textSize="15sp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginStart="2dp"
+                custom:fontName="sf_reg.ttf" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical">
+
+            <com.example.projecttesting.MyTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Invited:  "
+                android:textColor="#ffa4a4a4"
+                android:textSize="14sp"
+                android:gravity="center_vertical"
+                custom:fontName="sf_reg.ttf" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/invitees_dis"
+                android:layout_marginStart="3dp"
+                android:layout_marginLeft="3dp"
+                android:orientation="horizontal"></LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"></LinearLayout>
+    </LinearLayout>
+</LinearLayout><!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/ProjectTesting2/app/src/main/res/layout/event_list_display.xml -->

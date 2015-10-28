@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:projecttesting="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f9f9f9"
+    android:fillViewport="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:background="#ffe5e5e5"
+            android:gravity="center_vertical">
+
+            <com.example.projecttesting.MyTextView
+                custom:fontName="ubuntu_bold.ttf"
+                android:id="@+id/event_summary_heading2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:text="EVENTS"
+                android:textColor="#ffbababa"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <com.astuetz.PagerSlidingTabStrip
+                android:id="@+id/event_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                projecttesting:pstsIndicatorColor="#fffff835"
+                projecttesting:pstsIndicatorHeight="3dp"
+                projecttesting:pstsShouldExpand="true"
+                projecttesting:pstsUnderlineColor="@null" />
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/event_viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/no_event_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No events yet"
+            android:textSize="15sp"
+            android:visibility="gone" />
+
+
+    </LinearLayout>
+
+
+</ScrollView>
+

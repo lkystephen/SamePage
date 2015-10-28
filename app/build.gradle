@@ -1,0 +1,35 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        applicationId "com.example.projecttesting"
+        minSdkVersion 11
+        targetSdkVersion 21
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    compile "com.android.support:appcompat-v7:21.0.0"
+    compile 'com.android.support:support-v4:21.0.3'
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'joda-time:joda-time:2.7'
+    compile ('com.facebook.android:facebook-android-sdk:4.1.1')
+    compile 'com.google.android.gms:play-services:7.5.0'
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+}
