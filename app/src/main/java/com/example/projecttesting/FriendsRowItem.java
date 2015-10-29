@@ -2,18 +2,17 @@ package com.example.projecttesting;
 
 public class FriendsRowItem {
 
-    private String friendsName;
+    private String friendsName, fbid;
     private int last_online;
     private int friends_status;
     private int friends_selection, friends_image;
 
 
-    public FriendsRowItem(String friendsName, int last_online, int friends_status, int friends_image) {
+    public FriendsRowItem(String friendsName, int last_online, String fbid) {
 
         this.friendsName = friendsName;
         this.last_online = last_online;
-        this.friends_status = friends_status;
-        this.friends_image = friends_image;
+        this.fbid = fbid;
     }
 
     public int getFriendsStarredStatus() {
@@ -40,6 +39,9 @@ public class FriendsRowItem {
         this.last_online = last_online;
     }
 
+    public String getFbId(){
+        return fbid;
+    }
 
     public String getName() {
         return friendsName;
@@ -47,12 +49,6 @@ public class FriendsRowItem {
 
     public void setName(String friendsName) {
         this.friendsName = friendsName;
-    }
-
-    public int getImage(){return friends_image;}
-
-    public void setImage(int friends_image ){
-        this.friends_image = friends_image;
     }
 
 }

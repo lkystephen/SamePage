@@ -99,9 +99,7 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
         Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(organiser_fbid).getPath());
         //int image = allocate.EventTypeDetermine(event_details.getTitle());
 
-        RoundImage roundImage = new RoundImage(bitmap);
-
-        event_organiser_photo.setImageDrawable(roundImage);
+        event_organiser_photo.setImageBitmap(bitmap);
 
         // Set up start and end date
         java.util.Date juDate = new Date(event_details.getStartTime());

@@ -16,11 +16,11 @@ import org.w3c.dom.Text;
 
 public class StarredFriendsFragment extends Fragment {
 
-    public int[] friendsLastOnlineTime = new int[]{1, 10};
-    public int[] friends_image = {R.drawable.nigel, R.drawable.avery};
+    //public int[] friendsLastOnlineTime = new int[]{1, 10};
+    //public int[] friends_image = {R.drawable.nigel, R.drawable.avery};
 
     // friendsStarredStatus, 1 = starred, 0 is normal
-    public int[] friendsStarredStatus = new int[]{1, 1};
+    //public int[] friendsStarredStatus = new int[]{1, 1};
 
     ListView listView;
     ArrayList<FriendsRowItem> rowItems;
@@ -61,12 +61,9 @@ public class StarredFriendsFragment extends Fragment {
             listView.setVisibility(View.VISIBLE);
             for (int i = 0; i < star_list.size(); i++) {
 
-                if (friendsStarredStatus[i] == 1) {
-                    FriendsRowItem item = new FriendsRowItem(
-                            user.getStarList().get(i).username, friendsLastOnlineTime[i],
-                            friendsStarredStatus[i], friends_image[i]);
-                    rowItems.add(item);
-                }
+                FriendsRowItem item = new FriendsRowItem(
+                        user.getStarList().get(i).username, 0, user.getStarList().get(i).fbid);
+                rowItems.add(item);
 
             }
         }

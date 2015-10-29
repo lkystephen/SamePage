@@ -20,10 +20,7 @@ import android.widget.ListView;
 
 public class MasterListFriendsFragment extends Fragment {
 
-	public int[] friendsLastOnlineTime = new int[] { 1, 10};
-	public int[] friends_image = {R.drawable.edmund, R.drawable.lkk};
 	// friendsStarredStatus, 1 = starred, 0 is normal
-	public int[] friendsStarredStatus = new int[] { 1, 1};
 	ListView listView;
 	ArrayList<FriendsRowItem> rowItems;
 	User user;
@@ -73,8 +70,7 @@ public class MasterListFriendsFragment extends Fragment {
 		rowItems = new ArrayList<>();
 		//Log.i("master",Integer.toString(master_list.size()));
 		for (int i = 0; i < master_list.size(); i++) {
-			FriendsRowItem item = new FriendsRowItem(master_list.get(i).username,
-					friendsLastOnlineTime[i], friendsStarredStatus[i],friends_image[i]);
+			FriendsRowItem item = new FriendsRowItem(master_list.get(i).username, 0, master_list.get(i).fbid);
 			rowItems.add(item);
 		}
 

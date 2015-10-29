@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -119,7 +120,8 @@ public class EventFragment extends Fragment implements MainAct {
         // Get information from event
         int total_event_number = user.getEventsInvited().size() + user.getEventsOrganised().size() + user.getEventsAttending().size();
 
-/*        button_addEvent.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton add_event = (FloatingActionButton)view.findViewById(R.id.create_button);
+        add_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), EventCreation.class);
@@ -130,7 +132,7 @@ public class EventFragment extends Fragment implements MainAct {
 
             }
         });
-*/
+
         // Set up pager view
         Typeface face;
         face = Typeface.createFromAsset(getActivity().getAssets(), "sf_bold.ttf");

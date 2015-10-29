@@ -17,6 +17,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,11 +34,16 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.ProfilePictureView;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -48,7 +54,7 @@ import java.util.HashMap;
 
 
 @SuppressWarnings("unused")
-public class LoginActivity extends ActionBarActivity {
+public class LoginActivity extends AppCompatActivity {
 
     // Facebook information
     CallbackManager callbackManager;
@@ -69,9 +75,10 @@ public class LoginActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
-
+        if (actionBar != null) {
+            actionBar.setDisplayShowCustomEnabled(false);
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
         String lala;
 
         lala = printKeyHash(this);
@@ -80,16 +87,35 @@ public class LoginActivity extends ActionBarActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
 
+        LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile", "user_friends"));
+
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         // go to main page
-                        Log.i("logact", Profile.getCurrentProfile().getName());
+                        AccessToken accessToken = AccessToken.getCurrentAccessToken();
 
-                        Intent intent = new Intent();
-                        intent.setClass(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
+                        if (accessToken == null) {
+                            // if not login
+                            setContentView(R.layout.login);
+                            Log.i("Login page", "Login page is displayed");
+                            ImageView login_button = (ImageView) findViewById(R.id.facebook_login);
+
+                            login_button.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile", "user_friends"));
+                                }
+                            });
+                        } else {
+                            Intent intent = new Intent();
+                            intent.setClass(LoginActivity.this, MainActivity.class);
+                            Log.i("Login history", "User has logged in before and will go to Main now.");
+                            startActivity(intent);
+
+                        }
+
                     }
 
                     @Override
@@ -102,33 +128,16 @@ public class LoginActivity extends ActionBarActivity {
                         Log.i("LoginAct", exception.toString());
                     }
                 });
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
 
-        if (accessToken == null) {
-            // if not login
-            setContentView(R.layout.login);
 
-            ImageView login_button = (ImageView) findViewById(R.id.facebook_login);
-
-            login_button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile", "user_friends"));
-                }
-            });
-        } else {
-            Intent intent = new Intent();
-            intent.setClass(LoginActivity.this, MainActivity.class);
-            Log.i("straight thru","straightthru");
-            startActivity(intent);
-
-        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //Log.i("onActivityResult","True");
         callbackManager.onActivityResult(requestCode, resultCode, data);
+
     }
 
     public static String printKeyHash(Activity context) {
@@ -154,8 +163,7 @@ public class LoginActivity extends ActionBarActivity {
             }
         } catch (PackageManager.NameNotFoundException e1) {
             Log.e("Name not found", e1.toString());
-        }
-        catch (NoSuchAlgorithmException e) {
+        } catch (NoSuchAlgorithmException e) {
             Log.e("No such an algorithm", e.toString());
         } catch (Exception e) {
             Log.e("Exception", e.toString());

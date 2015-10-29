@@ -24,7 +24,7 @@ import android.widget.Filter;
 public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements Filterable {
 
     Context context;
-    private ArrayList<FriendsRowItem> originalData= null;
+    private ArrayList<FriendsRowItem> originalData = null;
     private ArrayList<FriendsRowItem> filteredData = null;
     private CustomFilter filter;
 
@@ -72,11 +72,16 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
         holder.name.setText(rowItem.getName());
         holder.last_update.setText("Unknown");
         // Set image
-        Bitmap bm = BitmapFactory.decodeResource(getContext().getResources(), rowItem.getImage());
-        RoundImage roundImage = new RoundImage(bm);
+        String fbid = rowItem.getFbId();
 
-        holder.image.setImageDrawable(roundImage);
+        if (fbid != null) {
+            Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(fbid).getPath());
+            //RoundImage roundImage = new RoundImage(bitmap);
 
+            holder.image.setImageBitmap(bitmap);
+        } else {
+            holder.image.setImageResource(R.drawable.fb_display_male);
+        }
 
         return convertView;
     }
@@ -95,12 +100,12 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
             int count = list.size();
 
 
-            if (input != null && input.length() >0){
+            if (input != null && input.length() > 0) {
                 ArrayList<FriendsRowItem> filtered = new ArrayList<FriendsRowItem>();
 
-                for (int i = 0; i <count; i++ ){
+                for (int i = 0; i < count; i++) {
                     FriendsRowItem row = list.get(i);
-                    if (row.getName().toLowerCase().contains(constraint)){
+                    if (row.getName().toLowerCase().contains(constraint)) {
                         filtered.add(row);
                     }
                 }

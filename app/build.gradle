@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.projecttesting"
-        minSdkVersion 11
+        minSdkVersion 14
         targetSdkVersion 21
     }
 
@@ -27,6 +27,8 @@ dependencies {
 
     compile "com.android.support:appcompat-v7:21.0.0"
     compile 'com.android.support:support-v4:21.0.3'
+    compile 'com.pkmmte.view:circularimageview:1.1'
+    compile 'com.android.support:design:22.2.0'
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'joda-time:joda-time:2.7'
     compile ('com.facebook.android:facebook-android-sdk:4.1.1')

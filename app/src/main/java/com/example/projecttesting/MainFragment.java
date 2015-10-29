@@ -52,10 +52,10 @@ import java.util.List;
 
 public class MainFragment extends Fragment implements LocationListener, TextWatcher {
 
-	public int[] friendsLastOnlineTime = new int[] { 1, 10};
+	/*public int[] friendsLastOnlineTime = new int[] { 1, 10, 5};
 	public int[] friends_image = {R.drawable.edmund, R.drawable.lkk};
 	// friendsStarredStatus, 1 = starred, 0 is normal
-	public int[] friendsStarredStatus = new int[] { 1, 1};
+	public int[] friendsStarredStatus = new int[] { 1, 1};*/
 
 	//public static GoogleMap googleMap;
 	public static Marker selectedMarker;
@@ -93,8 +93,8 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 		if(bitmap == null) {
 			Log.i("Image returned","null");
 		}
-		RoundImage roundImage = new RoundImage(bitmap);
-		image.setImageDrawable(roundImage);
+		//RoundImage roundImage = new RoundImage(bitmap);
+		image.setImageBitmap(bitmap);
 
 
 		Context context;
@@ -109,16 +109,6 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 		// Get names of friends
 		final List<OtherUser> master_list = user.getMasterList();
 		Log.i("wait waht","wait");
-		// Establish data here
-		rowItems = new ArrayList<>();
-		//Log.i("master",Integer.toString(master_list.size()));
-		for (int i = 0; i < master_list.size(); i++) {
-			FriendsRowItem item = new FriendsRowItem(master_list.get(i).username,
-					friendsLastOnlineTime[i], friendsStarredStatus[i],friends_image[i]);
-			rowItems.add(item);
-		}
-
-
 
 		autoCompView.setSelectAllOnFocus(true);
 		String[] columnForMatch = new String[]{"placeDesc", "placeSecondName"};
