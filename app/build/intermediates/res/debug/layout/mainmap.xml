@@ -105,7 +105,20 @@
                 android:background="@null"
                 android:src="@drawable/text_field_clear_btn" />
         </LinearLayout>
+
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:orientation="vertical">
 
-</LinearLayout><!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/ProjectTesting2/app/src/main/res/layout/mainmap.xml -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:adjustViewBounds="true"
+            android:layout_height="wrap_content"
+            android:id="@+id/friends_main_display_bg"
+            android:scaleType="fitCenter" />
+    </LinearLayout>
+
+</LinearLayout><!-- From: file:/C:/Users/Capco/Desktop/Project/SamePage/app/src/main/res/layout/mainmap.xml -->

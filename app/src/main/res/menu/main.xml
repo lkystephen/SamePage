@@ -3,13 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.projecttesting.MainActivity" >
 
-    <item
-        android:id="@+id/appLogo"
-        android:title="menuLogo"
-        android:icon="@drawable/biglogo"
-        app:showAsAction="always"
-        android:layout_height="match_parent"/>
-    	
     
     <item
         android:id="@+id/action_settings"

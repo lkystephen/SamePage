@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -43,7 +44,7 @@ public class EventListAdapter extends ArrayAdapter<EventEntryItem> {
         TextView event_location;
         TextView event_date, event_time;
         //LinearLayout invitees_display;
-        ImageView event_image;
+        ImageView event_image, rsvp_status;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -67,6 +68,7 @@ public class EventListAdapter extends ArrayAdapter<EventEntryItem> {
             holder.event_name = (TextView) convertView.findViewById(R.id.event_name_list_item);
             holder.event_time = (TextView) convertView.findViewById(R.id.event_time);
             holder.event_location = (TextView) convertView.findViewById(R.id.event_location_list_item);
+            holder.rsvp_status = (ImageView) convertView.findViewById(R.id.rsvp_status);
 
             //holder.event_invitees = (TextView) convertView.findViewById(R.id.friends_invited_list_item);
 
@@ -75,6 +77,9 @@ public class EventListAdapter extends ArrayAdapter<EventEntryItem> {
             holder.event_image = (ImageView) convertView.findViewById(R.id.event_type);
             holder.event_date = (TextView) convertView.findViewById(R.id.event_date_list_item);
             //holder.invitees_display = (LinearLayout) convertView.findViewById(R.id.invitees_dis);
+
+            // Base on the RSVP status, for now we set all to going
+            holder.rsvp_status.setImageResource(R.drawable.accept_nobackground);
 
             convertView.setTag(holder);
 

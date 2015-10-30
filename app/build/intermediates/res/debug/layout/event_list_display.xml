@@ -8,18 +8,27 @@
     android:orientation="horizontal">
 
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="0dp"
         android:layout_height="68dp"
         android:layout_weight="1.9"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/rsvp_status"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="top|left|start"
+            android:layout_margin="3dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY" />
 
         <LinearLayout
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:background="@drawable/circle_background"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_gravity="center">
 
             <ImageView
                 android:id="@+id/event_type"
@@ -28,7 +37,7 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter" />
         </LinearLayout>
-    </LinearLayout>
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="0dp"
@@ -133,4 +142,4 @@
         </LinearLayout>
 
     </LinearLayout>
-</LinearLayout><!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/ProjectTesting2/app/src/main/res/layout/event_list_display.xml -->
+</LinearLayout><!-- From: file:/C:/Users/Capco/Desktop/Project/SamePage/app/src/main/res/layout/event_list_display.xml -->

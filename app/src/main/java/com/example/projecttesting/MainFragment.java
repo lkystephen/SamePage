@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -23,6 +24,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -84,6 +86,13 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 
 		TextView name = (TextView) rootView.findViewById(R.id.welcome_id);
 		name.setText(user.getUsername());
+
+		// Set up background
+		ImageView friends_background = (ImageView) rootView.findViewById(R.id.friends_main_display_bg);
+		Bitmap processed = BitmapFactory.decodeResource(getResources(), R.drawable.friends_alone);
+		Bitmap blurred_bg = BlurBuilder.blur(getActivity(), processed);
+		//BitmapDrawable ob = new BitmapDrawable(getResources(), blurred_bg);
+		friends_background.setImageBitmap(blurred_bg);
 
 		// Get facebook photo and turn to bitmap
 

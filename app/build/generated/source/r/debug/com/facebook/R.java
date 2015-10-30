@@ -76,15 +76,15 @@ public final class R {
 		public static final int com_facebook_tooltip_blue_bottomnub = 0x7f020069;
 		public static final int com_facebook_tooltip_blue_topnub = 0x7f02006a;
 		public static final int com_facebook_tooltip_blue_xout = 0x7f02006b;
-		public static final int messenger_bubble_large_blue = 0x7f0200ca;
-		public static final int messenger_bubble_large_white = 0x7f0200cb;
-		public static final int messenger_bubble_small_blue = 0x7f0200cc;
-		public static final int messenger_bubble_small_white = 0x7f0200cd;
-		public static final int messenger_button_blue_bg_round = 0x7f0200ce;
-		public static final int messenger_button_blue_bg_selector = 0x7f0200cf;
-		public static final int messenger_button_send_round_shadow = 0x7f0200d0;
-		public static final int messenger_button_white_bg_round = 0x7f0200d1;
-		public static final int messenger_button_white_bg_selector = 0x7f0200d2;
+		public static final int messenger_bubble_large_blue = 0x7f0200c9;
+		public static final int messenger_bubble_large_white = 0x7f0200ca;
+		public static final int messenger_bubble_small_blue = 0x7f0200cb;
+		public static final int messenger_bubble_small_white = 0x7f0200cc;
+		public static final int messenger_button_blue_bg_round = 0x7f0200cd;
+		public static final int messenger_button_blue_bg_selector = 0x7f0200ce;
+		public static final int messenger_button_send_round_shadow = 0x7f0200cf;
+		public static final int messenger_button_white_bg_round = 0x7f0200d0;
+		public static final int messenger_button_white_bg_selector = 0x7f0200d1;
 	}
 	public static final class id {
 		public static final int automatic = 0x7f0e0058;
@@ -103,7 +103,7 @@ public final class R {
 		public static final int inline = 0x7f0e0057;
 		public static final int large = 0x7f0e005b;
 		public static final int left = 0x7f0e0025;
-		public static final int messenger_send_button = 0x7f0e00da;
+		public static final int messenger_send_button = 0x7f0e00dc;
 		public static final int never_display = 0x7f0e005a;
 		public static final int normal = 0x7f0e000c;
 		public static final int open_graph = 0x7f0e0051;

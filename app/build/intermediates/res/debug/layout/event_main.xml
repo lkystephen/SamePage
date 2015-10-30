@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:projecttesting="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -51,9 +52,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:clickable="true"
-        app:layout_anchor="@id/big_layout"
-        app:layout_anchorGravity="bottom|right|end"
-        android:src="@drawable/lkk"/>
+        app:borderWidth="0dp"
+        android:layout_gravity="bottom|right|end"
+        android:src="@drawable/button_plus"/>
 </android.support.design.widget.CoordinatorLayout>
 
-<!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/ProjectTesting2/app/src/main/res/layout/event_main.xml -->
+<!-- From: file:/C:/Users/Capco/Desktop/Project/SamePage/app/src/main/res/layout/event_main.xml -->

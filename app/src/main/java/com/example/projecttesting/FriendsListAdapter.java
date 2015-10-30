@@ -71,6 +71,7 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
 
         holder.name.setText(rowItem.getName());
         holder.last_update.setText("Unknown");
+
         // Set image
         String fbid = rowItem.getFbId();
 
