@@ -59,10 +59,6 @@ public class EventListAdapter extends ArrayAdapter<EventEntryItem> {
         if (convertView == null) {
 
             convertView = mInflater.inflate(R.layout.event_list_display, null);
-            LinearLayout abc = (LinearLayout) convertView.findViewById(R.id.event_display_bg);
-            if (position % 2 == 1){ //odd number item
-                abc.setBackgroundColor(Color.parseColor("#f0f0f0"));
-            }
 
             holder = new ViewHolder();
             holder.event_name = (TextView) convertView.findViewById(R.id.event_name_list_item);
@@ -87,7 +83,7 @@ public class EventListAdapter extends ArrayAdapter<EventEntryItem> {
             holder.event_location.setText(rowItem.getEventLocation());
             //holder.event_invitees.setText(rowItem.getFriendsInvited().toString());
             long event_time = rowItem.getStartTime();
-            java.util.Date juDate = new Date();
+            java.util.Date juDate = new Date(event_time);
             DateTime dt = new DateTime(juDate);
 
             int month = dt.getMonthOfYear();

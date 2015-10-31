@@ -48,20 +48,27 @@
             style="@style/EventDivider"
             android:layout_marginLeft="20dp" />
 
-
-        <com.example.projecttesting.MyTextView
-            android:id="@+id/event_name"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center_vertical"
-            android:text="NAME_OF_EVENT"
-            android:textSize="35sp"
-            custom:fontName="sf_bold.ttf" />
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/event_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:text="NAME_OF_EVENT"
+                android:textSize="35sp"
+                android:editable="false"/>
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -265,4 +272,4 @@
             android:orientation="horizontal"></LinearLayout>
 
     </LinearLayout>
-</ScrollView><!-- From: file:/C:/Users/Capco/Desktop/Project/SamePage/app/src/main/res/layout/event_details_display.xml -->
+</ScrollView><!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/SamePage/app/src/main/res/layout/event_details_display.xml -->

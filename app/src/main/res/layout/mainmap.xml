@@ -6,81 +6,79 @@
     android:background="#00ffffff"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:background="#fffefefe"
-        android:orientation="horizontal">
+        android:layout_height="230dp">
 
+        <ImageView
+            android:id="@+id/friends_main_display_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY" />
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_gravity="center_vertical"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginStart="30dp"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="vertical">
 
-            <com.example.projecttesting.MyTextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/for_main_page_icons"
+                android:gravity="center"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/question" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Welcome back,"
-                android:textColor="#4a000000"
-                android:textSize="15sp"
-                custom:fontName="sf_reg.ttf" />
+                android:orientation="horizontal"
+                android:gravity="center">
 
+                <com.example.projecttesting.MyTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="WHERE IS "
+                    android:textColor="#ffffff"
+                    android:textSize="21sp"
+                    custom:fontName="sf_bold.ttf" />
 
-            <com.example.projecttesting.MyTextView
-                android:id="@+id/welcome_id"
-                android:layout_width="wrap_content"
-                android:layout_marginTop="2dp"
-                android:layout_height="wrap_content"
-                android:text="USERNAME"
-                android:textColor="#000000"
-                android:textSize="27sp"
-                custom:fontName="sf_reg.ttf" />
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="_?"
+                    android:id="@+id/search_friend"
+                    android:textColor="#ffdce9ff"
+                    android:textSize="21sp"
+                    android:background="@null"/>
+
+            </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical|end">
-
-            <com.pkmmte.view.CircularImageView
-                android:layout_width="52dp"
-                android:layout_height="52dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:layout_marginRight="25dp"
-                android:layout_marginEnd="25dp"
-                android:id="@+id/welcome_image"/>
-
-        </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="30dp"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
         android:orientation="vertical">
 
-        <com.example.projecttesting.MyTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            custom:fontName="sf_reg.ttf"
-            android:text="FIND A FRIEND NEARBY"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_marginRight="20dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
             android:background="#F2F2F2"
             android:orientation="horizontal">
 
@@ -100,25 +98,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|end"
-                android:layout_marginRight="20dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
                 android:background="@null"
                 android:src="@drawable/text_field_clear_btn" />
         </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:adjustViewBounds="true"
-            android:layout_height="wrap_content"
-            android:id="@+id/friends_main_display_bg"
-            android:scaleType="fitCenter" />
-    </LinearLayout>
 
 </LinearLayout>

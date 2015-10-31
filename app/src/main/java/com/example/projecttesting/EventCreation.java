@@ -14,6 +14,7 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
@@ -67,6 +68,9 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
         Bundle bundle = getIntent().getExtras();
         final User user = bundle.getParcelable("user");
 
+        final Typeface typeface = Typeface.createFromAsset(getAssets(), "sf_reg.ttf");
+
+
         List masterList = user.getMasterList();
 
         // Set animation for next activity
@@ -75,8 +79,12 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
         //Transition transition = inflater.inflateTransition(R.transition.change_people_or_event_input);
         //getWindow().setSharedElementEnterTransition(transition);
 
+        final EditText eventName = (EditText) findViewById(R.id.eventNameInput);
+        eventName.setTypeface(typeface);
+
         // Set the intent for people invitation
         peopleInputET = (AutoCompleteTextView) findViewById(R.id.eventPeopleAutocomplete);
+        peopleInputET.setTypeface(typeface);
 
         OnFocusChangeListener peopleOnClickListener = new OnFocusChangeListener() {
             @Override
@@ -105,6 +113,7 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
 
         // Set the intent for location input
         placeInputET = (AutoCompleteTextView) findViewById(R.id.eventPlaceAutocomplete);
+        placeInputET.setTypeface(typeface);
         OnFocusChangeListener locationOnClickListener = new OnFocusChangeListener() {
 
             @Override
@@ -136,9 +145,9 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
 
         // Set the more option menu and its onclick
 
-        LinearLayout allowInvitation = (LinearLayout) findViewById(R.id.allow_Invite);
-        final TextView allowInvitationResult = (TextView) findViewById(R.id.allow_Invite_result);
-        allowInvitation.setOnClickListener(new OnClickListener() {
+        //LinearLayout allowInvitation = (LinearLayout) findViewById(R.id.allow_Invite);
+        //final TextView allowInvitationResult = (TextView) findViewById(R.id.allow_Invite_result);
+        /*allowInvitation.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (allowInvitationResult.getText().equals("Yes")) {
@@ -147,8 +156,9 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
                     allowInvitationResult.setText("Yes");
                 }
             }
-        });
+        });*/
         final TextView moreOptionTextView = (TextView) findViewById(R.id.more_options);
+        moreOptionTextView.setTypeface(typeface);
         final View DividerBeforeMoreOption = findViewById(R.id.dividerBeforeMoreOption);
         final LinearLayout allowInvitationLayout = (LinearLayout) findViewById(R.id.more_options_menu);
         moreOptionTextView.setOnClickListener(new
@@ -161,8 +171,6 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
                                                               moreOptionTextView.setVisibility(View.GONE);
                                                           }
                                                       });
-        // Set spinner
-        Spinner notificationTimeSpinner = (Spinner) findViewById(R.id.spinner_notify_time);
 
         // Defaulting the start/finish date of the event as today
         java.util.Date juDate = new Date();
@@ -256,14 +264,13 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
             public void onClick(View view) {
 
                 // Get event name input
-                EditText eventName = (EditText) findViewById(R.id.eventNameInput);
                 String event_name = eventName.getText().toString();
 
                 // Get Location
                 String location = placeInputET.getText().toString();
 
                 // Get People
-                ArrayList<String> people = selectedPeople;
+//                ArrayList<String> people = selectedPeople;
 
                 // Send stuff to server
                 Bundle event_bundle = new Bundle();

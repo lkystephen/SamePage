@@ -10,6 +10,14 @@
     android:orientation="vertical"
     android:id="@+id/big_layout">
 
+    <ImageView
+        android:id="@+id/event_display_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY" />
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,10 +32,12 @@
                 android:id="@+id/event_tabs"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                projecttesting:pstsIndicatorColor="#fffff835"
+                projecttesting:pstsDividerColor="@null"
+                projecttesting:pstsIndicatorColor="#ffd9deff"
                 projecttesting:pstsIndicatorHeight="3dp"
                 projecttesting:pstsShouldExpand="true"
-                projecttesting:pstsUnderlineColor="@null" />
+                projecttesting:pstsUnderlineColor="@null"
+                android:background="@null"/>
         </LinearLayout>
 
         <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"

@@ -117,7 +117,7 @@ public class OrganizingEventFragment extends Fragment {
                         bundle.putString("organiser_fbid", organiser_fbid);
                         bundle.putString("organiser_name", organiser_name);
                         //bundle.putInt("position", i);
-                        EventDisplayDialog event_dialog = new EventDisplayDialog();
+                        EventOrganisingDialog event_dialog = new EventOrganisingDialog();
                         event_dialog.setArguments(bundle);
                         event_dialog.show(fm, "");
                     }

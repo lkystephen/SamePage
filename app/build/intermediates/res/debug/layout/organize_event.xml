@@ -9,7 +9,9 @@
     <ListView
         android:id="@+id/event_main_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:dividerHeight="0dp"/>
 
 
-</LinearLayout><!-- From: file:/C:/Users/Capco/Desktop/Project/SamePage/app/src/main/res/layout/organize_event.xml -->
+</LinearLayout><!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/SamePage/app/src/main/res/layout/organize_event.xml -->

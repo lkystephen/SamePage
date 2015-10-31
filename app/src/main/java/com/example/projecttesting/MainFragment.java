@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -84,9 +85,16 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 		super.onCreateView(inflater, container, savedInstanceState);
 		View rootView = inflater.inflate(R.layout.mainmap, container, false);
 
-		TextView name = (TextView) rootView.findViewById(R.id.welcome_id);
-		name.setText(user.getUsername());
+		// Typeface
+		Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "sf_bold.ttf");
 
+
+		//TextView name = (TextView) rootView.findViewById(R.id.welcome_id);
+		//name.setText(user.getUsername());
+
+		EditText search = (EditText) rootView.findViewById(R.id.search_friend);
+		search.setTypeface(typeface);
+		search.setHintTextColor(Color.parseColor("#ffdce9ff"));
 		// Set up background
 		ImageView friends_background = (ImageView) rootView.findViewById(R.id.friends_main_display_bg);
 		Bitmap processed = BitmapFactory.decodeResource(getResources(), R.drawable.friends_alone);
@@ -96,15 +104,14 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 
 		// Get facebook photo and turn to bitmap
 
-		ImageView image = (ImageView) rootView.findViewById(R.id.welcome_image);
+		//ImageView image = (ImageView) rootView.findViewById(R.id.welcome_image);
 
-		Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(user.getFBId()).getPath());
-		if(bitmap == null) {
-			Log.i("Image returned","null");
-		}
+		//Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(user.getFBId()).getPath());
+		//if(bitmap == null) {
+		//	Log.i("Image returned","null");
+		//}
 		//RoundImage roundImage = new RoundImage(bitmap);
-		image.setImageBitmap(bitmap);
-
+		//image.setImageBitmap(bitmap);
 
 		Context context;
 		context = this.getActivity().getApplicationContext();

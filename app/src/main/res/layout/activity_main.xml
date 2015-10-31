@@ -9,15 +9,16 @@
 
 
     <com.astuetz.PagerSlidingTabStrip
+        android:layout_gravity="center_horizontal"
         android:id="@+id/main_tabs"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        projecttesting:pstsIndicatorColor="#fffff835"
+        projecttesting:pstsIndicatorColor="#ffd9deff"
         projecttesting:pstsIndicatorHeight="2dp"
         projecttesting:pstsTabBackground="@null"
         projecttesting:pstsUnderlineHeight="0dp"
         projecttesting:pstsShouldExpand="true"
-        projecttesting:pstsUnderlineColor="@null" />
+        projecttesting:pstsUnderlineColor="@null"/>
 
 
     <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
