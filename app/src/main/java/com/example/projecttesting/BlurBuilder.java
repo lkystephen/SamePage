@@ -11,12 +11,12 @@ import android.widget.LinearLayout;
 
 import java.util.StringTokenizer;
 public class BlurBuilder {
-    private static final float BITMAP_SCALE = 0.35f;
-    private static final float BLUR_RADIUS = 9.5f;
+    private static final float BITMAP_SCALE = 1.5f;
+    private static final float BLUR_RADIUS = 6.5f;
 
     public static Bitmap blur(Context context, Bitmap image) {
         int width = Math.round(image.getWidth() * BITMAP_SCALE);
-        int height = Math.round(image.getHeight() * BITMAP_SCALE);
+        int height = Math.round(image.getHeight() * BLUR_RADIUS);
 
         Bitmap inputBitmap = Bitmap.createScaledBitmap(image, width, height, false);
         Bitmap outputBitmap = Bitmap.createBitmap(inputBitmap);

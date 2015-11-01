@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -56,14 +57,15 @@ public class EventFragment extends Fragment implements MainAct {
     int events_invited;
     ProgressDialog dialog;
     Context mContext;
-    Typeface facebold;ViewPager mViewPager;
+    Typeface facebold;
+    ViewPager mViewPager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //mContext = this.getActivity();
 
-        facebold = Typeface.createFromAsset(getActivity().getAssets(), "ubuntu_bold.ttf");
+       // facebold = Typeface.createFromAsset(getActivity().getAssets(), "ubuntu_bold.ttf");
         //face_light = Typeface.createFromAsset(getActivity().getAssets(), "ubuntu_light.ttf");
 
         return inflater.inflate(R.layout.event_main, container, false);
@@ -126,6 +128,7 @@ public class EventFragment extends Fragment implements MainAct {
         int total_event_number = user.getEventsInvited().size() + user.getEventsOrganised().size() + user.getEventsAttending().size();
 
         FloatingActionButton add_event = (FloatingActionButton)view.findViewById(R.id.create_button);
+
         add_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,10 +152,10 @@ public class EventFragment extends Fragment implements MainAct {
 
 
         // Get background
-        ImageView friends_background = (ImageView) view.findViewById(R.id.event_display_bg);
-        Bitmap processed = BitmapFactory.decodeResource(getResources(), R.drawable.event_bg);
-        Bitmap blurred_bg = BlurBuilder.blur(getActivity(), processed);
-        friends_background.setImageBitmap(blurred_bg);
+       ImageView friends_background = (ImageView) view.findViewById(R.id.event_display_bg);
+        //Bitmap processed = BitmapFactory.decodeResource(getResources(), R.drawable.event_main);
+        //Bitmap blurred_bg = BlurBuilder.blur(getActivity(), processed);
+        friends_background.setImageResource(R.drawable.event_main);
 
         // Assigning the Sliding Tab Layout View
         tabs = (PagerSlidingTabStrip) view.findViewById(R.id.event_tabs);

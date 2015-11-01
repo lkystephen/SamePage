@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 21
+    compileSdkVersion 23
     buildToolsVersion "22.0.1"
 
     defaultConfig {
         applicationId "com.example.projecttesting"
         minSdkVersion 17
-        targetSdkVersion 21
+        targetSdkVersion 23
     }
 
     buildTypes {
@@ -18,20 +18,21 @@ android {
     }
 }
 
-
-repositories {
-    mavenCentral()
+allprojects {
+    repositories {
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
 }
 
 dependencies {
-
-    compile "com.android.support:appcompat-v7:21.0.0"
-    compile 'com.android.support:support-v4:21.0.3'
+    compile 'com.android.support:appcompat-v7:23.1.0'
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+    compile 'com.android.support:support-v4:23.1.0'
     compile 'com.pkmmte.view:circularimageview:1.1'
     compile 'com.android.support:design:22.2.0'
     compile 'com.google.code.gson:gson:2.3.1'
     compile 'joda-time:joda-time:2.7'
-    compile ('com.facebook.android:facebook-android-sdk:4.1.1')
-    compile 'com.google.android.gms:play-services:7.5.0'
-    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+    compile 'com.facebook.android:facebook-android-sdk:4.1.1'
+    compile 'com.google.android.gms:play-services:8.1.0'
 }

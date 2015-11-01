@@ -92,15 +92,14 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 		//TextView name = (TextView) rootView.findViewById(R.id.welcome_id);
 		//name.setText(user.getUsername());
 
-		EditText search = (EditText) rootView.findViewById(R.id.search_friend);
-		search.setTypeface(typeface);
-		search.setHintTextColor(Color.parseColor("#ffdce9ff"));
+		//EditText search = (EditText) rootView.findViewById(R.id.search_friend);
+		//search.setTypeface(typeface);
+		//search.setHintTextColor(Color.parseColor("#ffdce9ff"));
 		// Set up background
-		ImageView friends_background = (ImageView) rootView.findViewById(R.id.friends_main_display_bg);
-		Bitmap processed = BitmapFactory.decodeResource(getResources(), R.drawable.friends_alone);
+		ImageView friends_background = (ImageView) rootView.findViewById(R.id.main_display_bg);
+		/*Bitmap processed = BitmapFactory.decodeResource(getResources(), R.drawable.main_bg);
 		Bitmap blurred_bg = BlurBuilder.blur(getActivity(), processed);
-		//BitmapDrawable ob = new BitmapDrawable(getResources(), blurred_bg);
-		friends_background.setImageBitmap(blurred_bg);
+		*/friends_background.setImageResource(R.drawable.main_bg);
 
 		// Get facebook photo and turn to bitmap
 
@@ -116,23 +115,22 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 		Context context;
 		context = this.getActivity().getApplicationContext();
 
-		autoCompView = (AutoCompleteTextView) rootView.findViewById(R.id.autocompletetext);
+		/*autoCompView = (AutoCompleteTextView) rootView.findViewById(R.id.autocompletetext);
 		Typeface face;
 		face = Typeface.createFromAsset(getActivity().getAssets(), "sf_reg.ttf");
 		autoCompView.setTypeface(face);
-
+*/
 
 		// Get names of friends
 		final List<OtherUser> master_list = user.getMasterList();
-		Log.i("wait waht","wait");
-
+/*
 		autoCompView.setSelectAllOnFocus(true);
 		String[] columnForMatch = new String[]{"placeDesc", "placeSecondName"};
 		int[] columnToMatch = new int[]{R.id.resulttext, R.id.placesecondname};
 		autoCompView.setAdapter(new PlacesAutoCompleteAdapter(getActivity()
 				.getApplicationContext(), null, R.layout.list_item,
 				columnForMatch, columnToMatch));
-
+*/
 		/*PlacesAdapterListitemsOnClick adapter = new PlacesAdapterListitemsOnClick(
 				this.getActivity(), "MainPageInput", context);
 		autoCompView.setOnItemClickListener(adapter);
@@ -171,7 +169,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 
 		locationManager.requestLocationUpdates(bestProvider, 50000, 50,
 				mLocationListener);
-
+/*
 		// EditText delete button
 		delButton = (ImageButton) rootView.findViewById(R.id.deletetextbutton);
 		delButton.setVisibility(View.INVISIBLE);
@@ -183,7 +181,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 		});
 
 		autoCompView.addTextChangedListener(this);
-
+*/
 		return rootView;
 	}
 
@@ -406,6 +404,8 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 	public void beforeTextChanged(CharSequence s, int start, int before, int count) {
 
 	}
+
+
 }
 /*
 	@Override

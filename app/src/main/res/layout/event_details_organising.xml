@@ -25,7 +25,6 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
                 android:scaleType="fitXY" />
 
@@ -34,7 +33,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
                 android:text="ORGANISER"
@@ -46,7 +44,7 @@
 
         <View
             style="@style/EventDivider"
-            android:layout_marginLeft="20dp" />
+            android:layout_marginStart="20dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,37 +53,48 @@
 
             <EditText
                 android:id="@+id/event_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginBottom="8dp"
-                android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
+                android:layout_weight="9"
+                android:background="@null"
+                android:focusable="false"
                 android:gravity="center_vertical"
                 android:text="NAME_OF_EVENT"
-                android:textSize="35sp"
-                android:focusable="false"
-                android:background="@null"/>
+                android:textSize="35sp" />
 
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:id="@+id/event_name_edit"
-                android:src="@drawable/edit"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="2dp"
-                android:adjustViewBounds="true"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:id="@+id/event_name_edited"
-                android:src="@drawable/accept_nobackground"
-                android:visibility="gone"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="2dp"
-                android:adjustViewBounds="true"/>
+                <ImageView
+                    android:id="@+id/event_name_edit"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="2dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/edit" />
+
+                <ImageView
+                    android:id="@+id/event_name_edited"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="2dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/accept_nobackground"
+                    android:visibility="gone" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -99,7 +108,6 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
@@ -109,11 +117,31 @@
                 android:id="@+id/event_start_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
                 android:layout_marginStart="6dp"
                 android:text="START_OF_EVENT"
                 android:textSize="16sp"
                 custom:fontName="sf_reg.ttf" />
+
+
+            <ImageView
+                android:id="@+id/event_date_edit"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="3dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/edit" />
+
+            <ImageView
+                android:id="@+id/event_date_edited"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="3dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/accept_nobackground"
+                android:visibility="gone" />
+
 
         </LinearLayout>
 
@@ -144,6 +172,26 @@
                 android:textSize="16sp"
                 custom:fontName="sf_reg.ttf" />
 
+
+            <ImageView
+                android:id="@+id/event_time_edit"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="3dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/edit" />
+
+            <ImageView
+                android:id="@+id/event_time_edited"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="3dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/accept_nobackground"
+                android:visibility="gone" />
+
         </LinearLayout>
 
 
@@ -153,26 +201,46 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/event_location" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="9"
+                android:orientation="horizontal">
 
-            <com.example.projecttesting.MyTextView
-                android:id="@+id/event_loc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
-                android:layout_marginStart="6dp"
-                android:text="LOCATION"
-                android:textSize="16sp"
-                custom:fontName="sf_reg.ttf" />
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/event_location" />
 
+                <com.example.projecttesting.MyTextView
+                    android:id="@+id/event_loc"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="LOCATION"
+                    android:textSize="16sp"
+                    custom:fontName="sf_reg.ttf" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/map_more_details_arrow"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/next_arrow" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -217,11 +285,10 @@
 
             <com.example.projecttesting.MyTextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|start"
-                android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
+                android:layout_weight="1"
                 android:gravity="center_vertical|start"
                 android:text="RSVP"
                 android:textSize="25sp"
@@ -229,19 +296,18 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="20dp"
+                android:layout_weight="1"
                 android:gravity="end"
-                android:layout_marginRight="20dp"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical|end"
-                    android:layout_marginRight="15dp"
                     android:layout_marginEnd="15dp"
+                    android:layout_marginRight="15dp"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
                     android:src="@drawable/checked" />
@@ -250,8 +316,8 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical|end"
-                    android:layout_marginRight="15dp"
                     android:layout_marginEnd="15dp"
+                    android:layout_marginRight="15dp"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
                     android:src="@drawable/event_reject" />
@@ -262,31 +328,51 @@
 
 
         <View
+            android:id="@+id/rsvp_line"
             style="@style/EventDivider"
             android:layout_marginBottom="6dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:id="@+id/rsvp_line"/>
+            android:layout_marginStart="20dp" />
 
-        <com.example.projecttesting.MyTextView
-            android:id="@+id/invited_text"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_gravity="center_vertical|start"
-            android:gravity="center_vertical|start"
-            android:text="People invited to this event"
-            android:textSize="16sp"
-            custom:fontName="sf_reg.ttf" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.example.projecttesting.MyTextView
+                android:id="@+id/invited_text"
+                android:layout_width="0dp"
+                android:layout_weight="9"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="20dp"
+                android:gravity="center_vertical|start"
+                android:text="People invited to this event"
+                android:textSize="16sp"
+                custom:fontName="sf_reg.ttf" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:gravity="end">
+
+                <ImageView
+                    android:id="@+id/people_more_details_arrow"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/next_arrow" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/invited_circles_display"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
             android:layout_gravity="center_vertical|start"
+            android:layout_marginStart="20dp"
             android:gravity="center_vertical|start"
             android:orientation="horizontal"></LinearLayout>
 

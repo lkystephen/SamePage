@@ -63,7 +63,8 @@
         android:layout_margin="16dp"
         android:clickable="true"
         app:borderWidth="0dp"
-        android:layout_gravity="bottom|right|end"
-        android:src="@drawable/button_plus"/>
+        app:backgroundTint="@color/theme"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/plus_w"/>
 </android.support.design.widget.CoordinatorLayout>
 

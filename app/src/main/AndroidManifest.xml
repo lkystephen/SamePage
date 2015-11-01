@@ -19,7 +19,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="SamePage"
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
 
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
         <meta-data
