@@ -15,8 +15,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
-            android:scaleType="fitXY" />
+            android:scaleType="fitXY"
+            android:src="@drawable/main_bg"/>
+
+        <com.example.projecttesting.MyTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/closest_location"
+            custom:fontName="sf_reg.ttf"
+            android:text="CLOSEST_DISTANCE"
+            android:textColor="#ffffff"/>
 
     </RelativeLayout>
 
-</LinearLayout><!-- From: file:/C:/Users/Capco/Desktop/Project/SamePage/app/src/main/res/layout/mainmap.xml -->
+</LinearLayout><!-- From: file:/D:/StudioProjects/SamePage/app/src/main/res/layout/mainmap.xml -->
