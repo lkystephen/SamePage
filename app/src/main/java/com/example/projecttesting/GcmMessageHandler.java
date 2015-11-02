@@ -54,7 +54,9 @@ public class GcmMessageHandler extends IntentService{
                 long when = System.currentTimeMillis();
                 NotificationManager notificationManager = (NotificationManager)
                         GcmMessageHandler.this.getSystemService(Context.NOTIFICATION_SERVICE);
-                Notification notification = new Notification(icon, mes, when);
+
+
+                //Notification notification = new Notification(icon, mes, when);
 
                 String title = GcmMessageHandler.this.getString(R.string.app_name);
 
@@ -64,7 +66,13 @@ public class GcmMessageHandler extends IntentService{
                         Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 PendingIntent intent =
                         PendingIntent.getActivity(context, 0, notificationIntent, 0);
-                notification.setLatestEventInfo(context, title, mes, intent);
+                //notification.setLatestEventInfo(context, title, mes, intent);
+
+                // This part is Stephen's code as notification is deprecated
+                Notification notification = new Notification.Builder(getApplicationContext()).setContentTitle(mes)
+                        .setContentText("You have new event invitation").setSmallIcon(icon).setContentIntent(intent).build();
+
+
                 notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
                 // Play default notification sound

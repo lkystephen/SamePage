@@ -4,10 +4,15 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -17,6 +22,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,14 +57,15 @@ public class EventFragment extends Fragment implements MainAct {
     int events_invited;
     ProgressDialog dialog;
     Context mContext;
-    Typeface facebold;ViewPager mViewPager;
+    Typeface facebold;
+    ViewPager mViewPager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //mContext = this.getActivity();
 
-        facebold = Typeface.createFromAsset(getActivity().getAssets(), "ubuntu_bold.ttf");
+       // facebold = Typeface.createFromAsset(getActivity().getAssets(), "ubuntu_bold.ttf");
         //face_light = Typeface.createFromAsset(getActivity().getAssets(), "ubuntu_light.ttf");
 
         return inflater.inflate(R.layout.event_main, container, false);
@@ -119,7 +127,9 @@ public class EventFragment extends Fragment implements MainAct {
         // Get information from event
         int total_event_number = user.getEventsInvited().size() + user.getEventsOrganised().size() + user.getEventsAttending().size();
 
-/*        button_addEvent.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton add_event = (FloatingActionButton)view.findViewById(R.id.create_button);
+
+        add_event.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), EventCreation.class);
@@ -130,7 +140,7 @@ public class EventFragment extends Fragment implements MainAct {
 
             }
         });
-*/
+
         // Set up pager view
         Typeface face;
         face = Typeface.createFromAsset(getActivity().getAssets(), "sf_bold.ttf");
@@ -140,10 +150,17 @@ public class EventFragment extends Fragment implements MainAct {
         mViewPager
                 .setAdapter(new EventViewAdapter(getChildFragmentManager(), bundle));
 
+
+        // Get background
+       ImageView friends_background = (ImageView) view.findViewById(R.id.event_display_bg);
+        //Bitmap processed = BitmapFactory.decodeResource(getResources(), R.drawable.event_main);
+        //Bitmap blurred_bg = BlurBuilder.blur(getActivity(), processed);
+        friends_background.setImageResource(R.drawable.event_main);
+
         // Assigning the Sliding Tab Layout View
         tabs = (PagerSlidingTabStrip) view.findViewById(R.id.event_tabs);
         tabs.setTypeface(face, 0);
-        tabs.setTextColor(Color.parseColor("#000000"));
+        tabs.setTextColor(Color.parseColor("#ffffff"));
 
         // To make the Tabs Fixed set this true,
         // This makes the tabs Space Evenly in
@@ -216,7 +233,7 @@ public class EventFragment extends Fragment implements MainAct {
     @Override
     public void onResume(){
         super.onResume();
-        facebold = Typeface.createFromAsset(getActivity().getAssets(), "ubuntu_bold.ttf");
+      //  facebold = Typeface.createFromAsset(getActivity().getAssets(), "ubuntu_bold.ttf");
 //        face_light = Typeface.createFromAsset(getActivity().getAssets(), "ubuntu_light.ttf");
 
 

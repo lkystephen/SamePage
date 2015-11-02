@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -20,9 +21,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -52,10 +55,10 @@ import java.util.List;
 
 public class MainFragment extends Fragment implements LocationListener, TextWatcher {
 
-	public int[] friendsLastOnlineTime = new int[] { 1, 10};
+	/*public int[] friendsLastOnlineTime = new int[] { 1, 10, 5};
 	public int[] friends_image = {R.drawable.edmund, R.drawable.lkk};
 	// friendsStarredStatus, 1 = starred, 0 is normal
-	public int[] friendsStarredStatus = new int[] { 1, 1};
+	public int[] friendsStarredStatus = new int[] { 1, 1};*/
 
 	//public static GoogleMap googleMap;
 	public static Marker selectedMarker;
@@ -82,51 +85,52 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 		super.onCreateView(inflater, container, savedInstanceState);
 		View rootView = inflater.inflate(R.layout.mainmap, container, false);
 
-		TextView name = (TextView) rootView.findViewById(R.id.welcome_id);
-		name.setText(user.getUsername());
+		// Typeface
+		Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "sf_bold.ttf");
+
+
+		//TextView name = (TextView) rootView.findViewById(R.id.welcome_id);
+		//name.setText(user.getUsername());
+
+		//EditText search = (EditText) rootView.findViewById(R.id.search_friend);
+		//search.setTypeface(typeface);
+		//search.setHintTextColor(Color.parseColor("#ffdce9ff"));
+		// Set up background
+		ImageView friends_background = (ImageView) rootView.findViewById(R.id.main_display_bg);
+		/*Bitmap processed = BitmapFactory.decodeResource(getResources(), R.drawable.main_bg);
+		Bitmap blurred_bg = BlurBuilder.blur(getActivity(), processed);
+		*/friends_background.setImageResource(R.drawable.main_bg);
 
 		// Get facebook photo and turn to bitmap
 
-		ImageView image = (ImageView) rootView.findViewById(R.id.welcome_image);
+		//ImageView image = (ImageView) rootView.findViewById(R.id.welcome_image);
 
-		Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(user.getFBId()).getPath());
-		if(bitmap == null) {
-			Log.i("Image returned","null");
-		}
-		RoundImage roundImage = new RoundImage(bitmap);
-		image.setImageDrawable(roundImage);
-
+		//Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(user.getFBId()).getPath());
+		//if(bitmap == null) {
+		//	Log.i("Image returned","null");
+		//}
+		//RoundImage roundImage = new RoundImage(bitmap);
+		//image.setImageBitmap(bitmap);
 
 		Context context;
 		context = this.getActivity().getApplicationContext();
 
-		autoCompView = (AutoCompleteTextView) rootView.findViewById(R.id.autocompletetext);
+		/*autoCompView = (AutoCompleteTextView) rootView.findViewById(R.id.autocompletetext);
 		Typeface face;
 		face = Typeface.createFromAsset(getActivity().getAssets(), "sf_reg.ttf");
 		autoCompView.setTypeface(face);
-
+*/
 
 		// Get names of friends
 		final List<OtherUser> master_list = user.getMasterList();
-		Log.i("wait waht","wait");
-		// Establish data here
-		rowItems = new ArrayList<>();
-		//Log.i("master",Integer.toString(master_list.size()));
-		for (int i = 0; i < master_list.size(); i++) {
-			FriendsRowItem item = new FriendsRowItem(master_list.get(i).username,
-					friendsLastOnlineTime[i], friendsStarredStatus[i],friends_image[i]);
-			rowItems.add(item);
-		}
-
-
-
+/*
 		autoCompView.setSelectAllOnFocus(true);
 		String[] columnForMatch = new String[]{"placeDesc", "placeSecondName"};
 		int[] columnToMatch = new int[]{R.id.resulttext, R.id.placesecondname};
 		autoCompView.setAdapter(new PlacesAutoCompleteAdapter(getActivity()
 				.getApplicationContext(), null, R.layout.list_item,
 				columnForMatch, columnToMatch));
-
+*/
 		/*PlacesAdapterListitemsOnClick adapter = new PlacesAdapterListitemsOnClick(
 				this.getActivity(), "MainPageInput", context);
 		autoCompView.setOnItemClickListener(adapter);
@@ -165,7 +169,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 
 		locationManager.requestLocationUpdates(bestProvider, 50000, 50,
 				mLocationListener);
-
+/*
 		// EditText delete button
 		delButton = (ImageButton) rootView.findViewById(R.id.deletetextbutton);
 		delButton.setVisibility(View.INVISIBLE);
@@ -177,7 +181,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 		});
 
 		autoCompView.addTextChangedListener(this);
-
+*/
 		return rootView;
 	}
 
@@ -400,6 +404,8 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 	public void beforeTextChanged(CharSequence s, int start, int before, int count) {
 
 	}
+
+
 }
 /*
 	@Override

@@ -7,7 +7,7 @@
 
 
     -->
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
@@ -26,23 +26,7 @@
         <item name="android:windowExitAnimation">@transition/fade_out_dialog</item>
     </style>
 
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
-        <item name="android:actionBarStyle">@style/MyActionBar</item>
-
-        <!-- Support library compatibility -->
-        <item name="actionBarStyle">@style/MyActionBar</item>
-    </style>
-
-    <!-- ACTION BAR STYLES -->
-    <style name="MyActionBar" parent="@android:style/Theme.Holo">
-        <item name="android:background">@drawable/actionbar_background</item>
-        <item name="android:windowActionBarOverlay">true</item>
-
-        <!-- Support library compatibility -->
-        <item name="background">@drawable/actionbar_background</item>
-        <item name="windowActionBarOverlay">true</item>
-    </style>
+    <color name="theme">#ff4f6069</color>
 
     <!-- Event Divider style -->
     <style name="EventDivider">

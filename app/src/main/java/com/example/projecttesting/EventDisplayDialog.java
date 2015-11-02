@@ -71,7 +71,7 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
         TextView event_start_time = (TextView) view.findViewById(R.id.event_start_time);
         // TextView event_end_time = (TextView) view.findViewById(R.id.timeEndDisplay);
         final TextView event_location = (TextView) view.findViewById(R.id.event_loc);
-        final TextView event_map_display = (TextView) view.findViewById(R.id.event_map_display);
+        //final TextView event_map_display = (TextView) view.findViewById(R.id.event_map_display);
         TextView eventInvitedNumber = (TextView) view.findViewById(R.id.invited_text);
         LinearLayout rsvp = (LinearLayout) view.findViewById(R.id.rsvp_block);
         View rsvp_line = (View) view.findViewById(R.id.rsvp_line);
@@ -81,12 +81,11 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
 
         // Get event position from user
         String org;
-        if (organiser_name.equals("myself")){
+        if (organiser_name.equals("myself")) {
             rsvp.setVisibility(View.GONE);
             rsvp_line.setVisibility(View.GONE);
             org = "You are the organiser";
-        }
-        else {
+        } else {
 
             org = new StringBuilder().append(organiser_name).append(" invited you").toString();
         }
@@ -99,9 +98,7 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
         Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(organiser_fbid).getPath());
         //int image = allocate.EventTypeDetermine(event_details.getTitle());
 
-        RoundImage roundImage = new RoundImage(bitmap);
-
-        event_organiser_photo.setImageDrawable(roundImage);
+        event_organiser_photo.setImageBitmap(bitmap);
 
         // Set up start and end date
         java.util.Date juDate = new Date(event_details.getStartTime());
@@ -141,22 +138,13 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
             event_location.setText("No location specified");
         }
 
-        if (event_details.getEventLocation() != null || event_details.getLatLng() != null) {
-            event_map_display.setVisibility(View.VISIBLE);
-            event_map_display.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    event_map_display.setVisibility(View.GONE);
-                    mapLayout.setVisibility(View.VISIBLE);
-                    latLng = event_details.getLatLng();
+        //mapLayout.setVisibility(View.VISIBLE);
+        latLng = event_details.getLatLng();
 
-                    SupportMapFragment mMapFragment = new SupportMapFragment();
-                    android.support.v4.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                    fragmentTransaction.add(R.id.event_map, mMapFragment).commit();
-                    mMapFragment.getMapAsync(EventDisplayDialog.this);
-                }
-            });
-        }
+        SupportMapFragment mMapFragment = new SupportMapFragment();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.event_map, mMapFragment).commit();
+        mMapFragment.getMapAsync(EventDisplayDialog.this);
 
         for (int i = 0; i < event_details.getFriendsInvited().size(); i++) {
             if (i <= 4 || event_details.getFriendsInvited().size() < 6) {
@@ -173,7 +161,7 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
         } else {
             eventInvitedNumber.setText(
                     new StringBuilder().append(event_details.getFriendsInvited().size()).append(" friends are invited").toString());
-    }
+        }
 
         return view;
 
@@ -184,21 +172,21 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
 
         //final LatLng test_QC_location = new LatLng(22.2814,114.1916);
         MapObjectControl control = new MapObjectControl();
-        control.AddSearchedMarker(latLng,googleMap,14);
+        control.AddSearchedMarker(latLng, googleMap, 14);
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         Dialog dialog = getDialog();
-        if (dialog != null){
+        if (dialog != null) {
             int width = ViewGroup.LayoutParams.MATCH_PARENT;
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
-            dialog.getWindow().setLayout(width,height);
+            dialog.getWindow().setLayout(width, height);
         }
     }
 
-    public View CreateFriendsBubble (final int i){
+    public View CreateFriendsBubble(final int i) {
         LayoutInflater m = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View ind_layout = m.inflate(R.layout.event_invited_friend_bubble, null);
 

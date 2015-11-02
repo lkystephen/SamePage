@@ -6,111 +6,17 @@
     android:background="#00ffffff"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_gravity="center_vertical"
-        android:background="#fffefefe"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="30dp"
-            android:layout_marginStart="30dp"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-
-            <com.example.projecttesting.MyTextView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="3"
-                android:text="Welcome back,"
-                android:textColor="#4a000000"
-                android:textSize="15sp"
-                android:gravity="center_vertical"
-                custom:fontName="sf_reg.ttf" />
-
-
-            <com.example.projecttesting.MyTextView
-                android:id="@+id/welcome_id"
-                android:layout_width="wrap_content"
-                android:gravity="center_vertical"
-                android:layout_height="0dp"
-                android:layout_weight="6"
-                android:text="USERNAME"
-                android:textColor="#000000"
-                android:textSize="28sp"
-                custom:fontName="sf_reg.ttf" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical|end">
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:layout_marginRight="25dp"
-                android:layout_marginEnd="25dp"
-                android:id="@+id/welcome_image"/>
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="30dp"
-        android:orientation="vertical">
-
-        <com.example.projecttesting.MyTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            custom:fontName="sf_reg.ttf"
-            android:text="FIND A FRIEND NEARBY"/>
-
-        <LinearLayout
+        <ImageView
+            android:id="@+id/main_display_bg"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="#F2F2F2"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY" />
 
-            <AutoCompleteTextView
-                android:id="@+id/autocompletetext"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@layout/autocomplete_edittext_style"
-                android:completionThreshold="2"
-                android:hint="Search"
-                android:paddingLeft="10dp"
-                android:singleLine="true"
-                android:textSize="18sp"></AutoCompleteTextView>
+    </RelativeLayout>
 
-            <ImageButton
-                android:id="@+id/deletetextbutton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|end"
-                android:layout_marginRight="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="@null"
-                android:src="@drawable/text_field_clear_btn" />
-        </LinearLayout>
-    </LinearLayout>
-
-
-</LinearLayout><!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/ProjectTesting2/app/src/main/res/layout/mainmap.xml -->
+</LinearLayout><!-- From: file:/C:/Users/Capco/Desktop/Project/SamePage/app/src/main/res/layout/mainmap.xml -->

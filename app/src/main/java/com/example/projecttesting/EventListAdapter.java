@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -18,6 +19,10 @@ import com.example.projecttesting.AllocateEventPhoto;
 import com.example.projecttesting.EventEntryItem;
 import com.example.projecttesting.R;
 
+import org.joda.time.DateTime;
+import org.joda.time.JodaTimePermission;
+
+import java.util.Date;
 import java.util.List;
 
 public class EventListAdapter extends ArrayAdapter<EventEntryItem> {
@@ -35,11 +40,11 @@ public class EventListAdapter extends ArrayAdapter<EventEntryItem> {
     /*private view holder school*/
     private class ViewHolder {
         TextView event_name;
-        TextView event_invitees;
+        //TextView event_invitees;
         TextView event_location;
-        TextView event_date;
-        LinearLayout invitees_display;
-        ImageView organiser_image;
+        TextView event_date, event_time;
+        //LinearLayout invitees_display;
+        ImageView event_image, rsvp_status;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -54,23 +59,23 @@ public class EventListAdapter extends ArrayAdapter<EventEntryItem> {
         if (convertView == null) {
 
             convertView = mInflater.inflate(R.layout.event_list_display, null);
-            LinearLayout abc = (LinearLayout) convertView.findViewById(R.id.event_display_bg);
-            if (position % 2 == 1){ //odd number item
-                abc.setBackgroundColor(Color.parseColor("#f0f0f0"));
-            }
 
             holder = new ViewHolder();
             holder.event_name = (TextView) convertView.findViewById(R.id.event_name_list_item);
-
+            holder.event_time = (TextView) convertView.findViewById(R.id.event_time);
             holder.event_location = (TextView) convertView.findViewById(R.id.event_location_list_item);
+            holder.rsvp_status = (ImageView) convertView.findViewById(R.id.rsvp_status);
 
             //holder.event_invitees = (TextView) convertView.findViewById(R.id.friends_invited_list_item);
 
             //holder.event_organiser = (TextView) convertView.findViewById(R.id.organiser);
 
-            holder.organiser_image = (ImageView) convertView.findViewById(R.id.organiser_image);
+            holder.event_image = (ImageView) convertView.findViewById(R.id.event_type);
             holder.event_date = (TextView) convertView.findViewById(R.id.event_date_list_item);
-            holder.invitees_display = (LinearLayout) convertView.findViewById(R.id.invitees_dis);
+            //holder.invitees_display = (LinearLayout) convertView.findViewById(R.id.invitees_dis);
+
+            // Base on the RSVP status, for now we set all to going
+            holder.rsvp_status.setImageResource(R.drawable.accept_nobackground);
 
             convertView.setTag(holder);
 
@@ -78,27 +83,54 @@ public class EventListAdapter extends ArrayAdapter<EventEntryItem> {
             holder.event_location.setText(rowItem.getEventLocation());
             //holder.event_invitees.setText(rowItem.getFriendsInvited().toString());
             long event_time = rowItem.getStartTime();
-            EventDateConvert converter = new EventDateConvert();
-            String temp = converter.MillisToStringForServer(event_time);
-            String temp2 = temp.substring(0,temp.length()-3);
-            holder.event_date.setText(temp2);
+            java.util.Date juDate = new Date(event_time);
+            DateTime dt = new DateTime(juDate);
+
+            int month = dt.getMonthOfYear();
+            int day = dt.getDayOfMonth();
+            int hour = dt.getHourOfDay();
+            int minute = dt.getMinuteOfHour();
+            TimeConvertToText convert = new TimeConvertToText();
+            String minute2 = convert.ConvertMinuteToText(minute);
+            String month2 = convert.ConvertMonthToText(month);
+            String amOrPm = new String();
+            String hour3 = new String();
+            if (hour > 12){
+                int hour2 = hour - 12;
+                amOrPm = "pm";
+                hour3 = Integer.toString(hour2);
+            }
+            if (hour < 12){
+                amOrPm = "am";
+                hour3 = Integer.toString(hour);
+                if (hour == 0){
+                    hour3 = "12";
+                }
+            }
+            if (hour == 12){
+                amOrPm = "nn";
+                hour3 = Integer.toString(hour);
+            }
+
+            holder.event_date.setText(new StringBuilder().append(month2).append(" ").append(day).toString());
+            holder.event_time.setText(new StringBuilder().append(hour3).append(":").append(minute2).append(" ").append(amOrPm).toString());
             //holder.event_organiser.setText(rowItem.getOrganiser());
-            //AllocateEventPhoto allocate = new AllocateEventPhoto();
+            AllocateEventPhoto allocate = new AllocateEventPhoto();
 
-            Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(rowItem.getOrganiser()).getPath());
+            int allocated = allocate.EventTypeDetermine(rowItem.getTitle().toLowerCase());
 
-            RoundImage roundImage = new RoundImage(bitmap);
+            //Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(rowItem.getOrganiser()).getPath());
+            //RoundImage roundImage = new RoundImage(bitmap);
+            holder.event_image.setImageResource(allocated);
 
-            holder.organiser_image.setImageDrawable(roundImage);
 
-
-            for (int i = 0; i < rowItem.getFriendsInvited().size(); i++) {
+            /*for (int i = 0; i < rowItem.getFriendsInvited().size(); i++) {
                 if (i <= 4 || rowItem.getFriendsInvited().size() < 6) {
                     View v = CreateFriendsBubble(i,context);
 
                     holder.invitees_display.addView(v);
                 }
-            }
+            }*/
 
         }
         return convertView;
