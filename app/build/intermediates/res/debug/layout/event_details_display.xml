@@ -53,17 +53,17 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <EditText
+            <com.example.projecttesting.MyTextView
                 android:id="@+id/event_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginBottom="8dp"
-                android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:gravity="center_vertical"
                 android:text="NAME_OF_EVENT"
+                custom:fontName="sf_bold.ttf"
                 android:textSize="35sp"
                 android:editable="false"/>
 
@@ -80,7 +80,6 @@
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
@@ -90,7 +89,6 @@
                 android:id="@+id/event_start_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
                 android:layout_marginStart="6dp"
                 android:text="START_OF_EVENT"
                 android:textSize="16sp"
@@ -109,7 +107,6 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
@@ -119,7 +116,6 @@
                 android:id="@+id/event_start_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
                 android:layout_marginStart="6dp"
                 android:text="START_OF_EVENT"
                 android:textSize="16sp"
@@ -138,7 +134,6 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
@@ -148,7 +143,6 @@
                 android:id="@+id/event_loc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="6dp"
                 android:layout_marginStart="6dp"
                 android:text="LOCATION"
                 android:textSize="16sp"
@@ -162,7 +156,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
             android:gravity="center_vertical"
             android:text="Click for map"
@@ -185,7 +178,7 @@
 
         <View
             style="@style/EventDivider"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="8dp" />
 
         <LinearLayout
@@ -201,7 +194,6 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|start"
-                android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
                 android:gravity="center_vertical|start"
                 android:text="RSVP"
@@ -214,14 +206,12 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="20dp"
                 android:gravity="end"
-                android:layout_marginRight="20dp"
                 android:orientation="horizontal">
 
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical|end"
-                    android:layout_marginRight="15dp"
                     android:layout_marginEnd="15dp"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
@@ -231,7 +221,6 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical|end"
-                    android:layout_marginRight="15dp"
                     android:layout_marginEnd="15dp"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
@@ -245,7 +234,6 @@
         <View
             style="@style/EventDivider"
             android:layout_marginBottom="6dp"
-            android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
             android:id="@+id/rsvp_line"/>
 
@@ -253,7 +241,6 @@
             android:id="@+id/invited_text"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
             android:layout_gravity="center_vertical|start"
             android:gravity="center_vertical|start"
@@ -272,4 +259,4 @@
             android:orientation="horizontal"></LinearLayout>
 
     </LinearLayout>
-</ScrollView><!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/SamePage/app/src/main/res/layout/event_details_display.xml -->
+</ScrollView><!-- From: file:/C:/Users/Capco/Desktop/Project/SamePage/app/src/main/res/layout/event_details_display.xml -->

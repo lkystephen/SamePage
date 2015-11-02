@@ -1,6 +1,8 @@
 package com.example.projecttesting;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,16 +11,19 @@ import android.graphics.Typeface;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -27,14 +32,20 @@ import com.google.android.gms.maps.model.LatLng;
 
 import org.joda.time.DateTime;
 
+import java.text.ParseException;
 import java.util.Date;
 
-public class EventOrganisingDialog extends DialogFragment implements OnMapReadyCallback {
+public class EventOrganisingDialog extends DialogFragment implements OnMapReadyCallback, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private SupportMapFragment fragment;
     private LatLng latLng;
+    EventEntryItem event_details;
     String fbid, organiser_name, organiser_fbid;
     int event_name_changed_indicator = 0;
+    int event_time_changed_indicator = 0;
+    int hour, minute, year, month, day;
+    TextView event_start_date, event_start_time;
+    ImageView event_date_edit;
 
 
     public EventOrganisingDialog() {
@@ -50,7 +61,7 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
         // Remove title
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
-        String start_hour, start_minute = new String();
+        //String start_hour, start_minute = new String();
 
         Typeface normal = Typeface.createFromAsset(getActivity().getAssets(), "sf_reg.ttf");
         Typeface bold = Typeface.createFromAsset(getActivity().getAssets(), "sf_bold.ttf");
@@ -60,7 +71,7 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
         organiser_name = mArgs.getString("organiser_name");
         organiser_fbid = mArgs.getString("organiser_fbid");
 
-        final EventEntryItem event_details = (EventEntryItem) mArgs.getSerializable("data");
+        event_details = (EventEntryItem) mArgs.getSerializable("data");
         //int position = mArgs.getInt("position");
 
         // Get original data
@@ -95,25 +106,27 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
                 event_name_edited.setVisibility(View.GONE);
                 String temp = event_Name.getText().toString().toUpperCase();
                 Log.i("original", original_name);
-                Log.i("temp2",temp);
-                if (!temp.equals(original_name)){
+                Log.i("temp2", temp);
+                checkAmendment();
+                if (!temp.equals(original_name)) {
                     event_Name.setTextColor(Color.YELLOW);
                     event_name_changed_indicator = 1;
                 } else {
                     event_Name.setTextColor(Color.BLACK);
-                    Log.i("changed back","yes");
+                    Log.i("changed back", "yes");
                     event_name_changed_indicator = 0;
                 }
             }
         });
 
         ImageView event_organiser_photo = (ImageView) view.findViewById(R.id.organiser_photo);
-        TextView event_start_date = (TextView) view.findViewById(R.id.event_start_date);
+        event_start_date = (TextView) view.findViewById(R.id.event_start_date);
+        event_date_edit = (ImageView) view.findViewById(R.id.event_date_edit);
         // TextView event_end_date = (TextView) view.findViewById(R.id.eventEndDisplay);
-        TextView event_start_time = (TextView) view.findViewById(R.id.event_start_time);
+        event_start_time = (TextView) view.findViewById(R.id.event_start_time);
         // TextView event_end_time = (TextView) view.findViewById(R.id.timeEndDisplay);
         final TextView event_location = (TextView) view.findViewById(R.id.event_loc);
-        final TextView event_map_display = (TextView) view.findViewById(R.id.event_map_display);
+        //final TextView event_map_display = (TextView) view.findViewById(R.id.event_map_display);
         TextView eventInvitedNumber = (TextView) view.findViewById(R.id.invited_text);
         LinearLayout rsvp = (LinearLayout) view.findViewById(R.id.rsvp_block);
         View rsvp_line = (View) view.findViewById(R.id.rsvp_line);
@@ -123,12 +136,11 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
 
         // Get event position from user
         String org;
-        if (organiser_name.equals("myself")){
+        if (organiser_name.equals("myself")) {
             rsvp.setVisibility(View.GONE);
             rsvp_line.setVisibility(View.GONE);
             org = "You are the organiser";
-        }
-        else {
+        } else {
 
             org = new StringBuilder().append(organiser_name).append(" invited you").toString();
         }
@@ -146,33 +158,39 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
         // Set up start and end date
         Date juDate = new Date(event_details.getStartTime());
         DateTime dt_s = new DateTime(juDate);
-        String s_year = Integer.toString(dt_s.getYear());
+        year = dt_s.getYear();
+        String s_year = Integer.toString(year);
         TimeConvertToText abc = new TimeConvertToText();
-        String s_month = abc.ConvertMonthToText(dt_s.getMonthOfYear());
-        String s_day = Integer.toString(dt_s.getDayOfMonth());
+        month = dt_s.getMonthOfYear();
+        String s_month = abc.ConvertMonthToText(month);
+        day = dt_s.getDayOfMonth();
+        String s_day = Integer.toString(day);
 
         String string1 = new StringBuilder().append(s_month).append(" ").append(s_day).append(", ").append(s_year).append(" ").toString();
         event_start_date.setText(string1);
 
+        // Set up onclicklistener for changing event date
+        event_date_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager ft = getActivity().getSupportFragmentManager();
+
+                long millis = event_details.getStartTime();
+
+                DialogFragment newFragment = new DatePickerDialogFragment(EventOrganisingDialog.this, millis);
+
+                newFragment.show(ft, "date_dialog");
+            }
+        });
+
 
         // Set up start and end time
+        hour = dt_s.getHourOfDay();
+        minute = dt_s.getMinuteOfHour();
+        EventDateConvert dateConvert = new EventDateConvert();
+        String temp = dateConvert.TimeStringForDisplay(hour, minute);
+        event_start_time.setText(temp);
 
-        int s_hour = dt_s.getHourOfDay();
-        int s_minute = dt_s.getMinuteOfHour();
-        if (s_hour < 10) {
-            start_hour = new StringBuilder().append(0).append(s_hour).toString();
-        } else {
-            start_hour = Integer.toString(s_hour);
-        }
-
-        if (s_minute < 10) {
-            start_minute = new StringBuilder().append(0).append(s_minute).toString();
-        } else {
-            start_minute = Integer.toString(s_minute);
-        }
-
-        String start_time = new StringBuilder().append(start_hour).append(":").append(start_minute).toString();
-        event_start_time.setText(start_time);
 
         // Set up location
         if (event_details.getEventLocation() != null) {
@@ -181,22 +199,11 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
             event_location.setText("No location specified");
         }
 
-        if (event_details.getEventLocation() != null || event_details.getLatLng() != null) {
-            event_map_display.setVisibility(View.VISIBLE);
-            event_map_display.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    event_map_display.setVisibility(View.GONE);
-                    mapLayout.setVisibility(View.VISIBLE);
-                    latLng = event_details.getLatLng();
 
-                    SupportMapFragment mMapFragment = new SupportMapFragment();
-                    android.support.v4.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-                    fragmentTransaction.add(R.id.event_map, mMapFragment).commit();
-                    mMapFragment.getMapAsync(EventOrganisingDialog.this);
-                }
-            });
-        }
+        SupportMapFragment mMapFragment = new SupportMapFragment();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.event_map, mMapFragment).commit();
+        mMapFragment.getMapAsync(EventOrganisingDialog.this);
 
         for (int i = 0; i < event_details.getFriendsInvited().size(); i++) {
             if (i <= 4 || event_details.getFriendsInvited().size() < 6) {
@@ -213,7 +220,7 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
         } else {
             eventInvitedNumber.setText(
                     new StringBuilder().append(event_details.getFriendsInvited().size()).append(" friends are invited").toString());
-    }
+        }
 
         return view;
 
@@ -224,21 +231,21 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
 
         //final LatLng test_QC_location = new LatLng(22.2814,114.1916);
         MapObjectControl control = new MapObjectControl();
-        control.AddSearchedMarker(latLng,googleMap,14);
+        control.AddSearchedMarker(latLng, googleMap, 14);
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         Dialog dialog = getDialog();
-        if (dialog != null){
+        if (dialog != null) {
             int width = ViewGroup.LayoutParams.MATCH_PARENT;
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
-            dialog.getWindow().setLayout(width,height);
+            dialog.getWindow().setLayout(width, height);
         }
     }
 
-    public View CreateFriendsBubble (final int i){
+    public View CreateFriendsBubble(final int i) {
         LayoutInflater m = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View ind_layout = m.inflate(R.layout.event_invited_friend_bubble, null);
 
@@ -252,5 +259,73 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
 
         return ind_layout;
 
+    }
+
+    public void onDateSet(DatePicker view, int year, int monthOfYear,
+                          int dayOfMonth) {
+
+        TimeConvertToText abc = new TimeConvertToText();
+        String tMonth = abc.ConvertMonthToText(monthOfYear + 1);
+
+        String string1 = new StringBuilder().append(tMonth).append(" ").append(dayOfMonth).append(", ").append(year).append(" ").toString();
+        event_start_date.setText(string1);
+
+        this.year = year;
+        this.month = monthOfYear + 1;
+        this.day = dayOfMonth;
+
+        // Check if time / date has changed
+        EventDateConvert dateConvert = new EventDateConvert();
+        long mMillis = 0;
+        try {
+            mMillis = dateConvert.ReturnMillis(year, month, day, hour, minute);
+        } catch (ParseException e) {
+            Log.e("ParseException", e.getMessage());
+        }
+
+        if (event_details.getStartTime() != mMillis) {
+            event_time_changed_indicator = 1;
+        } else {
+            event_time_changed_indicator = 0;
+        }
+        checkAmendment();
+    }
+
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+        EventDateConvert dateConvert = new EventDateConvert();
+        String temp = dateConvert.TimeStringForDisplay(hourOfDay, minute);
+
+        this.hour = hourOfDay;
+        this.minute = minute;
+
+        // Check if time / date has changed
+        long mMillis = 0;
+        try {
+            mMillis = dateConvert.ReturnMillis(year, month, day, hour, minute);
+        } catch (ParseException e) {
+            Log.e("ParseException", e.getMessage());
+        }
+
+
+        if (event_details.getStartTime() != mMillis) {
+            event_time_changed_indicator = 1;
+        } else {
+            event_time_changed_indicator = 0;
+        }
+
+        checkAmendment();
+        event_start_time.setText(temp);
+
+    }
+
+    public boolean checkAmendment() {
+        boolean amend = false;
+        int sum = event_name_changed_indicator + event_time_changed_indicator;
+        if (sum == 0) {
+            amend = true;
+        } else
+            amend = false;
+        return amend;
     }
 }
