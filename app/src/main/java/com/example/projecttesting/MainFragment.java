@@ -1,5 +1,6 @@
 package com.example.projecttesting;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,6 +17,7 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.login.widget.ProfilePictureView;
 import com.google.android.gms.maps.CameraUpdate;
@@ -64,13 +67,14 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
     //public static GoogleMap googleMap;
     public static Marker selectedMarker;
     public LatLng myPosition;
-    public String travel_time;
+    public int travel_time;
     public AutoCompleteTextView autoCompView;
-    ImageButton delButton;
+    //ImageButton delButton;
     LatLng currentLatLng;
-    TextView closest_location;
+    TextView closest_location;//, drop_zone_test;
     public static SupportMapFragment mMapFragment;
-    ArrayList<FriendsRowItem> rowItems;
+    //ArrayList<FriendsRowItem> rowItems;
+    //ImageView test_button, test_button2;
 
 
     // Define testing location data
@@ -91,16 +95,9 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "sf_bold.ttf");
 
         closest_location = (TextView) rootView.findViewById(R.id.closest_location);
-
-        //EditText search = (EditText) rootView.findViewById(R.id.search_friend);
-        //search.setTypeface(typeface);
-        //search.setHintTextColor(Color.parseColor("#ffdce9ff"));
-        // Set up background
-        //ImageView friends_background = (ImageView) rootView.findViewById(R.id.main_display_bg);
-		/*Bitmap processed = BitmapFactory.decodeResource(getResources(), R.drawable.main_bg);
-		Bitmap blurred_bg = BlurBuilder.blur(getActivity(), processed);
-		*/
-        //friends_background.setImageResource(R.drawable.main_bg);
+        //drop_zone_test = (TextView) rootView.findViewById(R.id.drop_zone_test);
+        //test_button = (ImageView) rootView.findViewById(R.id.test_button);
+        //test_button2 = (ImageView) rootView.findViewById(R.id.test_button_2);
 
         // Get facebook photo and turn to bitmap
 
@@ -117,7 +114,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         context = this.getActivity().getApplicationContext();
 
 		/*autoCompView = (AutoCompleteTextView) rootView.findViewById(R.id.autocompletetext);
-		Typeface face;
+        Typeface face;
 		face = Typeface.createFromAsset(getActivity().getAssets(), "sf_reg.ttf");
 		autoCompView.setTypeface(face);
 */
@@ -147,21 +144,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 
 		/*mMapFragment = new SupportMapFragment();
 		android.support.v4.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-		fragmentTransaction.add(R.id.map, mMapFragment).commit();
-		*/
-        //mMapFragment.getMapAsync(this);
-
-		/*View mapView = supportMapFragment.getView();
-		View btnMyLocation = ((View) mapView.findViewById(1).getParent())
-				.findViewById(2);
-		RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-				120, 120); // size of button in dp
-		params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
-		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-		params.setMargins(0, 0, 70, 70);
-		btnMyLocation.setLayoutParams(params);
-*/
-
+		fragmentTransaction.add(R.id.map, mMapFragment).commit();*/
 
         if (location != null) {
             onLocationChanged(location);
@@ -190,8 +173,57 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         // Start downloading json data from Google Directions API
         downloadTask.execute(url);
 
+        // Set drag and drop listener for the main button
+        //test_button.setOnTouchListener(new MyTouchListener());
+        //drop_zone_test.setOnDragListener(new MyDragListener());
 
         return rootView;
+    }
+
+    class MyDragListener implements View.OnDragListener {
+        @Override
+        public boolean onDrag(View v, DragEvent event) {
+            int action = event.getAction();
+            switch (event.getAction()) {
+                case DragEvent.ACTION_DRAG_STARTED:
+                    // Do nothing
+                    break;
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    // Do nothing
+                    break;
+                case DragEvent.ACTION_DRAG_EXITED:
+                    // Do nothing
+                    break;
+                case DragEvent.ACTION_DROP:
+                    //   View view = (View) event.getLocalState();
+                    //  ViewGroup owner = (ViewGroup) view.getParent();
+                    //owner.removeView(view);
+                    //test_button.setVisibility(View.VISIBLE);
+                    Toast.makeText(getActivity(), "Oh yeah", Toast.LENGTH_LONG).show();
+                    int[] coordinates = {0,0};
+                    //test_button2.getLocationOnScreen(coordinates);
+                    break;
+                case DragEvent.ACTION_DRAG_ENDED:
+                    // Do nothing
+                default:
+                    break;
+            }
+            return true;
+        }
+    }
+
+    private final class MyTouchListener implements View.OnTouchListener {
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                ClipData data = ClipData.newPlainText("", "");
+                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
+                view.startDrag(data, shadowBuilder, view, 0);
+                view.setVisibility(View.INVISIBLE);
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
 
@@ -307,6 +339,11 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
             } catch (Exception e) {
                 Log.d("Background Task", e.toString());
             }
+
+            // Set calculating display
+            closest_location.setText("Calculating...");
+
+
             return data;
         }
 
@@ -344,8 +381,8 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
                 JSONObject leg_1 = leg.getJSONObject(0);
                 JSONObject duration = leg_1.getJSONObject("duration");
 
-                travel_time = duration.getString("value");
-                Log.i("travel time", travel_time);
+                travel_time = duration.getInt("value");
+                Log.i("travel time", Integer.toString(travel_time));
 
                 DirectionsJSONParser parser = new DirectionsJSONParser();
 
@@ -364,14 +401,10 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
             PolylineOptions lineOptions = null;
             MarkerOptions markerOptions = new MarkerOptions();
 
-            new CountDownTimer(8000, 1000) {
-                public void onTick(long millisUntilFinished) {
-                }
+            // Set the distance measured in minutes
+            closest_location.setText("is " + travel_time / 60 + "mins away");
 
-                public void onFinish() {
-                    closest_location.setText(travel_time);
-                }
-            }.start();
+
 
             /*
             // Traversing through all the routes
@@ -398,10 +431,10 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
                 lineOptions.width(8);
                 lineOptions.color(Color.RED);
                 */
-            }
+        }
 
-            // Drawing polyline in the Google Map for the i-th route
-            //mMapFragment.getMap().addPolyline(lineOptions);
+        // Drawing polyline in the Google Map for the i-th route
+        //mMapFragment.getMap().addPolyline(lineOptions);
         //}
     }
 
@@ -414,9 +447,9 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         String input = autoCompView.getText().toString();
 
         if (input.equals("")) {
-            delButton.setVisibility(View.INVISIBLE);
+            //delButton.setVisibility(View.INVISIBLE);
         } else {
-            delButton.setVisibility(View.VISIBLE);
+            //delButton.setVisibility(View.VISIBLE);
         }
     }
 

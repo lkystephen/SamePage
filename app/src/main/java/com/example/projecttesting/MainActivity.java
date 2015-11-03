@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.prefs.PreferenceChangeEvent;
 
 import android.app.AlertDialog;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -86,8 +87,8 @@ public class MainActivity extends AppCompatActivity implements MainAct {
     public static final String API_KEY = "AIzaSyCEBmXKQ5k42UsKvCmZBPnmv3BDTqds52k";
 
     public Fragment fragment;
-    public ViewPager mViewPager;
-    public PagerSlidingTabStrip tabs;
+    //public ViewPager mViewPager;
+    //public PagerSlidingTabStrip tabs;
     //Bundle bundle;
 
     public void handleLoginResults(boolean isNewUser, Users users) {
@@ -103,38 +104,34 @@ public class MainActivity extends AppCompatActivity implements MainAct {
 
         PACKAGE_NAME = getApplicationContext().getPackageName();
 
-        mViewPager = (ViewPager) findViewById(R.id.main_viewPager);
+      //  mViewPager = (ViewPager) findViewById(R.id.main_viewPager);
 
         Bundle abc = new Bundle();
         abc.putParcelable("user", user);
-        mViewPager.setAdapter(new MainViewAdapter(getSupportFragmentManager(), abc));
-        mViewPager.setOffscreenPageLimit(4);
+        //mViewPager.setAdapter(new MainViewAdapter(getSupportFragmentManager(), abc));
+        //mViewPager.setOffscreenPageLimit(4);
 
         Typeface face = Typeface.createFromAsset(getAssets(), "sf_bold.ttf");
 
+        //Instantiate the Main Fragment
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        MainFragment mainFragment = new MainFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("user",user);
+        mainFragment.setArguments(bundle);
+        fragmentTransaction.add(R.id.mFragment, mainFragment);
+        fragmentTransaction.commit();
         // Assigning the Sliding Tab Layout View
-        tabs = (PagerSlidingTabStrip) findViewById(R.id.main_tabs);
-        tabs.setTypeface(face, 0);
-        tabs.setTextColor(Color.parseColor("#000000"));
+        //tabs = (PagerSlidingTabStrip) findViewById(R.id.main_tabs);
+        //tabs.setTypeface(face, 0);
+        //tabs.setTextColor(Color.parseColor("#000000"));
 
 
         // Setting the ViewPager For the SlidingTabsLayout
-        tabs.setViewPager(mViewPager);
+//        tabs.setViewPager(mViewPager);
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        //View v = inflator.inflate(R.layout.title_actionbar, null);
-        //ActionBar actionBar = getSupportActionBar();
-        //actionBar.setDisplayShowCustomEnabled(true);
-        //actionBar.setElevation(0);
-        //actionBar.setDisplayShowTitleEnabled(false);
-        //actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#f9f9f9")));
-        //actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00000000")));
-        //actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#00000000")));
-        //actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#f9f9f9")));
-
-        //TextView title = (TextView) v.findViewById(R.id.app_title);
-        //title.setTypeface(face);
-        //actionBar.setCustomView(v);
 
         // update user location
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
