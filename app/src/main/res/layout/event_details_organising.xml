@@ -132,16 +132,6 @@
                 android:adjustViewBounds="true"
                 android:src="@drawable/edit" />
 
-            <ImageView
-                android:id="@+id/event_date_edited"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="3dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/accept_nobackground"
-                android:visibility="gone" />
-
 
         </LinearLayout>
 
@@ -181,17 +171,6 @@
                 android:layout_marginStart="3dp"
                 android:adjustViewBounds="true"
                 android:src="@drawable/edit" />
-
-            <ImageView
-                android:id="@+id/event_time_edited"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="3dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/accept_nobackground"
-                android:visibility="gone" />
-
         </LinearLayout>
 
 
@@ -244,35 +223,18 @@
 
         </LinearLayout>
 
-        <com.example.projecttesting.MyTextView
-            android:id="@+id/event_map_display"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:gravity="center_vertical"
-            android:text="Click for map"
-            android:textColor="#ff9188ff"
-            android:textSize="14sp"
-            android:visibility="gone"
-            custom:fontName="sf_ulight.ttf" />
-
-
         <FrameLayout
             android:id="@+id/event_map"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginEnd="15dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="15dp"
             android:layout_marginStart="20dp"
             android:visibility="gone"></FrameLayout>
 
 
         <View
             style="@style/EventDivider"
-            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="8dp" />
 
         <LinearLayout
@@ -354,7 +316,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:gravity="end">
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/people_more_details_arrow"
