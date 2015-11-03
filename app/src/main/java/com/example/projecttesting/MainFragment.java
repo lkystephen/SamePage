@@ -11,6 +11,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -56,64 +57,64 @@ import java.util.List;
 public class MainFragment extends Fragment implements LocationListener, TextWatcher {
 
 	/*public int[] friendsLastOnlineTime = new int[] { 1, 10, 5};
-	public int[] friends_image = {R.drawable.edmund, R.drawable.lkk};
+    public int[] friends_image = {R.drawable.edmund, R.drawable.lkk};
 	// friendsStarredStatus, 1 = starred, 0 is normal
 	public int[] friendsStarredStatus = new int[] { 1, 1};*/
 
-	//public static GoogleMap googleMap;
-	public static Marker selectedMarker;
-	public LatLng myPosition;
-	public String travel_time;
-	public AutoCompleteTextView autoCompView;
-	ImageButton delButton;
-	LatLng currentLatLng;
-	public static SupportMapFragment mMapFragment;
-	ArrayList<FriendsRowItem> rowItems;
+    //public static GoogleMap googleMap;
+    public static Marker selectedMarker;
+    public LatLng myPosition;
+    public String travel_time;
+    public AutoCompleteTextView autoCompView;
+    ImageButton delButton;
+    LatLng currentLatLng;
+    TextView closest_location;
+    public static SupportMapFragment mMapFragment;
+    ArrayList<FriendsRowItem> rowItems;
 
 
-	// Define testing location data
-	final LatLng test_QC_location = new LatLng(22.2814, 114.1916);
+    // Define testing location data
+    final LatLng test_QC_location = new LatLng(22.2814, 114.1916);
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-							 Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-		Bundle bundle = getArguments();
-		User user = bundle.getParcelable("user");
-		LocationListener mLocationListener = this;
+        Bundle bundle = getArguments();
+        User user = bundle.getParcelable("user");
+        LocationListener mLocationListener = this;
 
-		super.onCreateView(inflater, container, savedInstanceState);
-		View rootView = inflater.inflate(R.layout.mainmap, container, false);
+        super.onCreateView(inflater, container, savedInstanceState);
+        View rootView = inflater.inflate(R.layout.mainmap, container, false);
 
-		// Typeface
-		Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "sf_bold.ttf");
+        // Typeface
+        Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "sf_bold.ttf");
 
+        closest_location = (TextView) rootView.findViewById(R.id.closest_location);
 
-		//TextView name = (TextView) rootView.findViewById(R.id.welcome_id);
-		//name.setText(user.getUsername());
-
-		//EditText search = (EditText) rootView.findViewById(R.id.search_friend);
-		//search.setTypeface(typeface);
-		//search.setHintTextColor(Color.parseColor("#ffdce9ff"));
-		// Set up background
-		ImageView friends_background = (ImageView) rootView.findViewById(R.id.main_display_bg);
+        //EditText search = (EditText) rootView.findViewById(R.id.search_friend);
+        //search.setTypeface(typeface);
+        //search.setHintTextColor(Color.parseColor("#ffdce9ff"));
+        // Set up background
+        //ImageView friends_background = (ImageView) rootView.findViewById(R.id.main_display_bg);
 		/*Bitmap processed = BitmapFactory.decodeResource(getResources(), R.drawable.main_bg);
 		Bitmap blurred_bg = BlurBuilder.blur(getActivity(), processed);
-		*/friends_background.setImageResource(R.drawable.main_bg);
+		*/
+        //friends_background.setImageResource(R.drawable.main_bg);
 
-		// Get facebook photo and turn to bitmap
+        // Get facebook photo and turn to bitmap
 
-		//ImageView image = (ImageView) rootView.findViewById(R.id.welcome_image);
+        //ImageView image = (ImageView) rootView.findViewById(R.id.welcome_image);
 
-		//Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(user.getFBId()).getPath());
-		//if(bitmap == null) {
-		//	Log.i("Image returned","null");
-		//}
-		//RoundImage roundImage = new RoundImage(bitmap);
-		//image.setImageBitmap(bitmap);
+        //Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(user.getFBId()).getPath());
+        //if(bitmap == null) {
+        //	Log.i("Image returned","null");
+        //}
+        //RoundImage roundImage = new RoundImage(bitmap);
+        //image.setImageBitmap(bitmap);
 
-		Context context;
-		context = this.getActivity().getApplicationContext();
+        Context context;
+        context = this.getActivity().getApplicationContext();
 
 		/*autoCompView = (AutoCompleteTextView) rootView.findViewById(R.id.autocompletetext);
 		Typeface face;
@@ -121,8 +122,8 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 		autoCompView.setTypeface(face);
 */
 
-		// Get names of friends
-		final List<OtherUser> master_list = user.getMasterList();
+        // Get names of friends
+        final List<OtherUser> master_list = user.getMasterList();
 /*
 		autoCompView.setSelectAllOnFocus(true);
 		String[] columnForMatch = new String[]{"placeDesc", "placeSecondName"};
@@ -135,20 +136,20 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 				this.getActivity(), "MainPageInput", context);
 		autoCompView.setOnItemClickListener(adapter);
 */
-		LocationManager locationManager = (LocationManager) context
-				.getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) context
+                .getSystemService(Context.LOCATION_SERVICE);
 
-		String bestProvider = locationManager.NETWORK_PROVIDER;
-		final Location location = locationManager.getLastKnownLocation(bestProvider);
-		currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+        String bestProvider = locationManager.NETWORK_PROVIDER;
+        final Location location = locationManager.getLastKnownLocation(bestProvider);
+        currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-		//final FrameLayout mapLayout = (FrameLayout) getActivity().findViewById(R.id.map);
+        //final FrameLayout mapLayout = (FrameLayout) getActivity().findViewById(R.id.map);
 
 		/*mMapFragment = new SupportMapFragment();
 		android.support.v4.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
 		fragmentTransaction.add(R.id.map, mMapFragment).commit();
 		*/
-		//mMapFragment.getMapAsync(this);
+        //mMapFragment.getMapAsync(this);
 
 		/*View mapView = supportMapFragment.getView();
 		View btnMyLocation = ((View) mapView.findViewById(1).getParent())
@@ -162,13 +163,13 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 */
 
 
-		if (location != null) {
-			onLocationChanged(location);
-			locationManager.removeUpdates(mLocationListener);
-		}
+        if (location != null) {
+            onLocationChanged(location);
+            locationManager.removeUpdates(mLocationListener);
+        }
 
-		locationManager.requestLocationUpdates(bestProvider, 50000, 50,
-				mLocationListener);
+        locationManager.requestLocationUpdates(bestProvider, 50000, 50,
+                mLocationListener);
 /*
 		// EditText delete button
 		delButton = (ImageButton) rootView.findViewById(R.id.deletetextbutton);
@@ -181,229 +182,248 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 		});
 
 		autoCompView.addTextChangedListener(this);
-*/
-		return rootView;
-	}
+		*/
+        // Calculating location now
+        // Getting URL to the Google Directions API
+        String url = getDirectionsUrl(myPosition, test_QC_location);
+        DownloadTask downloadTask = new DownloadTask();
+        // Start downloading json data from Google Directions API
+        downloadTask.execute(url);
 
 
-	@Override
-	public void onLocationChanged(Location location) {
-		double latitude = location.getLatitude();
-		double longitude = location.getLongitude();
-		myPosition = new LatLng(latitude, longitude);
-		// destroy the old marker to prevent duplicated markers when new
-		// location is received
-	}
+        return rootView;
+    }
 
-	@Override
-	public void onProviderDisabled(String arg0) {
-		// TODO Auto-generated method stub
 
-	}
+    @Override
+    public void onLocationChanged(Location location) {
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+        myPosition = new LatLng(latitude, longitude);
+        // destroy the old marker to prevent duplicated markers when new
+        // location is received
+    }
 
-	@Override
-	public void onProviderEnabled(String arg0) {
-		// TODO Auto-generated method stub
+    @Override
+    public void onProviderDisabled(String arg0) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
-		// TODO Auto-generated method stub
+    @Override
+    public void onProviderEnabled(String arg0) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	private String getDirectionsUrl(LatLng origin, LatLng dest) {
+    @Override
+    public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
+        // TODO Auto-generated method stub
 
-		// Origin of route
-		String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
+    }
 
-		// Destination of route
-		String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
+    private String getDirectionsUrl(LatLng origin, LatLng dest) {
 
-		// Sensor enabled
-		String sensor = "sensor=false";
+        // Origin of route
+        String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
 
-		// Default the mode of transportation to public transit
-		String mode_transit = "mode=transit";
+        // Destination of route
+        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
 
-		// Building the parameters to the web service
-		String parameters = str_origin + "&" + str_dest + "&" + mode_transit + "&" + sensor;
+        // Sensor enabled
+        String sensor = "sensor=false";
 
-		// Output format
-		String output = "json";
+        // Default the mode of transportation to public transit
+        String mode_transit = "mode=transit";
 
-		// Building the url to the web service
-		String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
+        // Building the parameters to the web service
+        String parameters = str_origin + "&" + str_dest + "&" + mode_transit + "&" + sensor;
 
-		Log.i("Download URL", url);
-		return url;
-	}
+        // Output format
+        String output = "json";
 
-	/**
-	 * A method to download json data from url
-	 */
-	private String downloadUrl(String strUrl) throws IOException {
-		String data = "";
-		InputStream iStream = null;
-		HttpURLConnection urlConnection = null;
-		try {
-			URL url = new URL(strUrl);
+        // Building the url to the web service
+        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
 
-			// Creating an http connection to communicate with url
-			urlConnection = (HttpURLConnection) url.openConnection();
+        Log.i("Download URL", url);
+        return url;
+    }
 
-			// Connecting to url
-			urlConnection.connect();
+    /**
+     * A method to download json data from url
+     */
+    private String downloadUrl(String strUrl) throws IOException {
+        String data = "";
+        InputStream iStream = null;
+        HttpURLConnection urlConnection = null;
+        try {
+            URL url = new URL(strUrl);
 
-			// Reading data from url
-			iStream = urlConnection.getInputStream();
+            // Creating an http connection to communicate with url
+            urlConnection = (HttpURLConnection) url.openConnection();
 
-			BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
+            // Connecting to url
+            urlConnection.connect();
 
-			StringBuffer sb = new StringBuffer();
+            // Reading data from url
+            iStream = urlConnection.getInputStream();
 
-			String line = "";
-			while ((line = br.readLine()) != null) {
-				sb.append(line);
-			}
+            BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
 
-			data = sb.toString();
+            StringBuffer sb = new StringBuffer();
 
-			br.close();
+            String line = "";
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
 
-		} catch (Exception e) {
-			Log.d("Exception dl-ing url", e.toString());
-		} finally {
-			iStream.close();
-			urlConnection.disconnect();
-		}
-		return data;
-	}
+            data = sb.toString();
 
-	// Fetches data from url passed
-	private class DownloadTask extends AsyncTask<String, Void, String> {
+            br.close();
 
-		// Downloading data in non-ui thread
-		@Override
-		protected String doInBackground(String... url) {
+        } catch (Exception e) {
+            Log.d("Exception dl-ing url", e.toString());
+        } finally {
+            iStream.close();
+            urlConnection.disconnect();
+        }
+        return data;
+    }
 
-			// For storing data from web service
-			String data = "";
+    // Fetches data from url passed
+    private class DownloadTask extends AsyncTask<String, Void, String> {
 
-			try {
-				// Fetching the data from web service
-				data = downloadUrl(url[0]);
+        // Downloading data in non-ui thread
+        @Override
+        protected String doInBackground(String... url) {
 
-			} catch (Exception e) {
-				Log.d("Background Task", e.toString());
-			}
-			return data;
-		}
+            // For storing data from web service
+            String data = "";
 
-		// Executes in UI thread, after the execution of
-		// doInBackground()
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
+            try {
+                // Fetching the data from web service
+                data = downloadUrl(url[0]);
 
-			ParserTask parserTask = new ParserTask();
+            } catch (Exception e) {
+                Log.d("Background Task", e.toString());
+            }
+            return data;
+        }
 
-			// Invokes the thread for parsing the JSON data
-			parserTask.execute(result);
-		}
-	}
+        // Executes in UI thread, after the execution of
+        // doInBackground()
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
 
-	/**
-	 * A class to parse the Google Places in JSON format
-	 */
-	private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
+            ParserTask parserTask = new ParserTask();
 
-		// Parsing the data in non-ui thread
-		@Override
-		protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
+            // Invokes the thread for parsing the JSON data
+            parserTask.execute(result);
+        }
+    }
 
-			JSONObject jObject;
-			List<List<HashMap<String, String>>> routes = null;
+    /**
+     * A class to parse the Google Places in JSON format
+     */
+    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
 
-			try {
-				jObject = new JSONObject(jsonData[0]);
-				// Get overall points information
-				JSONArray routes_test = jObject.getJSONArray("routes");
-				JSONObject route_1 = routes_test.getJSONObject(0);
-				JSONArray leg = route_1.getJSONArray("legs");
-				JSONObject leg_1 = leg.getJSONObject(0);
-				JSONObject duration = leg_1.getJSONObject("duration");
+        // Parsing the data in non-ui thread
+        @Override
+        protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
 
-				travel_time = duration.getString("value");
-				Log.i("travel time", travel_time);
+            JSONObject jObject;
+            List<List<HashMap<String, String>>> routes = null;
 
-				DirectionsJSONParser parser = new DirectionsJSONParser();
+            try {
+                jObject = new JSONObject(jsonData[0]);
+                // Get overall points information
+                JSONArray routes_test = jObject.getJSONArray("routes");
+                JSONObject route_1 = routes_test.getJSONObject(0);
+                JSONArray leg = route_1.getJSONArray("legs");
+                JSONObject leg_1 = leg.getJSONObject(0);
+                JSONObject duration = leg_1.getJSONObject("duration");
 
-				// Starts parsing routing data
-				routes = parser.parse(jObject);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return routes;
-		}
+                travel_time = duration.getString("value");
+                Log.i("travel time", travel_time);
 
-		// Executes in UI thread, after the parsing process
-		@Override
-		protected void onPostExecute(List<List<HashMap<String, String>>> result) {
-			ArrayList<LatLng> points = null;
-			PolylineOptions lineOptions = null;
-			MarkerOptions markerOptions = new MarkerOptions();
+                DirectionsJSONParser parser = new DirectionsJSONParser();
 
-			// Traversing through all the routes
-			for (int i = 0; i < result.size(); i++) {
-				points = new ArrayList<LatLng>();
-				lineOptions = new PolylineOptions();
+                // Starts parsing routing data
+                routes = parser.parse(jObject);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return routes;
+        }
 
-				// Fetching i-th route
-				List<HashMap<String, String>> path = result.get(i);
+        // Executes in UI thread, after the parsing process
+        @Override
+        protected void onPostExecute(List<List<HashMap<String, String>>> result) {
+            ArrayList<LatLng> points = null;
+            PolylineOptions lineOptions = null;
+            MarkerOptions markerOptions = new MarkerOptions();
 
-				// Fetching all the points in i-th route
-				for (int j = 0; j < path.size(); j++) {
-					HashMap<String, String> point = path.get(j);
+            new CountDownTimer(8000, 1000) {
+                public void onTick(long millisUntilFinished) {
+                }
 
-					double lat = Double.parseDouble(point.get("lat"));
-					double lng = Double.parseDouble(point.get("lng"));
-					LatLng position = new LatLng(lat, lng);
+                public void onFinish() {
+                    closest_location.setText(travel_time);
+                }
+            }.start();
 
-					points.add(position);
-				}
+            /*
+            // Traversing through all the routes
+            for (int i = 0; i < result.size(); i++) {
+                points = new ArrayList<LatLng>();
+                lineOptions = new PolylineOptions();
 
-				// Adding all the points in the route to LineOptions
-				lineOptions.addAll(points);
-				lineOptions.width(8);
-				lineOptions.color(Color.RED);
-			}
+                // Fetching i-th route
+                List<HashMap<String, String>> path = result.get(i);
 
-			// Drawing polyline in the Google Map for the i-th route
-			mMapFragment.getMap().addPolyline(lineOptions);
-		}
-	}
+                // Fetching all the points in i-th route
+                for (int j = 0; j < path.size(); j++) {
+                    HashMap<String, String> point = path.get(j);
 
-	@Override
-	public void afterTextChanged(Editable arg0) {
-	}
+                    double lat = Double.parseDouble(point.get("lat"));
+                    double lng = Double.parseDouble(point.get("lng"));
+                    LatLng position = new LatLng(lat, lng);
 
-	@Override
-	public void onTextChanged(CharSequence s, int start, int before, int count) {
-		String input = autoCompView.getText().toString();
+                    points.add(position);
+                }
 
-		if (input.equals("")) {
-			delButton.setVisibility(View.INVISIBLE);
-		} else {
-			delButton.setVisibility(View.VISIBLE);
-		}
-	}
+                // Adding all the points in the route to LineOptions
+                lineOptions.addAll(points);
+                lineOptions.width(8);
+                lineOptions.color(Color.RED);
+                */
+            }
 
-	@Override
-	public void beforeTextChanged(CharSequence s, int start, int before, int count) {
+            // Drawing polyline in the Google Map for the i-th route
+            //mMapFragment.getMap().addPolyline(lineOptions);
+        //}
+    }
 
-	}
+    @Override
+    public void afterTextChanged(Editable arg0) {
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        String input = autoCompView.getText().toString();
+
+        if (input.equals("")) {
+            delButton.setVisibility(View.INVISIBLE);
+        } else {
+            delButton.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
 
 
 }

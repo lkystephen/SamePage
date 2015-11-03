@@ -259,14 +259,6 @@ public class EventFragment extends Fragment implements MainAct {
         }
 
         @Override
-        public int getItemPosition(Object object){
-            if (object instanceof UpdateableFragment)
-                ((UpdateableFragment) object).update(bundle);
-
-            return super.getItemPosition(object);
-        }
-
-        @Override
         public int getCount() {
             // Return three sections for friends lists
             return 2;
