@@ -332,6 +332,7 @@ ADDED from AndroidManifest.xml:64:9
 		ADDED from AndroidManifest.xml:64:18
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
+MERGED from com.oguzdev:CircularFloatingActionMenu:1.0.2:7:5
 MERGED from com.android.support:appcompat-v7:23.1.0:20:5
 MERGED from com.android.support:support-v4:23.1.0:20:5
 MERGED from com.astuetz:pagerslidingtabstrip:1.0.1:2:5

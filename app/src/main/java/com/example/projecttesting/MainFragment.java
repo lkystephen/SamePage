@@ -99,6 +99,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         //test_button = (ImageView) rootView.findViewById(R.id.test_button);
         //test_button2 = (ImageView) rootView.findViewById(R.id.test_button_2);
 
+
         // Get facebook photo and turn to bitmap
 
         //ImageView image = (ImageView) rootView.findViewById(R.id.welcome_image);
@@ -107,7 +108,6 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         //if(bitmap == null) {
         //	Log.i("Image returned","null");
         //}
-        //RoundImage roundImage = new RoundImage(bitmap);
         //image.setImageBitmap(bitmap);
 
         Context context;
@@ -340,8 +340,13 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
                 Log.d("Background Task", e.toString());
             }
 
-            // Set calculating display
-            closest_location.setText("Calculating...");
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    // Set calculating display
+                    closest_location.setText("Calculating...");
+                }
+            });
 
 
             return data;

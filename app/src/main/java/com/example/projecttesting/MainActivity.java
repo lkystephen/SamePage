@@ -7,12 +7,16 @@ import java.util.List;
 import java.util.prefs.PreferenceChangeEvent;
 
 import android.app.AlertDialog;
+import android.content.res.ColorStateList;
+import android.media.Image;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.widget.FrameLayout;
+import android.widget.FrameLayout.LayoutParams;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -37,7 +41,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +60,9 @@ import com.facebook.HttpMethod;
 import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 @SuppressWarnings("unused")
 public class MainActivity extends AppCompatActivity implements MainAct {
@@ -113,6 +122,54 @@ public class MainActivity extends AppCompatActivity implements MainAct {
 
         Typeface face = Typeface.createFromAsset(getAssets(), "sf_bold.ttf");
 
+        // Create main floating icon
+        ImageView add_icon = new ImageView(this);
+        add_icon.setImageResource(R.drawable.plus_w);
+
+        int[][] states = {{android.R.attr.state_enabled} , {
+                android.R.attr.state_pressed}};
+        int[] colors = {Color.parseColor("#ff4f6069"),Color.parseColor("#ffffff")};
+        ColorStateList colorStateList = new ColorStateList(states,colors);
+
+        FloatingActionButton actionButton = new FloatingActionButton.Builder(this).setContentView(add_icon).build();
+        actionButton.setBackgroundTintList(colorStateList);
+
+        // Create sub menu items
+        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
+        ImageView homeIcon = new ImageView(this);
+        homeIcon.setImageResource(R.drawable.button_home_w);
+        ImageView eventIcon = new ImageView(this);
+        eventIcon.setImageResource(R.drawable.button_event_w);
+        ImageView friendsIcon = new ImageView(this);
+        friendsIcon.setImageResource(R.drawable.button_friends_w);
+        ImageView settingIcon = new ImageView(this);
+        settingIcon.setImageResource(R.drawable.button_settings_w);
+
+        SubActionButton button1 = itemBuilder.setContentView(homeIcon).build();
+        SubActionButton button2 = itemBuilder.setContentView(eventIcon).build();
+        SubActionButton button3 = itemBuilder.setContentView(friendsIcon).build();
+        SubActionButton button4 = itemBuilder.setContentView(settingIcon).build();
+
+
+        int size = getResources().getDimensionPixelSize(com.oguzdev.circularfloatingactionmenu.library.R.dimen.sub_action_button_size);
+        Log.i("size",Integer.toString(size));
+        int size2 = (int) Math.round(size*1.3);
+        LayoutParams params = new LayoutParams(size2, size2, 51);
+
+        button1.setBackgroundTintList(colorStateList);
+        button2.setBackgroundTintList(colorStateList);
+        button3.setBackgroundTintList(colorStateList);
+        button4.setBackgroundTintList(colorStateList);
+
+        // Enlarge the sub action buttons
+        button1.setLayoutParams(params);
+        button2.setLayoutParams(params);
+        button3.setLayoutParams(params);
+        button4.setLayoutParams(params);
+
+        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this).addSubActionView(button1)
+                .addSubActionView(button2).addSubActionView(button3).addSubActionView(button4).attachTo(actionButton).build();
+
         //Instantiate the Main Fragment
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
@@ -122,16 +179,8 @@ public class MainActivity extends AppCompatActivity implements MainAct {
         mainFragment.setArguments(bundle);
         fragmentTransaction.add(R.id.mFragment, mainFragment);
         fragmentTransaction.commit();
-        // Assigning the Sliding Tab Layout View
-        //tabs = (PagerSlidingTabStrip) findViewById(R.id.main_tabs);
-        //tabs.setTypeface(face, 0);
-        //tabs.setTextColor(Color.parseColor("#000000"));
 
-
-        // Setting the ViewPager For the SlidingTabsLayout
-//        tabs.setViewPager(mViewPager);
-
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         // update user location
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -139,6 +188,61 @@ public class MainActivity extends AppCompatActivity implements MainAct {
         final Location location = locationManager.getLastKnownLocation(bestProvider);
         user.updateLocation(location);
 
+        button1.setOnClickListener(new mOnClickListener(1, this));
+        button2.setOnClickListener(new mOnClickListener(2, this));
+        button3.setOnClickListener(new mOnClickListener(3, this));
+        button4.setOnClickListener(new mOnClickListener(4, this));
+
+    }
+
+    public class mOnClickListener implements View.OnClickListener
+    {
+        int type;
+        Context context;
+        FragmentManager fm;
+
+        public mOnClickListener(int type, Context context){
+            this.type = type;
+            this.context = context;
+        }
+        @Override
+        public void onClick(View v){
+            fm = getSupportFragmentManager();
+            // Remove previous fragment first
+
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("user",user);
+
+            switch (type){
+                case 1:
+                    MainFragment fragment = new MainFragment();
+                    fragment.setArguments(bundle);
+                    fragmentTransaction.replace(R.id.mFragment, fragment);
+                    fragmentTransaction.commit();
+                    break;
+                case 2:
+                    EventFragment fragment2 = new EventFragment();
+                    fragment2.setArguments(bundle);
+                    fragmentTransaction.replace(R.id.mFragment, fragment2);
+                    fragmentTransaction.commit();
+                    break;
+                case 3:
+                    FriendsFragment fragment3 = new FriendsFragment();
+                    fragment3.setArguments(bundle);
+                    fragmentTransaction.replace(R.id.mFragment, fragment3);
+                    fragmentTransaction.commit();
+                    break;
+                case 4:
+                    SettingsFragment fragment4 = new SettingsFragment();
+                    fragment4.setArguments(bundle);
+                    fragmentTransaction.replace(R.id.mFragment, fragment4);
+                    fragmentTransaction.commit();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     @Override

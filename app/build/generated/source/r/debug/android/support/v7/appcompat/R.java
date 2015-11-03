@@ -377,14 +377,14 @@ public final class R {
 		public static final int abc_text_size_subtitle_material_toolbar = 0x7f090003;
 		public static final int abc_text_size_title_material = 0x7f09004c;
 		public static final int abc_text_size_title_material_toolbar = 0x7f090004;
-		public static final int disabled_alpha_material_dark = 0x7f090062;
-		public static final int disabled_alpha_material_light = 0x7f090063;
-		public static final int highlight_alpha_material_colored = 0x7f09006a;
-		public static final int highlight_alpha_material_dark = 0x7f09006b;
-		public static final int highlight_alpha_material_light = 0x7f09006c;
-		public static final int notification_large_icon_height = 0x7f090073;
-		public static final int notification_large_icon_width = 0x7f090074;
-		public static final int notification_subtext_size = 0x7f090075;
+		public static final int disabled_alpha_material_dark = 0x7f090066;
+		public static final int disabled_alpha_material_light = 0x7f090067;
+		public static final int highlight_alpha_material_colored = 0x7f09006e;
+		public static final int highlight_alpha_material_dark = 0x7f09006f;
+		public static final int highlight_alpha_material_light = 0x7f090070;
+		public static final int notification_large_icon_height = 0x7f090077;
+		public static final int notification_large_icon_width = 0x7f090078;
+		public static final int notification_subtext_size = 0x7f090079;
 	}
 	public static final class drawable {
 		public static final int abc_ab_share_pack_mtrl_alpha = 0x7f020000;
@@ -456,7 +456,7 @@ public final class R {
 		public static final int abc_textfield_search_activated_mtrl_alpha = 0x7f020042;
 		public static final int abc_textfield_search_default_mtrl_alpha = 0x7f020043;
 		public static final int abc_textfield_search_material = 0x7f020044;
-		public static final int notification_template_icon_bg = 0x7f020115;
+		public static final int notification_template_icon_bg = 0x7f020121;
 	}
 	public static final class id {
 		public static final int action0 = 0x7f0e00f1;

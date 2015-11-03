@@ -25,16 +25,5 @@
             android:id="@+id/mFragment"/>
 
     </LinearLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/create_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:clickable="true"
-        app:borderWidth="0dp"
-        app:backgroundTint="@color/theme"
-        android:layout_gravity="bottom|end"
-        android:src="@drawable/plus_w"/>
 </android.support.design.widget.CoordinatorLayout>
-<!-- From: file:/C:/Users/Capco/Desktop/Project/SamePage/app/src/main/res/layout/activity_main.xml -->
+<!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/SamePage/app/src/main/res/layout/activity_main.xml -->
