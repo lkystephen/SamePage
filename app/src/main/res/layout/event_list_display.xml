@@ -62,7 +62,7 @@
                 android:layout_weight="1"
                 android:textColor="#ffffff"
                 android:textSize="19sp"
-                custom:fontName="sf_reg.ttf" />
+                android:textStyle="normal"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -92,7 +92,7 @@
                         android:layout_marginStart="2dp"
                         android:textColor="#ffffff"
                         android:textSize="11sp"
-                        custom:fontName="sf_reg.ttf" />
+                        android:typeface="normal"/>
 
                 </LinearLayout>
 

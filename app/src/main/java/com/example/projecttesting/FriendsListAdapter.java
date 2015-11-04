@@ -50,8 +50,9 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
         ViewHolder holder;
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        Typeface face;
-        face = Typeface.createFromAsset(getContext().getAssets(), "ubuntu_regular.ttf");
+        Typeface face_r, face_b;
+        face_r = FontCache.getFont(getContext(),"sf_reg.ttf");
+        face_b = FontCache.getFont(getContext(),"sf_bold.ttf");
 
         if (convertView == null) {
 
@@ -60,6 +61,9 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
             holder.name = (TextView) convertView.findViewById(R.id.friends_display_list);
             holder.last_update = (TextView) convertView.findViewById(R.id.friends_display_last_update);
             holder.image = (ImageView) convertView.findViewById(R.id.display_image);
+
+            holder.name.setTypeface(face_b);
+            holder.last_update.setTypeface(face_r);
 
             convertView.setTag(holder);
 

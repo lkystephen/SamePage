@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements MainAct {
         //mViewPager.setAdapter(new MainViewAdapter(getSupportFragmentManager(), abc));
         //mViewPager.setOffscreenPageLimit(4);
 
-        Typeface face = Typeface.createFromAsset(getAssets(), "sf_bold.ttf");
+        //Typeface face = Typeface.createFromAsset(getAssets(), "sf_bold.ttf");
 
         // Create main floating icon
         ImageView add_icon = new ImageView(this);

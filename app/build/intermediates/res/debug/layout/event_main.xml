@@ -45,13 +45,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <TextView
+        <com.example.projecttesting.MyTextView
             android:id="@+id/no_event_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No events yet"
             android:textSize="15sp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:textStyle="normal"/>
 
 
     </LinearLayout>
@@ -68,4 +69,4 @@
         android:src="@drawable/plus_w"/>
 </android.support.design.widget.CoordinatorLayout>
 
-<!-- From: file:/C:/Users/Capco/Desktop/Project/SamePage/app/src/main/res/layout/event_main.xml -->
+<!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/SamePage/app/src/main/res/layout/event_main.xml -->

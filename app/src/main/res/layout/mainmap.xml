@@ -56,7 +56,7 @@
                         android:textSize="20sp"
                         android:text="CLOSEST_DIS_VARIABLE"
                         android:textColor="#ffffff"
-                        custom:fontName="sf_reg.ttf" />
+                        android:textStyle="normal" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -89,13 +89,14 @@
                     android:layout_weight="8">
 
                     <com.example.projecttesting.MyTextView
+                        android:id="@+id/event_details1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:textSize="20sp"
                         android:text="EVENT_TESTING"
                         android:textColor="#ffffff"
-                        custom:fontName="sf_reg.ttf" />
+                        android:textStyle="normal"/>
 
                 </LinearLayout>
             </LinearLayout>

@@ -53,8 +53,9 @@ public class EventListAdapter extends ArrayAdapter<EventEntryItem> {
 
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        Typeface face;
-        face = Typeface.createFromAsset(getContext().getAssets(), "ubuntu_regular.ttf");
+        Typeface face_r, face_b;
+        face_r = FontCache.getFont(getContext(),"sf_reg.ttf");
+        face_b = FontCache.getFont(getContext(),"sf_bold.ttf");
 
         if (convertView == null) {
 
@@ -65,11 +66,8 @@ public class EventListAdapter extends ArrayAdapter<EventEntryItem> {
             holder.event_time = (TextView) convertView.findViewById(R.id.event_time);
             holder.event_location = (TextView) convertView.findViewById(R.id.event_location_list_item);
             holder.rsvp_status = (ImageView) convertView.findViewById(R.id.rsvp_status);
-
             //holder.event_invitees = (TextView) convertView.findViewById(R.id.friends_invited_list_item);
-
             //holder.event_organiser = (TextView) convertView.findViewById(R.id.organiser);
-
             holder.event_image = (ImageView) convertView.findViewById(R.id.event_type);
             holder.event_date = (TextView) convertView.findViewById(R.id.event_date_list_item);
             //holder.invitees_display = (LinearLayout) convertView.findViewById(R.id.invitees_dis);
@@ -78,6 +76,11 @@ public class EventListAdapter extends ArrayAdapter<EventEntryItem> {
             holder.rsvp_status.setImageResource(R.drawable.accept_nobackground);
 
             convertView.setTag(holder);
+
+            holder.event_name.setTypeface(face_b);
+            holder.event_time.setTypeface(face_r);
+            holder.event_location.setTypeface(face_r);
+            holder.event_date.setTypeface(face_r);
 
             holder.event_name.setText(rowItem.getTitle().toUpperCase());
             holder.event_location.setText(rowItem.getEventLocation());

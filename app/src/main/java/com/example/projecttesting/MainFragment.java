@@ -46,6 +46,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -71,7 +72,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
     public AutoCompleteTextView autoCompView;
     //ImageButton delButton;
     LatLng currentLatLng;
-    TextView closest_location;//, drop_zone_test;
+    TextView closest_location, event_details1;
     public static SupportMapFragment mMapFragment;
     //ArrayList<FriendsRowItem> rowItems;
     //ImageView test_button, test_button2;
@@ -92,13 +93,13 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         View rootView = inflater.inflate(R.layout.mainmap, container, false);
 
         // Typeface
-        Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(), "sf_bold.ttf");
+        Typeface typeface_reg = FontCache.getFont(getContext(),"sf_bold.ttf");
 
         closest_location = (TextView) rootView.findViewById(R.id.closest_location);
-        //drop_zone_test = (TextView) rootView.findViewById(R.id.drop_zone_test);
-        //test_button = (ImageView) rootView.findViewById(R.id.test_button);
-        //test_button2 = (ImageView) rootView.findViewById(R.id.test_button_2);
+        event_details1 = (TextView) rootView.findViewById(R.id.event_details1);
 
+        closest_location.setTypeface(typeface_reg);
+        event_details1.setTypeface(typeface_reg);
 
         // Get facebook photo and turn to bitmap
 
@@ -151,8 +152,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
             locationManager.removeUpdates(mLocationListener);
         }
 
-        locationManager.requestLocationUpdates(bestProvider, 50000, 50,
-                mLocationListener);
+        locationManager.requestLocationUpdates(bestProvider, 50000, 50, mLocationListener);
 /*
 		// EditText delete button
 		delButton = (ImageButton) rootView.findViewById(R.id.deletetextbutton);

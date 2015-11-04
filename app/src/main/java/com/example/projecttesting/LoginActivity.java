@@ -52,6 +52,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 
 @SuppressWarnings("unused")
 public class LoginActivity extends AppCompatActivity {
@@ -73,6 +76,10 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder().setDefaultFontPath("fonts/Roboto-RobotoRegular.ttf").
+        //              setFontAttrId(R.attr.fontPath).build());
+
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -172,5 +179,11 @@ public class LoginActivity extends AppCompatActivity {
         return key;
     }
 
+/*
+    @Override
+    protected void attachBaseContext(Context newBase){
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+*/
 }
 

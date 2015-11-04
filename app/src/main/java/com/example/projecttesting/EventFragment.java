@@ -54,10 +54,8 @@ public class EventFragment extends Fragment implements MainAct {
     ListView listview;
     User user;
     EventListAdapter adapter;
-    int events_invited;
     ProgressDialog dialog;
     Context mContext;
-    Typeface facebold;
     ViewPager mViewPager;
 
     @Override
@@ -87,10 +85,11 @@ public class EventFragment extends Fragment implements MainAct {
         v.update(bundle);
 
         // Assigning the Sliding Tab Layout View
-        Typeface face;
-        face = Typeface.createFromAsset(getActivity().getAssets(), "sf_bold.ttf");
+        Typeface face_b;
+        //face = Typeface.createFromAsset(getActivity().getAssets(), "sf_bold.ttf");
+        face_b = FontCache.getFont(getContext(),"sf_bold.ttf");
 
-        tabs.setTypeface(face, 0);
+        tabs.setTypeface(face_b, 0);
         tabs.setTextColor(Color.parseColor("#000000"));
 
         // To make the Tabs Fixed set this true,
@@ -124,9 +123,6 @@ public class EventFragment extends Fragment implements MainAct {
         bigdata = new ArrayList<EventEntryItem>();
         //final List<OtherUser> otherUsers = user.getMasterList();
 
-        // Get information from event
-        int total_event_number = user.getEventsInvited().size() + user.getEventsOrganised().size() + user.getEventsAttending().size();
-
         FloatingActionButton add_event = (FloatingActionButton)view.findViewById(R.id.create_button);
 
         add_event.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +139,7 @@ public class EventFragment extends Fragment implements MainAct {
 
         // Set up pager view
         Typeface face;
-        face = Typeface.createFromAsset(getActivity().getAssets(), "sf_bold.ttf");
+        face = FontCache.getFont(getContext(),"sf_reg.ttf");
 
         mViewPager = (ViewPager) view.findViewById(R.id.event_viewPager);
 
@@ -238,7 +234,6 @@ public class EventFragment extends Fragment implements MainAct {
 
 
     }
-
 
     public static class EventViewAdapter extends FragmentPagerAdapter {
 

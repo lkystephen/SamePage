@@ -35,7 +35,7 @@ import org.joda.time.DateTime;
 import java.text.ParseException;
 import java.util.Date;
 
-public class EventOrganisingDialog extends DialogFragment implements OnMapReadyCallback, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class EventOrganisingDialog extends DialogFragment implements /*OnMapReadyCallback,*/ DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private SupportMapFragment fragment;
     private LatLng latLng;
@@ -203,7 +203,7 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
         SupportMapFragment mMapFragment = new SupportMapFragment();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.event_map, mMapFragment).commit();
-        mMapFragment.getMapAsync(EventOrganisingDialog.this);
+        //mMapFragment.getMapAsync(EventOrganisingDialog.this);
 
         for (int i = 0; i < event_details.getFriendsInvited().size(); i++) {
             if (i <= 4 || event_details.getFriendsInvited().size() < 6) {
@@ -226,14 +226,14 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
 
     }
 
-    @Override
+ /*   @Override
     public void onMapReady(GoogleMap googleMap) {
 
         //final LatLng test_QC_location = new LatLng(22.2814,114.1916);
         MapObjectControl control = new MapObjectControl();
         control.AddSearchedMarker(latLng, googleMap, 14);
     }
-
+*/
     @Override
     public void onStart() {
         super.onStart();
