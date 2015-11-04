@@ -43,18 +43,16 @@ public class InvitedEventFragment extends Fragment {
 		List<EventTypes> list = user.getEventsInvited();
 		bigdata = fetch.FetchDetails(list);
 
-
 		// Set up list view
 		listview = (ListView) rootView.findViewById(R.id.event_main_list);
 
-		EventListAdapter adapter = new EventListAdapter(getActivity()
+/*		EventListAdapter adapter = new EventListAdapter(getActivity()
 				.getApplicationContext(), R.layout.event_list_display,
 				bigdata);
 
 
 		listview.setAdapter(adapter);
-
-
+*/
 		LoadingAdapter loading = new LoadingAdapter(bigdata);
 		loading.execute();
 

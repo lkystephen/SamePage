@@ -96,9 +96,9 @@ public class MainActivity extends AppCompatActivity implements MainAct {
     public static final String API_KEY = "AIzaSyCEBmXKQ5k42UsKvCmZBPnmv3BDTqds52k";
 
     public Fragment fragment;
-    //public ViewPager mViewPager;
-    //public PagerSlidingTabStrip tabs;
-    //Bundle bundle;
+
+    // Circular FAB
+    public FloatingActionMenu actionMenu;
 
     public void handleLoginResults(boolean isNewUser, Users users) {
 
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity implements MainAct {
         button3.setLayoutParams(params);
         button4.setLayoutParams(params);
 
-        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this).addSubActionView(button1)
+        actionMenu = new FloatingActionMenu.Builder(this).addSubActionView(button1)
                 .addSubActionView(button2).addSubActionView(button3).addSubActionView(button4).attachTo(actionButton).build();
 
         //Instantiate the Main Fragment
@@ -213,6 +213,7 @@ public class MainActivity extends AppCompatActivity implements MainAct {
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
             Bundle bundle = new Bundle();
             bundle.putParcelable("user",user);
+            actionMenu.close(true);
 
             switch (type){
                 case 1:
@@ -289,7 +290,6 @@ public class MainActivity extends AppCompatActivity implements MainAct {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // TODO Auto-generated method stub
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem item = menu.findItem(R.id.action_settings);
         item.setVisible(false);
@@ -309,62 +309,6 @@ public class MainActivity extends AppCompatActivity implements MainAct {
             a.addCategory(Intent.CATEGORY_HOME);
             a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(a);
-        }
-    }
-
-    public class MainViewAdapter extends FragmentPagerAdapter implements IconTabProvider {
-
-        Bundle bundle;
-        private int[] imageResID = {
-                R.drawable.button_home_w, R.drawable.button_event_w, R.drawable.button_friends_w, R.drawable.button_settings_w
-        };
-        private int[] selected_icons = {
-                R.drawable.selector_tab_1, R.drawable.selector_tab_2, R.drawable.selector_tab_3, R.drawable.selector_tab_4};
-
-        public MainViewAdapter(FragmentManager fm, Bundle bundle) {
-            super(fm);
-            this.bundle = bundle;
-        }
-
-        /*@Override
-        public MainViewAdapter(){
-            super();
-        }*/
-
-        @Override
-        public int getCount() {
-            // Return sections
-            return 4;
-        }
-
-        @Override
-        public Fragment getItem(int index) {
-            final MainFragment a = new MainFragment();
-            final EventFragment b = new EventFragment();
-            final FriendsFragment c = new FriendsFragment();
-            final SettingsFragment d = new SettingsFragment();
-
-            switch (index) {
-                case 0:
-                    a.setArguments(bundle);
-                    return a;
-                case 1:
-                    b.setArguments(bundle);
-                    return b;
-                case 2:
-                    c.setArguments(bundle);
-                    return c;
-                case 3:
-                    d.setArguments(bundle);
-                    return d;
-                default:
-                    return new Fragment();
-            }
-        }
-
-        @Override
-        public int getPageIconResId(int position) {
-            return imageResID[position];
         }
     }
 

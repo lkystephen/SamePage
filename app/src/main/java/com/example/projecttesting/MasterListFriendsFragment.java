@@ -1,10 +1,12 @@
 package com.example.projecttesting;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -18,70 +20,62 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.facebook.Profile;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+
 public class MasterListFriendsFragment extends Fragment {
 
-	// friendsStarredStatus, 1 = starred, 0 is normal
-	ListView listView;
-	ArrayList<FriendsRowItem> rowItems;
-	User user;
-	FriendsListAdapter adapter;
+    // friendsStarredStatus, 1 = starred, 0 is normal
+    ListView listView;
+    ArrayList<FriendsRowItem> rowItems;
+    User user;
+    FriendsListAdapter adapter;
 
-	public MasterListFriendsFragment() {
-	}
+    public MasterListFriendsFragment() {
+    }
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-		View rootView = inflater.inflate(R.layout.master_friends, container,
-				false);
+        View rootView = inflater.inflate(R.layout.master_friends, container,
+                false);
 
-		Typeface face;
-		face = Typeface.createFromAsset(getActivity().getAssets(), "sf_reg.ttf");
+        Typeface face;
+        face = Typeface.createFromAsset(getActivity().getAssets(), "sf_reg.ttf");
 
-		Bundle bundle = getArguments();
-		user = bundle.getParcelable("user");
+        Bundle bundle = getArguments();
+        user = bundle.getParcelable("user");
 
-		final EditText search = (EditText) rootView.findViewById(R.id.master_search);
-		search.setTypeface(face);
+        final EditText search = (EditText) rootView.findViewById(R.id.master_search);
+        search.setTypeface(face);
 
-		search.addTextChangedListener(new TextWatcher() {
-			@Override
-			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-			}
+            }
 
-			@Override
-			public void onTextChanged(CharSequence word, int i, int i1, int i2) {
-				adapter.getFilter().filter(word.toString());
-			}
+            @Override
+            public void onTextChanged(CharSequence word, int i, int i1, int i2) {
+                adapter.getFilter().filter(word.toString());
+            }
 
-			@Override
-			public void afterTextChanged(Editable editable) {
-			}
-		});
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
 
-		final FragmentManager fm = getActivity().getSupportFragmentManager();
+        //final FragmentManager fm = getActivity().getSupportFragmentManager();
 
-		// Get names of friends
-		final List<OtherUser> master_list = user.getMasterList();
+        listView = (ListView) rootView.findViewById(R.id.starredfriendslist);
 
-		// Establish data here
-		rowItems = new ArrayList<>();
-		//Log.i("master",Integer.toString(master_list.size()));
-		for (int i = 0; i < master_list.size(); i++) {
-			FriendsRowItem item = new FriendsRowItem(master_list.get(i).username, 0, master_list.get(i).fbid);
-			rowItems.add(item);
-		}
+        // Load friends list with Asynctask
+        LoadingFriendsList load = new LoadingFriendsList(rowItems);
+        load.execute();
 
-		listView = (ListView) rootView.findViewById(R.id.starredfriendslist);
-
-		adapter = new FriendsListAdapter(getActivity()
-				.getApplicationContext(), R.layout.friendslistdisplay,
-				rowItems);
-		listView.setAdapter(adapter);
 /*
-		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 				Bundle bundle = new Bundle();
@@ -95,6 +89,51 @@ public class MasterListFriendsFragment extends Fragment {
 			}
 		});
 */
-		return rootView;
-	}
+        return rootView;
+    }
+
+    public class LoadingFriendsList extends AsyncTask<Void, String, ArrayList<FriendsRowItem>> {
+
+        ArrayList<FriendsRowItem> mItem;
+
+        public LoadingFriendsList(ArrayList<FriendsRowItem> a) {
+            mItem = a;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        // @Override
+        //protected void onProgressUpdate(String... values) {
+        //}
+
+        @Override
+        protected ArrayList<FriendsRowItem> doInBackground(Void... params) {
+
+            List<OtherUser> master_list = user.getMasterList();
+            // Establish data here
+            rowItems = new ArrayList<>();
+            for (int i = 0; i < master_list.size(); i++) {
+                FriendsRowItem item = new FriendsRowItem(master_list.get(i).username, 0, master_list.get(i).fbid);
+                rowItems.add(item);
+            }
+
+            return rowItems;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<FriendsRowItem> result) {
+            super.onPostExecute(result);
+
+            adapter = new FriendsListAdapter(getActivity()
+                    .getApplicationContext(), R.layout.friendslistdisplay,
+                    rowItems);
+            listView.setAdapter(adapter);
+
+        }
+    }
+
+
 }

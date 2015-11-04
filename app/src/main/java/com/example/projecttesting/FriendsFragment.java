@@ -62,7 +62,7 @@ public class FriendsFragment extends Fragment {
         // Assigning the Sliding Tab Layout View
         tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
         tabs.setTypeface(face, 0);
-        tabs.setTextColor(Color.parseColor("#000000"));
+        tabs.setTextColor(Color.parseColor("#ffffff"));
 
         // To make the Tabs Fixed set this true,
         // This makes the tabs Space Evenly in
