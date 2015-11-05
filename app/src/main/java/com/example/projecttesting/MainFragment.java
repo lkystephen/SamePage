@@ -74,6 +74,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
     LatLng currentLatLng;
     TextView closest_location, event_details1;
     public static SupportMapFragment mMapFragment;
+    User user;
     //ArrayList<FriendsRowItem> rowItems;
     //ImageView test_button, test_button2;
 
@@ -86,14 +87,14 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
                              Bundle savedInstanceState) {
 
         Bundle bundle = getArguments();
-        User user = bundle.getParcelable("user");
+        user = bundle.getParcelable("user");
         LocationListener mLocationListener = this;
 
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.mainmap, container, false);
 
         // Typeface
-        Typeface typeface_reg = FontCache.getFont(getContext(),"sf_bold.ttf");
+        Typeface typeface_reg = FontCache.getFont(getContext(), "sf_bold.ttf");
 
         closest_location = (TextView) rootView.findViewById(R.id.closest_location);
         event_details1 = (TextView) rootView.findViewById(R.id.event_details1);
@@ -101,6 +102,8 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         closest_location.setTypeface(typeface_reg);
         event_details1.setTypeface(typeface_reg);
 
+        ConstructNewsFeedItem item = new ConstructNewsFeedItem(user);
+        //item.getNewsFeed();
         // Get facebook photo and turn to bitmap
 
         //ImageView image = (ImageView) rootView.findViewById(R.id.welcome_image);
@@ -407,7 +410,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
             MarkerOptions markerOptions = new MarkerOptions();
 
             // Set the distance measured in minutes
-            closest_location.setText("is " + travel_time / 60 + "mins away");
+            closest_location.setText("You are " + travel_time / 60 + "mins away from QC (our test location)");
 
 
 
