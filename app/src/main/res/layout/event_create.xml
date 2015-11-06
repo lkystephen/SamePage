@@ -1,18 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.cjj.MaterialRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/eventScrollLayout"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:background="#CFD8DC"
+    xmlns:app="http://schemas.android.com/tools"
+    android:id="@+id/refresh"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@null"
+    app:overlay="true"
+    app:wave_show="true"
+    app:wave_color="#CFD8DC"
+    app:progress_colors="@array/material_colors"
+    app:wave_height_type="higher"
     android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ECEFF1"
+        android:id="@+id/update_status_bg"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:gravity="center"
+            android:background="#20000000">
+
+            <TextView
+                android:id="@+id/update_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:text="Drag page down to create event"
+                android:textColor="#ffffff"/>
+        </LinearLayout>
 
         <EditText
             android:id="@+id/eventNameInput"
@@ -176,27 +198,6 @@
             android:text="More options"
             android:textSize="16sp" />
 
-        <View
-            android:id="@+id/dividerBeforeMoreOption"
-            style="@style/EventDivider" />
-
-        <LinearLayout
-            android:id="@+id/more_options_menu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <View style="@style/EventDivider" />
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/submit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="temp submit button" />
-
     </LinearLayout>
 
-</ScrollView>
+</com.cjj.MaterialRefreshLayout>

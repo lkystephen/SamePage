@@ -1,7 +1,10 @@
 package com.example.projecttesting;
 
+import android.*;
+import android.Manifest;
 import android.content.ClipData;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -13,7 +16,9 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -29,11 +34,13 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.login.widget.ProfilePictureView;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -70,6 +77,8 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
     public LatLng myPosition;
     public int travel_time;
     public AutoCompleteTextView autoCompView;
+    ListView listView;
+    MainPageAdapter adapter;
     //ImageButton delButton;
     LatLng currentLatLng;
     TextView closest_location, event_details1;
@@ -96,15 +105,22 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         // Typeface
         Typeface typeface_reg = FontCache.getFont(getContext(), "sf_bold.ttf");
 
+        listView = (ListView) rootView.findViewById(R.id.main_listview);
+
         closest_location = (TextView) rootView.findViewById(R.id.closest_location);
-        event_details1 = (TextView) rootView.findViewById(R.id.event_details1);
+        //event_details1 = (TextView) rootView.findViewById(R.id.event_details1);
 
         closest_location.setTypeface(typeface_reg);
-        event_details1.setTypeface(typeface_reg);
+        //event_details1.setTypeface(typeface_reg);
 
         ConstructNewsFeedItem item = new ConstructNewsFeedItem(user);
-        //item.getNewsFeed();
-        // Get facebook photo and turn to bitmap
+        ArrayList<HashMap<String, Integer>> result = item.setEventsFeedPriority();
+
+        Log.i("result size",Integer.toString(result.size()));
+
+        adapter = new MainPageAdapter(getActivity(), R.layout.newsfeed_list_display, result, user);
+        listView.setAdapter(adapter);
+
 
         //ImageView image = (ImageView) rootView.findViewById(R.id.welcome_image);
 

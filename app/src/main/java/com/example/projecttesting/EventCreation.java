@@ -12,9 +12,11 @@ import java.util.StringTokenizer;
 import android.app.Activity;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog.OnTimeSetListener;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
@@ -22,11 +24,6 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.util.Pair;
-import android.transition.AutoTransition;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
-import android.transition.TransitionSet;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
@@ -42,13 +39,21 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.google.android.gms.maps.GoogleMap;
 
 import org.joda.time.DateTime;
+import org.w3c.dom.Text;
+
 
 public class EventCreation extends FragmentActivity implements OnDateSetListener, OnTimeSetListener, EventAct {
 
-    TextView mStartDate, mStartTime;
+    final EventDateConvert dateConvert = new EventDateConvert();
+    MaterialRefreshLayout refreshLayout;
+    TextView mStartDate, mStartTime, update_status;
+    EditText eventName;
+    LinearLayout update_status_bg;
     AutoCompleteTextView placeInputET;
     AutoCompleteTextView peopleInputET;
     ArrayList<String> selectedPeople, selectedPeopleName;
@@ -68,18 +73,61 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
         Bundle bundle = getIntent().getExtras();
         final User user = bundle.getParcelable("user");
 
-        final Typeface typeface = Typeface.createFromAsset(getAssets(), "sf_reg.ttf");
-
+        Typeface typeface = FontCache.getFont(this, "sf_reg.ttf");
 
         List masterList = user.getMasterList();
 
-        // Set animation for next activity
+        // Set refresh view for event creation
+        refreshLayout = (MaterialRefreshLayout) findViewById(R.id.refresh);
+
+        refreshLayout.setMaterialRefreshListener(
+                new MaterialRefreshListener() {
+                    @Override
+                    public void onRefresh(final MaterialRefreshLayout materialRefreshLayout) {
+
+                        // Get event name input
+                        String event_name = eventName.getText().toString();
+
+                        // Get Location
+                        String location = placeInputET.getText().toString();
+
+                        // Send stuff to server
+                        Bundle event_bundle = new Bundle();
+                        event_bundle.putString("EVENT_NAME", event_name);
+                        event_bundle.putString("EVENT_TYPE", "test");
+                        event_bundle.putString("EVENT_DETAILS", "testing");
+                        event_bundle.putString("VENUE", location);
+                        event_bundle.putStringArrayList("INVITEES", selectedPeople);
+
+                        String event_start_submit = dateConvert.MillisToStringForServer(minMillis);
+                        String event_end_submit = dateConvert.MillisToStringForServer(minMillis + 1000 * 60 * 60 * 2);
+                        Log.i("this better work", event_start_submit);
+                        //Log.i("this end work", event_end_submit);
+                        event_bundle.putString("DATETIME", event_start_submit);
+                        event_bundle.putString("ENDTIME", event_end_submit);
+                        event_bundle.putString("ORGANISER", user.getUserId());
+                        event_bundle.putDouble("LAT", lat);
+                        event_bundle.putDouble("LONG", lng);
+                        event_bundle.putString("ADDRESS", address);
+
+                        Event event_new = new Event(event_bundle, EventCreation.this);
+                        event_new.createEventAtServer();
+                        update_status_bg.setVisibility(View.GONE);
+
+                    }
+                });
+
 
         //TransitionInflater inflater = TransitionInflater.from(this);
         //Transition transition = inflater.inflateTransition(R.transition.change_people_or_event_input);
         //getWindow().setSharedElementEnterTransition(transition);
 
-        final EditText eventName = (EditText) findViewById(R.id.eventNameInput);
+        update_status = (TextView) findViewById(R.id.update_status);
+        update_status.setTypeface(typeface);
+
+        update_status_bg = (LinearLayout) findViewById(R.id.update_status_bg);
+
+        eventName = (EditText) findViewById(R.id.eventNameInput);
         eventName.setTypeface(typeface);
 
         // Set the intent for people invitation
@@ -157,20 +205,7 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
                 }
             }
         });*/
-        final TextView moreOptionTextView = (TextView) findViewById(R.id.more_options);
-        moreOptionTextView.setTypeface(typeface);
-        final View DividerBeforeMoreOption = findViewById(R.id.dividerBeforeMoreOption);
-        final LinearLayout allowInvitationLayout = (LinearLayout) findViewById(R.id.more_options_menu);
-        moreOptionTextView.setOnClickListener(new
 
-                                                      OnClickListener() {
-                                                          @Override
-                                                          public void onClick(View view) {
-                                                              allowInvitationLayout.setVisibility(View.VISIBLE);
-                                                              DividerBeforeMoreOption.setVisibility(View.INVISIBLE);
-                                                              moreOptionTextView.setVisibility(View.GONE);
-                                                          }
-                                                      });
 
         // Defaulting the start/finish date of the event as today
         java.util.Date juDate = new Date();
@@ -182,8 +217,6 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
         minMinute = dt.getMinuteOfHour();
 
         mStartDate = (TextView) findViewById(R.id.eventStartInput);
-
-        final EventDateConvert dateConvert = new EventDateConvert();
 
         String temp = dateConvert.DateStringForDisplay(minYear, minMonth, minDate);
         mStartDate.setText(temp);
@@ -255,52 +288,6 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
                 newFragment.show(ft, "date_dialog");
             }
         });
-
-        // Input stuff into sharedpref manager by triggering submit
-        Button submit_button = (Button) findViewById(R.id.submit);
-
-        submit_button.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                // Get event name input
-                String event_name = eventName.getText().toString();
-
-                // Get Location
-                String location = placeInputET.getText().toString();
-
-                // Get People
-//                ArrayList<String> people = selectedPeople;
-
-                // Send stuff to server
-                Bundle event_bundle = new Bundle();
-                event_bundle.putString("EVENT_NAME", event_name);
-                event_bundle.putString("EVENT_TYPE", "test");
-                event_bundle.putString("EVENT_DETAILS", "testing");
-                event_bundle.putString("VENUE", location);
-                event_bundle.putStringArrayList("INVITEES", selectedPeople);
-
-                String event_start_submit = dateConvert.MillisToStringForServer(minMillis);
-                String event_end_submit = dateConvert.MillisToStringForServer(minMillis + 1000 * 60 * 60 * 2);
-                Log.i("this better work", event_start_submit);
-                //Log.i("this end work", event_end_submit);
-                event_bundle.putString("DATETIME", event_start_submit);
-                event_bundle.putString("ENDTIME", event_end_submit);
-                event_bundle.putString("ORGANISER", user.getUserId());
-                event_bundle.putDouble("LAT", lat);
-                event_bundle.putDouble("LONG", lng);
-                event_bundle.putString("ADDRESS", address);
-
-                Event event_new = new Event(event_bundle, EventCreation.this);
-                event_new.createEventAtServer();
-
-
-            }
-        });
-
-        // Start the sharedpref manager
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -311,8 +298,15 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
         minHour = hourOfDay;
         minMinute = minute;
         mStartTime.setText(temp);
-    }
 
+        try {
+            minMillis = dateConvert.ReturnMillis(minYear, minMonth, minDate, minHour, minMinute);
+            Log.i("temp better", Long.toString(minMillis));
+
+        } catch (ParseException e) {
+            Log.i("temp better2", "error");
+        }
+    }
 
     public void onDateSet(DatePicker view, int year, int monthOfYear,
                           int dayOfMonth) {
@@ -393,6 +387,10 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
     @Override
     public void handleEventCreation(boolean success, String eventid) {
 
+
+        refreshLayout.finishRefresh();
+        Toast.makeText(EventCreation.this, "Event added successfully", Toast.LENGTH_LONG).show();
+
         // Pass the things back to event display
         Intent intent = new Intent(EventCreation.this, EventFragment.class);
         intent.putExtra("data", item);
@@ -401,4 +399,6 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
         finish();
 
     }
+
+
 }

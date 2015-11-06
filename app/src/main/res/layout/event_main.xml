@@ -32,12 +32,12 @@
                 android:id="@+id/event_tabs"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:background="#20000000"
                 projecttesting:pstsDividerColor="@null"
                 projecttesting:pstsIndicatorColor="#ffd9deff"
                 projecttesting:pstsIndicatorHeight="3dp"
                 projecttesting:pstsShouldExpand="true"
-                projecttesting:pstsUnderlineColor="@null"
-                android:background="@null"/>
+                projecttesting:pstsUnderlineColor="@null" />
         </LinearLayout>
 
         <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
@@ -65,7 +65,7 @@
         android:clickable="true"
         app:borderWidth="0dp"
         app:backgroundTint="@color/theme"
-        android:layout_gravity="bottom|end"
+        android:layout_gravity="bottom|center_horizontal"
         android:src="@drawable/plus_w"/>
 </android.support.design.widget.CoordinatorLayout>
 

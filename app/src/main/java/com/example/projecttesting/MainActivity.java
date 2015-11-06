@@ -329,7 +329,7 @@ public class MainActivity extends AppCompatActivity implements MainAct {
             Log.i("Generated dl indicator", temp2);
             //int last_number = preferences.getInt("friends",0);
             //int this_number = user.getMasterList().size();
-            if (downloaded.equals("yes") || temp2.equals(old_list)) {
+            if (downloaded.equals("yes") && temp2.equals(old_list)) {
                 // photos have been downloaded before and friends unchanged
                 Log.i("FB display", "Have been downloaded before");
                 // Time to move on
