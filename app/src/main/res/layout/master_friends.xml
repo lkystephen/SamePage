@@ -20,8 +20,7 @@
 
             <ImageView
                 android:layout_marginStart="6dp"
-                android:layout_marginLeft="6dp"
-                android:src="@drawable/search"
+                android:src="@drawable/search_w"
                 android:layout_width="18dp"
                 android:layout_height="18dp"
                 android:layout_gravity="center"
@@ -33,11 +32,12 @@
                 android:id="@+id/master_search"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginLeft="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_gravity="center_horizontal"
                 android:background="@null"
                 android:hint="Search..."
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
                 android:singleLine="true"
                 android:textSize="16sp" />
         </LinearLayout>

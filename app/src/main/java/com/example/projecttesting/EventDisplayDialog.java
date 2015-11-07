@@ -62,6 +62,10 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
         final EventEntryItem event_details = (EventEntryItem) mArgs.getSerializable("data");
         //int position = mArgs.getInt("position");
 
+        Typeface typeface_reg = FontCache.getFont(getContext(), "sf_reg.ttf");
+        Typeface typeface_bold = FontCache.getFont(getContext(), "sf_bold.ttf");
+
+
         // Refer to Ids in view
         TextView organiser = (TextView) view.findViewById(R.id.organiser_info);
         TextView event_Name = (TextView) view.findViewById(R.id.event_name);
@@ -74,10 +78,18 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
         //final TextView event_map_display = (TextView) view.findViewById(R.id.event_map_display);
         TextView eventInvitedNumber = (TextView) view.findViewById(R.id.invited_text);
         LinearLayout rsvp = (LinearLayout) view.findViewById(R.id.rsvp_block);
-        View rsvp_line = (View) view.findViewById(R.id.rsvp_line);
+        View rsvp_line = view.findViewById(R.id.rsvp_line);
 
         final FrameLayout mapLayout = (FrameLayout) view.findViewById(R.id.event_map);
         final LinearLayout ind_bubbles = (LinearLayout) view.findViewById(R.id.invited_circles_display);
+
+        // Set typeface
+        organiser.setTypeface(typeface_reg);
+        event_Name.setTypeface(typeface_bold);
+        event_start_date.setTypeface(typeface_reg);
+        event_start_time.setTypeface(typeface_reg);
+        eventInvitedNumber.setTypeface(typeface_reg);
+
 
         // Get event position from user
         String org;

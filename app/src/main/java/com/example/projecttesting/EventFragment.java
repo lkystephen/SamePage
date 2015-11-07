@@ -19,6 +19,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -29,6 +30,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
+import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -51,7 +54,7 @@ public class EventFragment extends Fragment implements MainAct {
     private String fbid;
     private String username;
     ArrayList<EventEntryItem> bigdata;
-    ListView listview;
+    MaterialRefreshLayout refreshLayout;
     User user;
     EventListAdapter adapter;
     ProgressDialog dialog;
@@ -61,10 +64,6 @@ public class EventFragment extends Fragment implements MainAct {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //mContext = this.getActivity();
-
-       // facebold = Typeface.createFromAsset(getActivity().getAssets(), "ubuntu_bold.ttf");
-        //face_light = Typeface.createFromAsset(getActivity().getAssets(), "ubuntu_light.ttf");
 
         return inflater.inflate(R.layout.event_main, container, false);
 
@@ -72,37 +71,36 @@ public class EventFragment extends Fragment implements MainAct {
 
     public void handleLoginResults(boolean isNewUser, Users users) {
 
+        Log.e("revisit", Integer.toString(user.getEventsAttending().size() + user.getEventsOrganised().size()));
+
         Bundle bundle = new Bundle();
         bundle.putParcelable("user", user);
 
 
         //ViewPager mViewPager = (ViewPager) EventFragment.findViewById(R.id.event_viewPager);
 
-        EventViewAdapter v = new EventViewAdapter(getChildFragmentManager(), bundle);
+//        EventViewAdapter v = new EventViewAdapter(getChildFragmentManager(), bundle);
 
-        mViewPager.setAdapter(v);
-
-        v.update(bundle);
+        //      mViewPager.setAdapter(v);
 
         // Assigning the Sliding Tab Layout View
         Typeface face_b;
         //face = Typeface.createFromAsset(getActivity().getAssets(), "sf_bold.ttf");
-        face_b = FontCache.getFont(getContext(),"sf_bold.ttf");
+        face_b = FontCache.getFont(getContext(), "sf_bold.ttf");
 
-        tabs.setTypeface(face_b, 0);
-        tabs.setTextColor(Color.parseColor("#000000"));
+        //      tabs.setTypeface(face_b, 0);
+//        tabs.setTextColor(Color.parseColor("#ffffff"));
 
         // To make the Tabs Fixed set this true,
         // This makes the tabs Space Evenly in
         // Available width
 
         // Setting the ViewPager For the SlidingTabsLayout
-        tabs.setViewPager(mViewPager);
+//        tabs.setViewPager(mViewPager);
 
         // Update the event count
-        int total_event_number = user.getEventsInvited().size() + user.getEventsOrganised().size() + user.getEventsAttending().size();
+        //      int total_event_number = user.getEventsInvited().size() + user.getEventsOrganised().size() + user.getEventsAttending().size();
 
-        Toast.makeText(getActivity(), "Event added", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -120,26 +118,28 @@ public class EventFragment extends Fragment implements MainAct {
         user = bundle.getParcelable("user");
         Log.i("Parcelable username", user.getUsername());
 
-        bigdata = new ArrayList<EventEntryItem>();
-        //final List<OtherUser> otherUsers = user.getMasterList();
-
-        FloatingActionButton add_event = (FloatingActionButton)view.findViewById(R.id.create_button);
-
-        add_event.setOnClickListener(new View.OnClickListener() {
+        refreshLayout = (MaterialRefreshLayout) view.findViewById(R.id.big_layout);
+        refreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
             @Override
-            public void onClick(View view) {
+            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
                 Intent intent = new Intent(getActivity(), EventCreation.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable("user", user);
                 intent.putExtras(bundle);
                 startActivityForResult(intent, 10);
 
+                refreshLayout.finishRefresh();
             }
         });
 
+        bigdata = new ArrayList<EventEntryItem>();
+
         // Set up pager view
         Typeface face;
-        face = FontCache.getFont(getContext(),"sf_reg.ttf");
+        face = FontCache.getFont(getContext(), "sf_reg.ttf");
+
+        TextView createText = (TextView) view.findViewById(R.id.update_status2);
+        createText.setTypeface(face);
 
         mViewPager = (ViewPager) view.findViewById(R.id.event_viewPager);
 
@@ -148,9 +148,7 @@ public class EventFragment extends Fragment implements MainAct {
 
 
         // Get background
-       ImageView friends_background = (ImageView) view.findViewById(R.id.event_display_bg);
-        //Bitmap processed = BitmapFactory.decodeResource(getResources(), R.drawable.event_main);
-        //Bitmap blurred_bg = BlurBuilder.blur(getActivity(), processed);
+        ImageView friends_background = (ImageView) view.findViewById(R.id.event_display_bg);
         friends_background.setImageResource(R.drawable.event_main);
 
         // Assigning the Sliding Tab Layout View
@@ -208,7 +206,6 @@ public class EventFragment extends Fragment implements MainAct {
                         // get with db
                         fbid = Profile.getCurrentProfile().getId();
 
-                        Log.i("name", Profile.getCurrentProfile().getName());
                         username = Profile.getCurrentProfile().getName();
                         fbid = Profile.getCurrentProfile().getId();
 
@@ -218,21 +215,13 @@ public class EventFragment extends Fragment implements MainAct {
                         user.execute();
                     }
                 }.execute(null, null, null);
-
-               /* if (dialog.isShowing()) {
-                    dialog.dismiss();
-                }*/
             }
         }
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-      //  facebold = Typeface.createFromAsset(getActivity().getAssets(), "ubuntu_bold.ttf");
-//        face_light = Typeface.createFromAsset(getActivity().getAssets(), "ubuntu_light.ttf");
-
-
     }
 
     public static class EventViewAdapter extends FragmentPagerAdapter {
@@ -246,11 +235,6 @@ public class EventFragment extends Fragment implements MainAct {
             bundle = bundle2;
             //bundle.putParcelable("user", user2);
 
-        }
-
-        public void update(Bundle bundle){
-            this.bundle = bundle;
-            notifyDataSetChanged();
         }
 
         @Override

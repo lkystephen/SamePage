@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/SamePage/app/build/intermediates/exploded-aar/com.cjj.materialrefeshlayout/library/1.3.0/res/values/values.xml -->
+    <eat-comment/>
+    <integer-array name="material_colors">
+        <item>@color/material_red</item>
+        <item>@color/material_green</item>
+        <item>@color/material_blue</item>
+        <item>@color/material_yellow</item>
+    </integer-array>
     <!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/SamePage/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string-array name="notification_time">
@@ -109,11 +117,21 @@
     <color name="highlighted_text_material_light">#66009688</color>
     <color name="hint_foreground_material_dark">@color/bright_foreground_disabled_material_dark</color>
     <color name="hint_foreground_material_light">@color/bright_foreground_disabled_material_light</color>
+    <!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/SamePage/app/build/intermediates/exploded-aar/com.cjj.materialrefeshlayout/library/1.3.0/res/values/values.xml -->
+    <eat-comment/>
+    <color name="material_blue">#ff03A9F4</color>
+    <!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/SamePage/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/values/values.xml -->
+    <eat-comment/>
     <color name="material_blue_grey_800">#ff37474f</color>
     <color name="material_blue_grey_900">#ff263238</color>
     <color name="material_blue_grey_950">#ff21272b</color>
     <color name="material_deep_teal_200">#ff80cbc4</color>
     <color name="material_deep_teal_500">#ff009688</color>
+    <!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/SamePage/app/build/intermediates/exploded-aar/com.cjj.materialrefeshlayout/library/1.3.0/res/values/values.xml -->
+    <eat-comment/>
+    <color name="material_green">#ff4CAF50</color>
+    <!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/SamePage/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/values/values.xml -->
+    <eat-comment/>
     <color name="material_grey_100">#fff5f5f5</color>
     <color name="material_grey_300">#ffe0e0e0</color>
     <color name="material_grey_50">#fffafafa</color>
@@ -121,6 +139,12 @@
     <color name="material_grey_800">#ff424242</color>
     <color name="material_grey_850">#ff303030</color>
     <color name="material_grey_900">#ff212121</color>
+    <!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/SamePage/app/build/intermediates/exploded-aar/com.cjj.materialrefeshlayout/library/1.3.0/res/values/values.xml -->
+    <eat-comment/>
+    <color name="material_red">#ffF44336</color>
+    <color name="material_yellow">#ffFFEB3B</color>
+    <!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/SamePage/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/values/values.xml -->
+    <eat-comment/>
     <color name="primary_dark_material_dark">@android:color/black</color>
     <color name="primary_dark_material_light">@color/material_grey_600</color>
     <color name="primary_material_dark">@color/material_grey_900</color>
@@ -177,6 +201,7 @@
     <declare-styleable name="AppBarLayout_LayoutParams"><attr name="layout_scrollFlags"><flag name="scroll" value="0x1"/><flag name="exitUntilCollapsed" value="0x2"/><flag name="enterAlways" value="0x4"/><flag name="enterAlwaysCollapsed" value="0x8"/></attr><attr format="reference" name="layout_scrollInterpolator"/></declare-styleable>
     <declare-styleable name="AppCompatTextView"><attr format="reference|boolean" name="textAllCaps"/><attr name="android:textAppearance"/></declare-styleable>
     <declare-styleable name="ButtonBarLayout"><attr format="boolean" name="allowStacking"/></declare-styleable>
+    <declare-styleable name="CircleProgressBar"><attr format="dimension" name="mlpb_inner_radius"/><attr format="color" name="mlpb_background_color"/><attr format="color" name="mlpb_progress_color"/><attr format="dimension" name="mlpb_progress_stoke_width"/><attr format="boolean" name="mlpb_show_arrow"/><attr format="boolean" name="mlpb_enable_circle_background"/><attr format="dimension" name="mlpb_arrow_width"/><attr format="dimension" name="mlpb_arrow_height"/><attr format="integer" name="mlpb_progress"/><attr format="integer" name="mlpb_max"/><attr format="dimension" name="mlpb_progress_text_size"/><attr format="color" name="mlpb_progress_text_color"/><attr format="enum" name="mlpb_progress_text_visibility"><enum name="visible" value="0"/><enum name="invisible" value="1"/></attr></declare-styleable>
     <declare-styleable name="CircularImageView"><attr format="boolean" name="border"/><attr format="color" name="border_color"/><attr format="dimension" name="border_width"/><attr format="boolean" name="selector"/><attr format="color" name="selector_color"/><attr format="color" name="selector_stroke_color"/><attr format="dimension" name="selector_stroke_width"/><attr format="boolean" name="shadow"/></declare-styleable>
     <declare-styleable name="CollapsingAppBarLayout_LayoutParams"><attr name="layout_collapseMode"><enum name="none" value="0"/><enum name="pin" value="1"/><enum name="parallax" value="2"/></attr><attr format="float" name="layout_collapseParallaxMultiplier"/></declare-styleable>
     <declare-styleable name="CollapsingToolbarLayout"><attr format="dimension" name="expandedTitleMargin"/><attr format="dimension" name="expandedTitleMarginStart"/><attr format="dimension" name="expandedTitleMarginTop"/><attr format="dimension" name="expandedTitleMarginEnd"/><attr format="dimension" name="expandedTitleMarginBottom"/><attr format="reference" name="expandedTitleTextAppearance"/><attr format="reference" name="collapsedTitleTextAppearance"/><attr format="color" name="contentScrim"/><attr format="color" name="statusBarScrim"/><attr format="reference" name="toolbarId"/></declare-styleable>
@@ -192,6 +217,7 @@
     <declare-styleable name="ListPopupWindow"><attr name="android:dropDownVerticalOffset"/><attr name="android:dropDownHorizontalOffset"/></declare-styleable>
     <declare-styleable name="LoadingImageView"><attr format="enum" name="imageAspectRatioAdjust"><enum name="none" value="0"/><enum name="adjust_width" value="1"/><enum name="adjust_height" value="2"/></attr><attr format="float" name="imageAspectRatio"/><attr format="boolean" name="circleCrop"/></declare-styleable>
     <declare-styleable name="MapAttrs"><attr format="enum" name="mapType"><enum name="none" value="0"/><enum name="normal" value="1"/><enum name="satellite" value="2"/><enum name="terrain" value="3"/><enum name="hybrid" value="4"/></attr><attr format="float" name="cameraBearing"/><attr format="float" name="cameraTargetLat"/><attr format="float" name="cameraTargetLng"/><attr format="float" name="cameraTilt"/><attr format="float" name="cameraZoom"/><attr format="boolean" name="liteMode"/><attr format="boolean" name="uiCompass"/><attr format="boolean" name="uiRotateGestures"/><attr format="boolean" name="uiScrollGestures"/><attr format="boolean" name="uiTiltGestures"/><attr format="boolean" name="uiZoomControls"/><attr format="boolean" name="uiZoomGestures"/><attr format="boolean" name="useViewLifecycle"/><attr format="boolean" name="zOrderOnTop"/><attr format="boolean" name="uiMapToolbar"/><attr format="boolean" name="ambientEnabled"/></declare-styleable>
+    <declare-styleable name="MaterialRefreshLayout"><attr format="boolean" name="overlay"/><attr format="enum" name="wave_height_type"><enum name="normal" value="0"/><enum name="higher" value="1"/></attr><attr format="color" name="wave_color"/><attr format="boolean" name="wave_show"/><attr format="reference" name="progress_colors"/><attr format="dimension" name="progress_stoke_width"/><attr format="color" name="progress_backgroud_color"/><attr format="boolean" name="progress_show_arrow"/><attr format="dimension" name="progress_arrow_width"/><attr format="dimension" name="progress_arrow_height"/><attr format="boolean" name="progress_show_circle_backgroud"/><attr format="integer" name="progress_value"/><attr format="integer" name="progress_max_value"/><attr format="dimension" name="progress_text_size"/><attr format="color" name="progress_text_color"/><attr format="enum" name="progress_text_visibility"><enum name="visible" value="0"/><enum name="invisible" value="1"/></attr><attr format="enum" name="progress_size_type"><enum name="normal" value="0"/><enum name="big" value="1"/></attr><attr format="boolean" name="isLoadMore"/></declare-styleable>
     <declare-styleable name="MediaRouteButton"><attr format="reference" name="externalRouteEnabledDrawable"/><attr name="android:minWidth"/><attr name="android:minHeight"/></declare-styleable>
     <declare-styleable name="MenuGroup"><attr name="android:id"/><attr name="android:menuCategory"/><attr name="android:orderInCategory"/><attr name="android:checkableBehavior"/><attr name="android:visible"/><attr name="android:enabled"/></declare-styleable>
     <declare-styleable name="MenuItem"><attr name="android:id"/><attr name="android:menuCategory"/><attr name="android:orderInCategory"/><attr name="android:title"/><attr name="android:titleCondensed"/><attr name="android:icon"/><attr name="android:alphabeticShortcut"/><attr name="android:numericShortcut"/><attr name="android:checkable"/><attr name="android:checked"/><attr name="android:visible"/><attr name="android:enabled"/><attr name="android:onClick"/><attr name="showAsAction"><flag name="never" value="0"/><flag name="ifRoom" value="1"/><flag name="always" value="2"/><flag name="withText" value="4"/><flag name="collapseActionView" value="8"/></attr><attr format="reference" name="actionLayout"/><attr format="string" name="actionViewClass"/><attr format="string" name="actionProviderClass"/></declare-styleable>

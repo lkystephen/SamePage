@@ -44,7 +44,7 @@
                 android:layout_height="30dp"
                 custom:fontName="sf_reg.ttf"
                 android:layout_gravity="center_vertical"
-                android:textColor="#8d000000"
+                android:textColor="#ffffff"
                 android:textSize="21sp" />
 
             <LinearLayout
@@ -71,7 +71,7 @@
                     custom:fontName="sf_ulight.ttf"
                     android:layout_marginLeft="3dp"
                     android:layout_marginStart="3dp"
-                    android:textColor="#8d000000"
+                    android:textColor="#ffffff"
                     android:textSize="12sp" />
 
                 <com.example.projecttesting.MyTextView
@@ -82,7 +82,7 @@
                     android:text="|"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:textColor="#8d000000"
+                    android:textColor="#ffffff"
                     android:textSize="12sp" />
 
                 <ImageView
@@ -102,7 +102,7 @@
                     custom:fontName="sf_ulight.ttf"
                     android:layout_marginLeft="3dp"
                     android:layout_marginStart="3dp"
-                    android:textColor="#8d000000"
+                    android:textColor="#ffffff"
                     android:textSize="12sp" />
 
 

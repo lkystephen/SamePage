@@ -25,7 +25,6 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
                 android:scaleType="fitXY" />
 
@@ -34,12 +33,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
                 android:text="ORGANISER"
                 android:textSize="16sp"
-                custom:fontName="sf_reg.ttf" />
+                />
 
 
         </LinearLayout>
@@ -63,7 +61,6 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center_vertical"
                 android:text="NAME_OF_EVENT"
-                custom:fontName="sf_bold.ttf"
                 android:textSize="35sp"
                 android:editable="false"/>
 
@@ -91,8 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:text="START_OF_EVENT"
-                android:textSize="16sp"
-                custom:fontName="sf_reg.ttf" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -146,7 +142,7 @@
                 android:layout_marginStart="6dp"
                 android:text="LOCATION"
                 android:textSize="16sp"
-                custom:fontName="sf_reg.ttf" />
+                android:textStyle="normal" />
 
 
         </LinearLayout>

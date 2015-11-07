@@ -22,7 +22,7 @@ import java.util.List;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
-public class MainPageAdapter extends ArrayAdapter<HashMap<String,Integer>> {
+public class MainPageAdapter extends ArrayAdapter<HashMap<String, Integer>> {
 
     Context context;
     User user;
@@ -51,19 +51,19 @@ public class MainPageAdapter extends ArrayAdapter<HashMap<String,Integer>> {
         organise = false;
 
         int eventId = getItem(position).get("eventId");
-        for (int i = 0; i < user.getEventsOrganised().size() ; i++){
+        for (int i = 0; i < user.getEventsOrganised().size(); i++) {
             int id = Integer.parseInt(user.getEventsOrganised().get(i).getEventid());
-            if (id == eventId){
+            if (id == eventId) {
                 event_info = user.getEventsOrganised().get(i);
                 organise = true;
                 break;
             }
         }
 
-        if (!organise){
-            for (int i =0; i <user.getEventsInvited().size(); i++){
+        if (!organise) {
+            for (int i = 0; i < user.getEventsInvited().size(); i++) {
                 int id = Integer.parseInt(user.getEventsInvited().get(i).getEventid());
-                if (id == eventId){
+                if (id == eventId) {
                     event_info = user.getEventsInvited().get(i);
                     break;
                 }
@@ -73,8 +73,8 @@ public class MainPageAdapter extends ArrayAdapter<HashMap<String,Integer>> {
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         Typeface face_r, face_b;
-        face_r = FontCache.getFont(getContext(),"sf_reg.ttf");
-        face_b = FontCache.getFont(getContext(),"sf_bold.ttf");
+        face_r = FontCache.getFont(getContext(), "sf_reg.ttf");
+        face_b = FontCache.getFont(getContext(), "sf_bold.ttf");
 
         if (convertView == null) {
 
@@ -97,28 +97,32 @@ public class MainPageAdapter extends ArrayAdapter<HashMap<String,Integer>> {
             long currentMillis = System.currentTimeMillis();
             long difference = eventMillis - currentMillis;
 
-            if (difference > 0 && difference > 1000*60*60 || // If the event is within 24 hours but not within an hour
-                    difference < 1000*60*60*24){
-                long temp = (difference)/(1000*60*60);
+            if (difference > 0 && difference > 1000 * 60 * 60 || // If the event is within 24 hours but not within an hour
+                    difference < 1000 * 60 * 60 * 24) {
+                long temp = (difference) / (1000 * 60 * 60);
                 int rounded = Math.round(temp);
-                if (temp > rounded){
+                if (temp > rounded) {
                     int temp1 = rounded + 1;
                     holder.number.setText(Long.toString(temp1));
                 } else {
                     holder.number.setText(Integer.toString(rounded));
                 }
-                holder.dayOrHour.setText("hours");
+                if (holder.number.getText().toString().equals("1")) {
+                    holder.dayOrHour.setText("hour");
+                } else {
+                    holder.dayOrHour.setText("hours");
+                }
             }
 
-            if (difference < 0){ // If the event has started
+            if (difference < 0) { // If the event has started
                 holder.number.setText("NOW");
                 holder.dayOrHour.setVisibility(View.GONE);
             }
 
-            if (difference > 1000*60*60*24){ // The event is days from now
-                long temp = difference/(1000*60*60*24);
+            if (difference > 1000 * 60 * 60 * 24) { // The event is days from now
+                long temp = difference / (1000 * 60 * 60 * 24);
                 int rounded = Math.round(temp);
-                if (temp > rounded){
+                if (temp > rounded) {
                     int temp1 = rounded + 1;
                     holder.number.setText(Long.toString(temp1));
                 } else {
@@ -127,8 +131,8 @@ public class MainPageAdapter extends ArrayAdapter<HashMap<String,Integer>> {
                 holder.dayOrHour.setText("days");
             }
 
-            if (difference > 0 && difference < 1000*60*60){ // The event is within 60 minutes
-                long temp = difference/(1000*60);
+            if (difference > 0 && difference < 1000 * 60 * 60) { // The event is within 60 minutes
+                long temp = difference / (1000 * 60);
                 int rounded = Math.round(temp);
                 holder.number.setText(Integer.toString(rounded));
                 holder.dayOrHour.setText("min");
@@ -140,15 +144,12 @@ public class MainPageAdapter extends ArrayAdapter<HashMap<String,Integer>> {
             convertView.setTag(holder);
 
 
-
-
         }
         return convertView;
     }
 
 
-
-    public View CreateFriendsBubble (final int i, Context context){
+    public View CreateFriendsBubble(final int i, Context context) {
         LayoutInflater m = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View ind_layout = m.inflate(R.layout.event_displayed_friend_bubble, null);
 

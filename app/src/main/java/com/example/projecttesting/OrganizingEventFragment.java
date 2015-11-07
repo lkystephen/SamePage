@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -50,6 +51,11 @@ public class OrganizingEventFragment extends Fragment {
         // Set up list view
         listview = (ListView) rootView.findViewById(R.id.event_main_list);
 
+        // Set up drag zone buttons
+        LinearLayout rsvp_attending = (LinearLayout) rootView.findViewById(R.id.rsvp_attending);
+        LinearLayout rsvp_rejecting = (LinearLayout) rootView.findViewById(R.id.rsvp_rejecting);
+        rsvp_attending.setVisibility(View.GONE);
+        rsvp_rejecting.setVisibility(View.GONE);
 
         LoadingAdapter loading = new LoadingAdapter(bigdata);
         loading.execute();
