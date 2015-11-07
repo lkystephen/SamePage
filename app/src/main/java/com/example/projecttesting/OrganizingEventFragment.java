@@ -25,7 +25,7 @@ public class OrganizingEventFragment extends Fragment {
     ListView listview;
     List<FriendsRowItem> rowItems;
     User user;
-    ArrayList<EventEntryItem> bigdata;
+    //ArrayList<EventEntryItem> bigdata;
     String fbid;
 
     public OrganizingEventFragment() {
@@ -43,9 +43,9 @@ public class OrganizingEventFragment extends Fragment {
 
         fbid = user.getFBId();
         // Get data
-        EventDetailsFetch fetch = new EventDetailsFetch();
+        //EventDetailsFetch fetch = new EventDetailsFetch();
         List<EventTypes> list = user.getEventsOrganised();
-        bigdata = fetch.FetchDetails(list);
+        //bigdata = fetch.FetchDetails(list);
 
 
         // Set up list view
@@ -57,19 +57,19 @@ public class OrganizingEventFragment extends Fragment {
         rsvp_attending.setVisibility(View.GONE);
         rsvp_rejecting.setVisibility(View.GONE);
 
-        LoadingAdapter loading = new LoadingAdapter(bigdata);
+        LoadingAdapter loading = new LoadingAdapter(user.getEventsOrganised());
         loading.execute();
 
 
         return rootView;
     }
 
-    private class LoadingAdapter extends AsyncTask<Void, String, ArrayList<EventEntryItem>> {
+    private class LoadingAdapter extends AsyncTask<Void, String, List<EventTypes>> {
 
         final FragmentManager fm = getActivity().getSupportFragmentManager();
 
-        ArrayList<EventEntryItem> mItem;
-        public LoadingAdapter(ArrayList<EventEntryItem> a){
+        List<EventTypes> mItem;
+        public LoadingAdapter(List<EventTypes> a){
             mItem = a;
         }
 
@@ -83,25 +83,23 @@ public class OrganizingEventFragment extends Fragment {
         //}
 
         @Override
-        protected ArrayList<EventEntryItem> doInBackground(Void ... params){
+        protected List<EventTypes> doInBackground(Void ... params){
 
-
-
-            return bigdata;
+            return mItem;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<EventEntryItem> result){
+        protected void onPostExecute(List<EventTypes> result){
             super.onPostExecute(result);
 
             EventListAdapter adapter = new EventListAdapter(getActivity()
                     .getApplicationContext(), R.layout.event_list_display,
-                    bigdata);
+                    result);
 
 
             listview.setAdapter(adapter);
 
-            if (bigdata == null) {
+            /*if (result == null) {
                 TextView no_event_msg = (TextView) getActivity().findViewById(R.id.no_event_text);
                 no_event_msg.setVisibility(View.VISIBLE);
 
@@ -128,7 +126,7 @@ public class OrganizingEventFragment extends Fragment {
                         event_dialog.show(fm, "");
                     }
                 });
-            }
+            }*/
 
         }
     }

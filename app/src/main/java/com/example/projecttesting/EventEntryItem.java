@@ -13,6 +13,7 @@ public class EventEntryItem implements Serializable{
     private ArrayList<String> friends_invited;
     private String event_title, event_location, organiser, organiser_fbid;
     private LatLng latLng;
+    private int event_id;
     //int attend_status;
 
     public EventEntryItem(String event_title, String event_location, long event_time, ArrayList<String> friends_invited,

@@ -22,17 +22,17 @@ import com.example.projecttesting.R;
 import org.joda.time.DateTime;
 import org.joda.time.JodaTimePermission;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class EventListAdapter extends ArrayAdapter<EventEntryItem> {
+public class EventListAdapter extends ArrayAdapter<EventTypes> {
 
     Context context;
-    List<EventEntryItem> items;
+    List<EventTypes> items;
     String[] name;
 
-    public EventListAdapter(Context context, int resourceId,
-                            List<EventEntryItem> items) {
+    public EventListAdapter(Context context, int resourceId, List<EventTypes> items) {
         super(context, resourceId, items);
         this.context = context;
     }
@@ -49,7 +49,7 @@ public class EventListAdapter extends ArrayAdapter<EventEntryItem> {
 
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        EventEntryItem rowItem = getItem(position);
+        EventTypes rowItem = getItem(position);
 
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -82,10 +82,10 @@ public class EventListAdapter extends ArrayAdapter<EventEntryItem> {
             holder.event_location.setTypeface(face_r);
             holder.event_date.setTypeface(face_r);
 
-            holder.event_name.setText(rowItem.getTitle().toUpperCase());
-            holder.event_location.setText(rowItem.getEventLocation());
+            holder.event_name.setText(rowItem.getEventName().toUpperCase());
+            holder.event_location.setText(rowItem.getEventVenue());
             //holder.event_invitees.setText(rowItem.getFriendsInvited().toString());
-            long event_time = rowItem.getStartTime();
+            long event_time = rowItem.getEventDateTime().getTimeInMillis();
             java.util.Date juDate = new Date(event_time);
             DateTime dt = new DateTime(juDate);
 
@@ -120,7 +120,7 @@ public class EventListAdapter extends ArrayAdapter<EventEntryItem> {
             //holder.event_organiser.setText(rowItem.getOrganiser());
             AllocateEventPhoto allocate = new AllocateEventPhoto();
 
-            int allocated = allocate.EventTypeDetermine(rowItem.getTitle().toLowerCase());
+            int allocated = allocate.EventTypeDetermine(rowItem.getEventName().toLowerCase());
 
             //Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(rowItem.getOrganiser()).getPath());
             //RoundImage roundImage = new RoundImage(bitmap);

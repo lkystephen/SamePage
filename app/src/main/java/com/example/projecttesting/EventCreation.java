@@ -11,6 +11,7 @@ import java.util.StringTokenizer;
 
 import android.app.Activity;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.Dialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.content.Intent;
@@ -25,15 +26,18 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -58,8 +62,9 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
     AutoCompleteTextView peopleInputET;
     ArrayList<String> selectedPeople, selectedPeopleName;
     int minYear, minMonth, minDate, minMinute, minHour;
+    RadioButton button1, button2, button3, button4;
     public static GoogleMap eventGoogleMap;
-    long minMillis, abc;
+    long minMillis, lengthMillis;
     String address;
     EventEntryItem item;
     double lat, lng;
@@ -100,9 +105,19 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
                         event_bundle.putStringArrayList("INVITEES", selectedPeople);
 
                         String event_start_submit = dateConvert.MillisToStringForServer(minMillis);
-                        String event_end_submit = dateConvert.MillisToStringForServer(minMillis + 1000 * 60 * 60 * 2);
-                        Log.i("this better work", event_start_submit);
-                        //Log.i("this end work", event_end_submit);
+
+                        // Determine event length
+                        if (button1.isChecked()){
+                            lengthMillis = 1000 * 60 * 30;
+                        } else if (button2.isChecked()){
+                            lengthMillis = 1000 * 60* 60;
+                        } else if (button3.isChecked()){
+                            lengthMillis = 1000 * 60 * 60 *2;
+                        } else if (button4.isChecked()){
+                            lengthMillis = 1000 *60;
+                        }
+                        String event_end_submit = dateConvert.MillisToStringForServer(minMillis + lengthMillis);
+                        //Log.i("this better work", event_start_submit);
                         event_bundle.putString("DATETIME", event_start_submit);
                         event_bundle.putString("ENDTIME", event_end_submit);
                         event_bundle.putString("ORGANISER", user.getUserId());
@@ -206,6 +221,21 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
             }
         });*/
 
+        // Setting buttons view
+        button1 = (RadioButton) findViewById(R.id.end1);
+        button2 = (RadioButton) findViewById(R.id.end2);
+        button3 = (RadioButton) findViewById(R.id.end3);
+        button4 = (RadioButton) findViewById(R.id.end4);
+
+        button4.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialog dialog = new Dialog(EventCreation.this);
+                LayoutInflater inflater = (LayoutInflater)EventCreation.this.getSystemService(LAYOUT_INFLATER_SERVICE);
+                View layout = inflater.inflate(R.layout.seekbardialog, (ViewGroup)findViewById(R.id.seekbar_dialog));
+                dialog.setContentView(layout);
+            }
+        });
 
         // Defaulting the start/finish date of the event as today
         java.util.Date juDate = new Date();

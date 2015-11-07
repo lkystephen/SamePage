@@ -91,6 +91,7 @@ ADDED from AndroidManifest.xml:18:5
 		ADDED from AndroidManifest.xml:18:22
 application
 ADDED from AndroidManifest.xml:20:5
+MERGED from com.android.support:support-v4:23.1.0:22:5
 MERGED from uk.co.chrisjenx:calligraphy:2.1.0:11:5
 MERGED from com.android.support:appcompat-v7:23.1.0:22:5
 MERGED from com.android.support:support-v4:23.1.0:22:5
@@ -342,6 +343,8 @@ ADDED from AndroidManifest.xml:65:9
 		ADDED from AndroidManifest.xml:65:18
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
+MERGED from com.appyvet:materialrangebar:1.2:7:5
+MERGED from com.android.support:support-v4:23.1.0:20:5
 MERGED from uk.co.chrisjenx:calligraphy:2.1.0:7:5
 MERGED from com.android.support:appcompat-v7:23.1.0:20:5
 MERGED from com.android.support:support-v4:23.1.0:20:5

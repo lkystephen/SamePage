@@ -27,12 +27,12 @@ import java.util.List;
 public class InvitedEventFragment extends Fragment {
 
     ListView listview;
-    List<FriendsRowItem> rowItems;
     User user;
-    ArrayList<EventEntryItem> bigdata;
+    //ArrayList<EventEntryItem> bigdata;
     String fbid;
     LinearLayout rsvp_attending, rsvp_rejecting, rsvp;
     Animation vibrate;
+    EventTypes eventTypes;
 
     public InvitedEventFragment() {
     }
@@ -56,7 +56,7 @@ public class InvitedEventFragment extends Fragment {
         // Get data
         EventDetailsFetch fetch = new EventDetailsFetch();
         List<EventTypes> list = user.getEventsInvited();
-        bigdata = fetch.FetchDetails(list);
+        //bigdata = fetch.FetchDetails(list);
 
         // Set up list view
         listview = (ListView) rootView.findViewById(R.id.event_main_list);
@@ -66,19 +66,20 @@ public class InvitedEventFragment extends Fragment {
         rsvp_rejecting = (LinearLayout) rootView.findViewById(R.id.rsvp_rejecting);
         rsvp = (LinearLayout) rootView.findViewById(R.id.rsvp);
 
-        LoadingAdapter loading = new LoadingAdapter(bigdata);
+        LoadingAdapter loading = new LoadingAdapter(user.getEventsInvited());
         loading.execute();
 
 
         return rootView;
     }
 
-    private class LoadingAdapter extends AsyncTask<Void, String, ArrayList<EventEntryItem>> {
+    private class LoadingAdapter extends AsyncTask<Void, String, List<EventTypes>> {
 
-        ArrayList<EventEntryItem> mItem;
+        List<EventTypes> mItem;
+        //ArrayList<EventEntryItem> mItem;
 
-        public LoadingAdapter(ArrayList<EventEntryItem> a) {
-            mItem = a;
+        public LoadingAdapter(List<EventTypes> mItem) {
+            this.mItem = mItem;
         }
 
         final FragmentManager fm = getActivity().getSupportFragmentManager();
@@ -95,31 +96,28 @@ public class InvitedEventFragment extends Fragment {
         //}
 
         @Override
-        protected ArrayList<EventEntryItem> doInBackground(Void... params) {
-
-
-            return bigdata;
+        protected List<EventTypes> doInBackground(Void... params) {
+            return mItem;
         }
 
         @Override
-        protected void onPostExecute(ArrayList<EventEntryItem> result) {
+        protected void onPostExecute(List<EventTypes> result) {
             super.onPostExecute(result);
 
-            EventListAdapter adapter = new EventListAdapter(getActivity()
-                    .getApplicationContext(), R.layout.event_list_display,
-                    bigdata);
+            EventListAdapter adapter = new EventListAdapter(getActivity(), R.layout.event_list_display,
+                    result);
 
             listview.setAdapter(adapter);
 
-            if (bigdata == null) {
+            if (result == null) {
                 TextView no_event_msg = (TextView) getActivity().findViewById(R.id.no_event_text);
                 no_event_msg.setVisibility(View.VISIBLE);
 
             } else {
                 listview.setAdapter(adapter);
 
-                rsvp_attending.setOnDragListener(new MyDragListener(1));
-                rsvp_rejecting.setOnDragListener(new MyDragListener(2));
+                rsvp_attending.setOnDragListener(new MyDragListener(1,user.getUserId()));
+                rsvp_rejecting.setOnDragListener(new MyDragListener(2,user.getUserId()));
 
                 // Set onTouchListener for each item
                 listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -133,16 +131,18 @@ public class InvitedEventFragment extends Fragment {
                         View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
                         view.startDrag(data, shadowBuilder, view, 0);
                         rsvp.setVisibility(View.VISIBLE);
+                        // Set the current event selected
+                        eventTypes = user.getEventsInvited().get(i);
                         return true;
                     }
                 });
 
                 // Set pop up dialog
-                listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                /*listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("data", bigdata.get(i));
+                        bundle.putSerializable("data", user.getEventsInvited().get(i));
                         bundle.putString("my_id", fbid);
                         String organiser_name = "myself";
                         String organiser_fbid = bigdata.get(i).getOrganiser();
@@ -158,7 +158,7 @@ public class InvitedEventFragment extends Fragment {
                         event_dialog.setArguments(bundle);
                         event_dialog.show(fm, "");
                     }
-                });
+                });*/
             }
 
         }
@@ -168,9 +168,11 @@ public class InvitedEventFragment extends Fragment {
         Drawable enterShape = getResources().getDrawable(R.drawable.circle_dropzone, null);
         Drawable normalShape = getResources().getDrawable(R.drawable.circle_dropzone, null);
         int response;
+        String userid;
 
-        public MyDragListener (int response){
+        public MyDragListener (int response, String userid){
             this.response = response;
+            this.userid = userid;
         }
 
         @Override
@@ -181,12 +183,8 @@ public class InvitedEventFragment extends Fragment {
 
             switch (event.getAction()) {
                 case DragEvent.ACTION_DRAG_STARTED:
-                    //v.setVisibility(View.VISIBLE);
-
                     // both accept and reject will vibrate
                     v.startAnimation(vibrate);
-                    //rsvp_rejecting.startAnimation(vibrate);
-
                     break;
                 case DragEvent.ACTION_DRAG_ENTERED:
 
@@ -199,31 +197,19 @@ public class InvitedEventFragment extends Fragment {
                     //rsvp_rejecting.setVisibility(View.GONE);
                     break;
                 case DragEvent.ACTION_DROP:
-                    // Dropped, reassign View to ViewGroup
-                    //rsvp_rejecting.getAnimation().cancel();
-                    //rsvp_rejecting.setVisibility(View.GONE);
 
                     view.setVisibility(View.VISIBLE);
-                    if (response == 1)
+                    if (response == 1){
                     Toast.makeText(getContext(), "You are going", Toast.LENGTH_LONG).show();
-                    if (response == 2)
-                        Toast.makeText(getContext(), "You are rejecting", Toast.LENGTH_LONG).show();
+                    eventTypes.rsvp(userid,1);
+                    }
+                    if (response == 2){
+                        eventTypes.rsvp(userid,2);
+                        Toast.makeText(getContext(), "You are rejecting", Toast.LENGTH_LONG).show();}
 
-                    //view.setVisibility(View.VISIBLE);
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
 
-
-                    /*v.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Log.i("vi", "sihg");
-                            rsvp_attending.setVisibility(View.GONE);
-                            rsvp_rejecting.setVisibility(View.GONE);
-                        }
-                    });*/
-                    //rsvp_attending.setVisibility(View.GONE);
-                    //rsvp_rejecting.setVisibility(View.GONE);
                     rsvp.setVisibility(View.GONE);
                     break;
                     //v.setBackground(normalShape);
