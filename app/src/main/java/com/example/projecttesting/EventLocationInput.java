@@ -99,8 +99,6 @@ public class EventLocationInput extends AppCompatActivity {
                                                              e.printStackTrace();
                                                          }
 
-                                                         //LatLng location_coordinates = othersLocation.selectedLocation;
-
                                                          double lat = location_coordinates.latitude;
                                                          double lng = location_coordinates.longitude;
                                                          //Log.i("diu, lat",Double.toString(lat));
