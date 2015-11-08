@@ -49,14 +49,10 @@ public class InvitedEventFragment extends Fragment {
         fbid = user.getFBId();
 
         // Load animation
-        vibrate = AnimationUtils.loadAnimation(getContext(),R.anim.vibrate);
-
-        final FragmentManager fm = getActivity().getSupportFragmentManager();
+        vibrate = AnimationUtils.loadAnimation(getContext(), R.anim.vibrate);
 
         // Get data
-        EventDetailsFetch fetch = new EventDetailsFetch();
         List<EventTypes> list = user.getEventsInvited();
-        //bigdata = fetch.FetchDetails(list);
 
         // Set up list view
         listview = (ListView) rootView.findViewById(R.id.event_main_list);
@@ -66,7 +62,7 @@ public class InvitedEventFragment extends Fragment {
         rsvp_rejecting = (LinearLayout) rootView.findViewById(R.id.rsvp_rejecting);
         rsvp = (LinearLayout) rootView.findViewById(R.id.rsvp);
 
-        LoadingAdapter loading = new LoadingAdapter(user.getEventsInvited());
+        LoadingAdapter loading = new LoadingAdapter(list);
         loading.execute();
 
 
@@ -116,8 +112,8 @@ public class InvitedEventFragment extends Fragment {
             } else {
                 listview.setAdapter(adapter);
 
-                rsvp_attending.setOnDragListener(new MyDragListener(1,user.getUserId()));
-                rsvp_rejecting.setOnDragListener(new MyDragListener(2,user.getUserId()));
+                rsvp_attending.setOnDragListener(new MyDragListener(1, user.getUserId()));
+                rsvp_rejecting.setOnDragListener(new MyDragListener(2, user.getUserId()));
 
                 // Set onTouchListener for each item
                 listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -138,27 +134,44 @@ public class InvitedEventFragment extends Fragment {
                 });
 
                 // Set pop up dialog
-                /*listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        EventTypes et = user.getEventsInvited().get(i);
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("data", user.getEventsInvited().get(i));
+                        // Set Facebook id of user
                         bundle.putString("my_id", fbid);
                         String organiser_name = "myself";
-                        String organiser_fbid = bigdata.get(i).getOrganiser();
                         for (int j = 0; j < user.getMasterList().size(); j++) {
-                            if (user.getMasterList().get(j).fbid.equals(organiser_fbid)) {
+                            if (user.getMasterList().get(j).fbid.equals(et.getOrganiser())) {
                                 organiser_name = user.getMasterList().get(j).username;
                             }
                         }
-                        bundle.putString("organiser_fbid", organiser_fbid);
+                        bundle.putString("organiser_fbid", et.getOrganiser());
                         bundle.putString("organiser_name", organiser_name);
-                        //bundle.putInt("position", i);
+
+                        // Set event name
+                        bundle.putString("event_name", et.getEventName());
+
+                        // Set event start time
+                        bundle.putLong("event_start", et.getEventDateTime().getTimeInMillis());
+
+                        // Set event location
+                        bundle.putString("event_location", et.getEventVenue());
+
+                        // Set event latlng
+                        bundle.putDouble("event_lat",et.getVenueLat());
+                        bundle.putDouble("event_lng",et.getVenueLong());
+
+                        // Set event invitees
+                        ArrayList<String> invitees = (ArrayList<String>) et.getEventInvitees();
+                        bundle.putStringArrayList("event_invitees",invitees);
+
                         EventDisplayDialog event_dialog = new EventDisplayDialog();
                         event_dialog.setArguments(bundle);
                         event_dialog.show(fm, "");
                     }
-                });*/
+                });
             }
 
         }
@@ -170,7 +183,7 @@ public class InvitedEventFragment extends Fragment {
         int response;
         String userid;
 
-        public MyDragListener (int response, String userid){
+        public MyDragListener(int response, String userid) {
             this.response = response;
             this.userid = userid;
         }
@@ -199,20 +212,21 @@ public class InvitedEventFragment extends Fragment {
                 case DragEvent.ACTION_DROP:
 
                     view.setVisibility(View.VISIBLE);
-                    if (response == 1){
-                    Toast.makeText(getContext(), "You are going", Toast.LENGTH_LONG).show();
-                    eventTypes.rsvp(userid,1);
+                    if (response == 1) {
+                        Toast.makeText(getContext(), "You are going", Toast.LENGTH_LONG).show();
+                        eventTypes.rsvp(userid, 1);
                     }
-                    if (response == 2){
-                        eventTypes.rsvp(userid,2);
-                        Toast.makeText(getContext(), "You are rejecting", Toast.LENGTH_LONG).show();}
+                    if (response == 2) {
+                        eventTypes.rsvp(userid, 2);
+                        Toast.makeText(getContext(), "You are rejecting", Toast.LENGTH_LONG).show();
+                    }
 
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
 
                     rsvp.setVisibility(View.GONE);
                     break;
-                    //v.setBackground(normalShape);
+                //v.setBackground(normalShape);
                 default:
                     break;
             }

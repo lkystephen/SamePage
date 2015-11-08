@@ -47,6 +47,7 @@ public static ArrayList<String> autocomplete(String input) {
         char[] buff = new char[1024];
         while ((read = in.read(buff)) != -1) {
             jsonResults.append(buff, 0, read);
+            Log.e("JASON",jsonResults.toString());
         }
     } catch (MalformedURLException e) {
         Log.e(LOG_TAG, "Error processing Places API URL", e);
@@ -77,7 +78,7 @@ public static ArrayList<String> autocomplete(String input) {
             resultList.add(place.toString());
           
         }
-        
+
     } catch (JSONException e) {
         Log.e(LOG_TAG, "Cannot process JSON results", e);
     }

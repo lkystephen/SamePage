@@ -30,12 +30,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import org.joda.time.DateTime;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class EventDisplayDialog extends DialogFragment implements OnMapReadyCallback {
 
     private SupportMapFragment fragment;
-    private LatLng latLng;
+    LatLng latLng;
     String fbid, organiser_name, organiser_fbid;
 
     public EventDisplayDialog() {
@@ -44,7 +45,6 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        View view = getActivity().getLayoutInflater().inflate(R.layout.event_details_display, new LinearLayout(getActivity()), false);
 
         View view = inflater.inflate(R.layout.event_details_display, container, false);
 
@@ -59,9 +59,6 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
         organiser_name = mArgs.getString("organiser_name");
         organiser_fbid = mArgs.getString("organiser_fbid");
 
-        final EventEntryItem event_details = (EventEntryItem) mArgs.getSerializable("data");
-        //int position = mArgs.getInt("position");
-
         Typeface typeface_reg = FontCache.getFont(getContext(), "sf_reg.ttf");
         Typeface typeface_bold = FontCache.getFont(getContext(), "sf_bold.ttf");
 
@@ -75,7 +72,6 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
         TextView event_start_time = (TextView) view.findViewById(R.id.event_start_time);
         // TextView event_end_time = (TextView) view.findViewById(R.id.timeEndDisplay);
         final TextView event_location = (TextView) view.findViewById(R.id.event_loc);
-        //final TextView event_map_display = (TextView) view.findViewById(R.id.event_map_display);
         TextView eventInvitedNumber = (TextView) view.findViewById(R.id.invited_text);
         LinearLayout rsvp = (LinearLayout) view.findViewById(R.id.rsvp_block);
         View rsvp_line = view.findViewById(R.id.rsvp_line);
@@ -89,7 +85,7 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
         event_start_date.setTypeface(typeface_reg);
         event_start_time.setTypeface(typeface_reg);
         eventInvitedNumber.setTypeface(typeface_reg);
-
+        event_location.setTypeface(typeface_reg);
 
         // Get event position from user
         String org;
@@ -104,16 +100,15 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
         organiser.setText(org);
 
         // Set up event name
-        event_Name.setText(event_details.getTitle().toUpperCase());
+        String event_name = mArgs.getString("event_name");
+        event_Name.setText(event_name.toUpperCase());
 
-
+        // Set up event organiser facebook photo
         Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(organiser_fbid).getPath());
-        //int image = allocate.EventTypeDetermine(event_details.getTitle());
-
         event_organiser_photo.setImageBitmap(bitmap);
 
-        // Set up start and end date
-        java.util.Date juDate = new Date(event_details.getStartTime());
+        // Set up start date
+        java.util.Date juDate = new Date(mArgs.getLong("event_start"));
         DateTime dt_s = new DateTime(juDate);
         String s_year = Integer.toString(dt_s.getYear());
         TimeConvertToText abc = new TimeConvertToText();
@@ -123,9 +118,7 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
         String string1 = new StringBuilder().append(s_month).append(" ").append(s_day).append(", ").append(s_year).append(" ").toString();
         event_start_date.setText(string1);
 
-
-        // Set up start and end time
-
+        // Set up start time
         int s_hour = dt_s.getHourOfDay();
         int s_minute = dt_s.getMinuteOfHour();
         if (s_hour < 10) {
@@ -144,22 +137,28 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
         event_start_time.setText(start_time);
 
         // Set up location
-        if (event_details.getEventLocation() != null) {
-            event_location.setText(event_details.getEventLocation());
+        String location = mArgs.getString("event_location");
+        if (location != null) {
+            event_location.setText(location);
         } else {
             event_location.setText("No location specified");
         }
 
-        //mapLayout.setVisibility(View.VISIBLE);
-        latLng = event_details.getLatLng();
+        // Set up event coordinates
+        long lat = mArgs.getLong("event_lat");
+        Log.i("lat",Long.toString(lat));
+        long lng = mArgs.getLong("event_lng");
+        latLng = new LatLng(lat,lng);
 
         SupportMapFragment mMapFragment = new SupportMapFragment();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.event_map, mMapFragment).commit();
         mMapFragment.getMapAsync(EventDisplayDialog.this);
 
-        for (int i = 0; i < event_details.getFriendsInvited().size(); i++) {
-            if (i <= 4 || event_details.getFriendsInvited().size() < 6) {
+        // Set up event invitees
+        ArrayList<String> invitee = mArgs.getStringArrayList("event_invitees");
+        for (int i = 0; i < invitee.size(); i++) {
+            if (i <= 4 || invitee.size() < 6) {
                 View v = CreateFriendsBubble(i);
 
                 ind_bubbles.addView(v);
@@ -167,12 +166,12 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
         }
 
         // Set up invitees count
-        if (event_details.getFriendsInvited().size() == 1) {
+        if (invitee.size() == 1) {
             eventInvitedNumber.setText(
-                    new StringBuilder().append(event_details.getFriendsInvited().size()).append(" friend is invited").toString());
+                    new StringBuilder().append(invitee.size()).append(" friend is invited").toString());
         } else {
             eventInvitedNumber.setText(
-                    new StringBuilder().append(event_details.getFriendsInvited().size()).append(" friends are invited").toString());
+                    new StringBuilder().append(invitee.size()).append(" friends are invited").toString());
         }
 
         return view;

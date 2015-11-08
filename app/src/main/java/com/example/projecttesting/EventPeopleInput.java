@@ -36,6 +36,7 @@ public class EventPeopleInput extends ActionBarActivity {
     TextView submitButton;
     AutoCompleteTextView peopleAutocomplete;
     ImageView imageStar;
+    Typeface face;
     ArrayList<EventPeopleItem> data = new ArrayList<>();
 
     @Override
@@ -45,8 +46,7 @@ public class EventPeopleInput extends ActionBarActivity {
 
         ArrayList<EventPeopleItem> selected_data = new ArrayList<>();
 
-        Typeface face;
-        face = Typeface.createFromAsset(getAssets(), "ubuntu_regular.ttf");
+        face = FontCache.getFont(this, "sf_reg.ttf");
 
         mActivity = this;
         final LayoutInflater mInflater = (LayoutInflater) mActivity.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -139,7 +139,7 @@ public class EventPeopleInput extends ActionBarActivity {
         peopleAutocomplete.setTypeface(face);
 
         // Remove the background shadow of autocomplete
-        peopleAutocomplete.setDropDownBackgroundDrawable(mActivity.getResources().getDrawable(R.drawable.eventautocomplete_dropdownstyle));
+        peopleAutocomplete.setDropDownBackgroundDrawable(mActivity.getResources().getDrawable(R.drawable.eventautocomplete_dropdownstyle, null));
 
         SelectingFriendsAdapter adapter = new SelectingFriendsAdapter(this, R.layout.event_people_list_item, listForAdapter);
 
@@ -312,8 +312,6 @@ public class EventPeopleInput extends ActionBarActivity {
 
             LayoutInflater mInflater = (LayoutInflater) context
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            Typeface face;
-            //face = Typeface.createFromAsset(getContext().getAssets(), "ubuntu_regular.ttf");
 
             if (convertView == null)
                 convertView = mInflater.inflate(R.layout.event_people_list_item, parent, false);
@@ -324,7 +322,10 @@ public class EventPeopleInput extends ActionBarActivity {
             holder.image = (ImageView) convertView.findViewById(R.id.friends_image);
             holder.select = (TextView) convertView.findViewById(R.id.peopleSelectionStatus);
             holder.selected = (ImageView) convertView.findViewById(R.id.friend_selected);
-  //          holder.select.setTypeface(face);
+
+            // Set font style
+            holder.name.setTypeface(face);
+            holder.select.setTypeface(face);
 
             holder.name.setText(item.getName());
             holder.image.setImageResource(item.getImageId());

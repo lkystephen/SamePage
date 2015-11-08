@@ -1,4 +1,4 @@
-package com.example.projecttesting;
+/*package com.example.projecttesting;
 
 import android.app.Activity;
 import android.content.Context;
@@ -72,4 +72,4 @@ public class PlacesAdapterListitemsOnClick extends Activity implements
 
 }
 
-// End of onClickListener
+// End of onClickListener*/

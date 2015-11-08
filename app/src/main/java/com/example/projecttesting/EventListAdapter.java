@@ -16,8 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.projecttesting.AllocateEventPhoto;
-import com.example.projecttesting.EventEntryItem;
-import com.example.projecttesting.R;
 
 import org.joda.time.DateTime;
 import org.joda.time.JodaTimePermission;

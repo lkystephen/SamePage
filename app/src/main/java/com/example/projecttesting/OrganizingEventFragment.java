@@ -99,34 +99,51 @@ public class OrganizingEventFragment extends Fragment {
 
             listview.setAdapter(adapter);
 
-            /*if (result == null) {
+            if (result == null) {
                 TextView no_event_msg = (TextView) getActivity().findViewById(R.id.no_event_text);
                 no_event_msg.setVisibility(View.VISIBLE);
 
             } else {
-                //    listview.setAdapter(adapter);
+
                 listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        EventTypes et = user.getEventsOrganised().get(i);
                         Bundle bundle = new Bundle();
-                        bundle.putSerializable("data", bigdata.get(i));
+                        // Set Facebook id of user
                         bundle.putString("my_id", fbid);
                         String organiser_name = "myself";
-                        String organiser_fbid = bigdata.get(i).getOrganiser();
                         for (int j = 0; j < user.getMasterList().size(); j++) {
-                            if (user.getMasterList().get(j).fbid.equals(organiser_fbid)) {
+                            if (user.getMasterList().get(j).fbid.equals(et.getOrganiser())) {
                                 organiser_name = user.getMasterList().get(j).username;
                             }
                         }
-                        bundle.putString("organiser_fbid", organiser_fbid);
+                        bundle.putString("organiser_fbid", et.getOrganiser());
                         bundle.putString("organiser_name", organiser_name);
-                        //bundle.putInt("position", i);
-                        EventOrganisingDialog event_dialog = new EventOrganisingDialog();
+
+                        // Set event name
+                        bundle.putString("event_name", et.getEventName());
+
+                        // Set event start time
+                        bundle.putLong("event_start", et.getEventDateTime().getTimeInMillis());
+
+                        // Set event location
+                        bundle.putString("event_location", et.getEventVenue());
+
+                        // Set event latlng
+                        bundle.putDouble("event_lat",et.getVenueLat());
+                        bundle.putDouble("event_lng",et.getVenueLong());
+
+                        // Set event invitees
+                        ArrayList<String> invitees = (ArrayList<String>) et.getEventInvitees();
+                        bundle.putStringArrayList("event_invitees",invitees);
+
+                        EventDisplayDialog event_dialog = new EventDisplayDialog();
                         event_dialog.setArguments(bundle);
                         event_dialog.show(fm, "");
                     }
                 });
-            }*/
+            }
 
         }
     }

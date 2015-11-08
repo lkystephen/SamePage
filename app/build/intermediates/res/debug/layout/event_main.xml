@@ -75,7 +75,9 @@
             <com.example.projecttesting.MyTextView
                 android:id="@+id/no_event_text"
                 android:layout_width="wrap_content"
+                android:layout_gravity="center"
                 android:layout_height="wrap_content"
+                android:textColor="#ffffff"
                 android:text="No events yet"
                 android:textSize="15sp"
                 android:textStyle="normal"
