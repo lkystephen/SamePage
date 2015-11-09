@@ -93,7 +93,8 @@ public class MainActivity extends AppCompatActivity implements MainAct {
     int temp;
     //public static ArrayList<String> placeID = new ArrayList<String>();
 
-    public static final String API_KEY = "AIzaSyCEBmXKQ5k42UsKvCmZBPnmv3BDTqds52k";
+//    public static final String API_KEY = "AIzaSyCEBmXKQ5k42UsKvCmZBPnmv3BDTqds52k";
+    public static final String API_KEY = "AIzaSyCDY8ulp1VGKwGdaRU19G4sfuXsymZGgoY";
 
     public Fragment fragment;
 
@@ -124,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements MainAct {
 
         // Create main floating icon
         ImageView add_icon = new ImageView(this);
-        add_icon.setImageResource(R.drawable.plus_w);
+        add_icon.setImageResource(R.drawable.more_w);
 
         int[][] states = {{android.R.attr.state_enabled} , {
                 android.R.attr.state_pressed}};

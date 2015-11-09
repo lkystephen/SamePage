@@ -89,8 +89,19 @@ uses-permission#com.example.projecttesting.permission.C2D_MESSAGE
 ADDED from AndroidManifest.xml:18:5
 	android:name
 		ADDED from AndroidManifest.xml:18:22
-application
+uses-feature#0x00020000
 ADDED from AndroidManifest.xml:20:5
+MERGED from com.google.android.gms:play-services-maps:8.1.0:23:5
+MERGED from com.google.android.gms:play-services-maps:8.1.0:23:5
+MERGED from com.google.android.gms:play-services-maps:8.1.0:23:5
+MERGED from com.google.android.gms:play-services-maps:8.1.0:23:5
+	android:glEsVersion
+		ADDED from AndroidManifest.xml:21:9
+	android:required
+		ADDED from AndroidManifest.xml:22:9
+application
+ADDED from AndroidManifest.xml:24:5
+MERGED from com.android.support:support-v4:23.1.0:22:5
 MERGED from uk.co.chrisjenx:calligraphy:2.1.0:11:5
 MERGED from com.android.support:appcompat-v7:23.1.0:22:5
 MERGED from com.android.support:support-v4:23.1.0:22:5
@@ -216,132 +227,134 @@ MERGED from com.google.android.gms:play-services-wearable:8.1.0:19:5
 MERGED from com.google.android.gms:play-services-basement:8.1.0:20:5
 MERGED from com.android.support:support-v4:23.1.0:22:5
 	android:label
-		ADDED from AndroidManifest.xml:23:9
+		ADDED from AndroidManifest.xml:27:9
 	android:allowBackup
-		ADDED from AndroidManifest.xml:21:9
+		ADDED from AndroidManifest.xml:25:9
 	android:icon
-		ADDED from AndroidManifest.xml:22:9
+		ADDED from AndroidManifest.xml:26:9
 	android:theme
-		ADDED from AndroidManifest.xml:24:9
+		ADDED from AndroidManifest.xml:28:9
 meta-data#com.facebook.sdk.ApplicationId
-ADDED from AndroidManifest.xml:26:9
-	android:value
-		ADDED from AndroidManifest.xml:26:66
-	android:name
-		ADDED from AndroidManifest.xml:26:20
-meta-data#com.google.android.gms.version
-ADDED from AndroidManifest.xml:27:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
-	android:value
-		ADDED from AndroidManifest.xml:29:13
-	android:name
-		ADDED from AndroidManifest.xml:28:13
-meta-data#com.google.android.maps.v2.API_KEY
 ADDED from AndroidManifest.xml:30:9
 	android:value
+		ADDED from AndroidManifest.xml:30:66
+	android:name
+		ADDED from AndroidManifest.xml:30:20
+meta-data#com.google.android.gms.version
+ADDED from AndroidManifest.xml:31:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+MERGED from com.google.android.gms:play-services-basement:8.1.0:21:9
+	android:value
+		ADDED from AndroidManifest.xml:33:13
+	android:name
 		ADDED from AndroidManifest.xml:32:13
-	android:name
-		ADDED from AndroidManifest.xml:31:13
-activity#com.example.projecttesting.LoginActivity
-ADDED from AndroidManifest.xml:35:9
-	android:name
+meta-data#com.google.android.geo.API_KEY
+ADDED from AndroidManifest.xml:34:9
+	android:value
 		ADDED from AndroidManifest.xml:36:13
+	android:name
+		ADDED from AndroidManifest.xml:35:13
+activity#com.example.projecttesting.LoginActivity
+ADDED from AndroidManifest.xml:39:9
+	android:name
+		ADDED from AndroidManifest.xml:40:13
 intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:37:13
+ADDED from AndroidManifest.xml:41:13
 action#android.intent.action.MAIN
-ADDED from AndroidManifest.xml:38:17
+ADDED from AndroidManifest.xml:42:17
 	android:name
-		ADDED from AndroidManifest.xml:38:25
+		ADDED from AndroidManifest.xml:42:25
 category#android.intent.category.LAUNCHER
-ADDED from AndroidManifest.xml:39:17
+ADDED from AndroidManifest.xml:43:17
 	android:name
-		ADDED from AndroidManifest.xml:39:27
+		ADDED from AndroidManifest.xml:43:27
 activity#com.example.projecttesting.MainActivity
-ADDED from AndroidManifest.xml:43:9
-	android:label
-		ADDED from AndroidManifest.xml:45:13
-	android:name
-		ADDED from AndroidManifest.xml:44:13
-activity#com.example.projecttesting.EventLocationInput
 ADDED from AndroidManifest.xml:47:9
-	android:windowSoftInputMode
+	android:label
 		ADDED from AndroidManifest.xml:49:13
 	android:name
 		ADDED from AndroidManifest.xml:48:13
-activity#com.example.projecttesting.EventPeopleInput
-ADDED from AndroidManifest.xml:50:9
-	android:name
-		ADDED from AndroidManifest.xml:50:19
-activity#com.example.projecttesting.EventCreation
+activity#com.example.projecttesting.EventLocationInput
 ADDED from AndroidManifest.xml:51:9
-	android:name
-		ADDED from AndroidManifest.xml:51:19
-activity#com.facebook.FacebookActivity
-ADDED from AndroidManifest.xml:52:9
-	android:label
-		ADDED from AndroidManifest.xml:56:13
-	android:configChanges
+	android:windowSoftInputMode
 		ADDED from AndroidManifest.xml:53:13
-	android:theme
-		ADDED from AndroidManifest.xml:55:13
 	android:name
-		ADDED from AndroidManifest.xml:52:19
-receiver#com.example.projecttesting.GcmBroadcastReceiver
-ADDED from AndroidManifest.xml:57:9
-	android:permission
+		ADDED from AndroidManifest.xml:52:13
+activity#com.example.projecttesting.EventPeopleInput
+ADDED from AndroidManifest.xml:54:9
+	android:name
+		ADDED from AndroidManifest.xml:54:19
+activity#com.example.projecttesting.EventCreation
+ADDED from AndroidManifest.xml:55:9
+	android:name
+		ADDED from AndroidManifest.xml:55:19
+activity#com.facebook.FacebookActivity
+ADDED from AndroidManifest.xml:56:9
+	android:label
+		ADDED from AndroidManifest.xml:60:13
+	android:configChanges
+		ADDED from AndroidManifest.xml:57:13
+	android:theme
 		ADDED from AndroidManifest.xml:59:13
 	android:name
-		ADDED from AndroidManifest.xml:58:13
+		ADDED from AndroidManifest.xml:56:19
+receiver#com.example.projecttesting.GcmBroadcastReceiver
+ADDED from AndroidManifest.xml:61:9
+	android:permission
+		ADDED from AndroidManifest.xml:63:13
+	android:name
+		ADDED from AndroidManifest.xml:62:13
 intent-filter#com.example.projecttesting+com.google.android.c2dm.intent.RECEIVE
-ADDED from AndroidManifest.xml:60:13
+ADDED from AndroidManifest.xml:64:13
 action#com.google.android.c2dm.intent.RECEIVE
-ADDED from AndroidManifest.xml:61:17
+ADDED from AndroidManifest.xml:65:17
 	android:name
-		ADDED from AndroidManifest.xml:61:25
+		ADDED from AndroidManifest.xml:65:25
 category#com.example.projecttesting
-ADDED from AndroidManifest.xml:62:17
+ADDED from AndroidManifest.xml:66:17
 	android:name
-		ADDED from AndroidManifest.xml:62:27
+		ADDED from AndroidManifest.xml:66:27
 service#com.example.projecttesting.GcmMessageHandler
-ADDED from AndroidManifest.xml:65:9
+ADDED from AndroidManifest.xml:69:9
 	android:name
-		ADDED from AndroidManifest.xml:65:18
+		ADDED from AndroidManifest.xml:69:18
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
+MERGED from com.appyvet:materialrangebar:1.2:7:5
+MERGED from com.android.support:support-v4:23.1.0:20:5
 MERGED from uk.co.chrisjenx:calligraphy:2.1.0:7:5
 MERGED from com.android.support:appcompat-v7:23.1.0:20:5
 MERGED from com.android.support:support-v4:23.1.0:20:5
@@ -518,15 +531,6 @@ MERGED from com.google.android.gms:play-services-ads:8.1.0:30:9
 		ADDED from com.google.android.gms:play-services-ads:8.1.0:31:13
 	android:name
 		ADDED from com.google.android.gms:play-services-ads:8.1.0:30:19
-uses-feature#0x00020000
-ADDED from com.google.android.gms:play-services-maps:8.1.0:23:5
-MERGED from com.google.android.gms:play-services-maps:8.1.0:23:5
-MERGED from com.google.android.gms:play-services-maps:8.1.0:23:5
-MERGED from com.google.android.gms:play-services-maps:8.1.0:23:5
-	android:glEsVersion
-		ADDED from com.google.android.gms:play-services-maps:8.1.0:24:8
-	android:required
-		ADDED from com.google.android.gms:play-services-maps:8.1.0:25:8
 android:uses-permission#android.permission.READ_EXTERNAL_STORAGE
 IMPLIED from AndroidManifest.xml:2:1 reason: com.google.android.gms.maps requested WRITE_EXTERNAL_STORAGE
 uses-permission#android.permission.WAKE_LOCK

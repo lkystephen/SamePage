@@ -25,7 +25,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="2dp"
+        android:layout_marginEnd="2dp"
         android:orientation="vertical">
 
         <com.example.projecttesting.MyTextView
@@ -36,8 +36,7 @@
             android:paddingTop="2dp"
             android:singleLine="true"
             android:textColor="#000000"
-            android:textSize="18sp"
-            custom:fontName="sf_reg.ttf"/>
+            android:textSize="18sp"/>
 
         <com.example.projecttesting.MyTextView
             android:id="@+id/placesecondname"
@@ -48,8 +47,7 @@
             android:paddingBottom="1dp"
             android:singleLine="true"
             android:textColor="#7f7f7f"
-            android:textSize="14sp"
-            custom:fontName="sf_ulight.ttf" />
+            android:textSize="14sp"/>
 
     </LinearLayout>
 

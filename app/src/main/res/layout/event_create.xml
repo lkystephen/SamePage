@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="13sp"
-                android:text="Drag page down to create event"
+                android:text="Drag page down to confirm details"
                 android:textColor="#ffffff"/>
         </LinearLayout>
 
@@ -87,21 +87,52 @@
                     style="@android:style/Widget.Holo.Light.Spinner"
                     android:layout_width="75dp"
                     android:layout_height="60dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:textSize="15sp"
                     custom:fontName="sf_reg.ttf" />
 
             </LinearLayout>
 
-            <com.example.projecttesting.MyTextView
-                android:id="@+id/eventEndInput"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="55dp"
-                android:layout_marginStart="55dp"
-                android:text="Event is 2 hours by default. You can customize below."
-                android:textSize="15sp"
-                custom:fontName="sf_reg.ttf" />
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginStart="55dp">
+
+                <RadioButton
+                    android:id="@+id/end1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="30 mins"
+                    android:textSize="12sp"/>
+
+                <RadioButton
+                    android:id="@+id/end2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1 hour"
+                    android:checked="true"
+                    android:layout_marginStart="3dp"
+                    android:textSize="12sp"/>
+
+
+                <RadioButton
+                    android:id="@+id/end3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2 hours"
+                    android:layout_marginStart="3dp"
+                    android:textSize="12sp"/>
+
+                <RadioButton
+                    android:id="@+id/end4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Custom"
+                    android:layout_marginStart="3dp"
+                    android:textSize="12sp"/>
+            </RadioGroup>
 
         </LinearLayout>
 
@@ -189,14 +220,6 @@
             style="@style/EventDivider"
             android:transitionName="PeopleLine" />
 
-        <TextView
-            android:id="@+id/more_options"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="55dp"
-            android:gravity="center_vertical"
-            android:text="More options"
-            android:textSize="16sp" />
 
     </LinearLayout>
 

@@ -14,8 +14,14 @@
         android:background="#ECEFF1"
         android:orientation="vertical">
 
+        <FrameLayout
+            android:id="@+id/event_map"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"></FrameLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_marginTop="25dp"
             android:layout_height="70dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -146,15 +152,6 @@
 
 
         </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/event_map"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="20dp"
-            android:visibility="gone"></FrameLayout>
-
 
         <View
             style="@style/EventDivider"
