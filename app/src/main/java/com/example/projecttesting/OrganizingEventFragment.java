@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -131,14 +132,16 @@ public class OrganizingEventFragment extends Fragment {
                         bundle.putString("event_location", et.getEventVenue());
 
                         // Set event latlng
-                        bundle.putDouble("event_lat",et.getVenueLat());
+                        bundle.putDouble("event_lat", et.getVenueLat());
+                        //Log.i("PUT LAT", Double.toString(et.getVenueLat()));
                         bundle.putDouble("event_lng",et.getVenueLong());
 
                         // Set event invitees
                         ArrayList<String> invitees = (ArrayList<String>) et.getEventInvitees();
+                        Log.i("number",Integer.toString(et.getEventInvitees().size()));
                         bundle.putStringArrayList("event_invitees",invitees);
 
-                        EventDisplayDialog event_dialog = new EventDisplayDialog();
+                        EventOrganisingDialog event_dialog = new EventOrganisingDialog();
                         event_dialog.setArguments(bundle);
                         event_dialog.show(fm, "");
                     }

@@ -139,7 +139,9 @@ public class EventFragment extends Fragment implements MainAct {
         face = FontCache.getFont(getContext(), "sf_reg.ttf");
 
         TextView createText = (TextView) view.findViewById(R.id.update_status2);
+        TextView rsvpText = (TextView) view.findViewById(R.id.update_status3);
         createText.setTypeface(face);
+        rsvpText.setTypeface(face);
 
         mViewPager = (ViewPager) view.findViewById(R.id.event_viewPager);
 

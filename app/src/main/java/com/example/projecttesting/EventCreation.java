@@ -103,6 +103,7 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
                         event_bundle.putString("EVENT_DETAILS", "testing");
                         event_bundle.putString("VENUE", location);
                         event_bundle.putStringArrayList("INVITEES", selectedPeople);
+                        //Log.i("no fo people",Integer.toString(selectedPeople.size()));
 
                         String event_start_submit = dateConvert.MillisToStringForServer(minMillis);
 
@@ -117,7 +118,6 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
                             lengthMillis = 1000 *60;
                         }
                         String event_end_submit = dateConvert.MillisToStringForServer(minMillis + lengthMillis);
-                        Log.i("this better work", event_start_submit);
                         event_bundle.putString("DATETIME", event_start_submit);
                         event_bundle.putString("ENDTIME", event_end_submit);
                         event_bundle.putString("ORGANISER", user.getUserId());

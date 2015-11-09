@@ -25,39 +25,64 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal"
+                android:background="#20000000">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="1.7"
                     android:gravity="center">
 
-                    <ImageView
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
+                    <com.pkmmte.view.CircularImageView
+                        android:layout_width="43dp"
+                        android:layout_height="43dp"
                         android:adjustViewBounds="true"
                         android:scaleType="fitXY"
-                        android:src="@drawable/question" />
+                        android:id="@+id/closest_friend_image"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="8">
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical">
 
                     <com.example.projecttesting.MyTextView
                         android:id="@+id/closest_location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         android:textSize="18sp"
-                        android:text="CLOSEST_DIS_VARIABLE"
+                        android:text="Finding your closest friend"
+                        android:textColor="#ffffff"
+                        android:textStyle="normal"
+                        android:layout_marginTop="3dp"/>
+
+                    <com.example.projecttesting.MyTextView
+                        android:id="@+id/closest_location_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textSize="12sp"
+                        android:text="Calculating..."
                         android:textColor="#ffffff"
                         android:textStyle="normal" />
 
+                    <com.example.projecttesting.MyTextView
+                        android:id="@+id/closest_location_details2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textSize="12sp"
+                        android:text="Calculating..."
+                        android:textColor="#ffffff"
+                        android:textStyle="normal"
+                        android:layout_marginBottom="2dp"/>
                 </LinearLayout>
             </LinearLayout>
 

@@ -559,6 +559,9 @@
     <string name="mr_media_route_controller_stop">Stop casting</string>
     <string name="mr_system_route_name">System</string>
     <string name="mr_user_route_category_name">Devices</string>
+    <!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/SamePage/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="place_details">&lt;b>%1$s&lt;/b>&lt;br/>&lt;i>Place Id: %2$s&lt;/i>&lt;br/>Address: %3$s&lt;br/>Phone: %4$s&lt;br/>Website: %5$s</string>
     <!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/SamePage/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/res/values/values.xml -->
     <eat-comment/>
     <string name="status_bar_notification_info_overflow">999+</string>

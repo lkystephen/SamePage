@@ -1,4 +1,4 @@
-package com.example.projecttesting;
+/*package com.example.projecttesting;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,10 +12,14 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -28,13 +32,15 @@ public class EventReturnLocation extends Fragment {
     public double lat;
     public double lng;
     LatLng selectedLocation;
+    String placeId, primaryLocation;
     EditText locationDisplay;
 
-    public EventReturnLocation() {
+    public EventReturnLocation(String placeId, String primaryLocation) {
         selectedLocation = new LatLng(lat, lng);
+        this.placeId = placeId;
+        this.primaryLocation = primaryLocation;
     }
 
-    ;
 
     private String downloadUrl(URL url) throws IOException {
         String data = "";
@@ -82,8 +88,8 @@ public class EventReturnLocation extends Fragment {
             try {
                 urls = new URL(
                         "https://maps.googleapis.com/maps/api/place/details/json?placeid="
-                                + params[0] + "&key=" + MainActivity.API_KEY);
-                //Log.i("url",urls.toString());
+                                + placeId + "&key=" + MainActivity.API_KEY);
+                Log.i("url",urls.toString());
             } catch (MalformedURLException e1) {
             }
 
@@ -132,38 +138,27 @@ public class EventReturnLocation extends Fragment {
         @Override
         public void onPostExecute(LatLng latLng) {
             super.onPostExecute(latLng);
-            /*JSONObject jObj = null;
-			LatLng selectedLocation = null;
 
-			try {
-				jObj = new JSONObject(data);
-				//Log.i("diu jobj",jObj.toString());
-				// Fetch Lat and Lng from the JSON object
-				double lat = jObj.getJSONObject("result")
-						.getJSONObject("geometry").getJSONObject("location")
-						.getDouble("lat");
-
-				Log.i("diu diu lat",Double.toString(lat));
-
-				double lng = jObj.getJSONObject("result")
-						.getJSONObject("geometry").getJSONObject("location")
-						.getDouble("lng");
-
-				//double lat_double = Double.valueOf(lat);
-				//double lng_double = Double.valueOf(lng);
-				selectedLocation = new LatLng(lat, lng);
-
-				// Return selectedLocation to outside
-				// listener.processFinish(selectedLocation);
-				// delegate.processFinish(selectedLocation);
+            double lat = latLng.latitude;
+            double lng = latLng.longitude;
 
 
-			} catch (JSONException e) {
-				Log.e("JSON Parser", "Error parsing data " + e.toString());
-			}
-		return selectedLocation;
-		*/
+            // Hide Keyboard after making selection
+            InputMethodManager in = (InputMethodManager) getActivity().getApplicationContext().getSystemService(
+                    Context.INPUT_METHOD_SERVICE);
+            in.hideSoftInputFromWindow(getActivity().getCurrentFocus()
+                    .getWindowToken(), 0);
+
+            Intent i = new Intent(getContext(), EventCreation.class);
+            i.putExtra("selectedLocation", primaryLocation);
+            i.putExtra("LATITUDE", lat);
+            i.putExtra("LONGITUDE", lng);
+            i.putExtra("requestCode", 1);
+            getActivity().setResult(Activity.RESULT_OK, i);
+            getActivity().finish();
+
         }
 
     }
 }
+*/

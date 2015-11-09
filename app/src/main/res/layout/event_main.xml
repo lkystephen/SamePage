@@ -48,6 +48,14 @@
                     android:textSize="13sp"
                     android:text="Drag page down to create event"
                     android:textColor="#ffffff"/>
+
+                <TextView
+                    android:id="@+id/update_status3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:text="Long press on an event to RSVP"
+                    android:textColor="#ffffff"/>
             </LinearLayout>
 
             <LinearLayout

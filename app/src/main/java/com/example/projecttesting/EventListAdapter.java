@@ -40,9 +40,10 @@ public class EventListAdapter extends ArrayAdapter<EventTypes> {
         TextView event_name;
         //TextView event_invitees;
         TextView event_location;
-        TextView event_date, event_time;
+        TextView event_date, event_time, whoInvited;
         //LinearLayout invitees_display;
         ImageView event_image, rsvp_status;
+        LinearLayout bubbles;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -64,10 +65,10 @@ public class EventListAdapter extends ArrayAdapter<EventTypes> {
             holder.event_time = (TextView) convertView.findViewById(R.id.event_time);
             holder.event_location = (TextView) convertView.findViewById(R.id.event_location_list_item);
             holder.rsvp_status = (ImageView) convertView.findViewById(R.id.rsvp_status);
-            //holder.event_invitees = (TextView) convertView.findViewById(R.id.friends_invited_list_item);
-            //holder.event_organiser = (TextView) convertView.findViewById(R.id.organiser);
+            holder.whoInvited = (TextView) convertView.findViewById(R.id.who_is_going_text);
             holder.event_image = (ImageView) convertView.findViewById(R.id.event_type);
             holder.event_date = (TextView) convertView.findViewById(R.id.event_date_list_item);
+            holder.bubbles = (LinearLayout) convertView.findViewById(R.id.circles_display);
             //holder.invitees_display = (LinearLayout) convertView.findViewById(R.id.invitees_dis);
 
             // Base on the RSVP status, for now we set all to going
@@ -79,6 +80,7 @@ public class EventListAdapter extends ArrayAdapter<EventTypes> {
             holder.event_time.setTypeface(face_r);
             holder.event_location.setTypeface(face_r);
             holder.event_date.setTypeface(face_r);
+            holder.whoInvited.setTypeface(face_r);
 
             holder.event_name.setText(rowItem.getEventName().toUpperCase());
             holder.event_location.setText(rowItem.getEventVenue());
@@ -124,36 +126,18 @@ public class EventListAdapter extends ArrayAdapter<EventTypes> {
             //RoundImage roundImage = new RoundImage(bitmap);
             holder.event_image.setImageResource(allocated);
 
+            int organise_number = rowItem.getEventInvitees().size();
+            for (int i = 0; i < organise_number; i++) {
+                if (i <= 4 && organise_number < 6) {
+                    CreateFriendsBubble createFriendsBubble = new CreateFriendsBubble();
+                    View v = createFriendsBubble.create(context,18,rowItem.getEventInvitees().get(i));
 
-            /*for (int i = 0; i < rowItem.getFriendsInvited().size(); i++) {
-                if (i <= 4 || rowItem.getFriendsInvited().size() < 6) {
-                    View v = CreateFriendsBubble(i,context);
-
-                    holder.invitees_display.addView(v);
+                    holder.bubbles.addView(v);
                 }
-            }*/
+            }
 
         }
         return convertView;
     }
-
-
-
-    public View CreateFriendsBubble (final int i, Context context){
-        LayoutInflater m = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View ind_layout = m.inflate(R.layout.event_displayed_friend_bubble, null);
-
-        ImageView invitees_bubble = (ImageView) ind_layout.findViewById(R.id.individual_bubble2);
-        int image2 = R.drawable.wilson;
-        Bitmap bm = BitmapFactory.decodeResource(context.getResources(), image2);
-        RoundImage displayImage = new RoundImage(bm);
-
-
-        invitees_bubble.setImageDrawable(displayImage);
-
-        return ind_layout;
-
-    }
-
 }
 

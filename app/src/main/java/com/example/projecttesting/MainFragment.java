@@ -39,6 +39,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cjj.Util;
 import com.facebook.login.widget.ProfilePictureView;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
@@ -50,6 +51,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.pkmmte.view.CircularImageView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -75,15 +77,19 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
     //public static GoogleMap googleMap;
     public static Marker selectedMarker;
     public LatLng myPosition;
-    public int travel_time;
+    public String distance, destination;
+    int travelTime;
     public AutoCompleteTextView autoCompView;
     ListView listView;
     MainPageAdapter adapter;
+    CircularImageView closest_friend_image;
     //ImageButton delButton;
     LatLng currentLatLng;
-    TextView closest_location, event_details1;
+    TextView closest_location, closest_location_details, closest_location_details2;
     public static SupportMapFragment mMapFragment;
     User user;
+    // Testing data
+    String id = "106808403007880";
     //ArrayList<FriendsRowItem> rowItems;
     //ImageView test_button, test_button2;
 
@@ -103,15 +109,20 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         View rootView = inflater.inflate(R.layout.mainmap, container, false);
 
         // Typeface
-        Typeface typeface_reg = FontCache.getFont(getContext(), "sf_bold.ttf");
+        Typeface typeface_reg = FontCache.getFont(getContext(), "sf_reg.ttf");
 
         listView = (ListView) rootView.findViewById(R.id.main_listview);
 
         closest_location = (TextView) rootView.findViewById(R.id.closest_location);
-        //event_details1 = (TextView) rootView.findViewById(R.id.event_details1);
+        closest_location_details = (TextView) rootView.findViewById(R.id.closest_location_details);
+        closest_location_details2 = (TextView) rootView.findViewById(R.id.closest_location_details2);
+        closest_friend_image = (CircularImageView) rootView.findViewById(R.id.closest_friend_image);
 
         closest_location.setTypeface(typeface_reg);
-        //event_details1.setTypeface(typeface_reg);
+        closest_location_details.setTypeface(typeface_reg);
+        closest_location_details2.setTypeface(typeface_reg);
+
+        closest_friend_image.setImageBitmap(BitmapFactory.decodeFile(Utility.getImage(id).getPath()));
 
         ConstructNewsFeedItem item = new ConstructNewsFeedItem(user);
         ArrayList<HashMap<String, Integer>> result = item.setEventsFeedPriority();
@@ -133,26 +144,9 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         Context context;
         context = this.getActivity().getApplicationContext();
 
-		/*autoCompView = (AutoCompleteTextView) rootView.findViewById(R.id.autocompletetext);
-        Typeface face;
-		face = Typeface.createFromAsset(getActivity().getAssets(), "sf_reg.ttf");
-		autoCompView.setTypeface(face);
-*/
-
         // Get names of friends
         final List<OtherUser> master_list = user.getMasterList();
-/*
-		autoCompView.setSelectAllOnFocus(true);
-		String[] columnForMatch = new String[]{"placeDesc", "placeSecondName"};
-		int[] columnToMatch = new int[]{R.id.resulttext, R.id.placesecondname};
-		autoCompView.setAdapter(new PlacesAutoCompleteAdapter(getActivity()
-				.getApplicationContext(), null, R.layout.list_item,
-				columnForMatch, columnToMatch));
-*/
-		/*PlacesAdapterListitemsOnClick adapter = new PlacesAdapterListitemsOnClick(
-				this.getActivity(), "MainPageInput", context);
-		autoCompView.setOnItemClickListener(adapter);
-*/
+
         LocationManager locationManager = (LocationManager) context
                 .getSystemService(Context.LOCATION_SERVICE);
 
@@ -358,7 +352,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
             } catch (Exception e) {
                 Log.d("Background Task", e.toString());
             }
-
+/*
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -366,7 +360,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
                     closest_location.setText("Calculating...");
                 }
             });
-
+*/
 
             return data;
         }
@@ -405,8 +399,13 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
                 JSONObject leg_1 = leg.getJSONObject(0);
                 JSONObject duration = leg_1.getJSONObject("duration");
 
-                travel_time = duration.getInt("value");
-                Log.i("travel time", Integer.toString(travel_time));
+                distance = duration.getString("text");
+                Log.i("travel time", distance);
+
+                String tempDes = leg_1.getString("end_address");//.getString("end_address");
+                String[] parts = tempDes.split(", ");
+                destination = parts[0] + ", " + parts[1];
+                Log.i("destination",destination);
 
                 DirectionsJSONParser parser = new DirectionsJSONParser();
 
@@ -425,10 +424,25 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
             PolylineOptions lineOptions = null;
             MarkerOptions markerOptions = new MarkerOptions();
 
+            // Get the list of OtherUser
+            List<OtherUser> otherUsers = user.getMasterList();
+
+            // Get the name of the closest friend
+            int sizeOfMasterFriends = user.getMasterList().size();
+            String name = new String();
+
+            for (int i = 0; i < sizeOfMasterFriends; i++){
+                String id2 = otherUsers.get(i).fbid;
+                if (id2.equals(id)){
+                    name = otherUsers.get(i).username;
+                    break;
+                }
+            }
+
             // Set the distance measured in minutes
-            closest_location.setText("You are " + travel_time / 60 + "mins away from QC (our test location)");
-
-
+            closest_location.setText(name + " is closest to you");
+            closest_location_details.setText("@ "+destination);
+            closest_location_details2.setText(distance + " away");
 
             /*
             // Traversing through all the routes
