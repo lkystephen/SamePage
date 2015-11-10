@@ -1,5 +1,6 @@
 package com.example.projecttesting;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,15 +22,34 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrganizingEventFragment extends Fragment {
+public class OrganizingEventFragment extends Fragment implements UpdateableFragment {
 
     ListView listview;
-    List<FriendsRowItem> rowItems;
+    List<EventTypes> data;
     User user;
     //ArrayList<EventEntryItem> bigdata;
     String fbid;
+    EventListAdapter adapter;
+    Context mContext;
 
     public OrganizingEventFragment() {
+    }
+
+    public void update(List<EventTypes> data) {
+        // do whatever you want to update your UI
+        this.data = data;
+
+        for (int i=0; i< this.data.size(); i++){
+            Log.i("event name",this.data.get(i).getEventName());
+        }
+
+        //this.mContext = context;
+        Log.i("Organising Fragment", "Number of events retrieved is " + Integer.toString(data.size()));
+        //adapter = new EventListAdapter(context, R.layout.event_list_display, data);
+        adapter.clear();
+        adapter.addAll(this.data);
+        adapter.notifyDataSetChanged();
+
     }
 
     @Override
@@ -93,9 +113,10 @@ public class OrganizingEventFragment extends Fragment {
         protected void onPostExecute(List<EventTypes> result){
             super.onPostExecute(result);
 
-            EventListAdapter adapter = new EventListAdapter(getActivity()
+            data = result;
+            adapter = new EventListAdapter(getActivity()
                     .getApplicationContext(), R.layout.event_list_display,
-                    result);
+                    data);
 
 
             listview.setAdapter(adapter);
