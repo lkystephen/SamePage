@@ -28,6 +28,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.joda.time.DateTime;
+import org.w3c.dom.Text;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -73,7 +74,7 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
         // TextView event_end_time = (TextView) view.findViewById(R.id.timeEndDisplay);
         final TextView event_location = (TextView) view.findViewById(R.id.event_loc);
         TextView eventInvitedNumber = (TextView) view.findViewById(R.id.invited_text);
-        LinearLayout rsvp = (LinearLayout) view.findViewById(R.id.rsvp_block);
+        TextView rsvp_response = (TextView) view.findViewById(R.id.rsvp_response);
         View rsvp_line = view.findViewById(R.id.rsvp_line);
 
         final FrameLayout mapLayout = (FrameLayout) view.findViewById(R.id.event_map);
@@ -86,17 +87,14 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
         event_start_time.setTypeface(typeface_reg);
         eventInvitedNumber.setTypeface(typeface_reg);
         event_location.setTypeface(typeface_reg);
+        rsvp_response.setTypeface(typeface_reg);
+
+        // Set event rsvp status
+        rsvp_response.setText("You have yet to response. Swipe me to respond.");
 
         // Get event position from user
-        String org;
-        if (organiser_name.equals("myself")) {
-            rsvp.setVisibility(View.GONE);
-            rsvp_line.setVisibility(View.GONE);
-            org = "You are the organiser";
-        } else {
+        String org = new StringBuilder().append(organiser_name).append(" invited you").toString();
 
-            org = new StringBuilder().append(organiser_name).append(" invited you").toString();
-        }
         organiser.setText(org);
 
         // Set up event name
@@ -145,9 +143,8 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
         }
 
         // Set up event coordinates
-        long lat = mArgs.getLong("event_lat");
-        Log.i("lat",Long.toString(lat));
-        long lng = mArgs.getLong("event_lng");
+        Double lat = mArgs.getDouble("event_lat");
+        Double lng = mArgs.getDouble("event_lng");
         latLng = new LatLng(lat,lng);
 
         SupportMapFragment mMapFragment = new SupportMapFragment();
@@ -159,7 +156,9 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
         ArrayList<String> invitee = mArgs.getStringArrayList("event_invitees");
         for (int i = 0; i < invitee.size(); i++) {
             if (i <= 4 || invitee.size() < 6) {
-                View v = CreateFriendsBubble(i);
+                String id = invitee.get(i);
+                CreateFriendsBubble createFriendsBubble = new CreateFriendsBubble();
+                View v = createFriendsBubble.create(getContext(),26, id);
 
                 ind_bubbles.addView(v);
             }
@@ -197,19 +196,4 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
         }
     }
 
-    public View CreateFriendsBubble(final int i) {
-        LayoutInflater m = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View ind_layout = m.inflate(R.layout.event_invited_friend_bubble, null);
-
-        ImageView invitees_bubble = (ImageView) ind_layout.findViewById(R.id.individual_bubble);
-        int image2 = R.drawable.edmund;
-        Bitmap bm = BitmapFactory.decodeResource(getResources(), image2);
-        RoundImage displayImage = new RoundImage(bm);
-
-
-        invitees_bubble.setImageDrawable(displayImage);
-
-        return ind_layout;
-
     }
-}

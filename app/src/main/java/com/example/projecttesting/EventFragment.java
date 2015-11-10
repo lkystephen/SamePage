@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -40,6 +41,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class EventFragment extends Fragment implements MainAct {
 
@@ -48,17 +50,16 @@ public class EventFragment extends Fragment implements MainAct {
     String regid;
     String PROJECT_NUMBER = "603098203110";
 
-
     PagerSlidingTabStrip tabs;
 
     private String fbid;
     private String username;
-    ArrayList<EventEntryItem> bigdata;
     MaterialRefreshLayout refreshLayout;
     User user;
-    EventListAdapter adapter;
+    List<EventTypes> data;
     ProgressDialog dialog;
     Context mContext;
+    Activity mActivity;
     ViewPager mViewPager;
 
     @Override
@@ -66,41 +67,23 @@ public class EventFragment extends Fragment implements MainAct {
                              Bundle savedInstanceState) {
 
         return inflater.inflate(R.layout.event_main, container, false);
-
     }
 
     public void handleLoginResults(boolean isNewUser, Users users) {
 
-        Log.e("revisit", Integer.toString(user.getEventsAttending().size() + user.getEventsOrganised().size()));
+        Log.e("revisit", Integer.toString(user.getEventsOrganised().size()));
 
         Bundle bundle = new Bundle();
         bundle.putParcelable("user", user);
-
-
-        //ViewPager mViewPager = (ViewPager) EventFragment.findViewById(R.id.event_viewPager);
-
-//        EventViewAdapter v = new EventViewAdapter(getChildFragmentManager(), bundle);
-
-        //      mViewPager.setAdapter(v);
 
         // Assigning the Sliding Tab Layout View
         Typeface face_b;
         //face = Typeface.createFromAsset(getActivity().getAssets(), "sf_bold.ttf");
         face_b = FontCache.getFont(getContext(), "sf_bold.ttf");
 
-        //      tabs.setTypeface(face_b, 0);
-//        tabs.setTextColor(Color.parseColor("#ffffff"));
+        OrganizingEventFragment m = new OrganizingEventFragment();
 
-        // To make the Tabs Fixed set this true,
-        // This makes the tabs Space Evenly in
-        // Available width
-
-        // Setting the ViewPager For the SlidingTabsLayout
-//        tabs.setViewPager(mViewPager);
-
-        // Update the event count
-        //      int total_event_number = user.getEventsInvited().size() + user.getEventsOrganised().size() + user.getEventsAttending().size();
-
+        mViewPager.getAdapter().getItemPosition(m);
     }
 
     @Override
@@ -132,14 +115,16 @@ public class EventFragment extends Fragment implements MainAct {
             }
         });
 
-        bigdata = new ArrayList<EventEntryItem>();
-
+        mContext = getContext();
+        mActivity = getActivity();
         // Set up pager view
         Typeface face;
         face = FontCache.getFont(getContext(), "sf_reg.ttf");
 
         TextView createText = (TextView) view.findViewById(R.id.update_status2);
+        TextView rsvpText = (TextView) view.findViewById(R.id.update_status3);
         createText.setTypeface(face);
+        rsvpText.setTypeface(face);
 
         mViewPager = (ViewPager) view.findViewById(R.id.event_viewPager);
 
@@ -210,7 +195,6 @@ public class EventFragment extends Fragment implements MainAct {
                         fbid = Profile.getCurrentProfile().getId();
 
                         user = null;
-
                         user = new User(fbid, username, regId_input, EventFragment.this);
                         user.execute();
                     }
@@ -224,7 +208,25 @@ public class EventFragment extends Fragment implements MainAct {
         super.onResume();
     }
 
-    public static class EventViewAdapter extends FragmentPagerAdapter {
+    public class EventViewAdapter extends FragmentPagerAdapter {
+
+        List<EventTypes> data;
+        FragmentManager fm;
+
+        public void update(List<EventTypes> data) {
+            this.data = data;
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public int getItemPosition(Object object) {
+            if (object instanceof UpdateableFragment) {
+                ((UpdateableFragment) object).update(user.getEventsOrganised(), mContext);
+            }
+            //don't return POSITION_NONE, avoid fragment recreation.
+            return super.getItemPosition(object);
+        }
+
 
         private String[] mtitle = new String[]{"Invited", "Organizing"};
         //private User user2;
@@ -232,9 +234,9 @@ public class EventFragment extends Fragment implements MainAct {
 
         public EventViewAdapter(FragmentManager fm, Bundle bundle2) {
             super(fm);
+            this.fm = fm;
             bundle = bundle2;
             //bundle.putParcelable("user", user2);
-
         }
 
         @Override
@@ -249,11 +251,11 @@ public class EventFragment extends Fragment implements MainAct {
             final InvitedEventFragment s = new InvitedEventFragment();
 
             if (index == 0) {
+
                 s.setArguments(bundle);
                 return s;
             }
             if (index == 1) {
-
                 m.setArguments(bundle);
                 return m;
             } else {

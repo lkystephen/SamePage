@@ -1,5 +1,6 @@
 package com.example.projecttesting;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +22,29 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrganizingEventFragment extends Fragment {
+public class OrganizingEventFragment extends Fragment implements UpdateableFragment {
 
     ListView listview;
-    List<FriendsRowItem> rowItems;
+    List<EventTypes> data;
     User user;
     //ArrayList<EventEntryItem> bigdata;
     String fbid;
+    EventListAdapter adapter;
+    Context context;
 
     public OrganizingEventFragment() {
+    }
+
+    @Override
+    public void update(List<EventTypes> data, Context context) {
+        // do whatever you want to update your UI
+        this.data = data;
+        this.context = context;
+        Log.i("Organising Fragment","Number of events retrieved is "+ Integer.toString(data.size()));
+        adapter = new EventListAdapter(context, R.layout.event_list_display, data);
+
+
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -92,9 +108,10 @@ public class OrganizingEventFragment extends Fragment {
         protected void onPostExecute(List<EventTypes> result){
             super.onPostExecute(result);
 
-            EventListAdapter adapter = new EventListAdapter(getActivity()
+            data = result;
+            adapter = new EventListAdapter(getActivity()
                     .getApplicationContext(), R.layout.event_list_display,
-                    result);
+                    data);
 
 
             listview.setAdapter(adapter);
@@ -131,14 +148,16 @@ public class OrganizingEventFragment extends Fragment {
                         bundle.putString("event_location", et.getEventVenue());
 
                         // Set event latlng
-                        bundle.putDouble("event_lat",et.getVenueLat());
+                        bundle.putDouble("event_lat", et.getVenueLat());
+                        //Log.i("PUT LAT", Double.toString(et.getVenueLat()));
                         bundle.putDouble("event_lng",et.getVenueLong());
 
                         // Set event invitees
                         ArrayList<String> invitees = (ArrayList<String>) et.getEventInvitees();
+                        Log.i("number",Integer.toString(et.getEventInvitees().size()));
                         bundle.putStringArrayList("event_invitees",invitees);
 
-                        EventDisplayDialog event_dialog = new EventDisplayDialog();
+                        EventOrganisingDialog event_dialog = new EventOrganisingDialog();
                         event_dialog.setArguments(bundle);
                         event_dialog.show(fm, "");
                     }

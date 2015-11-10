@@ -149,6 +149,34 @@
                 </LinearLayout>
             </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:orientation="horizontal">
+
+
+                <com.example.projecttesting.MyTextView
+                    android:id="@+id/who_is_going_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="Invited: "
+                    android:textColor="#ffffff"
+                    android:textSize="11sp"
+                    custom:fontName="sf_reg.ttf" />
+
+
+                <LinearLayout
+                    android:id="@+id/circles_display"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="2dp"
+                    android:gravity="center_vertical|start"
+                    android:orientation="horizontal"></LinearLayout>
+
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

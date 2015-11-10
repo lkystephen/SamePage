@@ -153,7 +153,6 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
         // Set up event name
         event_Name.setText(mArgs.getString("event_name").toUpperCase());
 
-
         Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(organiser_fbid).getPath());
         //int image = allocate.EventTypeDetermine(event_details.getTitle());
 
@@ -213,7 +212,7 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
         android.support.v4.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.event_map, mMapFragment).commit();
         //mMapFragment.getMapAsync(EventOrganisingDialog.this);
-        ArrayList<String> invitees = mArgs.getStringArrayList("event_invitee");
+        ArrayList<String> invitees = mArgs.getStringArrayList("event_invitees");
 
         for (int i = 0; i < invitees.size(); i++) {
             if (i <= 4 || invitees.size() < 6) {

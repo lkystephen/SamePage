@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +24,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.pkmmte.view.CircularImageView;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventPeopleInput extends ActionBarActivity {
+public class EventPeopleInput extends AppCompatActivity {
 
     ListView list;
     public int[] friends_image = {R.drawable.edmund, R.drawable.wilson};
@@ -35,7 +38,6 @@ public class EventPeopleInput extends ActionBarActivity {
     Activity mActivity;
     TextView submitButton;
     AutoCompleteTextView peopleAutocomplete;
-    ImageView imageStar;
     Typeface face;
     ArrayList<EventPeopleItem> data = new ArrayList<>();
 
@@ -62,7 +64,7 @@ public class EventPeopleInput extends ActionBarActivity {
 
             String name = master_friends.get(i).username;
             String id = master_friends.get(i).fbid;
-            int image = R.drawable.edmund;
+            //int image = R.drawable.edmund;
             String select = "N";
 
             if (selectedStatus != null) {
@@ -75,7 +77,7 @@ public class EventPeopleInput extends ActionBarActivity {
                 }
 
             }
-            EventPeopleItem temp = new EventPeopleItem(name, select, image, id, i);
+            EventPeopleItem temp = new EventPeopleItem(name, select, id, i);
             data.add(temp);
         }
 
@@ -246,7 +248,7 @@ public class EventPeopleInput extends ActionBarActivity {
         /*private view holder school*/
         private class ViewHolder {
             TextView name;
-            ImageView image;
+            CircularImageView image;
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -262,13 +264,18 @@ public class EventPeopleInput extends ActionBarActivity {
                 holder = new ViewHolder();
                 holder.name = (TextView) convertView.findViewById(R.id.selected_name);
 //                holder.name.setTypeface(face);
-                holder.image = (ImageView) convertView.findViewById(R.id.display_image2);
+                holder.image = (CircularImageView) convertView.findViewById(R.id.display_image2);
+
+                holder.name.setTypeface(face);
 
                 convertView.setTag(holder);
 
                 holder.name.setText(item.getName());
-                holder.image.setImageResource(item.getImageId());
 
+                // Get the image from fbid
+                String id = item.getId();
+                Bitmap image = BitmapFactory.decodeFile(Utility.getImage(id).getPath());
+                holder.image.setImageBitmap(image);
 
             return convertView;
         }
@@ -299,7 +306,8 @@ public class EventPeopleInput extends ActionBarActivity {
         /*private view holder school*/
         private class ViewHolder {
             TextView name;
-            ImageView image, selected;
+            ImageView selected;
+            CircularImageView image;
             TextView select;
         }
 
@@ -308,7 +316,6 @@ public class EventPeopleInput extends ActionBarActivity {
 
 
             EventPeopleItem item = getItem(position);
-            //Log.i("position", item.getName());
 
             LayoutInflater mInflater = (LayoutInflater) context
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -319,23 +326,27 @@ public class EventPeopleInput extends ActionBarActivity {
             holder = new ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.peopleName);
 //            holder.name.setTypeface(face);
-            holder.image = (ImageView) convertView.findViewById(R.id.friends_image);
-            holder.select = (TextView) convertView.findViewById(R.id.peopleSelectionStatus);
+            holder.image = (CircularImageView) convertView.findViewById(R.id.friends_image);
+            //holder.select = (TextView) convertView.findViewById(R.id.peopleSelectionStatus);
             holder.selected = (ImageView) convertView.findViewById(R.id.friend_selected);
 
             // Set font style
             holder.name.setTypeface(face);
-            holder.select.setTypeface(face);
+            //holder.select.setTypeface(face);
 
             holder.name.setText(item.getName());
-            holder.image.setImageResource(item.getImageId());
-            holder.select.setText(item.getSelection());
+            //holder.select.setText(item.getSelection());
+
+            // Get the image from fbid
+            String id = item.getId();
+            Bitmap image = BitmapFactory.decodeFile(Utility.getImage(id).getPath());
+            holder.image.setImageBitmap(image);
+
             if (item.getSelection().equals("Y")){
                 holder.selected.setVisibility(View.VISIBLE);
             } else
             holder.selected.setVisibility(View.INVISIBLE);
             //convertView.setTag(holder);
-            //Log.w("view created", item.getName());
 
             return convertView;
         }
