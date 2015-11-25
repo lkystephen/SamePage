@@ -61,6 +61,8 @@ public class OrganizingEventFragment extends Fragment implements UpdateableFragm
         // Get data
         //EventDetailsFetch fetch = new EventDetailsFetch();
         List<EventTypes> list = user.getEventsOrganised();
+        //int i = list.get(0).getEventInvitees().size();
+        //Log.i("size",Integer.toString(i));
         //bigdata = fetch.FetchDetails(list);
 
 

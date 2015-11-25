@@ -41,8 +41,7 @@
                 android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
                 android:text="ORGANISER"
-                android:textSize="16sp"
-                custom:fontName="sf_reg.ttf" />
+                android:textSize="16sp" />
 
 
         </LinearLayout>
@@ -124,8 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:text="START_OF_EVENT"
-                android:textSize="16sp"
-                custom:fontName="sf_reg.ttf" />
+                android:textSize="16sp" />
 
 
             <ImageView
@@ -164,8 +162,7 @@
                 android:layout_marginLeft="6dp"
                 android:layout_marginStart="6dp"
                 android:text="START_OF_EVENT"
-                android:textSize="16sp"
-                custom:fontName="sf_reg.ttf" />
+                android:textSize="16sp" />
 
 
             <ImageView
@@ -207,8 +204,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:text="LOCATION"
-                    android:textSize="16sp"
-                    custom:fontName="sf_reg.ttf" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -251,8 +247,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical|start"
                 android:text="RSVP"
-                android:textSize="25sp"
-                custom:fontName="sf_reg.ttf" />
+                android:textSize="25sp"/>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -307,8 +302,7 @@
                 android:layout_marginStart="20dp"
                 android:gravity="center_vertical|start"
                 android:text="People invited to this event"
-                android:textSize="16sp"
-                custom:fontName="sf_reg.ttf" />
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="0dp"

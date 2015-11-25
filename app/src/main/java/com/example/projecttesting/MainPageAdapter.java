@@ -121,14 +121,20 @@ public class MainPageAdapter extends ArrayAdapter<HashMap<String, Integer>> {
 
             if (difference > 1000 * 60 * 60 * 24) { // The event is days from now
                 long temp = difference / (1000 * 60 * 60 * 24);
+                int temp1 = 0;
                 int rounded = Math.round(temp);
                 if (temp > rounded) {
-                    int temp1 = rounded + 1;
+                    temp1 = rounded + 1;
                     holder.number.setText(Long.toString(temp1));
                 } else {
                     holder.number.setText(Integer.toString(rounded));
                 }
-                holder.dayOrHour.setText("days");
+
+                if (temp1 == 1 || rounded == 1) {
+                    holder.dayOrHour.setText("day");
+                } else {
+                    holder.dayOrHour.setText("days");
+                }
             }
 
             if (difference > 0 && difference < 1000 * 60 * 60) { // The event is within 60 minutes

@@ -62,13 +62,16 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
 
         View view = inflater.inflate(R.layout.event_details_organising, container, false);
 
+        // Get fonts
+        Typeface normal = FontCache.getFont(getContext(), "sf_reg.ttf");
+        Typeface bold = FontCache.getFont(getContext(), "sf_bold.ttf");
+
+
         // Remove title
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         //String start_hour, start_minute = new String();
 
-        Typeface normal = Typeface.createFromAsset(getActivity().getAssets(), "sf_reg.ttf");
-        Typeface bold = Typeface.createFromAsset(getActivity().getAssets(), "sf_bold.ttf");
         // Get information from bundle passed from Fragment
         final Bundle mArgs = getArguments();
         fbid = mArgs.getString("my_id");
@@ -83,6 +86,7 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
 
         // Refer to Ids in view
         TextView organiser = (TextView) view.findViewById(R.id.organiser_info);
+        organiser.setTypeface(normal);
 
         // Event Name
         final EditText event_Name = (EditText) view.findViewById(R.id.event_name);
@@ -125,13 +129,19 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
 
         ImageView event_organiser_photo = (ImageView) view.findViewById(R.id.organiser_photo);
         event_start_date = (TextView) view.findViewById(R.id.event_start_date);
+        event_start_date.setTypeface(normal);
+
         event_date_edit = (ImageView) view.findViewById(R.id.event_date_edit);
         // TextView event_end_date = (TextView) view.findViewById(R.id.eventEndDisplay);
         event_start_time = (TextView) view.findViewById(R.id.event_start_time);
+        event_start_time.setTypeface(normal);
         // TextView event_end_time = (TextView) view.findViewById(R.id.timeEndDisplay);
         final TextView event_location = (TextView) view.findViewById(R.id.event_loc);
+        event_location.setTypeface(normal);
         //final TextView event_map_display = (TextView) view.findViewById(R.id.event_map_display);
         TextView eventInvitedNumber = (TextView) view.findViewById(R.id.invited_text);
+        eventInvitedNumber.setTypeface(normal);
+
         LinearLayout rsvp = (LinearLayout) view.findViewById(R.id.rsvp_block);
         View rsvp_line = (View) view.findViewById(R.id.rsvp_line);
 
