@@ -4,4 +4,4 @@
     android:interpolator="@android:anim/accelerate_interpolator"
     android:fromAlpha="0.0"
     android:toAlpha="1.0"
-    android:duration="400" /><!-- From: file:/C:/Users/Stephen%20Lau/StudioProjects/SamePage/app/src/main/res/transition/fade_in_dialog.xml -->
+    android:duration="400" /><!-- From: file:/C:/Users/Capco/Desktop/Project/SamePage/app/src/main/res/transition/fade_in_dialog.xml -->

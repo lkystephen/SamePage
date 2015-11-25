@@ -97,7 +97,7 @@ public class EventFragment extends Fragment implements MainAct {
 
         Bundle bundle = getArguments();
         user = bundle.getParcelable("user");
-        Log.i("Parcelable username", user.getUsername());
+        //Log.i("Parcelable username", user.getUsername());
 
         refreshLayout = (MaterialRefreshLayout) view.findViewById(R.id.big_layout);
         refreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {

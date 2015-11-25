@@ -47,7 +47,6 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
     int event_name_changed_indicator = 0;
     int event_time_changed_indicator = 0;
     int hour, minute, year, month, day;
-    Double lat, lng;
     TextView event_start_date, event_start_time;
     ImageView event_date_edit;
 
@@ -62,14 +61,15 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
 
         View view = inflater.inflate(R.layout.event_details_organising, container, false);
 
+        // Get fonts
+        Typeface normal = FontCache.getFont(getContext(), "sf_reg.ttf");
+        Typeface bold = FontCache.getFont(getContext(), "sf_bold.ttf");
+
+
         // Remove title
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         //String start_hour, start_minute = new String();
-
-
-        Typeface typeface_reg = FontCache.getFont(getContext(), "sf_reg.ttf");
-        Typeface typeface_bold = FontCache.getFont(getContext(), "sf_bold.ttf");
 
         // Get information from bundle passed from Fragment
         final Bundle mArgs = getArguments();
@@ -85,11 +85,11 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
 
         // Refer to Ids in view
         TextView organiser = (TextView) view.findViewById(R.id.organiser_info);
-        organiser.setTypeface(typeface_reg);
+        organiser.setTypeface(normal);
 
         // Event Name
         final EditText event_Name = (EditText) view.findViewById(R.id.event_name);
-        event_Name.setTypeface(typeface_bold);
+        event_Name.setTypeface(bold);
         final ImageView event_name_edit = (ImageView) view.findViewById(R.id.event_name_edit);
         final ImageView event_name_edited = (ImageView) view.findViewById(R.id.event_name_edited);
         event_name_edit.setOnClickListener(new View.OnClickListener() {
@@ -128,33 +128,26 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
 
         ImageView event_organiser_photo = (ImageView) view.findViewById(R.id.organiser_photo);
         event_start_date = (TextView) view.findViewById(R.id.event_start_date);
-        event_start_date.setTypeface(typeface_reg);
+        event_start_date.setTypeface(normal);
+
         event_date_edit = (ImageView) view.findViewById(R.id.event_date_edit);
         // TextView event_end_date = (TextView) view.findViewById(R.id.eventEndDisplay);
         event_start_time = (TextView) view.findViewById(R.id.event_start_time);
+        event_start_time.setTypeface(normal);
         // TextView event_end_time = (TextView) view.findViewById(R.id.timeEndDisplay);
         final TextView event_location = (TextView) view.findViewById(R.id.event_loc);
-        event_location.setTypeface(typeface_reg);
+        event_location.setTypeface(normal);
         //final TextView event_map_display = (TextView) view.findViewById(R.id.event_map_display);
         TextView eventInvitedNumber = (TextView) view.findViewById(R.id.invited_text);
-        eventInvitedNumber.setTypeface(typeface_reg);
-        LinearLayout rsvp = (LinearLayout) view.findViewById(R.id.rsvp_block);
-        View rsvp_line = (View) view.findViewById(R.id.rsvp_line);
+        eventInvitedNumber.setTypeface(normal);
 
         final FrameLayout mapLayout = (FrameLayout) view.findViewById(R.id.event_map);
         final LinearLayout ind_bubbles = (LinearLayout) view.findViewById(R.id.invited_circles_display);
 
         // Get event position from user
         String org;
-        if (organiser_name.equals("myself")) {
-            rsvp.setVisibility(View.GONE);
-            rsvp_line.setVisibility(View.GONE);
-            org = "You are the organiser";
-        } else {
 
-            org = new StringBuilder().append(organiser_name).append(" invited you").toString();
-        }
-        organiser.setText(org);
+        organiser.setText("You are the organiser");
 
         // Set up event name
         event_Name.setText(mArgs.getString("event_name").toUpperCase());
@@ -208,16 +201,16 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
         }
 
         // Set up Latlng
-        if (mArgs.getDouble("event_lat") != 0) {
-            lat = mArgs.getDouble("event_lat");
-            lng = mArgs.getDouble("event_lng");
-            latLng = new LatLng(lat, lng);
-        }
+        Double lat = mArgs.getDouble("event_lat");
+        Log.i("GET",Double.toString(lat));
+        Double lng = mArgs.getDouble("event_lng");
+        latLng = new LatLng(lat, lng);
+
 
         SupportMapFragment mMapFragment = new SupportMapFragment();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.event_map, mMapFragment).commit();
-        //mMapFragment.getMapAsync(EventOrganisingDialog.this);
+        mMapFragment.getMapAsync(EventOrganisingDialog.this);
         ArrayList<String> invitees = mArgs.getStringArrayList("event_invitees");
 
         for (int i = 0; i < invitees.size(); i++) {
@@ -244,7 +237,6 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        //final LatLng test_QC_location = new LatLng(22.2814,114.1916);
         MapObjectControl control = new MapObjectControl();
         control.AddSearchedMarker(latLng, googleMap, 14);
     }

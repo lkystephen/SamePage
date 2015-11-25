@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.joda.time.DateTime;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +68,8 @@ public class OrganizingEventFragment extends Fragment implements UpdateableFragm
         // Get data
         //EventDetailsFetch fetch = new EventDetailsFetch();
         List<EventTypes> list = user.getEventsOrganised();
+        //int i = list.get(0).getEventInvitees().size();
+        //Log.i("size",Integer.toString(i));
         //bigdata = fetch.FetchDetails(list);
 
 
@@ -154,7 +158,7 @@ public class OrganizingEventFragment extends Fragment implements UpdateableFragm
 
                         // Set event latlng
                         bundle.putDouble("event_lat", et.getVenueLat());
-                        //Log.i("PUT LAT", Double.toString(et.getVenueLat()));
+                        Log.i("PUT LAT", Double.toString(et.getVenueLat()));
                         bundle.putDouble("event_lng",et.getVenueLong());
 
                         // Set event invitees
@@ -162,9 +166,21 @@ public class OrganizingEventFragment extends Fragment implements UpdateableFragm
                         Log.i("number",Integer.toString(et.getEventInvitees().size()));
                         bundle.putStringArrayList("event_invitees",invitees);
 
-                        EventOrganisingDialog event_dialog = new EventOrganisingDialog();
-                        event_dialog.setArguments(bundle);
-                        event_dialog.show(fm, "");
+                        // Determine if the event has started or not
+                        long notification_time = et.getEventDateTime().getTimeInMillis() - 1000 * 60 *45;
+                        Log.i("Event time in millis", Long.toString(notification_time));
+                        long current_time = new DateTime().getMillis();
+                        Log.i("Current time in millis", Long.toString(current_time));
+                        if (current_time > notification_time){
+                            EventStartDialog event_dialog = new EventStartDialog();
+                            Log.i("EventStart","EventStart");
+                            event_dialog.setArguments(bundle);
+                            event_dialog.show(fm, "");
+                        } else {
+                            EventOrganisingDialog event_dialog = new EventOrganisingDialog();
+                            event_dialog.setArguments(bundle);
+                            event_dialog.show(fm, "");
+                        }
                     }
                 });
             }

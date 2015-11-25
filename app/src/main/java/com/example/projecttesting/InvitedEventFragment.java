@@ -21,7 +21,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class InvitedEventFragment extends Fragment {
@@ -167,9 +170,20 @@ public class InvitedEventFragment extends Fragment {
                         ArrayList<String> invitees = (ArrayList<String>) et.getEventInvitees();
                         bundle.putStringArrayList("event_invitees",invitees);
 
-                        EventDisplayDialog event_dialog = new EventDisplayDialog();
-                        event_dialog.setArguments(bundle);
-                        event_dialog.show(fm, "");
+                        // Determine if the event has started or not
+                        long notification_time = et.getEventDateTime().getTimeInMillis() + 1000 * 60 *45;
+                        long current_time = new DateTime().getMillis();
+                        Log.i("Current time in millis", Long.toString(current_time));
+                        if (current_time > notification_time){
+                            EventStartDialog event_dialog = new EventStartDialog();
+                            event_dialog.setArguments(bundle);
+                            event_dialog.show(fm, "");
+                        } else {
+                            EventDisplayDialog event_dialog = new EventDisplayDialog();
+                            event_dialog.setArguments(bundle);
+                            event_dialog.show(fm, "");
+                        }
+
                     }
                 });
             }
