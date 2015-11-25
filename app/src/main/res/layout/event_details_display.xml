@@ -17,7 +17,7 @@
         <FrameLayout
             android:id="@+id/event_map"
             android:layout_width="match_parent"
-            android:layout_height="130dp"></FrameLayout>
+            android:layout_height="165dp"></FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.joda.time.DateTime;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,21 +32,26 @@ public class OrganizingEventFragment extends Fragment implements UpdateableFragm
     //ArrayList<EventEntryItem> bigdata;
     String fbid;
     EventListAdapter adapter;
-    Context context;
+    Context mContext;
 
     public OrganizingEventFragment() {
     }
 
-    @Override
-    public void update(List<EventTypes> data, Context context) {
+    public void update(List<EventTypes> data) {
         // do whatever you want to update your UI
         this.data = data;
-        this.context = context;
-        Log.i("Organising Fragment","Number of events retrieved is "+ Integer.toString(data.size()));
-        adapter = new EventListAdapter(context, R.layout.event_list_display, data);
 
+        for (int i=0; i< this.data.size(); i++){
+            Log.i("event name",this.data.get(i).getEventName());
+        }
 
+        //this.mContext = context;
+        Log.i("Organising Fragment", "Number of events retrieved is " + Integer.toString(data.size()));
+        //adapter = new EventListAdapter(context, R.layout.event_list_display, data);
+        adapter.clear();
+        adapter.addAll(this.data);
         adapter.notifyDataSetChanged();
+
     }
 
     @Override
@@ -151,7 +158,7 @@ public class OrganizingEventFragment extends Fragment implements UpdateableFragm
 
                         // Set event latlng
                         bundle.putDouble("event_lat", et.getVenueLat());
-                        //Log.i("PUT LAT", Double.toString(et.getVenueLat()));
+                        Log.i("PUT LAT", Double.toString(et.getVenueLat()));
                         bundle.putDouble("event_lng",et.getVenueLong());
 
                         // Set event invitees
@@ -159,9 +166,21 @@ public class OrganizingEventFragment extends Fragment implements UpdateableFragm
                         Log.i("number",Integer.toString(et.getEventInvitees().size()));
                         bundle.putStringArrayList("event_invitees",invitees);
 
-                        EventOrganisingDialog event_dialog = new EventOrganisingDialog();
-                        event_dialog.setArguments(bundle);
-                        event_dialog.show(fm, "");
+                        // Determine if the event has started or not
+                        long notification_time = et.getEventDateTime().getTimeInMillis() - 1000 * 60 *45;
+                        Log.i("Event time in millis", Long.toString(notification_time));
+                        long current_time = new DateTime().getMillis();
+                        Log.i("Current time in millis", Long.toString(current_time));
+                        if (current_time > notification_time){
+                            EventStartDialog event_dialog = new EventStartDialog();
+                            Log.i("EventStart","EventStart");
+                            event_dialog.setArguments(bundle);
+                            event_dialog.show(fm, "");
+                        } else {
+                            EventOrganisingDialog event_dialog = new EventOrganisingDialog();
+                            event_dialog.setArguments(bundle);
+                            event_dialog.show(fm, "");
+                        }
                     }
                 });
             }

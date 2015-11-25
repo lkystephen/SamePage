@@ -82,9 +82,6 @@ public class EventStartDialog extends DialogFragment implements OnMapReadyCallba
         event_location.setTypeface(typeface_reg);
         rsvp_response.setTypeface(typeface_reg);
 
-        // Set event rsvp status
-        rsvp_response.setText("You have yet to response. Swipe me to respond.");
-
         // Get event position from user
         String org = new StringBuilder().append(organiser_name).append(" invited you").toString();
 

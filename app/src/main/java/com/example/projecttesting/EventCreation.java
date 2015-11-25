@@ -119,6 +119,7 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
                         String event_end_submit = dateConvert.MillisToStringForServer(minMillis + lengthMillis);
                         event_bundle.putString("DATETIME", event_start_submit);
                         event_bundle.putString("ENDTIME", event_end_submit);
+                        Log.i("ENDTIME",event_end_submit);
                         event_bundle.putString("ORGANISER", user.getUserId());
                         event_bundle.putDouble("LAT", lat);
                         event_bundle.putDouble("LONG", lng);

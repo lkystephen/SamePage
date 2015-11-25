@@ -15,86 +15,89 @@
         android:adjustViewBounds="true"
         android:scaleType="fitXY" />
 
-
-    <com.cjj.MaterialRefreshLayout
-        android:id="@+id/big_layout"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:background="@null"
-        android:fillViewport="true"
-        app:overlay="true"
-        app:progress_colors="@array/material_colors"
-        app:wave_color="@null"
-        app:wave_height_type="higher"
-        app:wave_show="true">
+        android:orientation="vertical">
 
-
-        <LinearLayout
+        <com.cjj.MaterialRefreshLayout
+            android:id="@+id/big_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:fillViewport="true"
+            app:overlay="true"
+            app:progress_colors="@array/material_colors"
+            app:wave_color="@null"
+            app:wave_height_type="higher"
+            app:wave_show="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:gravity="center"
-                android:background="#20000000"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/update_status2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:text="Drag page down to create event"
-                    android:textColor="#ffffff"/>
-
-                <TextView
-                    android:id="@+id/update_status3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:text="Long press on an event to RSVP"
-                    android:textColor="#ffffff"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
-
-                <com.astuetz.PagerSlidingTabStrip
-                    android:id="@+id/event_tabs"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="wrap_content"
                     android:background="#20000000"
-                    projecttesting:pstsDividerColor="@null"
-                    projecttesting:pstsIndicatorColor="#ffd9deff"
-                    projecttesting:pstsIndicatorHeight="3dp"
-                    projecttesting:pstsShouldExpand="true"
-                    projecttesting:pstsUnderlineColor="@null" />
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/update_status2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Drag here to create event"
+                        android:textColor="#ffffff"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/update_status3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Long press to RSVP / delete"
+                        android:textColor="#ffffff"
+                        android:textSize="13sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <com.astuetz.PagerSlidingTabStrip
+                        android:id="@+id/event_tabs"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:background="#20000000"
+                        projecttesting:pstsDividerColor="@null"
+                        projecttesting:pstsIndicatorColor="#ffd9deff"
+                        projecttesting:pstsIndicatorHeight="3dp"
+                        projecttesting:pstsShouldExpand="true"
+                        projecttesting:pstsUnderlineColor="@null" />
+
+                </LinearLayout>
             </LinearLayout>
+        </com.cjj.MaterialRefreshLayout>
 
-            <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/event_viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+        <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/event_viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent" />
 
-            <com.example.projecttesting.MyTextView
-                android:id="@+id/no_event_text"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center"
-                android:layout_height="wrap_content"
-                android:textColor="#ffffff"
-                android:text="No events yet"
-                android:textSize="15sp"
-                android:textStyle="normal"
-                android:visibility="gone" />
+        <com.example.projecttesting.MyTextView
+            android:id="@+id/no_event_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="No events yet"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:textStyle="normal"
+            android:visibility="gone" />
 
-
-        </LinearLayout>
-    </com.cjj.MaterialRefreshLayout>
+    </LinearLayout>
 </RelativeLayout>
 
 <!-- From: file:/C:/Users/Capco/Desktop/Project/SamePage/app/src/main/res/layout/event_main.xml -->

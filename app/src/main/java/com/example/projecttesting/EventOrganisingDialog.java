@@ -41,13 +41,12 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
 
     private SupportMapFragment fragment;
     private LatLng latLng;
-   // EventEntryItem event_details;
+    // EventEntryItem event_details;
     long event_millis;
     String fbid, organiser_name, organiser_fbid;
     int event_name_changed_indicator = 0;
     int event_time_changed_indicator = 0;
     int hour, minute, year, month, day;
-    Double lat, lng;
     TextView event_start_date, event_start_time;
     ImageView event_date_edit;
 
@@ -142,23 +141,13 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
         TextView eventInvitedNumber = (TextView) view.findViewById(R.id.invited_text);
         eventInvitedNumber.setTypeface(normal);
 
-        LinearLayout rsvp = (LinearLayout) view.findViewById(R.id.rsvp_block);
-        View rsvp_line = (View) view.findViewById(R.id.rsvp_line);
-
         final FrameLayout mapLayout = (FrameLayout) view.findViewById(R.id.event_map);
         final LinearLayout ind_bubbles = (LinearLayout) view.findViewById(R.id.invited_circles_display);
 
         // Get event position from user
         String org;
-        if (organiser_name.equals("myself")) {
-            rsvp.setVisibility(View.GONE);
-            rsvp_line.setVisibility(View.GONE);
-            org = "You are the organiser";
-        } else {
 
-            org = new StringBuilder().append(organiser_name).append(" invited you").toString();
-        }
-        organiser.setText(org);
+        organiser.setText("You are the organiser");
 
         // Set up event name
         event_Name.setText(mArgs.getString("event_name").toUpperCase());
@@ -212,16 +201,16 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
         }
 
         // Set up Latlng
-        if (mArgs.getDouble("event_lat") != 0){
-            lat = mArgs.getDouble("event_lat");
-            lng = mArgs.getDouble("event_lng");
-            latLng = new LatLng(lat, lng);
-        }
+        Double lat = mArgs.getDouble("event_lat");
+        Log.i("GET",Double.toString(lat));
+        Double lng = mArgs.getDouble("event_lng");
+        latLng = new LatLng(lat, lng);
+
 
         SupportMapFragment mMapFragment = new SupportMapFragment();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.event_map, mMapFragment).commit();
-        //mMapFragment.getMapAsync(EventOrganisingDialog.this);
+        mMapFragment.getMapAsync(EventOrganisingDialog.this);
         ArrayList<String> invitees = mArgs.getStringArrayList("event_invitees");
 
         for (int i = 0; i < invitees.size(); i++) {
@@ -248,7 +237,6 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        //final LatLng test_QC_location = new LatLng(22.2814,114.1916);
         MapObjectControl control = new MapObjectControl();
         control.AddSearchedMarker(latLng, googleMap, 14);
     }

@@ -17,7 +17,7 @@
         <FrameLayout
             android:id="@+id/event_map"
             android:layout_width="match_parent"
-            android:layout_height="130dp"></FrameLayout>
+            android:layout_height="165dp"></FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -230,57 +230,6 @@
             style="@style/EventDivider"
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp" />
-
-        <LinearLayout
-            android:id="@+id/rsvp_block"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-
-            <com.example.projecttesting.MyTextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|start"
-                android:layout_marginStart="20dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical|start"
-                android:text="RSVP"
-                android:textSize="25sp"/>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="20dp"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginRight="15dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/checked" />
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginRight="15dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/event_reject" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
 
         <View
             android:id="@+id/rsvp_line"

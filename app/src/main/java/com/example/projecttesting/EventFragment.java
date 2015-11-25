@@ -13,7 +13,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -50,6 +49,7 @@ public class EventFragment extends Fragment implements MainAct {
     String regid;
     String PROJECT_NUMBER = "603098203110";
 
+    EventViewAdapter mPagerAdapter;
     PagerSlidingTabStrip tabs;
 
     private String fbid;
@@ -57,9 +57,9 @@ public class EventFragment extends Fragment implements MainAct {
     MaterialRefreshLayout refreshLayout;
     User user;
     List<EventTypes> data;
+    OrganizingEventFragment m;
     ProgressDialog dialog;
     Context mContext;
-    Activity mActivity;
     ViewPager mViewPager;
 
     @Override
@@ -80,10 +80,8 @@ public class EventFragment extends Fragment implements MainAct {
         Typeface face_b;
         //face = Typeface.createFromAsset(getActivity().getAssets(), "sf_bold.ttf");
         face_b = FontCache.getFont(getContext(), "sf_bold.ttf");
+        mPagerAdapter.update(user.getEventsOrganised());
 
-        OrganizingEventFragment m = new OrganizingEventFragment();
-
-        mViewPager.getAdapter().getItemPosition(m);
     }
 
     @Override
@@ -116,7 +114,6 @@ public class EventFragment extends Fragment implements MainAct {
         });
 
         mContext = getContext();
-        mActivity = getActivity();
         // Set up pager view
         Typeface face;
         face = FontCache.getFont(getContext(), "sf_reg.ttf");
@@ -128,9 +125,9 @@ public class EventFragment extends Fragment implements MainAct {
 
         mViewPager = (ViewPager) view.findViewById(R.id.event_viewPager);
 
-        mViewPager
-                .setAdapter(new EventViewAdapter(getChildFragmentManager(), bundle));
+        mPagerAdapter = new EventViewAdapter(getChildFragmentManager(), bundle);
 
+        mViewPager.setAdapter(mPagerAdapter);
 
         // Get background
         ImageView friends_background = (ImageView) view.findViewById(R.id.event_display_bg);
@@ -221,7 +218,7 @@ public class EventFragment extends Fragment implements MainAct {
         @Override
         public int getItemPosition(Object object) {
             if (object instanceof UpdateableFragment) {
-                ((UpdateableFragment) object).update(user.getEventsOrganised(), mContext);
+                ((UpdateableFragment) object).update(user.getEventsOrganised());
             }
             //don't return POSITION_NONE, avoid fragment recreation.
             return super.getItemPosition(object);
@@ -247,7 +244,7 @@ public class EventFragment extends Fragment implements MainAct {
 
         @Override
         public Fragment getItem(int index) {
-            final OrganizingEventFragment m = new OrganizingEventFragment();
+            m = new OrganizingEventFragment();
             final InvitedEventFragment s = new InvitedEventFragment();
 
             if (index == 0) {
