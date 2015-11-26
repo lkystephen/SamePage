@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="WaveView-16a10c1f9b">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.john990/WaveView/16a10c1f9b/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.john990/WaveView/16a10c1f9b/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

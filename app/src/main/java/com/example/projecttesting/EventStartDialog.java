@@ -16,11 +16,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.john.waveview.WaveView;
 
 import org.joda.time.DateTime;
 
@@ -52,15 +52,8 @@ public class EventStartDialog extends DialogFragment implements OnMapReadyCallba
         height = getDialog().getWindow().getDecorView().getHeight();
         width = getDialog().getWindow().getDecorView().getWidth();
 
-        //WaveView wave_bg = (WaveView) view.findViewById(R.id.wave_bg);
-
-        RelativeLayout relative = (RelativeLayout) view.findViewById(R.id.testing);
-
-        WaveView wave_bg = new WaveView(getContext());
-
-        wave_bg.setLayoutParams(new ActionBar.LayoutParams(width,height));
-
-        relative.addView(wave_bg);
+        RelativeLayout relative = (RelativeLayout) view.findViewById(R.id.relative);
+        //relative.addView(wave_bg);
 
 
         // Get information from bundle passed from Fragment

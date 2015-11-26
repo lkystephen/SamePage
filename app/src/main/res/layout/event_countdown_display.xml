@@ -2,20 +2,16 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:wave="http://schemas.android.com/tools"
     android:id="@+id/eventScrollLayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#CFD8DC"
     android:fillViewport="true">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:id="@+id/testing"
-        android:layout_height="wrap_content">
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@null"
         android:orientation="vertical">
 
@@ -24,196 +20,220 @@
             android:layout_width="match_parent"
             android:layout_height="130dp"></FrameLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="25dp"
-            android:layout_height="70dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_height="fill_parent"
+            android:id="@+id/relative">
 
-            <com.pkmmte.view.CircularImageView
-                android:id="@+id/organiser_photo"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="20dp"
-                android:scaleType="fitXY" />
-
-            <com.example.projecttesting.MyTextView
-                android:id="@+id/organiser_info"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="10dp"
-                android:gravity="center_vertical"
-                android:text="ORGANISER"
-                android:textSize="16sp"
-                />
+                android:background="@null"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="25dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.pkmmte.view.CircularImageView
+                        android:id="@+id/organiser_photo"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="20dp"
+                        android:scaleType="fitXY" />
+
+                    <com.example.projecttesting.MyTextView
+                        android:id="@+id/organiser_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="10dp"
+                        android:gravity="center_vertical"
+                        android:text="ORGANISER"
+                        android:textSize="16sp" />
 
 
-        </LinearLayout>
+                </LinearLayout>
 
-        <View
-            style="@style/EventDivider"
-            android:layout_marginLeft="20dp" />
+                <View
+                    style="@style/EventDivider"
+                    android:layout_marginLeft="20dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-            <com.example.projecttesting.MyTextView
-                android:id="@+id/event_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:gravity="center_vertical"
-                android:text="NAME_OF_EVENT"
-                android:textSize="35sp"
-                android:editable="false"/>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="28dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="20dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/event_date" />
-
-            <com.example.projecttesting.MyTextView
-                android:id="@+id/event_start_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:text="START_OF_EVENT"
-                android:textSize="16sp" />
-
-        </LinearLayout>
+                    <com.example.projecttesting.MyTextView
+                        android:id="@+id/event_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:editable="false"
+                        android:gravity="center_vertical"
+                        android:text="NAME_OF_EVENT"
+                        android:textSize="35sp" />
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="28dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+                </LinearLayout>
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="20dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/event_time" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-            <com.example.projecttesting.MyTextView
-                android:id="@+id/event_start_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:text="START_OF_EVENT"
-                android:textSize="16sp"
-                custom:fontName="sf_reg.ttf" />
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="20dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/event_date" />
 
-        </LinearLayout>
+                    <com.example.projecttesting.MyTextView
+                        android:id="@+id/event_start_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="START_OF_EVENT"
+                        android:textSize="16sp" />
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="28dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="20dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/event_location" />
-
-            <com.example.projecttesting.MyTextView
-                android:id="@+id/event_loc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:text="LOCATION"
-                android:textSize="16sp"
-                android:textStyle="normal" />
+                </LinearLayout>
 
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="28dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-        <View
-            style="@style/EventDivider"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp" />
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="20dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/event_time" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+                    <com.example.projecttesting.MyTextView
+                        android:id="@+id/event_start_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="START_OF_EVENT"
+                        android:textSize="16sp"
+                        custom:fontName="sf_reg.ttf" />
 
-
-            <com.example.projecttesting.MyTextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|start"
-                android:layout_marginStart="20dp"
-                android:id="@+id/rsvp_response"
-                android:gravity="center_vertical|start"
-                android:text="RSVP_STATUS"
-                android:textSize="25sp"
-                custom:fontName="sf_reg.ttf" />
-
-        </LinearLayout>
+                </LinearLayout>
 
 
-        <View
-            style="@style/EventDivider"
-            android:layout_marginBottom="6dp"
-            android:layout_marginStart="20dp"
-            android:id="@+id/rsvp_line"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="28dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-        <com.example.projecttesting.MyTextView
-            android:id="@+id/invited_text"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_marginStart="20dp"
-            android:layout_gravity="center_vertical|start"
-            android:gravity="center_vertical|start"
-            android:text="People invited to this event"
-            android:textSize="16sp"
-            custom:fontName="sf_reg.ttf" />
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="20dp"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/event_location" />
 
-        <LinearLayout
-            android:id="@+id/invited_circles_display"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_gravity="center_vertical|start"
-            android:gravity="center_vertical|start"
-            android:orientation="horizontal"></LinearLayout>
+                    <com.example.projecttesting.MyTextView
+                        android:id="@+id/event_loc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="LOCATION"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
 
+
+                </LinearLayout>
+
+                <View
+                    style="@style/EventDivider"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+
+                    <com.example.projecttesting.MyTextView
+                        android:id="@+id/rsvp_response"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_marginStart="20dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|start"
+                        android:text="RSVP_STATUS"
+                        android:textSize="25sp"
+                        custom:fontName="sf_reg.ttf" />
+
+                </LinearLayout>
+
+
+                <View
+                    android:id="@+id/rsvp_line"
+                    style="@style/EventDivider"
+                    android:layout_marginBottom="6dp"
+                    android:layout_marginStart="20dp" />
+
+                <com.example.projecttesting.MyTextView
+                    android:id="@+id/invited_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical|start"
+                    android:text="People invited to this event"
+                    android:textSize="16sp"
+                    custom:fontName="sf_reg.ttf" />
+
+                <LinearLayout
+                    android:id="@+id/invited_circles_display"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical|start"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <com.john.waveview.WaveView
+                android:id="@+id/wave_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ff702e8c"
+                wave:above_wave_color="@android:color/white"
+                wave:blow_wave_color="@android:color/white"
+                wave:progress="50"
+                wave:wave_height="large"
+                wave:wave_hz="normal"
+                wave:wave_length="middle" />
+
+        </RelativeLayout>
     </LinearLayout>
 
-    </RelativeLayout>
 
 </ScrollView>
