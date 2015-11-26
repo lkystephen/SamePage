@@ -1217,6 +1217,7 @@ int id tabs 0x7f0e00dc
 int id tempButton 0x7f0e00d3
 int id terrain 0x7f0e0039
 int id test 0x7f0e0049
+int id testing 0x7f0e009f
 int id text 0x7f0e0109
 int id text2 0x7f0e0107
 int id textSpacerNoButtons 0x7f0e0079
@@ -1238,7 +1239,6 @@ int id useLogo 0x7f0e0015
 int id viewPager 0x7f0e00dd
 int id view_offset_helper 0x7f0e000b
 int id visible 0x7f0e001b
-int id wave_bg 0x7f0e009f
 int id who_is_going_text 0x7f0e00c7
 int id withText 0x7f0e0040
 int id wrap_content 0x7f0e0043
