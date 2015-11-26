@@ -3766,6 +3766,7 @@ containing a value of this type.
         public static final int tempButton=0x7f0e00d3;
         public static final int terrain=0x7f0e0039;
         public static final int test=0x7f0e0049;
+        public static final int testing=0x7f0e009f;
         public static final int text=0x7f0e0109;
         public static final int text2=0x7f0e0107;
         public static final int textSpacerNoButtons=0x7f0e0079;
@@ -3787,7 +3788,6 @@ containing a value of this type.
         public static final int viewPager=0x7f0e00dd;
         public static final int view_offset_helper=0x7f0e000b;
         public static final int visible=0x7f0e001b;
-        public static final int wave_bg=0x7f0e009f;
         public static final int who_is_going_text=0x7f0e00c7;
         public static final int withText=0x7f0e0040;
         public static final int wrap_content=0x7f0e0043;

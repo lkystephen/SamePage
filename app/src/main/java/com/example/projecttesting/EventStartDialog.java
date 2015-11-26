@@ -1,5 +1,6 @@
 package com.example.projecttesting;
 
+import android.app.ActionBar;
 import android.app.Dialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +14,7 @@ import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -29,6 +31,7 @@ public class EventStartDialog extends DialogFragment implements OnMapReadyCallba
 
     private SupportMapFragment fragment;
     LatLng latLng;
+    int height, width;
     String fbid, organiser_name, organiser_fbid;
 
     public EventStartDialog() {
@@ -38,14 +41,27 @@ public class EventStartDialog extends DialogFragment implements OnMapReadyCallba
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.event_countdown_display, container, false);
+        final View view = inflater.inflate(R.layout.event_countdown_display, container, false);
 
         // Remove title
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         String start_hour, start_minute = new String();
 
-        WaveView wave_bg = (WaveView) view.findViewById(R.id.wave_bg);
+        // Get width and height of the dialog
+        height = getDialog().getWindow().getDecorView().getHeight();
+        width = getDialog().getWindow().getDecorView().getWidth();
+
+        //WaveView wave_bg = (WaveView) view.findViewById(R.id.wave_bg);
+
+        RelativeLayout relative = (RelativeLayout) view.findViewById(R.id.testing);
+
+        WaveView wave_bg = new WaveView(getContext());
+
+        wave_bg.setLayoutParams(new ActionBar.LayoutParams(width,height));
+
+        relative.addView(wave_bg);
+
 
         // Get information from bundle passed from Fragment
         Bundle mArgs = getArguments();
