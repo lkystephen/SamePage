@@ -18,12 +18,10 @@ android {
     }
 }
 
-allprojects {
-    repositories {
-        mavenCentral()
-        maven { url "https://jitpack.io" }
-    }
+repositories {
+    maven { url "https://jitpack.io" }
 }
+
 
 dependencies {
     compile 'com.appyvet:materialrangebar:1.2'

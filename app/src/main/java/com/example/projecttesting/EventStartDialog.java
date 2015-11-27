@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -43,6 +43,13 @@ public class EventStartDialog extends DialogFragment implements OnMapReadyCallba
 
         final View view = inflater.inflate(R.layout.event_countdown_display, container, false);
 
+
+        // Get information from bundle passed from Fragment
+        Bundle mArgs = getArguments();
+        fbid = mArgs.getString("my_id");
+        organiser_name = mArgs.getString("organiser_name");
+        organiser_fbid = mArgs.getString("organiser_fbid");
+
         // Remove title
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
@@ -52,22 +59,26 @@ public class EventStartDialog extends DialogFragment implements OnMapReadyCallba
         height = getDialog().getWindow().getDecorView().getHeight();
         width = getDialog().getWindow().getDecorView().getWidth();
 
-        //WaveView wave_bg = (WaveView) view.findViewById(R.id.wave_bg);
+        // Get WaveView for countdown
+        WaveView waveView = (WaveView) view.findViewById(R.id.wave_view);
+        long current = System.currentTimeMillis();
+        long eventTime = mArgs.getLong("event_start");
+        long diff = eventTime - current;
+        long min_diff = diff / 60000;
+        //Log.i("diff",Long.toString(min_diff));
+        long temp = min_diff*100;
+        long temp2 = temp / 45 ;
+        int min_diff2 = Math.round(temp2);
+        //Log.i("diff2",Integer.toString(min_diff2));
+        int initial_wave_h = 100 - min_diff2;
+        Log.i("Wave height",Integer.toString(initial_wave_h));
 
-        RelativeLayout relative = (RelativeLayout) view.findViewById(R.id.testing);
+        if (current > eventTime){
+            initial_wave_h = 100;
+        }
 
-        WaveView wave_bg = new WaveView(getContext());
+        waveView.setProgress(initial_wave_h); // Set the height of the waves based on time
 
-        wave_bg.setLayoutParams(new ActionBar.LayoutParams(width,height));
-
-        relative.addView(wave_bg);
-
-
-        // Get information from bundle passed from Fragment
-        Bundle mArgs = getArguments();
-        fbid = mArgs.getString("my_id");
-        organiser_name = mArgs.getString("organiser_name");
-        organiser_fbid = mArgs.getString("organiser_fbid");
 
         Typeface typeface_reg = FontCache.getFont(getContext(), "sf_reg.ttf");
         Typeface typeface_bold = FontCache.getFont(getContext(), "sf_bold.ttf");
