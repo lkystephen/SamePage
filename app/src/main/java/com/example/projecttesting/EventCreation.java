@@ -11,6 +11,7 @@ import java.util.StringTokenizer;
 
 import android.app.Activity;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.Dialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.content.Intent;
@@ -25,15 +26,18 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -58,8 +62,9 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
     AutoCompleteTextView peopleInputET;
     ArrayList<String> selectedPeople, selectedPeopleName;
     int minYear, minMonth, minDate, minMinute, minHour;
+    RadioButton button1, button2, button3, button4;
     public static GoogleMap eventGoogleMap;
-    long minMillis, abc;
+    long minMillis, lengthMillis;
     String address;
     EventEntryItem item;
     double lat, lng;
@@ -84,7 +89,6 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
                 new MaterialRefreshListener() {
                     @Override
                     public void onRefresh(final MaterialRefreshLayout materialRefreshLayout) {
-
                         // Get event name input
                         String event_name = eventName.getText().toString();
 
@@ -98,13 +102,24 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
                         event_bundle.putString("EVENT_DETAILS", "testing");
                         event_bundle.putString("VENUE", location);
                         event_bundle.putStringArrayList("INVITEES", selectedPeople);
+                        //Log.i("no fo people",Integer.toString(selectedPeople.size()));
 
                         String event_start_submit = dateConvert.MillisToStringForServer(minMillis);
-                        String event_end_submit = dateConvert.MillisToStringForServer(minMillis + 1000 * 60 * 60 * 2);
-                        Log.i("this better work", event_start_submit);
-                        //Log.i("this end work", event_end_submit);
+
+                        // Determine event length
+                        if (button1.isChecked()){
+                            lengthMillis = 1000 * 60 * 30;
+                        } else if (button2.isChecked()){
+                            lengthMillis = 1000 * 60* 60;
+                        } else if (button3.isChecked()){
+                            lengthMillis = 1000 * 60 * 60 *2;
+                        } else if (button4.isChecked()){
+                            lengthMillis = 1000 *60;
+                        }
+                        String event_end_submit = dateConvert.MillisToStringForServer(minMillis + lengthMillis);
                         event_bundle.putString("DATETIME", event_start_submit);
                         event_bundle.putString("ENDTIME", event_end_submit);
+                        Log.i("ENDTIME",event_end_submit);
                         event_bundle.putString("ORGANISER", user.getUserId());
                         event_bundle.putDouble("LAT", lat);
                         event_bundle.putDouble("LONG", lng);
@@ -191,21 +206,26 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
         //eventGoogleMap = supportMapFragment.getMap();
         //supportMapFragment.getView().setVisibility(View.GONE);
 
-        // Set the more option menu and its onclick
+        // Setting buttons view
+        button1 = (RadioButton) findViewById(R.id.end1);
+        button2 = (RadioButton) findViewById(R.id.end2);
+        button3 = (RadioButton) findViewById(R.id.end3);
+        button4 = (RadioButton) findViewById(R.id.end4);
 
-        //LinearLayout allowInvitation = (LinearLayout) findViewById(R.id.allow_Invite);
-        //final TextView allowInvitationResult = (TextView) findViewById(R.id.allow_Invite_result);
-        /*allowInvitation.setOnClickListener(new OnClickListener() {
+        button1.setTypeface(typeface);
+        button2.setTypeface(typeface);
+        button3.setTypeface(typeface);
+        button4.setTypeface(typeface);
+
+        button4.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (allowInvitationResult.getText().equals("Yes")) {
-                    allowInvitationResult.setText("No");
-                } else {
-                    allowInvitationResult.setText("Yes");
-                }
+                Dialog dialog = new Dialog(EventCreation.this);
+                LayoutInflater inflater = (LayoutInflater)EventCreation.this.getSystemService(LAYOUT_INFLATER_SERVICE);
+                View layout = inflater.inflate(R.layout.seekbardialog, (ViewGroup)findViewById(R.id.seekbar_dialog));
+                dialog.setContentView(layout);
             }
-        });*/
-
+        });
 
         // Defaulting the start/finish date of the event as today
         java.util.Date juDate = new Date();
@@ -220,18 +240,18 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
 
         String temp = dateConvert.DateStringForDisplay(minYear, minMonth, minDate);
         mStartDate.setText(temp);
+        mStartDate.setTypeface(typeface);
 
         // Set up listener for time pickers
         mStartTime = (TextView) findViewById(R.id.timeStartInput);
+        mStartTime.setTypeface(typeface);
 
         minMillis = dt.getMillis();
 
         if (minMinute < 30 && minMinute > 0) {
 
             minMinute = 30;
-
             String timeText = dateConvert.TimeStringForDisplay(minHour, minMinute);
-
             mStartTime.setText(timeText);
         } else {
             minMinute = 0;
@@ -255,13 +275,17 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
             } else {
 
                 String temp4 = dateConvert.DateStringForDisplay(minYear, minMonth, minDate);
-
                 mStartDate.setText(temp4);
             }
             String temp5 = dateConvert.TimeStringForDisplay(minHour, minMinute);
             mStartTime.setText(temp5);
         }
 
+        // Re-confirm the minMillis
+        try {
+            minMillis = dateConvert.ReturnMillis(minYear, minMonth, minDate, minHour, minMinute);
+        } catch (ParseException e){
+        }
 
         mStartTime.setOnClickListener(new View.OnClickListener() {
 
@@ -292,7 +316,6 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 
-        EventDateConvert dateConvert = new EventDateConvert();
         String temp = dateConvert.TimeStringForDisplay(hourOfDay, minute);
 
         minHour = hourOfDay;
@@ -301,19 +324,17 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
 
         try {
             minMillis = dateConvert.ReturnMillis(minYear, minMonth, minDate, minHour, minMinute);
-            Log.i("temp better", Long.toString(minMillis));
+            //Log.i("temp better", Long.toString(minMillis));
 
         } catch (ParseException e) {
-            Log.i("temp better2", "error");
+            Log.i("Time set parse error", "error");
         }
     }
 
     public void onDateSet(DatePicker view, int year, int monthOfYear,
                           int dayOfMonth) {
 
-        EventDateConvert converter = new EventDateConvert();
-
-        String temp = converter.DateStringForDisplay(year, monthOfYear + 1, dayOfMonth);
+        String temp = dateConvert.DateStringForDisplay(year, monthOfYear + 1, dayOfMonth);
 
         mStartDate.setText(temp);
         minYear = year;
@@ -322,11 +343,11 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
 
         try {
 //            Log.i("date better work",Integer.toString(minDate));
-            minMillis = converter.ReturnMillis(minYear, minMonth, minDate, minHour, minMinute);
-            Log.i("temp better", Long.toString(minMillis));
+            minMillis = dateConvert.ReturnMillis(minYear, minMonth, minDate, minHour, minMinute);
+            //Log.i("temp better", Long.toString(minMillis));
 
         } catch (ParseException e) {
-            Log.i("temp better2", "error");
+            Log.i("Date set parse error", "error");
         }
 
     }

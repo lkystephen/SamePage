@@ -10,7 +10,7 @@ import android.renderscript.ScriptIntrinsicBlur;
 import android.widget.LinearLayout;
 
 import java.util.StringTokenizer;
-public class BlurBuilder {
+/*public class BlurBuilder {
     private static final float BITMAP_SCALE = 1.5f;
     private static final float BLUR_RADIUS = 6.5f;
 
@@ -32,4 +32,4 @@ public class BlurBuilder {
 
         return outputBitmap;
     }
-}
+}*/

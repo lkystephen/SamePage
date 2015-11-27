@@ -33,13 +33,16 @@ import com.google.android.gms.maps.model.LatLng;
 import org.joda.time.DateTime;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.MissingFormatArgumentException;
 
-public class EventOrganisingDialog extends DialogFragment implements /*OnMapReadyCallback,*/ DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+public class EventOrganisingDialog extends DialogFragment implements OnMapReadyCallback, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private SupportMapFragment fragment;
     private LatLng latLng;
-    EventEntryItem event_details;
+    // EventEntryItem event_details;
+    long event_millis;
     String fbid, organiser_name, organiser_fbid;
     int event_name_changed_indicator = 0;
     int event_time_changed_indicator = 0;
@@ -58,27 +61,31 @@ public class EventOrganisingDialog extends DialogFragment implements /*OnMapRead
 
         View view = inflater.inflate(R.layout.event_details_organising, container, false);
 
+        // Get fonts
+        Typeface normal = FontCache.getFont(getContext(), "sf_reg.ttf");
+        Typeface bold = FontCache.getFont(getContext(), "sf_bold.ttf");
+
+
         // Remove title
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         //String start_hour, start_minute = new String();
 
-        Typeface normal = Typeface.createFromAsset(getActivity().getAssets(), "sf_reg.ttf");
-        Typeface bold = Typeface.createFromAsset(getActivity().getAssets(), "sf_bold.ttf");
         // Get information from bundle passed from Fragment
-        Bundle mArgs = getArguments();
+        final Bundle mArgs = getArguments();
         fbid = mArgs.getString("my_id");
         organiser_name = mArgs.getString("organiser_name");
         organiser_fbid = mArgs.getString("organiser_fbid");
 
-        event_details = (EventEntryItem) mArgs.getSerializable("data");
+        //event_details = (EventEntryItem) mArgs.getSerializable("data");
         //int position = mArgs.getInt("position");
 
         // Get original data
-        final String original_name = event_details.getTitle().toUpperCase();
+        final String original_name = mArgs.getString("event_name").toUpperCase();
 
         // Refer to Ids in view
         TextView organiser = (TextView) view.findViewById(R.id.organiser_info);
+        organiser.setTypeface(normal);
 
         // Event Name
         final EditText event_Name = (EditText) view.findViewById(R.id.event_name);
@@ -121,34 +128,29 @@ public class EventOrganisingDialog extends DialogFragment implements /*OnMapRead
 
         ImageView event_organiser_photo = (ImageView) view.findViewById(R.id.organiser_photo);
         event_start_date = (TextView) view.findViewById(R.id.event_start_date);
+        event_start_date.setTypeface(normal);
+
         event_date_edit = (ImageView) view.findViewById(R.id.event_date_edit);
         // TextView event_end_date = (TextView) view.findViewById(R.id.eventEndDisplay);
         event_start_time = (TextView) view.findViewById(R.id.event_start_time);
+        event_start_time.setTypeface(normal);
         // TextView event_end_time = (TextView) view.findViewById(R.id.timeEndDisplay);
         final TextView event_location = (TextView) view.findViewById(R.id.event_loc);
+        event_location.setTypeface(normal);
         //final TextView event_map_display = (TextView) view.findViewById(R.id.event_map_display);
         TextView eventInvitedNumber = (TextView) view.findViewById(R.id.invited_text);
-        LinearLayout rsvp = (LinearLayout) view.findViewById(R.id.rsvp_block);
-        View rsvp_line = (View) view.findViewById(R.id.rsvp_line);
+        eventInvitedNumber.setTypeface(normal);
 
         final FrameLayout mapLayout = (FrameLayout) view.findViewById(R.id.event_map);
         final LinearLayout ind_bubbles = (LinearLayout) view.findViewById(R.id.invited_circles_display);
 
         // Get event position from user
         String org;
-        if (organiser_name.equals("myself")) {
-            rsvp.setVisibility(View.GONE);
-            rsvp_line.setVisibility(View.GONE);
-            org = "You are the organiser";
-        } else {
 
-            org = new StringBuilder().append(organiser_name).append(" invited you").toString();
-        }
-        organiser.setText(org);
+        organiser.setText("You are the organiser");
 
         // Set up event name
-        event_Name.setText(event_details.getTitle().toUpperCase());
-
+        event_Name.setText(mArgs.getString("event_name").toUpperCase());
 
         Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(organiser_fbid).getPath());
         //int image = allocate.EventTypeDetermine(event_details.getTitle());
@@ -156,7 +158,8 @@ public class EventOrganisingDialog extends DialogFragment implements /*OnMapRead
         event_organiser_photo.setImageBitmap(bitmap);
 
         // Set up start and end date
-        Date juDate = new Date(event_details.getStartTime());
+        event_millis = mArgs.getLong("event_start");
+        Date juDate = new Date(event_millis);
         DateTime dt_s = new DateTime(juDate);
         year = dt_s.getYear();
         String s_year = Integer.toString(year);
@@ -175,9 +178,7 @@ public class EventOrganisingDialog extends DialogFragment implements /*OnMapRead
             public void onClick(View view) {
                 FragmentManager ft = getActivity().getSupportFragmentManager();
 
-                long millis = event_details.getStartTime();
-
-                DialogFragment newFragment = new DatePickerDialogFragment(EventOrganisingDialog.this, millis);
+                DialogFragment newFragment = new DatePickerDialogFragment(EventOrganisingDialog.this, event_millis);
 
                 newFragment.show(ft, "date_dialog");
             }
@@ -193,47 +194,53 @@ public class EventOrganisingDialog extends DialogFragment implements /*OnMapRead
 
 
         // Set up location
-        if (event_details.getEventLocation() != null) {
-            event_location.setText(event_details.getEventLocation());
+        if (mArgs.getString("event_location") != null) {
+            event_location.setText(mArgs.getString("event_location"));
         } else {
             event_location.setText("No location specified");
         }
+
+        // Set up Latlng
+        Double lat = mArgs.getDouble("event_lat");
+        Log.i("GET",Double.toString(lat));
+        Double lng = mArgs.getDouble("event_lng");
+        latLng = new LatLng(lat, lng);
 
 
         SupportMapFragment mMapFragment = new SupportMapFragment();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.event_map, mMapFragment).commit();
-        //mMapFragment.getMapAsync(EventOrganisingDialog.this);
+        mMapFragment.getMapAsync(EventOrganisingDialog.this);
+        ArrayList<String> invitees = mArgs.getStringArrayList("event_invitees");
 
-        for (int i = 0; i < event_details.getFriendsInvited().size(); i++) {
-            if (i <= 4 || event_details.getFriendsInvited().size() < 6) {
-                View v = CreateFriendsBubble(i);
+        for (int i = 0; i < invitees.size(); i++) {
+            if (i <= 4 || invitees.size() < 6) {
+                View v = CreateFriendsBubble(invitees.get(i));
 
                 ind_bubbles.addView(v);
             }
         }
 
         // Set up invitees count
-        if (event_details.getFriendsInvited().size() == 1) {
+        if (invitees.size() == 1) {
             eventInvitedNumber.setText(
-                    new StringBuilder().append(event_details.getFriendsInvited().size()).append(" friend is invited").toString());
+                    new StringBuilder().append(invitees.size()).append(" friend is invited").toString());
         } else {
             eventInvitedNumber.setText(
-                    new StringBuilder().append(event_details.getFriendsInvited().size()).append(" friends are invited").toString());
+                    new StringBuilder().append(invitees.size()).append(" friends are invited").toString());
         }
 
         return view;
 
     }
 
- /*   @Override
+    @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        //final LatLng test_QC_location = new LatLng(22.2814,114.1916);
         MapObjectControl control = new MapObjectControl();
         control.AddSearchedMarker(latLng, googleMap, 14);
     }
-*/
+
     @Override
     public void onStart() {
         super.onStart();
@@ -245,17 +252,18 @@ public class EventOrganisingDialog extends DialogFragment implements /*OnMapRead
         }
     }
 
-    public View CreateFriendsBubble(final int i) {
+    public View CreateFriendsBubble(final String i) {
         LayoutInflater m = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View ind_layout = m.inflate(R.layout.event_invited_friend_bubble, null);
 
         ImageView invitees_bubble = (ImageView) ind_layout.findViewById(R.id.individual_bubble);
-        int image2 = R.drawable.edmund;
-        Bitmap bm = BitmapFactory.decodeResource(getResources(), image2);
-        RoundImage displayImage = new RoundImage(bm);
 
+        Bitmap image = BitmapFactory.decodeFile(Utility.getImage(i).getPath());
+        //int image2 = R.drawable.edmund;
+        //Bitmap bm = BitmapFactory.decodeResource(getResources(), image);
+        //RoundImage displayImage = new RoundImage(bm);
 
-        invitees_bubble.setImageDrawable(displayImage);
+        invitees_bubble.setImageBitmap(image);
 
         return ind_layout;
 
@@ -283,7 +291,7 @@ public class EventOrganisingDialog extends DialogFragment implements /*OnMapRead
             Log.e("ParseException", e.getMessage());
         }
 
-        if (event_details.getStartTime() != mMillis) {
+        if (event_millis != mMillis) {
             event_time_changed_indicator = 1;
         } else {
             event_time_changed_indicator = 0;
@@ -307,8 +315,7 @@ public class EventOrganisingDialog extends DialogFragment implements /*OnMapRead
             Log.e("ParseException", e.getMessage());
         }
 
-
-        if (event_details.getStartTime() != mMillis) {
+        if (event_millis != mMillis) {
             event_time_changed_indicator = 1;
         } else {
             event_time_changed_indicator = 0;

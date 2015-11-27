@@ -1,6 +1,0 @@
-<!-- res/transition/change_image_transform.xml -->
-<!-- (see also Shared Transitions below) -->
-<transitionSet>
-    <changeBounds />
-
-</transitionSet><!-- From: file:/Users/edmundlee/Documents/SamePage/app/src/main/res/transition/change_people_or_event_input.xml -->

@@ -22,8 +22,6 @@ public class PlacesAutocomplete {
 	private static final String TYPE_AUTOCOMPLETE = "/autocomplete";
 	private static final String OUT_JSON = "/json";
 
-	public static final String API_KEY = "AIzaSyCEBmXKQ5k42UsKvCmZBPnmv3BDTqds52k";
-	
 	
 public static ArrayList<String> autocomplete(String input) {
     ArrayList<String> resultList = null;
@@ -32,7 +30,7 @@ public static ArrayList<String> autocomplete(String input) {
     StringBuilder jsonResults = new StringBuilder();
     try {
         StringBuilder sb = new StringBuilder(PLACES_API_BASE + TYPE_AUTOCOMPLETE + OUT_JSON);
-        sb.append("?key=" + API_KEY);
+        sb.append("?key=" + MainActivity.API_KEY);
         sb.append("&components;=country:uk");
         sb.append("&input=" + URLEncoder.encode(input, "utf8"));
 
@@ -47,6 +45,7 @@ public static ArrayList<String> autocomplete(String input) {
         char[] buff = new char[1024];
         while ((read = in.read(buff)) != -1) {
             jsonResults.append(buff, 0, read);
+            Log.e("JASON",jsonResults.toString());
         }
     } catch (MalformedURLException e) {
         Log.e(LOG_TAG, "Error processing Places API URL", e);
@@ -77,7 +76,7 @@ public static ArrayList<String> autocomplete(String input) {
             resultList.add(place.toString());
           
         }
-        
+
     } catch (JSONException e) {
         Log.e(LOG_TAG, "Cannot process JSON results", e);
     }

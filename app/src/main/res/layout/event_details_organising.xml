@@ -14,6 +14,11 @@
         android:background="#ECEFF1"
         android:orientation="vertical">
 
+        <FrameLayout
+            android:id="@+id/event_map"
+            android:layout_width="match_parent"
+            android:layout_height="165dp"></FrameLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
@@ -36,8 +41,7 @@
                 android:layout_marginStart="10dp"
                 android:gravity="center_vertical"
                 android:text="ORGANISER"
-                android:textSize="16sp"
-                custom:fontName="sf_reg.ttf" />
+                android:textSize="16sp" />
 
 
         </LinearLayout>
@@ -119,8 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:text="START_OF_EVENT"
-                android:textSize="16sp"
-                custom:fontName="sf_reg.ttf" />
+                android:textSize="16sp" />
 
 
             <ImageView
@@ -159,8 +162,7 @@
                 android:layout_marginLeft="6dp"
                 android:layout_marginStart="6dp"
                 android:text="START_OF_EVENT"
-                android:textSize="16sp"
-                custom:fontName="sf_reg.ttf" />
+                android:textSize="16sp" />
 
 
             <ImageView
@@ -202,8 +204,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:text="LOCATION"
-                    android:textSize="16sp"
-                    custom:fontName="sf_reg.ttf" />
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -223,71 +224,12 @@
 
         </LinearLayout>
 
-        <FrameLayout
-            android:id="@+id/event_map"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginStart="20dp"
-            android:visibility="gone"></FrameLayout>
 
 
         <View
             style="@style/EventDivider"
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp" />
-
-        <LinearLayout
-            android:id="@+id/rsvp_block"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-
-            <com.example.projecttesting.MyTextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|start"
-                android:layout_marginStart="20dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical|start"
-                android:text="RSVP"
-                android:textSize="25sp"
-                custom:fontName="sf_reg.ttf" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="20dp"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginRight="15dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/checked" />
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginRight="15dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/event_reject" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
 
         <View
             android:id="@+id/rsvp_line"
@@ -309,8 +251,7 @@
                 android:layout_marginStart="20dp"
                 android:gravity="center_vertical|start"
                 android:text="People invited to this event"
-                android:textSize="16sp"
-                custom:fontName="sf_reg.ttf" />
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="0dp"

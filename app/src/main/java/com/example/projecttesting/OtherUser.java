@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * Created by edmundlee on 10/1/15.
  */
 public class OtherUser implements Parcelable {
-    private boolean hasLoc;
+    public boolean hasLoc;
     private boolean hasLoc_old;
     public String fbid;
     public String userId;
