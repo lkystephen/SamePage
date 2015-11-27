@@ -69,11 +69,6 @@ import java.util.List;
 
 public class MainFragment extends Fragment implements LocationListener, TextWatcher {
 
-	/*public int[] friendsLastOnlineTime = new int[] { 1, 10, 5};
-    public int[] friends_image = {R.drawable.edmund, R.drawable.lkk};
-	// friendsStarredStatus, 1 = starred, 0 is normal
-	public int[] friendsStarredStatus = new int[] { 1, 1};*/
-
     //public static GoogleMap googleMap;
     public static Marker selectedMarker;
     public LatLng myPosition;
@@ -90,9 +85,6 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
     User user;
     // Testing data
     String id = "106808403007880";
-    //ArrayList<FriendsRowItem> rowItems;
-    //ImageView test_button, test_button2;
-
 
     // Define testing location data
     final LatLng test_QC_location = new LatLng(22.2814, 114.1916);
@@ -131,7 +123,6 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 
         adapter = new MainPageAdapter(getActivity(), R.layout.newsfeed_list_display, result, user);
         listView.setAdapter(adapter);
-
 
         //ImageView image = (ImageView) rootView.findViewById(R.id.welcome_image);
 
@@ -493,41 +484,5 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int before, int count) {
-
     }
-
-
 }
-/*
-	@Override
-	public void onMapReady(GoogleMap googleMap) {
-		MapObjectControl control = new MapObjectControl();
-		if (currentLatLng == null){
-			currentLatLng = new LatLng(0,0);
-		}
-		//Log.i("latlng",currentLatLng.toString());
-
-		googleMap.setMyLocationEnabled(true);
-
-		control.MovedToCurrentLoc(currentLatLng, googleMap, 15);
-		googleMap.addMarker(new MarkerOptions().position(test_QC_location));
-
-		// Set marker click listener to display route
-		googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-			@Override
-			public boolean onMarkerClick(Marker marker) {
-
-				// Getting URL to the Google Directions API
-				String url = getDirectionsUrl(myPosition, test_QC_location);
-
-				DownloadTask downloadTask = new DownloadTask();
-
-				// Start downloading json data from Google Directions API
-				downloadTask.execute(url);
-
-				return false;
-			}
-		});
-	}
-}
-*/

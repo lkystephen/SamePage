@@ -126,7 +126,7 @@ public class EventListAdapter extends ArrayAdapter<EventTypes> {
         //RoundImage roundImage = new RoundImage(bitmap);
         holder.event_image.setImageResource(allocated);
 
-        int organise_number = rowItem.getEventInvitees().size();
+        int organise_number = rowItem.getPending().size();
         for (int i = 0; i < organise_number; i++) {
             if (i <= 4 && organise_number < 6) {
                 CreateFriendsBubble createFriendsBubble = new CreateFriendsBubble();
