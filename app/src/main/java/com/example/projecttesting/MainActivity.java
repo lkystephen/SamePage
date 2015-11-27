@@ -109,91 +109,6 @@ public class MainActivity extends AppCompatActivity implements MainAct {
 
     @Override
     public void handleGetFrdsLocResults(final HashMap<String, OtherUser> masterListwLoc) {
-
-        setContentView(R.layout.activity_main);
-
-        PACKAGE_NAME = getApplicationContext().getPackageName();
-
-      //  mViewPager = (ViewPager) findViewById(R.id.main_viewPager);
-
-        Bundle abc = new Bundle();
-        abc.putParcelable("user", user);
-        //mViewPager.setAdapter(new MainViewAdapter(getSupportFragmentManager(), abc));
-        //mViewPager.setOffscreenPageLimit(4);
-
-        //Typeface face = Typeface.createFromAsset(getAssets(), "sf_bold.ttf");
-
-        // Create main floating icon
-        ImageView add_icon = new ImageView(this);
-        add_icon.setImageResource(R.drawable.more_w);
-
-        int[][] states = {{android.R.attr.state_enabled} , {
-                android.R.attr.state_pressed}};
-        int[] colors = {Color.parseColor("#ff4f6069"),Color.parseColor("#ffffff")};
-        ColorStateList colorStateList = new ColorStateList(states,colors);
-
-        FloatingActionButton actionButton = new FloatingActionButton.Builder(this).setContentView(add_icon).build();
-        actionButton.setBackgroundTintList(colorStateList);
-
-        // Create sub menu items
-        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
-        ImageView homeIcon = new ImageView(this);
-        homeIcon.setImageResource(R.drawable.button_home_w);
-        ImageView eventIcon = new ImageView(this);
-        eventIcon.setImageResource(R.drawable.button_event_w);
-        ImageView friendsIcon = new ImageView(this);
-        friendsIcon.setImageResource(R.drawable.button_friends_w);
-        ImageView settingIcon = new ImageView(this);
-        settingIcon.setImageResource(R.drawable.button_settings_w);
-
-        SubActionButton button1 = itemBuilder.setContentView(homeIcon).build();
-        SubActionButton button2 = itemBuilder.setContentView(eventIcon).build();
-        SubActionButton button3 = itemBuilder.setContentView(friendsIcon).build();
-        SubActionButton button4 = itemBuilder.setContentView(settingIcon).build();
-
-
-        int size = getResources().getDimensionPixelSize(com.oguzdev.circularfloatingactionmenu.library.R.dimen.sub_action_button_size);
-        Log.i("size",Integer.toString(size));
-        int size2 = (int) Math.round(size*1.3);
-        LayoutParams params = new LayoutParams(size2, size2, 51);
-
-        button1.setBackgroundTintList(colorStateList);
-        button2.setBackgroundTintList(colorStateList);
-        button3.setBackgroundTintList(colorStateList);
-        button4.setBackgroundTintList(colorStateList);
-
-        // Enlarge the sub action buttons
-        button1.setLayoutParams(params);
-        button2.setLayoutParams(params);
-        button3.setLayoutParams(params);
-        button4.setLayoutParams(params);
-
-        actionMenu = new FloatingActionMenu.Builder(this).addSubActionView(button1)
-                .addSubActionView(button2).addSubActionView(button3).addSubActionView(button4).attachTo(actionButton).build();
-
-        //Instantiate the Main Fragment
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        MainFragment mainFragment = new MainFragment();
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("user",user);
-        mainFragment.setArguments(bundle);
-        fragmentTransaction.add(R.id.mFragment, mainFragment);
-        fragmentTransaction.commit();
-
-        //LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        // update user location
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        String bestProvider = locationManager.NETWORK_PROVIDER;
-        final Location location = locationManager.getLastKnownLocation(bestProvider);
-        user.updateLocation(location);
-
-        button1.setOnClickListener(new mOnClickListener(1, this));
-        button2.setOnClickListener(new mOnClickListener(2, this));
-        button3.setOnClickListener(new mOnClickListener(3, this));
-        button4.setOnClickListener(new mOnClickListener(4, this));
-
     }
 
     public class mOnClickListener implements View.OnClickListener
@@ -359,7 +274,92 @@ public class MainActivity extends AppCompatActivity implements MainAct {
 
         protected void onPostExecute(Integer result) {
             Log.i("come on", "dude");
-            user.getMasterListwLoc(MainActivity.this);
+
+            setContentView(R.layout.activity_main);
+
+            PACKAGE_NAME = getApplicationContext().getPackageName();
+
+            //  mViewPager = (ViewPager) findViewById(R.id.main_viewPager);
+
+            Bundle abc = new Bundle();
+            abc.putParcelable("user", user);
+            //mViewPager.setAdapter(new MainViewAdapter(getSupportFragmentManager(), abc));
+            //mViewPager.setOffscreenPageLimit(4);
+
+            //Typeface face = Typeface.createFromAsset(getAssets(), "sf_bold.ttf");
+
+            // Create main floating icon
+            ImageView add_icon = new ImageView(MainActivity.this);
+            add_icon.setImageResource(R.drawable.more_w);
+
+            int[][] states = {{android.R.attr.state_enabled} , {
+                    android.R.attr.state_pressed}};
+            int[] colors = {Color.parseColor("#ff4f6069"),Color.parseColor("#ffffff")};
+            ColorStateList colorStateList = new ColorStateList(states,colors);
+
+            FloatingActionButton actionButton = new FloatingActionButton.Builder(MainActivity.this).setContentView(add_icon).build();
+            actionButton.setBackgroundTintList(colorStateList);
+
+            // Create sub menu items
+            SubActionButton.Builder itemBuilder = new SubActionButton.Builder(MainActivity.this);
+            ImageView homeIcon = new ImageView(MainActivity.this);
+            homeIcon.setImageResource(R.drawable.button_home_w);
+            ImageView eventIcon = new ImageView(MainActivity.this);
+            eventIcon.setImageResource(R.drawable.button_event_w);
+            ImageView friendsIcon = new ImageView(MainActivity.this);
+            friendsIcon.setImageResource(R.drawable.button_friends_w);
+            ImageView settingIcon = new ImageView(MainActivity.this);
+            settingIcon.setImageResource(R.drawable.button_settings_w);
+
+            SubActionButton button1 = itemBuilder.setContentView(homeIcon).build();
+            SubActionButton button2 = itemBuilder.setContentView(eventIcon).build();
+            SubActionButton button3 = itemBuilder.setContentView(friendsIcon).build();
+            SubActionButton button4 = itemBuilder.setContentView(settingIcon).build();
+
+
+            int size = getResources().getDimensionPixelSize(com.oguzdev.circularfloatingactionmenu.library.R.dimen.sub_action_button_size);
+            Log.i("size",Integer.toString(size));
+            int size2 = (int) Math.round(size*1.3);
+            LayoutParams params = new LayoutParams(size2, size2, 51);
+
+            button1.setBackgroundTintList(colorStateList);
+            button2.setBackgroundTintList(colorStateList);
+            button3.setBackgroundTintList(colorStateList);
+            button4.setBackgroundTintList(colorStateList);
+
+            // Enlarge the sub action buttons
+            button1.setLayoutParams(params);
+            button2.setLayoutParams(params);
+            button3.setLayoutParams(params);
+            button4.setLayoutParams(params);
+
+            actionMenu = new FloatingActionMenu.Builder(MainActivity.this).addSubActionView(button1)
+                    .addSubActionView(button2).addSubActionView(button3).addSubActionView(button4).attachTo(actionButton).build();
+
+            //Instantiate the Main Fragment
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            MainFragment mainFragment = new MainFragment();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("user",user);
+            mainFragment.setArguments(bundle);
+            fragmentTransaction.add(R.id.mFragment, mainFragment);
+            fragmentTransaction.commit();
+
+            //LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            // update user location
+            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            String bestProvider = locationManager.NETWORK_PROVIDER;
+            final Location location = locationManager.getLastKnownLocation(bestProvider);
+            user.updateLocation(location);
+
+            button1.setOnClickListener(new mOnClickListener(1, MainActivity.this));
+            button2.setOnClickListener(new mOnClickListener(2, MainActivity.this));
+            button3.setOnClickListener(new mOnClickListener(3, MainActivity.this));
+            button4.setOnClickListener(new mOnClickListener(4, MainActivity.this));
+
+
         }
     }
 
