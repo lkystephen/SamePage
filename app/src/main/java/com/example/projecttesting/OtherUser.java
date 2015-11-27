@@ -16,6 +16,8 @@ public class OtherUser implements Parcelable {
     public double longitude;
     public double lat_old;
     public double longitude_old;
+    public long timestamp;
+    public long timestamp_old;
 
 
     public OtherUser (String fbid_input, String uid_input, String username_input){
@@ -35,7 +37,7 @@ public class OtherUser implements Parcelable {
         longitude = long_input;
     }
 
-    public OtherUser (String fbid_input, String uid_input, String username_input, double lat_input, double long_input, double lat_in_old, double long_in_old){
+    public OtherUser (String fbid_input, String uid_input, String username_input, double lat_input, double long_input, double lat_in_old, double long_in_old, long ts, long ts_old){
         hasLoc = true;
         hasLoc_old = true;
         fbid = fbid_input;
@@ -45,6 +47,8 @@ public class OtherUser implements Parcelable {
         longitude = long_input;
         lat_old = lat_in_old;
         longitude_old = long_in_old;
+        timestamp = ts;
+        timestamp_old = ts_old;
     }
 
 
@@ -60,6 +64,8 @@ public class OtherUser implements Parcelable {
         if (hasLoc_old) {
             lat_old = in.readDouble();
             longitude_old = in.readDouble();
+            timestamp = in.readLong();
+            timestamp_old = in.readLong();
         }
     }
 
@@ -77,7 +83,7 @@ public class OtherUser implements Parcelable {
             tmp = tmp + "\nlat: "+lat +"\nlong: "+longitude;
         }
         if (hasLoc_old) {
-            tmp = tmp + "\nlat_o: "+lat_old +"\nlong_o: "+longitude_old;
+            tmp = tmp + "\nlat_o: "+lat_old +"\nlong_o: "+longitude_old+ "\ntimestamp: "+timestamp +"\ntimestamp_old: "+timestamp_old;
         }
         return tmp;
     }
@@ -112,6 +118,8 @@ public class OtherUser implements Parcelable {
         if (hasLoc_old) {
             parcel.writeDouble(lat_old);
             parcel.writeDouble(longitude_old);
+            parcel.writeLong(timestamp);
+            parcel.writeLong(timestamp_old);
         }
     }
 }

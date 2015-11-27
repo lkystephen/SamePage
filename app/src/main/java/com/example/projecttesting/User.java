@@ -186,7 +186,9 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
                                 double lat_o_tmp = json_fromServer.getDouble("lat_old");
                                 double long_o_tmp = json_fromServer.getDouble("long_old");
                                 String uid_tmp = json_fromServer.getString("userid");
-                                friends.add(new OtherUser(fbid_tmp,uid_tmp,username_tmp, lat_tmp,long_tmp,lat_o_tmp,long_o_tmp));
+                                long timestamp_tmp = json_fromServer.getLong("timestamp");
+                                long timestamp_o_tmp = json_fromServer.getLong("timestamp_old");
+                                friends.add(new OtherUser(fbid_tmp,uid_tmp,username_tmp, lat_tmp,long_tmp,lat_o_tmp,long_o_tmp,timestamp_tmp,timestamp_o_tmp));
                             } catch (Exception ex) {
                                 Log.i("getting frds' loc", "Error :" + ex.getMessage());
                             }
