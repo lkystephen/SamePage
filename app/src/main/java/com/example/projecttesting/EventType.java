@@ -121,6 +121,9 @@ public class EventType implements EventTypes {
             //    Log.i(TAG, i+": "+json_pend.getString(i));
                 pendingInvitees.add(json_pend.getString(i));
             }
+            invitees.addAll(attendees);
+            invitees.addAll(pendingInvitees);
+            invitees.addAll(rejectees);
         } catch (JSONException e) {
             Log.i(TAG, e.toString());
         }
