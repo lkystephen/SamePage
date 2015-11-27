@@ -5,8 +5,6 @@
       <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.appyvet/materialrangebar/1.2/res" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.appyvet/materialrangebar/1.2/d321e78ee76ffeb993024e6429f88cf3dbc10799/materialrangebar-1.2-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>
