@@ -68,6 +68,12 @@ public class OrganizingEventFragment extends Fragment implements UpdateableFragm
         // Get data
         //EventDetailsFetch fetch = new EventDetailsFetch();
         List<EventTypes> list = user.getEventsOrganised();
+        int a = user.getEventsOrganised().size();
+
+        for (int i = 0; i <a ; i++){
+            int temp = user.getEventsOrganised().get(i).getEventInvitees().size();
+            Log.i("asf size",Integer.toString(temp));
+        }
         //int i = list.get(0).getEventInvitees().size();
         //Log.i("size",Integer.toString(i));
         //bigdata = fetch.FetchDetails(list);
@@ -84,7 +90,6 @@ public class OrganizingEventFragment extends Fragment implements UpdateableFragm
 
         LoadingAdapter loading = new LoadingAdapter(user.getEventsOrganised());
         loading.execute();
-
 
         return rootView;
     }

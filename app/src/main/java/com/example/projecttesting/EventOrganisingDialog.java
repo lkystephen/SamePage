@@ -202,7 +202,7 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
 
         // Set up Latlng
         Double lat = mArgs.getDouble("event_lat");
-        Log.i("GET",Double.toString(lat));
+        Log.i("GET", Double.toString(lat));
         Double lng = mArgs.getDouble("event_lng");
         latLng = new LatLng(lat, lng);
 
@@ -215,8 +215,8 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
 
         for (int i = 0; i < invitees.size(); i++) {
             if (i <= 4 || invitees.size() < 6) {
-                View v = CreateFriendsBubble(invitees.get(i));
-
+                CreateFriendsBubble createFriendsBubble = new CreateFriendsBubble();
+                View v = createFriendsBubble.create(getContext(), 30, invitees.get(i));
                 ind_bubbles.addView(v);
             }
         }
@@ -250,23 +250,6 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
             dialog.getWindow().setLayout(width, height);
         }
-    }
-
-    public View CreateFriendsBubble(final String i) {
-        LayoutInflater m = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View ind_layout = m.inflate(R.layout.event_invited_friend_bubble, null);
-
-        ImageView invitees_bubble = (ImageView) ind_layout.findViewById(R.id.individual_bubble);
-
-        Bitmap image = BitmapFactory.decodeFile(Utility.getImage(i).getPath());
-        //int image2 = R.drawable.edmund;
-        //Bitmap bm = BitmapFactory.decodeResource(getResources(), image);
-        //RoundImage displayImage = new RoundImage(bm);
-
-        invitees_bubble.setImageBitmap(image);
-
-        return ind_layout;
-
     }
 
     public void onDateSet(DatePicker view, int year, int monthOfYear,

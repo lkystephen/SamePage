@@ -173,10 +173,9 @@ public class EventStartDialog extends DialogFragment implements OnMapReadyCallba
         ArrayList<String> invitee = mArgs.getStringArrayList("event_invitees");
         for (int i = 0; i < invitee.size(); i++) {
             if (i <= 4 || invitee.size() < 6) {
-                String id = invitee.get(i);
+                
                 CreateFriendsBubble createFriendsBubble = new CreateFriendsBubble();
-                View v = createFriendsBubble.create(getContext(),26, id);
-
+                View v = createFriendsBubble.create(getContext(), 30, invitee.get(i));
                 ind_bubbles.addView(v);
             }
         }

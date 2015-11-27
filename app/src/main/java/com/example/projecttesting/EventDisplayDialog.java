@@ -136,10 +136,10 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
 
         // Set up location
         String location = mArgs.getString("event_location");
-        if (location != null) {
-            event_location.setText(location);
-        } else {
+        if (location.equals("")) {
             event_location.setText("No location specified");
+        } else {
+            event_location.setText(location);
         }
 
         // Set up event coordinates
@@ -158,7 +158,7 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
             if (i <= 4 || invitee.size() < 6) {
                 String id = invitee.get(i);
                 CreateFriendsBubble createFriendsBubble = new CreateFriendsBubble();
-                View v = createFriendsBubble.create(getContext(),26, id);
+                View v = createFriendsBubble.create(getContext(),30, id);
 
                 ind_bubbles.addView(v);
             }
