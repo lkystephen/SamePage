@@ -36,8 +36,8 @@ public interface Users {
 	//Getting the lists
 	public List<OtherUser> getMasterList();
 	public List<OtherUser> getStarList();
-    public void getMasterListwLoc(MainAct mainAct);
-    public List<OtherUser> getStarListwLoc();
+  //  public void getMasterListwLoc();
+  //  public List<OtherUser> getStarListwLoc();
 
 
     //Adding friends; update DB automatically

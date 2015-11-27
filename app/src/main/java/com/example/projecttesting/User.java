@@ -146,7 +146,51 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
                             JSONObject json_friend = new JSONObject();
                             String fbid_tmp = json_friends_raw.getJSONObject(i).getString("id");
                             String username_tmp = json_friends_raw.getJSONObject(i).getString("name");
-                            friends.add(new OtherUser(fbid_tmp,null,username_tmp));
+                            // get loc as well
+                            Log.i("User", "getting friend" + Integer.toString(i) + "'s location");
+
+                            String link = "http://letshangout.netau.net/getloc.php";
+                            HttpURLConnection urlConnection = null;
+
+                            try {
+                                URL url = new URL(link);
+                                urlConnection = (HttpURLConnection) url.openConnection();
+                                urlConnection.setDoOutput(true);
+                                urlConnection.setRequestMethod("POST");
+                                urlConnection.setRequestProperty("Content-Type", "application/json");
+                                urlConnection.setRequestProperty("Accept", "application/json");
+
+                                JSONArray json_toSend = new JSONArray(fbid_tmp);
+
+                                //send the POST out
+                                //sending out the POST
+                                PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
+                                out.print(json_toSend.toString());
+                                Log.i("json", json_toSend.toString());
+                                out.flush();
+                                out.close();
+
+                                // read
+                                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                                StringBuilder sb = new StringBuilder();
+                                String line = null;
+                                // Read Server Response
+                                while ((line = reader.readLine()) != null) {
+                                    sb.append(line);
+                                    break;
+                                }
+                                JSONObject json_fromServer= new JSONObject(sb.toString());
+                                double lat_tmp = json_fromServer.getDouble("lat");
+                                double long_tmp = json_fromServer.getDouble("longitude");
+                                double lat_o_tmp = json_fromServer.getDouble("lat_old");
+                                double long_o_tmp = json_fromServer.getDouble("long_old");
+                                String uid_tmp = json_fromServer.getString("userid");
+                                friends.add(new OtherUser(fbid_tmp,uid_tmp,username_tmp, lat_tmp,long_tmp,lat_o_tmp,long_o_tmp));
+                            } catch (Exception ex) {
+                                Log.i("getting frds' loc", "Error :" + ex.getMessage());
+                            }
+
                         //    Log.i("Get friends 1", json_friend.toString());
                         }
                         //get next batch of results of exists
@@ -419,9 +463,9 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
             // TODO Auto-generated method stub
             return null;
         }
-
+/*
     @Override
-    public void getMasterListwLoc(final MainAct mainact) {
+    public void getMasterListwLoc() {
         final List<String> idsOfFrds = new ArrayList<String>();
         mapOfFrds = new HashMap<String, OtherUser>();
         for (OtherUser frds : friends) {
@@ -490,13 +534,17 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
             protected void onPostExecute(String result) {
                 // get with db
                 Log.i("getting friends Loc" ,result);
-                mainact.handleGetFrdsLocResults(mapOfFrds);
+                this.handleGetFrdsLocResults(mapOfFrds);
             }
 
         }.execute(null,null,null);
     }
 
-    @Override
+    public void handleGetFrdsLocResults(HashMap<String,OtherUser> mapOfFrds) {
+
+    }
+*/
+
     public List<OtherUser> getStarListwLoc() {
         return null;
     }
