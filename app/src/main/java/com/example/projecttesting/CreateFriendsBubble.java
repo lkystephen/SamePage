@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.pkmmte.view.CircularImageView;
 
@@ -20,7 +21,7 @@ public class CreateFriendsBubble{
         int pixels = (int) (dp* scale + 0.5f);
 
         CircularImageView invitees_bubble = (CircularImageView) ind_layout.findViewById(R.id.individual_bubble);
-        invitees_bubble.setLayoutParams(new ActionBar.LayoutParams(pixels, pixels));
+        invitees_bubble.setLayoutParams(new LinearLayout.LayoutParams(pixels, pixels));
         //int image2 = R.drawable.edmund;
         Bitmap bm = BitmapFactory.decodeFile(Utility.getImage(id).getPath());
         //RoundImage displayImage = new RoundImage(bm);

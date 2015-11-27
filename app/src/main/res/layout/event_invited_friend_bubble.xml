@@ -7,7 +7,7 @@
     android:orientation="horizontal" >
 
 
-    <CircleImageView
+    <com.pkmmte.view.CircularImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="center"
