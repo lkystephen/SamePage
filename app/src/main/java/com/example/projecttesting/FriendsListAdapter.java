@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Filter;
 
+import org.w3c.dom.Text;
+
 public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements Filterable {
 
     Context context;
@@ -60,9 +62,11 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
             holder = new ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.friends_display_list);
             holder.last_update = (TextView) convertView.findViewById(R.id.friends_display_last_update);
+            holder.location = (TextView) convertView.findViewById(R.id.friends_display_loc);
             holder.image = (ImageView) convertView.findViewById(R.id.display_image);
 
             holder.name.setTypeface(face_b);
+            holder.location.setTypeface(face_r);
             holder.last_update.setTypeface(face_r);
 
             convertView.setTag(holder);
@@ -74,6 +78,11 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
         FriendsRowItem rowItem = filteredData.get(position);
 
         holder.name.setText(rowItem.getName());
+        if (!holder.last_update.equals("")){
+            int time_in_seconds = rowItem.getLastOnline();
+            int time_in_minutes = Math.round(time_in_seconds / 60);
+            holder.last_update.setText(time_in_minutes + " mins ago");
+        } else
         holder.last_update.setText("Unknown");
 
         // Set image
@@ -87,6 +96,7 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
         } else {
             holder.image.setImageResource(R.drawable.fb_display_male);
         }
+
 
         return convertView;
     }

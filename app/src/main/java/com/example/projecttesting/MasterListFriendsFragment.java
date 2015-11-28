@@ -42,10 +42,12 @@ public class MasterListFriendsFragment extends Fragment {
                 false);
 
         Typeface face;
-        face = Typeface.createFromAsset(getActivity().getAssets(), "sf_reg.ttf");
+        face = FontCache.getFont(getContext(), "sf_reg.ttf");
 
         Bundle bundle = getArguments();
         user = bundle.getParcelable("user");
+
+        Log.i("Number of friends",Integer.toString(user.getMasterList().size()));
 
         final EditText search = (EditText) rootView.findViewById(R.id.master_search);
         search.setTypeface(face);
@@ -113,6 +115,11 @@ public class MasterListFriendsFragment extends Fragment {
         protected ArrayList<FriendsRowItem> doInBackground(Void... params) {
 
             List<OtherUser> master_list = user.getMasterList();
+
+            // Getting the location information of friends in another async task
+            ParseLocation parserTask = new ParseLocation(user);
+
+
             // Establish data here
             rowItems = new ArrayList<>();
             for (int i = 0; i < master_list.size(); i++) {

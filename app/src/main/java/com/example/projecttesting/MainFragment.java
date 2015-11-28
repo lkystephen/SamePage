@@ -67,7 +67,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainFragment extends Fragment implements LocationListener, TextWatcher {
+public class MainFragment extends Fragment implements LocationListener, TextWatcher, LocationAsyncResponse {
 
     //public static GoogleMap googleMap;
     public static Marker selectedMarker;
@@ -173,7 +173,9 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         // Calculating location now
         // Getting URL to the Google Directions API
         String url = getDirectionsUrl(myPosition, test_QC_location);
-        DownloadTask downloadTask = new DownloadTask();
+        DownloadTask downloadTask = new DownloadTask(user);
+
+        downloadTask.delegate = this;
         // Start downloading json data from Google Directions API
         downloadTask.execute(url);
 
@@ -272,6 +274,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         // Default the mode of transportation to public transit
         String mode_transit = "mode=transit";
 
+
         // Building the parameters to the web service
         String parameters = str_origin + "&" + str_dest + "&" + mode_transit + "&" + sensor;
 
@@ -327,7 +330,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
     }
 
     // Fetches data from url passed
-    private class DownloadTask extends AsyncTask<String, Void, String> {
+    /*private class DownloadTask extends AsyncTask<String, Void, String> implements LocationAsyncResponse {
 
         // Downloading data in non-ui thread
         @Override
@@ -343,15 +346,6 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
             } catch (Exception e) {
                 Log.d("Background Task", e.toString());
             }
-/*
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    // Set calculating display
-                    closest_location.setText("Calculating...");
-                }
-            });
-*/
 
             return data;
         }
@@ -362,110 +356,27 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            ParserTask parserTask = new ParserTask();
+            ParseLocation parserTask = new ParseLocation(user);
 
+            parserTask.delegate = DownloadTask.this;
             // Invokes the thread for parsing the JSON data
             parserTask.execute(result);
-        }
-    }
 
-    /**
-     * A class to parse the Google Places in JSON format
-     */
-    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
-
-        // Parsing the data in non-ui thread
-        @Override
-        protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
-
-            JSONObject jObject;
-            List<List<HashMap<String, String>>> routes = null;
-
-            try {
-                jObject = new JSONObject(jsonData[0]);
-                // Get overall points information
-                JSONArray routes_test = jObject.getJSONArray("routes");
-                JSONObject route_1 = routes_test.getJSONObject(0);
-                JSONArray leg = route_1.getJSONArray("legs");
-                JSONObject leg_1 = leg.getJSONObject(0);
-                JSONObject duration = leg_1.getJSONObject("duration");
-
-                distance = duration.getString("text");
-                Log.i("travel time", distance);
-
-                String tempDes = leg_1.getString("end_address");//.getString("end_address");
-                String[] parts = tempDes.split(", ");
-                destination = parts[0] + ", " + parts[1];
-                Log.i("destination",destination);
-
-                DirectionsJSONParser parser = new DirectionsJSONParser();
-
-                // Starts parsing routing data
-                routes = parser.parse(jObject);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return routes;
         }
 
-        // Executes in UI thread, after the parsing process
-        @Override
-        protected void onPostExecute(List<List<HashMap<String, String>>> result) {
-            ArrayList<LatLng> points = null;
-            PolylineOptions lineOptions = null;
-            MarkerOptions markerOptions = new MarkerOptions();
-
-            // Get the list of OtherUser
-            List<OtherUser> otherUsers = user.getMasterList();
-
-            // Get the name of the closest friend
-            int sizeOfMasterFriends = user.getMasterList().size();
-            String name = new String();
-
-            for (int i = 0; i < sizeOfMasterFriends; i++){
-                String id2 = otherUsers.get(i).fbid;
-                if (id2.equals(id)){
-                    name = otherUsers.get(i).username;
-                    break;
-                }
-            }
+        //this override the implemented method from asyncTask
+        public void processFinish(ArrayList<String> output){
+            String name = output.get(0);
+            String distance = output.get(1);
+            String destination = output.get(2);
 
             // Set the distance measured in minutes
             closest_location.setText(name + " is closest to you");
             closest_location_details.setText("@ "+destination);
             closest_location_details2.setText(distance + " away");
 
-            /*
-            // Traversing through all the routes
-            for (int i = 0; i < result.size(); i++) {
-                points = new ArrayList<LatLng>();
-                lineOptions = new PolylineOptions();
-
-                // Fetching i-th route
-                List<HashMap<String, String>> path = result.get(i);
-
-                // Fetching all the points in i-th route
-                for (int j = 0; j < path.size(); j++) {
-                    HashMap<String, String> point = path.get(j);
-
-                    double lat = Double.parseDouble(point.get("lat"));
-                    double lng = Double.parseDouble(point.get("lng"));
-                    LatLng position = new LatLng(lat, lng);
-
-                    points.add(position);
-                }
-
-                // Adding all the points in the route to LineOptions
-                lineOptions.addAll(points);
-                lineOptions.width(8);
-                lineOptions.color(Color.RED);
-                */
         }
-
-        // Drawing polyline in the Google Map for the i-th route
-        //mMapFragment.getMap().addPolyline(lineOptions);
-        //}
-    }
+    }*/
 
     @Override
     public void afterTextChanged(Editable arg0) {
@@ -484,5 +395,19 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int before, int count) {
+    }
+
+
+    //this override the implemented method from asyncTask
+    public void processFinish(ArrayList<String> output){
+        String name = output.get(0);
+        String distance = output.get(1);
+        String destination = output.get(2);
+
+        // Set the distance measured in minutes
+        closest_location.setText(name + " is closest to you");
+        closest_location_details.setText("@ "+destination);
+        closest_location_details2.setText(distance + " away");
+
     }
 }
