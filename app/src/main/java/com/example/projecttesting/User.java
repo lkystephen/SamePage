@@ -166,7 +166,7 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
                                 //sending out the POST
                                 PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
                                 out.print(json_toSend.toString());
-                                Log.i("json", json_toSend.toString());
+                                Log.i("jsonfuck", json_toSend.toString());
                                 out.flush();
                                 out.close();
 

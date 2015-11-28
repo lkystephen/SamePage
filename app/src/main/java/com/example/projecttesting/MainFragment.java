@@ -328,56 +328,6 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         }
         return data;
     }
-
-    // Fetches data from url passed
-    /*private class DownloadTask extends AsyncTask<String, Void, String> implements LocationAsyncResponse {
-
-        // Downloading data in non-ui thread
-        @Override
-        protected String doInBackground(String... url) {
-
-            // For storing data from web service
-            String data = "";
-
-            try {
-                // Fetching the data from web service
-                data = downloadUrl(url[0]);
-
-            } catch (Exception e) {
-                Log.d("Background Task", e.toString());
-            }
-
-            return data;
-        }
-
-        // Executes in UI thread, after the execution of
-        // doInBackground()
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            ParseLocation parserTask = new ParseLocation(user);
-
-            parserTask.delegate = DownloadTask.this;
-            // Invokes the thread for parsing the JSON data
-            parserTask.execute(result);
-
-        }
-
-        //this override the implemented method from asyncTask
-        public void processFinish(ArrayList<String> output){
-            String name = output.get(0);
-            String distance = output.get(1);
-            String destination = output.get(2);
-
-            // Set the distance measured in minutes
-            closest_location.setText(name + " is closest to you");
-            closest_location_details.setText("@ "+destination);
-            closest_location_details2.setText(distance + " away");
-
-        }
-    }*/
-
     @Override
     public void afterTextChanged(Editable arg0) {
     }
