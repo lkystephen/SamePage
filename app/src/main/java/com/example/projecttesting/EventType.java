@@ -202,17 +202,32 @@ public class EventType implements EventTypes {
 
     @Override
     public void updateName(String name, EventHandler handler) {
-
+        handler.handleEventUpdates();
     }
 
     @Override
     public void updateType(String type, EventHandler handler) {
-
+        handler.handleEventUpdates();
     }
 
     @Override
     public void updateVenue(String venue, EventHandler handler) {
+        handler.handleEventUpdates();
+    }
 
+    @Override
+    public void updateDateTime(Calendar dateTime, EventHandler handler) {
+        handler.handleEventUpdates();
+    }
+
+    @Override
+    public void updateEventDetails(String details, EventHandler handler) {
+        handler.handleEventUpdates();
+    }
+
+    @Override
+    public void updateVenueLoc(Location location, EventHandler handler) {
+        handler.handleEventUpdates();
     }
 
     @Override

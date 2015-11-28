@@ -25,10 +25,13 @@ public interface EventTypes extends Comparable<EventTypes>,Parcelable{
     public void setEventVenue(String venue, Location location);
 
     // update event details
-
     public void updateName (String name, EventHandler handler);
     public void updateType (String type, EventHandler handler);
     public void updateVenue (String venue, EventHandler handler);
+    public void updateDateTime(Calendar dateTime, EventHandler handler);
+    public void updateEventDetails(String details, EventHandler handler);
+    public void updateVenueLoc(Location location, EventHandler handler);
+
 
     //delete an event
     public void deleteEvent();
