@@ -2,284 +2,277 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.github.john990\WaveView\16a10c1f9b\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="3645a7b2a88e040618f8be343bfab9ba26056664">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-77449f035092ba08a8aafc799e495eec43534922.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\uk.co.chrisjenx\calligraphy\2.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="e653e15e62e8a59ddd76cc7f827bf8bce38ae7bb">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-d8eee99801481a7101a7ae5e556377f054c00edd.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.3.1\ecb6e1f8e4b0e84c4b886c2f14a1500caf309757\gson-2.3.1.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\gson-2.3.1-e9f4a231b25f238a72c0d201b3b9c1ac03cf8a4b.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.oguzdev\CircularFloatingActionMenu\1.0.2\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="607d961caf1a59b6e782724654c1f3229e036c20">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-64602eb2074113d4e5287e72b085d71d6f099d99.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="997773777cf3904c11d6764fe3b7668538220e49">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-00ef99a1e73547f82ad61aeceb4cf978a9492beb.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="d294caf562c4c678b2ef351662a0ca6f1a4d06c0">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-49bc7fc452efe0d24a233eacd345c1893104975f.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="95758a2905669affbffc5ddd262921d375674fad">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-ae95074760adb50eaa09feea2885472feeb400b0.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="d93480da1d303122ee67dc3bc23e6297bdef9951">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-e07a15fd455deab95f2cdbf2d62d055824969526.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.2.0\jars\libs\internal_impl-22.2.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="0632f06970823b7e3436f649bfa65b47035c91d0">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-5c25b0b02c6fadd50ced1a80e15efdba8d507d74.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\libs\internal_impl-23.1.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="8716243bf04bae8d6c9ca94d27b9a9be7236f0a3">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\internal_impl-23.1.0-46b943c52fddf65baebba9097fccc4c7299cb368.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="3178362320bcf51228835b60ff978efadfd1f783">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-36f2cf10137e02b71e7a1943699c75b03eee77ce.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="3b05c18f60969ecc2ba49c0409c4b96be2d9cb0c">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-4b3992641fd212ec5b5148a006353f95ad7538d5.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.2.0\6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd\bolts-android-1.2.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\bolts-android-1.2.0-d55a3bf4a1e764eae03bcc3a8c3a9dfcfecbca8a.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="d61920aba361832a9545a43fa8c9453eb02f18f7">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-71c1d233198518b61a02b66be2c16fd5e118bc56.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.astuetz\pagerslidingtabstrip\1.0.1\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="7912610ed96381c25c36d986eba422731b9641b6">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-5e2ce786a96300e6874466e024db0a514b802e70.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="325788a04b436a0bccbc5b4c54cf0f12ebdcbd2d">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-129f626e5020b8ac95021756e8d7568b834085ec.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.cjj.materialrefeshlayout\library\1.3.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="597d857fe9b090c4582f0855a2c6d6cc45fec544">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-34155a5c718d38c49c83ea8a23c524c0a589dfdc.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="4477ea44f5ec5ad064022a22691732d7638ff197">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-58b03cfbf08f822b17823baa3c8b2e53f4035cf6.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.appyvet\materialrangebar\1.2\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="fedb82ed5a9801eae33901cf740baa2bc6698fcd">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-5fc98f329f76f1285586625ed830c99ee5cf01fe.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="9cf8c0ef60847621c7ad00b4f78dbfc9daba4af2">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-e764cbc44ae4edbf5a024c6e0348d29cc2c8fa91.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.android.support\design\22.2.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-a53fcf11feea14b10ae738ec5358f2a84ab376e3.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="97f3b099801a9ad9d70e835b9125273e986eb68d">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-b0003434e7db7c6df76e113135fb6e6283511d70.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\AppData\Local\Android\sdk1\extras\android\m2repository\com\android\support\support-annotations\23.1.0\support-annotations-23.1.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="92e3fc113ec3ee36b64603a38857b95700025633">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\support-annotations-23.1.0-2d91eaf29937f4289eecf1384991805c4a9d9d58.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="2a7e47da654546f9457deb6132364f1bf33a1857">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-cd3fd4b8e9621a5fce2cb090c8cf8bfc82da66dd.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="3aed37c38c56679602255dd72ef356da5d327cda">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-2b5ee1610287f568486869e23d7d617029f5d01a.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="041d93cf0533591c29d1d7263b2fa114dbfb20bd">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-7029e0f619a25a1f2ee97e426163b151b45eec9d.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="dcb5b75baf05d92e61d5706737200ee55949f97b">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-5d386db24ec87d7b00b310bf8f48b3eb4d88e39c.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="b92002cb2f0e11a226ac5bac6dff1dc2a9d0b774">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-b156b5efeaa2de68d0b30f5581872a5bf1d7441e.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.pkmmte.view\circularimageview\1.1\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="c341a7ad32bc2eef9dcfab239262b77ac60788cc">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-62e24ac772425248e7ef8931d67f9d941d9e8216.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="d0dda274b703dd9c5bb056867649d22b4171ae7d">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-0257671c46a56b817ce2a17b10ba3bd65d5e6a36.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\.gradle\caches\modules-2\files-2.1\joda-time\joda-time\2.7\5599707a3eaad13e889f691b3af78c8c03842195\joda-time-2.7.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="5599707a3eaad13e889f691b3af78c8c03842195">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\joda-time-2.7-2d78accd59add3d4f0dd02634994dbc0fccd5b13.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.1.1\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="3b0fb927b680e244106145d6ecc59e4ae21c7e5d">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-e241cbb80bf84dcef20ad8a1bd20b82d27aa3272.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-vision\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="17449c47df35c754b257532052f1270c444f7993">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-f0cf2bc34651f20f65e6944daa6c183db5571482.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="993834cb17d07d51b92db89d2c330243592ebf77">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-af45647abf05740e087f553df76a62a0882b25ec.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="3c729e6d76a36c5dc27e6a4c4009296f49eaa88a">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-b3369f5efd61f9013496eb0230fd1a3a27316897.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="57ae0d750ff83f0c738d21720224ac7ea866a094">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-68f95da014eba41f18c592dd0fa44696004e481e.jar" />
-    </item>
-    <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.2.0\jars\classes.jar"
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.2.0/jars/classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="dcf8c83c3dead00a6c4fe313e95f7aaca20dc641">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-a0b128329f14d1396b3e2c7e9a18ea3d75cce092.jar" />
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-757fa254f7f7200ddfbba5d9f6eff7d398b83889.jar" />
     </item>
     <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\8.1.0\jars\classes.jar"
+        jar="/Users/edmundlee/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="82825756edeeb3b56b15e73b2edd56e93da5a444">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-73e05d972d758f55f5469155ea057c066efbf733.jar" />
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/gson-2.3.1-21868a3cf85960e3d94193c5d1dd12fac962cf0b.jar" />
     </item>
     <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\classes.jar"
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/jars/classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="ddde541c289c8b816a8f8fd6c325d80788c522a6">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-e16bfd11e4be45e25b6e61a8c43c1c33c294af7e.jar" />
+        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-0852e9cc305c6426e7537f53cd46870d3eb80918.jar" />
     </item>
     <item
-        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-measurement\8.1.0\jars\classes.jar"
+        jar="/Users/edmundlee/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-android/1.2.0/6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd/bolts-android-1.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/bolts-android-1.2.0-61c3d9ed4a3e4013b2d69f1dc63b9cb0ccb8c9ab.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="57ae0d750ff83f0c738d21720224ac7ea866a094">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-6f89a853fcaa02ffc6d51ff3f24be9c9503c47ee.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d294caf562c4c678b2ef351662a0ca6f1a4d06c0">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-4566b4013ccad011cd51be79b2e183cc1f9891c0.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d61920aba361832a9545a43fa8c9453eb02f18f7">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-bd3b80e408eebd47beda8c021243ae20acf4273c.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.appyvet/materialrangebar/1.2/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="fedb82ed5a9801eae33901cf740baa2bc6698fcd">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-8982257f192fa1f3d1d25d6002c005ab12679446.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="dcb5b75baf05d92e61d5706737200ee55949f97b">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-b37a77788037a982a421549fea44e24e312492cb.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="3aed37c38c56679602255dd72ef356da5d327cda">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-d0a7e918595a1c946e30942afd7816df277f185c.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-measurement/8.1.0/jars/classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="482de223655d06253cc6a4955d653f8994169500">
-        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-b8be713f2a232b497866bb6f23c5c72318293fa3.jar" />
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-6618a21a32f9e633bce4b5b1107d826ba1a5ce7f.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.0/support-annotations-23.1.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="92e3fc113ec3ee36b64603a38857b95700025633">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.0-878db9bdab5cfc7a4e28885fb745ee54eff4ffa2.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/22.2.0/jars/libs/internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="0632f06970823b7e3436f649bfa65b47035c91d0">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-6ddf9a567871dc3d8778637ef77d74c993c36b4a.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="997773777cf3904c11d6764fe3b7668538220e49">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-f9c45339aa029e6316f3d0f5957cbc851895f2b9.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="3c729e6d76a36c5dc27e6a4c4009296f49eaa88a">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-e048eace072b987ac1274e44c71c0f58514b5276.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-vision/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="17449c47df35c754b257532052f1270c444f7993">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-f87ef421875541870598fe754929a0e0c77179a8.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="325788a04b436a0bccbc5b4c54cf0f12ebdcbd2d">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-30f3b09b8eab3e9f81bf6cdbd628d7b573a62dcc.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.astuetz/pagerslidingtabstrip/1.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="7912610ed96381c25c36d986eba422731b9641b6">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-2ce2cf1b8e7c8e2f32ee25ec86f4f6c8e59cdc3d.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.7/5599707a3eaad13e889f691b3af78c8c03842195/joda-time-2.7.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="5599707a3eaad13e889f691b3af78c8c03842195">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/joda-time-2.7-da73c8dcaf23c0cab0df7a40d54950f0912781ef.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="82825756edeeb3b56b15e73b2edd56e93da5a444">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-e3c9ed399cc89b2c56592518b9ffe59c498d6fd1.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d93480da1d303122ee67dc3bc23e6297bdef9951">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-a0f094c373aa46b770538a04c86ce5be1e2858af.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ddde541c289c8b816a8f8fd6c325d80788c522a6">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-47f63aece90a609e0f37eca7a40009d87f40c9b0.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/uk.co.chrisjenx/calligraphy/2.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="e653e15e62e8a59ddd76cc7f827bf8bce38ae7bb">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-9eddbe58ae67475a0cae92db3b451f44b0d75629.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="3b05c18f60969ecc2ba49c0409c4b96be2d9cb0c">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-6df723f47c861059d12f90f17779defbef6f21f5.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.0/jars/libs/internal_impl-23.1.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="8716243bf04bae8d6c9ca94d27b9a9be7236f0a3">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.0-48fa6928ef8613abce36952ab59ef86e44ced5c6.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="3b0fb927b680e244106145d6ecc59e4ae21c7e5d">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-bafbf8961b6a37616ac8d36cfe112b798b7af839.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d0dda274b703dd9c5bb056867649d22b4171ae7d">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-47d3aef8a96c70ada6a5ac608710b5c60972fb72.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="2a7e47da654546f9457deb6132364f1bf33a1857">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-cc39552b26b559f8fed552578564501e9d26246d.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="3178362320bcf51228835b60ff978efadfd1f783">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-096b2e65c42a4ebd56649deef74ac8b5cd0ce7ec.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="9cf8c0ef60847621c7ad00b4f78dbfc9daba4af2">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-5bf96ce181e9147c380dc241530a5725ec319524.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.pkmmte.view/circularimageview/1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="c341a7ad32bc2eef9dcfab239262b77ac60788cc">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-27bced2cd9e26a0a5487a634504111020e259ecd.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="993834cb17d07d51b92db89d2c330243592ebf77">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-2c640e596ed81a3bd5a77d801e1f106e8f747e1d.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="4477ea44f5ec5ad064022a22691732d7638ff197">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-95feb5636c12015a3421453cfd409811e644c1d4.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.cjj.materialrefeshlayout/library/1.3.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="597d857fe9b090c4582f0855a2c6d6cc45fec544">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-7c2613ab7666e7dc0ee24eabe2274b2a232a9190.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="97f3b099801a9ad9d70e835b9125273e986eb68d">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-4321cdb4688e7d2ddbb4315d26fcf9f51749e173.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appinvite/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="b92002cb2f0e11a226ac5bac6dff1dc2a9d0b774">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-51d984490a90531ba4bd4fe8772de1c4789e6bb7.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="041d93cf0533591c29d1d7263b2fa114dbfb20bd">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-9972be1ca9a61c7643b51d28ef9e5ae0c6c212af.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="95758a2905669affbffc5ddd262921d375674fad">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-9d818ddc0966bfd01a7a29b8e025de47491bb2c1.jar" />
+    </item>
+    <item
+        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.oguzdev/CircularFloatingActionMenu/1.0.2/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="607d961caf1a59b6e782724654c1f3229e036c20">
+        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-b1685fd64589395e4835d8579b494fdb68be7747.jar" />
     </item>
 
 </items>

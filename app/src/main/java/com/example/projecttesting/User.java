@@ -160,7 +160,7 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
                                 urlConnection.setRequestProperty("Content-Type", "application/json");
                                 urlConnection.setRequestProperty("Accept", "application/json");
 
-                                JSONArray json_toSend = new JSONArray(fbid_tmp);
+                                JSONObject json_toSend = new JSONObject(fbid_tmp);
 
                                 //send the POST out
                                 //sending out the POST
