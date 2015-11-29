@@ -166,6 +166,8 @@ public class MainActivity extends AppCompatActivity implements MainAct {
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         super.onCreate(savedInstanceState);
 
+        // Set loading screen
+        setContentView(R.layout.loading);
         //get RegId
         new AsyncTask<Void, Void, String>() {
             @Override
@@ -341,7 +343,7 @@ public class MainActivity extends AppCompatActivity implements MainAct {
             MainFragment mainFragment = new MainFragment();
             Bundle bundle = new Bundle();
             bundle.putParcelable("user",user);
-            Log.i("Number of friends",Integer.toString(user.getMasterList().size()));
+            Log.i("Number of friends", Integer.toString(user.getMasterList().size()));
             mainFragment.setArguments(bundle);
             fragmentTransaction.add(R.id.mFragment, mainFragment);
             fragmentTransaction.commit();

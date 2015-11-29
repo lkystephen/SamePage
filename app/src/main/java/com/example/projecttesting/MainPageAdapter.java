@@ -20,7 +20,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class MainPageAdapter extends ArrayAdapter<HashMap<String, Integer>> {
 

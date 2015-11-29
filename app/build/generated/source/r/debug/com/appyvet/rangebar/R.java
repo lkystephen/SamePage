@@ -8,40 +8,40 @@ package com.appyvet.rangebar;
 
 public final class R {
 	public static final class attr {
-		public static final int barWeight = 0x7f0100b1;
-		public static final int connectingLineColor = 0x7f0100be;
-		public static final int connectingLineWeight = 0x7f0100bd;
-		public static final int pinColor = 0x7f0100b4;
-		public static final int pinMaxFont = 0x7f0100b8;
-		public static final int pinMinFont = 0x7f0100b7;
-		public static final int pinPadding = 0x7f0100b6;
-		public static final int pinRadius = 0x7f0100bf;
-		public static final int rangeBar = 0x7f0100bb;
-		public static final int rangeBarColor = 0x7f0100b2;
-		public static final int rangeBarPaddingBottom = 0x7f0100b9;
-		public static final int selectorColor = 0x7f0100ba;
-		public static final int selectorSize = 0x7f0100b5;
-		public static final int temporaryPins = 0x7f0100bc;
-		public static final int textColor = 0x7f0100b3;
-		public static final int tickColor = 0x7f0100b0;
-		public static final int tickEnd = 0x7f0100ad;
-		public static final int tickHeight = 0x7f0100af;
-		public static final int tickInterval = 0x7f0100ae;
-		public static final int tickStart = 0x7f0100ac;
+		public static final int barWeight = 0x7f010095;
+		public static final int connectingLineColor = 0x7f0100a2;
+		public static final int connectingLineWeight = 0x7f0100a1;
+		public static final int pinColor = 0x7f010098;
+		public static final int pinMaxFont = 0x7f01009c;
+		public static final int pinMinFont = 0x7f01009b;
+		public static final int pinPadding = 0x7f01009a;
+		public static final int pinRadius = 0x7f0100a3;
+		public static final int rangeBar = 0x7f01009f;
+		public static final int rangeBarColor = 0x7f010096;
+		public static final int rangeBarPaddingBottom = 0x7f01009d;
+		public static final int selectorColor = 0x7f01009e;
+		public static final int selectorSize = 0x7f010099;
+		public static final int temporaryPins = 0x7f0100a0;
+		public static final int textColor = 0x7f010097;
+		public static final int tickColor = 0x7f010094;
+		public static final int tickEnd = 0x7f010091;
+		public static final int tickHeight = 0x7f010093;
+		public static final int tickInterval = 0x7f010092;
+		public static final int tickStart = 0x7f010090;
 	}
 	public static final class drawable {
-		public static final int rotate = 0x7f02010b;
-		public static final int roundrect = 0x7f02010c;
+		public static final int rotate = 0x7f02010a;
+		public static final int roundrect = 0x7f02010b;
 	}
 	public static final class string {
 		public static final int app_name = 0x7f070046;
 	}
 	public static final class style {
-		public static final int AppBaseTheme = 0x7f0a0005;
-		public static final int AppTheme = 0x7f0a0084;
+		public static final int AppBaseTheme = 0x7f0a0004;
+		public static final int AppTheme = 0x7f0a0083;
 	}
 	public static final class styleable {
-		public static final int[] RangeBar = { 0x7f0100ac, 0x7f0100ad, 0x7f0100ae, 0x7f0100af, 0x7f0100b0, 0x7f0100b1, 0x7f0100b2, 0x7f0100b3, 0x7f0100b4, 0x7f0100b5, 0x7f0100b6, 0x7f0100b7, 0x7f0100b8, 0x7f0100b9, 0x7f0100ba, 0x7f0100bb, 0x7f0100bc, 0x7f0100bd, 0x7f0100be, 0x7f0100bf };
+		public static final int[] RangeBar = { 0x7f010090, 0x7f010091, 0x7f010092, 0x7f010093, 0x7f010094, 0x7f010095, 0x7f010096, 0x7f010097, 0x7f010098, 0x7f010099, 0x7f01009a, 0x7f01009b, 0x7f01009c, 0x7f01009d, 0x7f01009e, 0x7f01009f, 0x7f0100a0, 0x7f0100a1, 0x7f0100a2, 0x7f0100a3 };
 		public static final int RangeBar_barWeight = 5;
 		public static final int RangeBar_connectingLineColor = 18;
 		public static final int RangeBar_connectingLineWeight = 17;

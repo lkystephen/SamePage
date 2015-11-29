@@ -11,8 +11,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -225,7 +223,7 @@ public class EventFragment extends Fragment implements MainAct {
         }
 
 
-        private String[] mtitle = new String[]{"Invited", "Organizing"};
+        private String[] mtitle = new String[]{"PENDING", "Organizing"};
         //private User user2;
         private Bundle bundle;
 

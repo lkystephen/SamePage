@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,14 +22,20 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.joda.time.DateTime;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 public class EventStartDialog extends DialogFragment implements OnMapReadyCallback {
 
+    LinearLayout mapLoadingLayout;
+    FrameLayout mapLayout;
     private SupportMapFragment fragment;
     LatLng latLng;
     int height, width;
@@ -42,7 +49,6 @@ public class EventStartDialog extends DialogFragment implements OnMapReadyCallba
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.event_countdown_display, container, false);
-
 
         // Get information from bundle passed from Fragment
         Bundle mArgs = getArguments();
@@ -94,10 +100,11 @@ public class EventStartDialog extends DialogFragment implements OnMapReadyCallba
         // TextView event_end_time = (TextView) view.findViewById(R.id.timeEndDisplay);
         final TextView event_location = (TextView) view.findViewById(R.id.event_loc);
         TextView eventInvitedNumber = (TextView) view.findViewById(R.id.invited_text);
-        TextView rsvp_response = (TextView) view.findViewById(R.id.rsvp_response);
+        LinearLayout rsvp_response = (LinearLayout) view.findViewById(R.id.rsvp_response);
+        TextView rsvp_rsp = (TextView) view.findViewById(R.id.rsvp_rsp);
         View rsvp_line = view.findViewById(R.id.rsvp_line);
 
-        final FrameLayout mapLayout = (FrameLayout) view.findViewById(R.id.event_map);
+        mapLayout = (FrameLayout) view.findViewById(R.id.event_map);
         final LinearLayout ind_bubbles = (LinearLayout) view.findViewById(R.id.invited_circles_display);
 
         // Set typeface
@@ -107,12 +114,20 @@ public class EventStartDialog extends DialogFragment implements OnMapReadyCallba
         event_start_time.setTypeface(typeface_reg);
         eventInvitedNumber.setTypeface(typeface_reg);
         event_location.setTypeface(typeface_reg);
-        rsvp_response.setTypeface(typeface_reg);
+        rsvp_rsp.setTypeface(typeface_reg);
 
         // Get event position from user
-        String org = new StringBuilder().append(organiser_name).append(" invited you").toString();
+        if (organiser_name.equals("myself")){
+            String org = "You are the organiser";
+            organiser.setText(org);
+            rsvp_response.setVisibility(View.GONE);
+        } else{
+            String org = new StringBuilder().append(organiser_name).append(" invited you").toString();
+            organiser.setText(org);
+        }
 
-        organiser.setText(org);
+        // Set up the loading animation
+        mapLoadingLayout = (LinearLayout) view.findViewById(R.id.loadingLayout);
 
         // Set up event name
         String event_name = mArgs.getString("event_name");
@@ -196,10 +211,13 @@ public class EventStartDialog extends DialogFragment implements OnMapReadyCallba
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        //final LatLng test_QC_location = new LatLng(22.2814,114.1916);
-        MapObjectControl control = new MapObjectControl();
-        control.AddSearchedMarker(latLng, googleMap, 14);
-    }
+        final GoogleMap map = googleMap;
+
+                mapLoadingLayout.setVisibility(View.GONE);
+                mapLayout.setVisibility(View.VISIBLE);
+                MapObjectControl control = new MapObjectControl();
+                control.AddSearchedMarker(latLng, map, 14);
+        }
 
     @Override
     public void onStart() {
