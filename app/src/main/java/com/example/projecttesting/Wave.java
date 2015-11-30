@@ -1,12 +1,18 @@
 package com.example.projecttesting;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 // y=Asin(ωx+φ)+k
 class Wave extends View {
@@ -22,6 +28,8 @@ class Wave extends View {
     private final float WAVE_HZ_NORMAL = 0.09f;
     private final float WAVE_HZ_SLOW = 0.05f;
 
+    private float y_object, x_object;
+
     public final int DEFAULT_ABOVE_WAVE_ALPHA = 50;
     public final int DEFAULT_BLOW_WAVE_ALPHA = 30;
 
@@ -36,6 +44,8 @@ class Wave extends View {
 
     private int mAboveWaveColor;
     private int mBlowWaveColor;
+
+    private View text;
 
     private float mWaveMultiple;
     private float mWaveLength;
@@ -65,8 +75,10 @@ class Wave extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        //canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
         canvas.drawPath(mBlowWavePath, mBlowWavePaint);
         canvas.drawPath(mAboveWavePath, mAboveWavePaint);
+        text.draw(canvas);
     }
 
     public void setAboveWaveColor(int aboveWaveColor) {
@@ -156,6 +168,14 @@ class Wave extends View {
         mAboveWavePath.moveTo(left, bottom);
         for (float x = 0; x <= mMaxRight; x += X_SPACE) {
             y = (float) (mWaveHeight * Math.sin(omega * x + mAboveOffset) + mWaveHeight);
+            // Code by Stephen. This part is to measure the float y to insert an additional layout/object on the upper wave
+            // the float x of the object is fixed at about 80% of the total width (to the left)
+            if (x / Math.round(mMaxRight) < 0.82 && x / Math.round(mMaxRight) > 0.8) {
+        //        Log.i("Float x",Float.toString(x) + ", " + Float.toString(mMaxRight));
+                y_object = y;
+                x_object = x;
+            }
+            // End of Stephen's code
             mAboveWavePath.lineTo(x, y);
         }
         mAboveWavePath.lineTo(right, bottom);
@@ -166,6 +186,23 @@ class Wave extends View {
             mBlowWavePath.lineTo(x, y);
         }
         mBlowWavePath.lineTo(right, bottom);
+
+
+        LayoutInflater inflater =
+                (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        text = inflater.inflate(R.layout.float_object, null);
+
+        text.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED),
+                MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+        text.layout(0, 0, text.getMeasuredWidth(), text.getMeasuredHeight());
+
+        Log.e("draw1",Float.toString(y_object));
+        Log.e("draw2",Integer.toString(text.getMeasuredWidth()));
+        text.setX(x_object);
+        text.setY(y_object);
+
+
+
     }
 
     @Override
