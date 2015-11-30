@@ -1,7 +1,7 @@
 package com.example.projecttesting;
 
 import android.content.ClipData;
-import android.graphics.drawable.Animatable;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -23,8 +22,8 @@ import android.widget.Toast;
 
 import org.joda.time.DateTime;
 
+import java.net.Inet4Address;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class InvitedEventFragment extends Fragment {
@@ -34,6 +33,7 @@ public class InvitedEventFragment extends Fragment {
     //ArrayList<EventEntryItem> bigdata;
     String fbid;
     LinearLayout rsvp_attending, rsvp_rejecting, rsvp;
+    TextView no_pending;
     Animation vibrate;
     EventTypes eventTypes;
 
@@ -44,12 +44,15 @@ public class InvitedEventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.organize_event, container,
+        View rootView = inflater.inflate(R.layout.pending_event, container,
                 false);
 
         Bundle bundle = getArguments();
         user = bundle.getParcelable("user");
         fbid = user.getFBId();
+
+        Typeface typeface_reg = FontCache.getFont(getContext(), "sf_reg.ttf");
+        Typeface typeface_bold = FontCache.getFont(getContext(), "sf_bold.ttf");
 
         // Load animation
         vibrate = AnimationUtils.loadAnimation(getContext(), R.anim.vibrate);
@@ -59,15 +62,27 @@ public class InvitedEventFragment extends Fragment {
 
         // Set up list view
         listview = (ListView) rootView.findViewById(R.id.event_main_list);
+        if (user.getEventsInvited().size() == 0) {
+            listview.setVisibility(View.GONE);
+        }
+
+        // Set up textview if no pending events
+        no_pending = (TextView) rootView.findViewById(R.id.no_pending);
+        no_pending.setTypeface(typeface_bold);
+        if (user.getEventsInvited().size() == 0) {
+            Log.i("No of events pending", Integer.toString(user.getEventsInvited().size()));
+            no_pending.setVisibility(View.VISIBLE);
+        }
 
         // Set up drag zone buttons
         rsvp_attending = (LinearLayout) rootView.findViewById(R.id.rsvp_attending);
         rsvp_rejecting = (LinearLayout) rootView.findViewById(R.id.rsvp_rejecting);
         rsvp = (LinearLayout) rootView.findViewById(R.id.rsvp);
 
-        LoadingAdapter loading = new LoadingAdapter(list);
-        loading.execute();
-
+        if (user.getEventsInvited().size() != 0) {
+            LoadingAdapter loading = new LoadingAdapter(list);
+            loading.execute();
+        }
 
         return rootView;
     }
@@ -163,18 +178,18 @@ public class InvitedEventFragment extends Fragment {
                         bundle.putString("event_location", et.getEventVenue());
 
                         // Set event latlng
-                        bundle.putDouble("event_lat",et.getVenueLat());
-                        bundle.putDouble("event_lng",et.getVenueLong());
+                        bundle.putDouble("event_lat", et.getVenueLat());
+                        bundle.putDouble("event_lng", et.getVenueLong());
 
                         // Set event invitees
                         ArrayList<String> invitees = (ArrayList<String>) et.getEventInvitees();
-                        bundle.putStringArrayList("event_invitees",invitees);
+                        bundle.putStringArrayList("event_invitees", invitees);
 
                         // Determine if the event has started or not
-                        long notification_time = et.getEventDateTime().getTimeInMillis() + 1000 * 60 *45;
+                        long notification_time = et.getEventDateTime().getTimeInMillis() + 1000 * 60 * 45;
                         long current_time = new DateTime().getMillis();
                         Log.i("Current time in millis", Long.toString(current_time));
-                        if (current_time > notification_time){
+                        if (current_time > notification_time) {
                             EventStartDialog event_dialog = new EventStartDialog();
                             event_dialog.setArguments(bundle);
                             event_dialog.show(fm, "");

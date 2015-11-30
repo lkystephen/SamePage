@@ -6,7 +6,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +22,20 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.john.waveview.WaveView;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.joda.time.DateTime;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 public class EventStartDialog extends DialogFragment implements OnMapReadyCallback {
 
+    LinearLayout mapLoadingLayout;
+    FrameLayout mapLayout;
     private SupportMapFragment fragment;
     LatLng latLng;
     int height, width;
@@ -43,6 +50,12 @@ public class EventStartDialog extends DialogFragment implements OnMapReadyCallba
 
         final View view = inflater.inflate(R.layout.event_countdown_display, container, false);
 
+        // Get information from bundle passed from Fragment
+        Bundle mArgs = getArguments();
+        fbid = mArgs.getString("my_id");
+        organiser_name = mArgs.getString("organiser_name");
+        organiser_fbid = mArgs.getString("organiser_fbid");
+
         // Remove title
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
@@ -52,15 +65,26 @@ public class EventStartDialog extends DialogFragment implements OnMapReadyCallba
         height = getDialog().getWindow().getDecorView().getHeight();
         width = getDialog().getWindow().getDecorView().getWidth();
 
-        RelativeLayout relative = (RelativeLayout) view.findViewById(R.id.relative);
-        //relative.addView(wave_bg);
+        // Get WaveView for countdown
+        WaveView waveView = (WaveView) view.findViewById(R.id.wave_view);
+        long current = System.currentTimeMillis();
+        long eventTime = mArgs.getLong("event_start");
+        long diff = eventTime - current;
+        long min_diff = diff / 60000;
+        //Log.i("diff",Long.toString(min_diff));
+        long temp = min_diff*100;
+        long temp2 = temp / 45 ;
+        int min_diff2 = Math.round(temp2);
+        //Log.i("diff2",Integer.toString(min_diff2));
+        int initial_wave_h = 100 - min_diff2;
+        Log.i("Wave height",Integer.toString(initial_wave_h));
 
+        if (current > eventTime){
+            initial_wave_h = 100;
+        }
 
-        // Get information from bundle passed from Fragment
-        Bundle mArgs = getArguments();
-        fbid = mArgs.getString("my_id");
-        organiser_name = mArgs.getString("organiser_name");
-        organiser_fbid = mArgs.getString("organiser_fbid");
+        waveView.setProgress(initial_wave_h); // Set the height of the waves based on time
+
 
         Typeface typeface_reg = FontCache.getFont(getContext(), "sf_reg.ttf");
         Typeface typeface_bold = FontCache.getFont(getContext(), "sf_bold.ttf");
@@ -76,10 +100,11 @@ public class EventStartDialog extends DialogFragment implements OnMapReadyCallba
         // TextView event_end_time = (TextView) view.findViewById(R.id.timeEndDisplay);
         final TextView event_location = (TextView) view.findViewById(R.id.event_loc);
         TextView eventInvitedNumber = (TextView) view.findViewById(R.id.invited_text);
-        TextView rsvp_response = (TextView) view.findViewById(R.id.rsvp_response);
+        LinearLayout rsvp_response = (LinearLayout) view.findViewById(R.id.rsvp_response);
+        TextView rsvp_rsp = (TextView) view.findViewById(R.id.rsvp_rsp);
         View rsvp_line = view.findViewById(R.id.rsvp_line);
 
-        final FrameLayout mapLayout = (FrameLayout) view.findViewById(R.id.event_map);
+        mapLayout = (FrameLayout) view.findViewById(R.id.event_map);
         final LinearLayout ind_bubbles = (LinearLayout) view.findViewById(R.id.invited_circles_display);
 
         // Set typeface
@@ -89,12 +114,20 @@ public class EventStartDialog extends DialogFragment implements OnMapReadyCallba
         event_start_time.setTypeface(typeface_reg);
         eventInvitedNumber.setTypeface(typeface_reg);
         event_location.setTypeface(typeface_reg);
-        rsvp_response.setTypeface(typeface_reg);
+        rsvp_rsp.setTypeface(typeface_reg);
 
         // Get event position from user
-        String org = new StringBuilder().append(organiser_name).append(" invited you").toString();
+        if (organiser_name.equals("myself")){
+            String org = "You are the organiser";
+            organiser.setText(org);
+            rsvp_response.setVisibility(View.GONE);
+        } else{
+            String org = new StringBuilder().append(organiser_name).append(" invited you").toString();
+            organiser.setText(org);
+        }
 
-        organiser.setText(org);
+        // Set up the loading animation
+        mapLoadingLayout = (LinearLayout) view.findViewById(R.id.loadingLayout);
 
         // Set up event name
         String event_name = mArgs.getString("event_name");
@@ -155,10 +188,9 @@ public class EventStartDialog extends DialogFragment implements OnMapReadyCallba
         ArrayList<String> invitee = mArgs.getStringArrayList("event_invitees");
         for (int i = 0; i < invitee.size(); i++) {
             if (i <= 4 || invitee.size() < 6) {
-                String id = invitee.get(i);
+                
                 CreateFriendsBubble createFriendsBubble = new CreateFriendsBubble();
-                View v = createFriendsBubble.create(getContext(),26, id);
-
+                View v = createFriendsBubble.create(getContext(), 30, invitee.get(i));
                 ind_bubbles.addView(v);
             }
         }
@@ -179,10 +211,13 @@ public class EventStartDialog extends DialogFragment implements OnMapReadyCallba
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        //final LatLng test_QC_location = new LatLng(22.2814,114.1916);
-        MapObjectControl control = new MapObjectControl();
-        control.AddSearchedMarker(latLng, googleMap, 14);
-    }
+        final GoogleMap map = googleMap;
+
+                mapLoadingLayout.setVisibility(View.GONE);
+                mapLayout.setVisibility(View.VISIBLE);
+                MapObjectControl control = new MapObjectControl();
+                control.AddSearchedMarker(latLng, map, 14);
+        }
 
     @Override
     public void onStart() {

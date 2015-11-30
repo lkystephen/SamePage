@@ -49,6 +49,9 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
     int hour, minute, year, month, day;
     TextView event_start_date, event_start_time;
     ImageView event_date_edit;
+    LinearLayout mapLoadingLayout;
+    FrameLayout mapLayout;
+
 
 
     public EventOrganisingDialog() {
@@ -65,6 +68,8 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
         Typeface normal = FontCache.getFont(getContext(), "sf_reg.ttf");
         Typeface bold = FontCache.getFont(getContext(), "sf_bold.ttf");
 
+        // Set up the loading animation
+        mapLoadingLayout = (LinearLayout) view.findViewById(R.id.loadingLayout);
 
         // Remove title
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -141,7 +146,7 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
         TextView eventInvitedNumber = (TextView) view.findViewById(R.id.invited_text);
         eventInvitedNumber.setTypeface(normal);
 
-        final FrameLayout mapLayout = (FrameLayout) view.findViewById(R.id.event_map);
+        mapLayout = (FrameLayout) view.findViewById(R.id.event_map);
         final LinearLayout ind_bubbles = (LinearLayout) view.findViewById(R.id.invited_circles_display);
 
         // Get event position from user
@@ -202,7 +207,7 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
 
         // Set up Latlng
         Double lat = mArgs.getDouble("event_lat");
-        Log.i("GET",Double.toString(lat));
+        Log.i("GET", Double.toString(lat));
         Double lng = mArgs.getDouble("event_lng");
         latLng = new LatLng(lat, lng);
 
@@ -215,8 +220,8 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
 
         for (int i = 0; i < invitees.size(); i++) {
             if (i <= 4 || invitees.size() < 6) {
-                View v = CreateFriendsBubble(invitees.get(i));
-
+                CreateFriendsBubble createFriendsBubble = new CreateFriendsBubble();
+                View v = createFriendsBubble.create(getContext(), 30, invitees.get(i));
                 ind_bubbles.addView(v);
             }
         }
@@ -237,6 +242,8 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+        mapLoadingLayout.setVisibility(View.GONE);
+        mapLayout.setVisibility(View.VISIBLE);
         MapObjectControl control = new MapObjectControl();
         control.AddSearchedMarker(latLng, googleMap, 14);
     }
@@ -250,23 +257,6 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
             dialog.getWindow().setLayout(width, height);
         }
-    }
-
-    public View CreateFriendsBubble(final String i) {
-        LayoutInflater m = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View ind_layout = m.inflate(R.layout.event_invited_friend_bubble, null);
-
-        ImageView invitees_bubble = (ImageView) ind_layout.findViewById(R.id.individual_bubble);
-
-        Bitmap image = BitmapFactory.decodeFile(Utility.getImage(i).getPath());
-        //int image2 = R.drawable.edmund;
-        //Bitmap bm = BitmapFactory.decodeResource(getResources(), image);
-        //RoundImage displayImage = new RoundImage(bm);
-
-        invitees_bubble.setImageBitmap(image);
-
-        return ind_layout;
-
     }
 
     public void onDateSet(DatePicker view, int year, int monthOfYear,

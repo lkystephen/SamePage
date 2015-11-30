@@ -121,6 +121,9 @@ public class EventType implements EventTypes {
             //    Log.i(TAG, i+": "+json_pend.getString(i));
                 pendingInvitees.add(json_pend.getString(i));
             }
+            invitees.addAll(attendees);
+            invitees.addAll(pendingInvitees);
+            invitees.addAll(rejectees);
         } catch (JSONException e) {
             Log.i(TAG, e.toString());
         }
@@ -195,6 +198,36 @@ public class EventType implements EventTypes {
     @Override
     public void setEventVenue(String venue, Location location) {
 
+    }
+
+    @Override
+    public void updateName(String name, EventHandler handler) {
+        handler.handleEventUpdates();
+    }
+
+    @Override
+    public void updateType(String type, EventHandler handler) {
+        handler.handleEventUpdates();
+    }
+
+    @Override
+    public void updateVenue(String venue, EventHandler handler) {
+        handler.handleEventUpdates();
+    }
+
+    @Override
+    public void updateDateTime(Calendar dateTime, EventHandler handler) {
+        handler.handleEventUpdates();
+    }
+
+    @Override
+    public void updateEventDetails(String details, EventHandler handler) {
+        handler.handleEventUpdates();
+    }
+
+    @Override
+    public void updateVenueLoc(Location location, EventHandler handler) {
+        handler.handleEventUpdates();
     }
 
     @Override

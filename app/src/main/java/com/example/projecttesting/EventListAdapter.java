@@ -83,7 +83,13 @@ public class EventListAdapter extends ArrayAdapter<EventTypes> {
         holder.whoInvited.setTypeface(face_r);
 
         holder.event_name.setText(rowItem.getEventName().toUpperCase());
-        holder.event_location.setText(rowItem.getEventVenue());
+
+        if (rowItem.getEventVenue().equals("")) {
+            String temp = "Not decided yet";
+            holder.event_location.setText(temp);
+        } else {
+            holder.event_location.setText(rowItem.getEventVenue());
+        }
         //holder.event_invitees.setText(rowItem.getFriendsInvited().toString());
         long event_time = rowItem.getEventDateTime().getTimeInMillis();
         java.util.Date juDate = new Date(event_time);
@@ -127,15 +133,19 @@ public class EventListAdapter extends ArrayAdapter<EventTypes> {
         holder.event_image.setImageResource(allocated);
 
         int organise_number = rowItem.getEventInvitees().size();
-        for (int i = 0; i < organise_number; i++) {
-            if (i <= 4 && organise_number < 6) {
-                CreateFriendsBubble createFriendsBubble = new CreateFriendsBubble();
-                View v = createFriendsBubble.create(context, 18, rowItem.getEventInvitees().get(i));
 
-                holder.bubbles.addView(v);
+        if (organise_number != 0) {
+            for (int i = 0; i < organise_number; i++) {
+                if (i <= 4 && organise_number < 6) {
+                    CreateFriendsBubble createFriendsBubble = new CreateFriendsBubble();
+                    View v = createFriendsBubble.create(context, 19, rowItem.getEventInvitees().get(i));
+
+                    holder.bubbles.addView(v);
+                }
             }
+        } else {
+            holder.whoInvited.setText("No one invited yet");
         }
-
 
         return convertView;
     }

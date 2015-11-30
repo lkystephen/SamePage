@@ -2,6 +2,7 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
     android:id="@+id/eventScrollLayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -14,10 +15,26 @@
         android:background="#ECEFF1"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:id="@+id/loadingLayout"
+            android:gravity="center">
+
+            <com.wang.avi.AVLoadingIndicatorView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:indicator="BallScale"
+                app:indicator_color="#afd6da"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
         <FrameLayout
             android:id="@+id/event_map"
             android:layout_width="match_parent"
-            android:layout_height="165dp"></FrameLayout>
+            android:layout_height="140dp"
+            android:visibility="gone"></FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

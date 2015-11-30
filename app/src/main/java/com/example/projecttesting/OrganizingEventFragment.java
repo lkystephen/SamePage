@@ -1,9 +1,6 @@
 package com.example.projecttesting;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,14 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import org.joda.time.DateTime;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +53,7 @@ public class OrganizingEventFragment extends Fragment implements UpdateableFragm
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.organize_event, container,
+        View rootView = inflater.inflate(R.layout.pending_event, container,
                 false);
 
         Bundle bundle = getArguments();
@@ -68,6 +63,12 @@ public class OrganizingEventFragment extends Fragment implements UpdateableFragm
         // Get data
         //EventDetailsFetch fetch = new EventDetailsFetch();
         List<EventTypes> list = user.getEventsOrganised();
+        int a = user.getEventsOrganised().size();
+
+        for (int i = 0; i <a ; i++){
+            int temp = user.getEventsOrganised().get(i).getEventInvitees().size();
+            Log.i("asf size",Integer.toString(temp));
+        }
         //int i = list.get(0).getEventInvitees().size();
         //Log.i("size",Integer.toString(i));
         //bigdata = fetch.FetchDetails(list);
@@ -84,7 +85,6 @@ public class OrganizingEventFragment extends Fragment implements UpdateableFragm
 
         LoadingAdapter loading = new LoadingAdapter(user.getEventsOrganised());
         loading.execute();
-
 
         return rootView;
     }

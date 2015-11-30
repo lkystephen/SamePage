@@ -1,5 +1,6 @@
 package com.example.projecttesting;
 
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.facebook.login.widget.ProfilePictureView;
+import com.pkmmte.view.CircularImageView;
 
 public class SettingsFragment extends Fragment {
 
@@ -36,12 +38,15 @@ public class SettingsFragment extends Fragment {
 		String fbid = user.getFBId();
 
 		Typeface face;
-		face = Typeface.createFromAsset(getActivity().getAssets(), "ubuntu_bold.ttf");
+		face = FontCache.getFont(getContext(), "sf_reg.ttf");
 
+		TextView logged=  (TextView) view.findViewById(R.id.logged_text);
 		TextView fb_name = (TextView) view.findViewById(R.id.facebook_name);
-		ProfilePictureView display_view ;
-		display_view = (ProfilePictureView) view.findViewById(R.id.facebook_dp);
-		display_view.setProfileId(fbid);
+		CircularImageView logged_image = (CircularImageView) view.findViewById(R.id.logged_image);
+		logged_image.setImageBitmap(BitmapFactory.decodeFile(Utility.getImage(fbid).getPath()));
+
+		logged.setTypeface(face);
+		fb_name.setTypeface(face);
 
 		fb_name.setText(name);
 	}
