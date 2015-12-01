@@ -2,62 +2,6 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="9cf8c0ef60847621c7ad00b4f78dbfc9daba4af2">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-b44c6efe0f4c930ec598e603b124119bf694d6c8.jar" />
-    </item>
-    <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="3178362320bcf51228835b60ff978efadfd1f783">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-f28a4c58856405f0485226996214a3adbe4af592.jar" />
-    </item>
-    <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="3b05c18f60969ecc2ba49c0409c4b96be2d9cb0c">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-818bbfdd566b16754e2e99ea42ec0f8ea6f72704.jar" />
-    </item>
-    <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.oguzdev\CircularFloatingActionMenu\1.0.2\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="607d961caf1a59b6e782724654c1f3229e036c20">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-b858377d1995e1a348ef18f7aefd1beea4b6c95d.jar" />
-    </item>
-    <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="57ae0d750ff83f0c738d21720224ac7ea866a094">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-b2d2d1cd0a4120330bc319c25c8cff6936f1d240.jar" />
-    </item>
-    <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="b92002cb2f0e11a226ac5bac6dff1dc2a9d0b774">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-3c9061d17dd9f134bdb74880dff1dc69e2c3db3e.jar" />
-    </item>
-    <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="dcb5b75baf05d92e61d5706737200ee55949f97b">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-b2d52a53194f424a9d973d6f518446848452a59b.jar" />
-    </item>
-    <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="3c729e6d76a36c5dc27e6a4c4009296f49eaa88a">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-239996102b63ec3cbb965e8db390023402fa73ae.jar" />
-    </item>
-    <item
         jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\8.1.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
@@ -65,53 +9,18 @@
         <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-4249718be8c2ed47ec25290e846b6949dc144cc2.jar" />
     </item>
     <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.pkmmte.view\circularimageview\1.1\jars\classes.jar"
+        jar="C:\Users\Capco\.gradle\caches\modules-2\files-2.1\joda-time\joda-time\2.7\5599707a3eaad13e889f691b3af78c8c03842195\joda-time-2.7.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="c341a7ad32bc2eef9dcfab239262b77ac60788cc">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-67482af284a462a8cd0c3ce201f16778f2175ca6.jar" />
+        sha1="5599707a3eaad13e889f691b3af78c8c03842195">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\joda-time-2.7-147225b87482fdcb39dc92f20ba18d822f890bd1.jar" />
     </item>
     <item
-        jar="C:\Users\Capco\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.0\support-annotations-23.1.0.jar"
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\8.1.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="92e3fc113ec3ee36b64603a38857b95700025633">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\support-annotations-23.1.0-61a23b3cd088b6d7f1d0f94d2eee6c97ac19144b.jar" />
-    </item>
-    <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="3aed37c38c56679602255dd72ef356da5d327cda">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-54cfdf587fa0cbcb7c8802f6c9eba8ce6cfb91ec.jar" />
-    </item>
-    <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\libs\internal_impl-23.1.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="8716243bf04bae8d6c9ca94d27b9a9be7236f0a3">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\internal_impl-23.1.0-9bca76f44ff727fec4f6801e61f1c0ad03af2bdc.jar" />
-    </item>
-    <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="2a7e47da654546f9457deb6132364f1bf33a1857">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-d328c2031ff8b7211181ef650e2e98ab6d8f8967.jar" />
-    </item>
-    <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="ddde541c289c8b816a8f8fd6c325d80788c522a6">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-c06008b2cabe62d8711945c5b9a877960e28558c.jar" />
-    </item>
-    <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.2.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="dcf8c83c3dead00a6c4fe313e95f7aaca20dc641">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-a9719c82b0ff19066b65c06ac34f39b87dcaea9e.jar" />
+        sha1="9cf8c0ef60847621c7ad00b4f78dbfc9daba4af2">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-b44c6efe0f4c930ec598e603b124119bf694d6c8.jar" />
     </item>
     <item
         jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\8.1.0\jars\classes.jar"
@@ -128,18 +37,60 @@
         <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-51d3f14802b82cba645b1312ce39a5ba40a7c1fb.jar" />
     </item>
     <item
-        jar="C:\Users\Capco\.gradle\caches\modules-2\files-2.1\joda-time\joda-time\2.7\5599707a3eaad13e889f691b3af78c8c03842195\joda-time-2.7.jar"
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.1.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="5599707a3eaad13e889f691b3af78c8c03842195">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\joda-time-2.7-147225b87482fdcb39dc92f20ba18d822f890bd1.jar" />
+        sha1="997773777cf3904c11d6764fe3b7668538220e49">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-7b830c75df41dc1d01b719d6d854babeecdfbc35.jar" />
     </item>
     <item
-        jar="C:\Users\Capco\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.3.1\ecb6e1f8e4b0e84c4b886c2f14a1500caf309757\gson-2.3.1.jar"
+        jar="C:\Users\Capco\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.1.0\support-annotations-23.1.0.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\gson-2.3.1-38d70dfa6e1f46f13204beca73c65c6e874f054d.jar" />
+        sha1="92e3fc113ec3ee36b64603a38857b95700025633">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\support-annotations-23.1.0-61a23b3cd088b6d7f1d0f94d2eee6c97ac19144b.jar" />
+    </item>
+    <item
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.astuetz\pagerslidingtabstrip\1.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="7912610ed96381c25c36d986eba422731b9641b6">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-e8d9c72c28b40fce6ab5c2943f69fa75c04c40e6.jar" />
+    </item>
+    <item
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="3c729e6d76a36c5dc27e6a4c4009296f49eaa88a">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-239996102b63ec3cbb965e8db390023402fa73ae.jar" />
+    </item>
+    <item
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="b92002cb2f0e11a226ac5bac6dff1dc2a9d0b774">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-3c9061d17dd9f134bdb74880dff1dc69e2c3db3e.jar" />
+    </item>
+    <item
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="82825756edeeb3b56b15e73b2edd56e93da5a444">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-4b636ca012aa8981b2a28b61af8df4c25204d54b.jar" />
+    </item>
+    <item
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="4477ea44f5ec5ad064022a22691732d7638ff197">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-26ce4db2cafe132c84956f724a0855068cc8e1ca.jar" />
+    </item>
+    <item
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.wang.avi\library\1.0.1\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="4968500e276d051b8ed8135f1a0254120f6c600d">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-29f2c48a9631a902f9de2d1f344534f73ae2f97b.jar" />
     </item>
     <item
         jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.1.1\jars\classes.jar"
@@ -149,11 +100,18 @@
         <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-9865577b68c151d1aad17608575ab11e50f37872.jar" />
     </item>
     <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\8.1.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="0632f06970823b7e3436f649bfa65b47035c91d0">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-1dfb6870d3500a21fa6db65b19ad713f25e7420c.jar" />
+        sha1="95758a2905669affbffc5ddd262921d375674fad">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-886af3c9ef4db26f97052fac1e9cbee44c1dbfb7.jar" />
+    </item>
+    <item
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d61920aba361832a9545a43fa8c9453eb02f18f7">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-cf9737c964c30e963be221a058a8063a0fe950d4.jar" />
     </item>
     <item
         jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-vision\8.1.0\jars\classes.jar"
@@ -161,6 +119,104 @@
         revision="22.0.1"
         sha1="17449c47df35c754b257532052f1270c444f7993">
         <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-33062b3cc8a90fa04858fc261432360fa779a769.jar" />
+    </item>
+    <item
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d93480da1d303122ee67dc3bc23e6297bdef9951">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-12018a587f21c3757cebd1ed254822836e110fa0.jar" />
+    </item>
+    <item
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="2a7e47da654546f9457deb6132364f1bf33a1857">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-d328c2031ff8b7211181ef650e2e98ab6d8f8967.jar" />
+    </item>
+    <item
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="3178362320bcf51228835b60ff978efadfd1f783">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-f28a4c58856405f0485226996214a3adbe4af592.jar" />
+    </item>
+    <item
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="dcb5b75baf05d92e61d5706737200ee55949f97b">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-b2d52a53194f424a9d973d6f518446848452a59b.jar" />
+    </item>
+    <item
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="3aed37c38c56679602255dd72ef356da5d327cda">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-54cfdf587fa0cbcb7c8802f6c9eba8ce6cfb91ec.jar" />
+    </item>
+    <item
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="3b05c18f60969ecc2ba49c0409c4b96be2d9cb0c">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-818bbfdd566b16754e2e99ea42ec0f8ea6f72704.jar" />
+    </item>
+    <item
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="993834cb17d07d51b92db89d2c330243592ebf77">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-4e7bb1055b5b541069c5a4a44b4c5fbbed4571bb.jar" />
+    </item>
+    <item
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\8.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="97f3b099801a9ad9d70e835b9125273e986eb68d">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-e23659087eff828c321785eb6ccc671397c3fd27.jar" />
+    </item>
+    <item
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ddde541c289c8b816a8f8fd6c325d80788c522a6">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-c06008b2cabe62d8711945c5b9a877960e28558c.jar" />
+    </item>
+    <item
+        jar="C:\Users\Capco\.gradle\caches\modules-2\files-2.1\com.nineoldandroids\library\2.4.0\e9b63380f3a242dbdbf103a2355ad7e43bad17cb\library-2.4.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\library-2.4.0-64b3cd1c6a4ca8f2a54c6be43aa19eea5364c796.jar" />
+    </item>
+    <item
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.cjj.materialrefeshlayout\library\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="597d857fe9b090c4582f0855a2c6d6cc45fec544">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-c4cdab4fbf64b640316c361e66cf86e7e7e79584.jar" />
+    </item>
+    <item
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="57ae0d750ff83f0c738d21720224ac7ea866a094">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-b2d2d1cd0a4120330bc319c25c8cff6936f1d240.jar" />
+    </item>
+    <item
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.oguzdev\CircularFloatingActionMenu\1.0.2\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="607d961caf1a59b6e782724654c1f3229e036c20">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-b858377d1995e1a348ef18f7aefd1beea4b6c95d.jar" />
+    </item>
+    <item
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.appyvet\materialrangebar\1.2\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="fedb82ed5a9801eae33901cf740baa2bc6698fcd">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-fe5a5a5880f180577f7a7bb861263204f7fde888.jar" />
     </item>
     <item
         jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\8.1.0\jars\classes.jar"
@@ -184,95 +240,39 @@
         <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-86db4c931bc3829d2fb32b878a5f6b5207e36e1b.jar" />
     </item>
     <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\8.1.0\jars\classes.jar"
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.0\jars\libs\internal_impl-23.1.0.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="d93480da1d303122ee67dc3bc23e6297bdef9951">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-12018a587f21c3757cebd1ed254822836e110fa0.jar" />
+        sha1="8716243bf04bae8d6c9ca94d27b9a9be7236f0a3">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\internal_impl-23.1.0-9bca76f44ff727fec4f6801e61f1c0ad03af2bdc.jar" />
     </item>
     <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\8.1.0\jars\classes.jar"
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.pkmmte.view\circularimageview\1.1\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="95758a2905669affbffc5ddd262921d375674fad">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-886af3c9ef4db26f97052fac1e9cbee44c1dbfb7.jar" />
+        sha1="c341a7ad32bc2eef9dcfab239262b77ac60788cc">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-67482af284a462a8cd0c3ce201f16778f2175ca6.jar" />
     </item>
     <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.wang.avi\library\1.0.1\jars\classes.jar"
+        jar="C:\Users\Capco\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.3.1\ecb6e1f8e4b0e84c4b886c2f14a1500caf309757\gson-2.3.1.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="4968500e276d051b8ed8135f1a0254120f6c600d">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-29f2c48a9631a902f9de2d1f344534f73ae2f97b.jar" />
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\gson-2.3.1-38d70dfa6e1f46f13204beca73c65c6e874f054d.jar" />
     </item>
     <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.astuetz\pagerslidingtabstrip\1.0.1\jars\classes.jar"
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.2.0\jars\libs\internal_impl-22.2.0.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="7912610ed96381c25c36d986eba422731b9641b6">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-e8d9c72c28b40fce6ab5c2943f69fa75c04c40e6.jar" />
+        sha1="0632f06970823b7e3436f649bfa65b47035c91d0">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-1dfb6870d3500a21fa6db65b19ad713f25e7420c.jar" />
     </item>
     <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\8.1.0\jars\classes.jar"
+        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.2.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="993834cb17d07d51b92db89d2c330243592ebf77">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-4e7bb1055b5b541069c5a4a44b4c5fbbed4571bb.jar" />
-    </item>
-    <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="97f3b099801a9ad9d70e835b9125273e986eb68d">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-e23659087eff828c321785eb6ccc671397c3fd27.jar" />
-    </item>
-    <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.appyvet\materialrangebar\1.2\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="fedb82ed5a9801eae33901cf740baa2bc6698fcd">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-fe5a5a5880f180577f7a7bb861263204f7fde888.jar" />
-    </item>
-    <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="d61920aba361832a9545a43fa8c9453eb02f18f7">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-cf9737c964c30e963be221a058a8063a0fe950d4.jar" />
-    </item>
-    <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="4477ea44f5ec5ad064022a22691732d7638ff197">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-26ce4db2cafe132c84956f724a0855068cc8e1ca.jar" />
-    </item>
-    <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="82825756edeeb3b56b15e73b2edd56e93da5a444">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-4b636ca012aa8981b2a28b61af8df4c25204d54b.jar" />
-    </item>
-    <item
-        jar="C:\Users\Capco\.gradle\caches\modules-2\files-2.1\com.nineoldandroids\library\2.4.0\e9b63380f3a242dbdbf103a2355ad7e43bad17cb\library-2.4.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\library-2.4.0-64b3cd1c6a4ca8f2a54c6be43aa19eea5364c796.jar" />
-    </item>
-    <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\8.1.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="997773777cf3904c11d6764fe3b7668538220e49">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-7b830c75df41dc1d01b719d6d854babeecdfbc35.jar" />
-    </item>
-    <item
-        jar="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\exploded-aar\com.cjj.materialrefeshlayout\library\1.3.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="597d857fe9b090c4582f0855a2c6d6cc45fec544">
-        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-c4cdab4fbf64b640316c361e66cf86e7e7e79584.jar" />
+        sha1="dcf8c83c3dead00a6c4fe313e95f7aaca20dc641">
+        <dex dex="C:\Users\Capco\Desktop\Project\SamePage\app\build\intermediates\pre-dexed\debug\classes-a9719c82b0ff19066b65c06ac34f39b87dcaea9e.jar" />
     </item>
 
 </items>

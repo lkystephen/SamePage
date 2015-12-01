@@ -3,8 +3,10 @@ package com.example.projecttesting;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -73,6 +75,7 @@ class Wave extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        //canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
         canvas.drawPath(mBlowWavePath, mBlowWavePaint);
         canvas.drawPath(mAboveWavePath, mAboveWavePaint);
         text.draw(canvas);
@@ -193,6 +196,8 @@ class Wave extends View {
                 MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
         text.layout(0, 0, text.getMeasuredWidth(), text.getMeasuredHeight());
 
+        Log.e("draw1",Float.toString(y_object));
+        Log.e("draw2",Integer.toString(text.getMeasuredWidth()));
         text.setX(x_object);
         text.setY(y_object);
 
