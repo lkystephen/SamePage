@@ -26,22 +26,33 @@ public class MyLocationHandler extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        Bundle bundle = intent.getExtras();
-        user = bundle.getParcelable("user");
+        Bundle bundle = intent.getBundleExtra("bundle");
+        bundle.setClassLoader(User.class.getClassLoader());
+        user = (User) bundle.getParcelable("user");
+        if (user == null){
+            Log.i("Location user","null");
+        }
+
+
         final Location location = intent.getParcelableExtra(FusedLocationProviderApi.KEY_LOCATION_CHANGED);
-        Log.i("Off",Double.toString(location.getLatitude()) + ", " + Double.toString(location.getLongitude()));
-        user.updateLocation(location);
+        if (location != null) {
+            Log.i("Off", Double.toString(location.getLatitude()) + ", " + Double.toString(location.getLongitude()));
+            user.updateLocation(location);
 
-        // Test to see if it works
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
-        mBuilder.setSmallIcon(R.drawable.ic_launcher);
-        mBuilder.setContentTitle("Location");
-        mBuilder.setContentText(Double.toString(location.getLatitude()) + ", " + Double.toString(location.getLongitude()));
+            // Test to see if it works
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+            mBuilder.setSmallIcon(R.drawable.ic_launcher);
+            mBuilder.setContentTitle("Location");
+            mBuilder.setContentText(Double.toString(location.getLatitude()) + ", " + Double.toString(location.getLongitude()));
 
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        // notificationID allows you to update the notification later on.
-        mNotificationManager.notify(1, mBuilder.build());
+            // notificationID allows you to update the notification later on.
+            mNotificationManager.notify(1, mBuilder.build());
+
+        } else {
+            Log.e("Location API", "Null object for location");
+        }
 
     }
 }

@@ -416,9 +416,11 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
             Intent intent = new Intent(MainActivity.this, MyLocationHandler.class);
             Bundle b = new Bundle();
             bundle.putParcelable("user", user);
-            intent.putExtras(b);
+            intent.putExtra("bundle",b);
+            intent.setAction("MyLocationHandler");
 
             PendingIntent pendingIntent = PendingIntent.getService(MainActivity.this ,0, intent ,PendingIntent.FLAG_UPDATE_CURRENT);
+
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, pendingIntent);
 
         }
@@ -525,8 +527,8 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         // Assign the new location
         mLastLocation = location;
 
-        Toast.makeText(getApplicationContext(), "Location changed!",
-                Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Location changed!",
+        //        Toast.LENGTH_SHORT).show();
 
         // Update the latest location to server
         getLocation();
@@ -595,4 +597,11 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
             Log.d(TAG, "Periodic location updates stopped!");
         }
     }
+
+    // Building pendingIntent
+    //private PendingIntent buildRequestPendingIntent(Intent theIntent) {
+        //Log.w(TAG, "building pending intent");
+      //  return PendingIntent.getBroadcast(MainActivity.this, 0, theIntent, 0);
+    //}
+
 }
