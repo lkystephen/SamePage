@@ -579,7 +579,7 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
             new AsyncTask<Void, Void, String>() {
                 @Override
                 protected String doInBackground(Void... params) {
-                    Log.i("User", "updating user location");
+                    Log.i("Location", "(User) Updating location ");
 
                     String link = "http://letshangout.netau.net/updateloc.php";
                     HttpURLConnection urlConnection = null;
@@ -624,7 +624,7 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
                 @Override
                 protected void onPostExecute(String result) {
                     // get with db
-                    Log.i("updating Loc" ,result);
+                    Log.i("Location" ,"Updated successfully. Result is "+result);
                 }
 
             }.execute(null,null,null);

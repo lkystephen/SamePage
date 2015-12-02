@@ -7,21 +7,20 @@ import java.util.List;
 import java.util.prefs.PreferenceChangeEvent;
 
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
-import android.media.Image;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.widget.FrameLayout;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.NotificationCompat;
 import android.widget.FrameLayout.LayoutParams;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
@@ -30,22 +29,16 @@ import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 //fb imports
@@ -59,13 +52,24 @@ import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.android.gms.location.LocationListener;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+
 
 @SuppressWarnings("unused")
-public class MainActivity extends AppCompatActivity implements MainAct {
+public class MainActivity extends AppCompatActivity implements MainAct, GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     // Backpress setting
     private long backPressedTime = 0;
@@ -84,6 +88,17 @@ public class MainActivity extends AppCompatActivity implements MainAct {
     //user info
     HashMap events;
 
+    // Google Play service location
+    private LocationRequest mLocationRequest;
+    private Location mLastLocation;
+    private GoogleApiClient mGoogleApiClient;
+    private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
+
+    // Toggle periodic location updates
+    private boolean mRequestingLocationUpdates = false; //boolean flag to toggle periodic location updates
+    private static int LONG_INTERVAL = 30000; // 30 sec
+    private static int SHORT_INTERVAL = 20000; // 20 sec
+
     // user
     public User user;
 
@@ -97,11 +112,15 @@ public class MainActivity extends AppCompatActivity implements MainAct {
 
     public Fragment fragment;
 
+    private static final String TAG = MainActivity.class.getSimpleName();
+
     // Circular FAB
     public FloatingActionMenu actionMenu;
 
     public void handleLoginResults(boolean isNewUser, Users users) {
+        getLocation();
 
+        // Retrieve display photos
         RetrieveFBPhotos retrieve = new RetrieveFBPhotos();
         retrieve.execute(null, null, null);
     }
@@ -110,27 +129,27 @@ public class MainActivity extends AppCompatActivity implements MainAct {
     public void handleGetFrdsLocResults(final HashMap<String, OtherUser> masterListwLoc) {
     }
 
-    public class mOnClickListener implements View.OnClickListener
-    {
+    public class mOnClickListener implements View.OnClickListener {
         int type;
         Context context;
         FragmentManager fm;
 
-        public mOnClickListener(int type, Context context){
+        public mOnClickListener(int type, Context context) {
             this.type = type;
             this.context = context;
         }
+
         @Override
-        public void onClick(View v){
+        public void onClick(View v) {
             fm = getSupportFragmentManager();
             // Remove previous fragment first
 
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
             Bundle bundle = new Bundle();
-            bundle.putParcelable("user",user);
+            bundle.putParcelable("user", user);
             actionMenu.close(true);
 
-            switch (type){
+            switch (type) {
                 case 1:
                     MainFragment fragment = new MainFragment();
                     fragment.setArguments(bundle);
@@ -168,6 +187,43 @@ public class MainActivity extends AppCompatActivity implements MainAct {
 
         // Set loading screen
         setContentView(R.layout.loading);
+
+        // Check availability of play services
+        if (checkPlayServices()) {
+
+            // Building the GoogleApi client
+            buildGoogleApiClient();
+
+            // Create periodic request
+            createLocationRequest();
+        }
+
+        // Check permission for dangerous permissions
+        /*if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_CONTACTS)) {
+
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_CONTACTS},
+                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }*/
+
         //get RegId
         new AsyncTask<Void, Void, String>() {
             @Override
@@ -274,29 +330,22 @@ public class MainActivity extends AppCompatActivity implements MainAct {
         }
 
         protected void onPostExecute(Integer result) {
-            Log.i("come on", "dude");
-
+            //Log.i("come on", "dude");
             setContentView(R.layout.activity_main);
 
             PACKAGE_NAME = getApplicationContext().getPackageName();
 
-            //  mViewPager = (ViewPager) findViewById(R.id.main_viewPager);
-
             Bundle abc = new Bundle();
             abc.putParcelable("user", user);
-            //mViewPager.setAdapter(new MainViewAdapter(getSupportFragmentManager(), abc));
-            //mViewPager.setOffscreenPageLimit(4);
-
-            //Typeface face = Typeface.createFromAsset(getAssets(), "sf_bold.ttf");
 
             // Create main floating icon
             ImageView add_icon = new ImageView(MainActivity.this);
             add_icon.setImageResource(R.drawable.more_w);
 
-            int[][] states = {{android.R.attr.state_enabled} , {
+            int[][] states = {{android.R.attr.state_enabled}, {
                     android.R.attr.state_pressed}};
-            int[] colors = {Color.parseColor("#ff4f6069"),Color.parseColor("#ffffff")};
-            ColorStateList colorStateList = new ColorStateList(states,colors);
+            int[] colors = {Color.parseColor("#ff4f6069"), Color.parseColor("#ffffff")};
+            ColorStateList colorStateList = new ColorStateList(states, colors);
 
             FloatingActionButton actionButton = new FloatingActionButton.Builder(MainActivity.this).setContentView(add_icon).build();
             actionButton.setBackgroundTintList(colorStateList);
@@ -319,8 +368,8 @@ public class MainActivity extends AppCompatActivity implements MainAct {
 
 
             int size = getResources().getDimensionPixelSize(com.oguzdev.circularfloatingactionmenu.library.R.dimen.sub_action_button_size);
-            Log.i("size",Integer.toString(size));
-            int size2 = (int) Math.round(size*1.3);
+            Log.i("size", Integer.toString(size));
+            int size2 = (int) Math.round(size * 1.3);
             LayoutParams params = new LayoutParams(size2, size2, 51);
 
             button1.setBackgroundTintList(colorStateList);
@@ -342,7 +391,7 @@ public class MainActivity extends AppCompatActivity implements MainAct {
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
             MainFragment mainFragment = new MainFragment();
             Bundle bundle = new Bundle();
-            bundle.putParcelable("user",user);
+            bundle.putParcelable("user", user);
             Log.i("Number of friends", Integer.toString(user.getMasterList().size()));
             mainFragment.setArguments(bundle);
             fragmentTransaction.add(R.id.mFragment, mainFragment);
@@ -351,19 +400,208 @@ public class MainActivity extends AppCompatActivity implements MainAct {
             //LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             // update user location
-            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            String bestProvider = locationManager.NETWORK_PROVIDER;
-            final Location location = locationManager.getLastKnownLocation(bestProvider);
-            user.updateLocation(location);
+            //LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            //String bestProvider = locationManager.NETWORK_PROVIDER;
+            //final Location location = locationManager.getLastKnownLocation(bestProvider);
 
             button1.setOnClickListener(new mOnClickListener(1, MainActivity.this));
             button2.setOnClickListener(new mOnClickListener(2, MainActivity.this));
             button3.setOnClickListener(new mOnClickListener(3, MainActivity.this));
             button4.setOnClickListener(new mOnClickListener(4, MainActivity.this));
 
+            // After everything is said and done, time to toggle periodic update for location
+            togglePeriodicLocationUpdates();  // this is periodic update when app is active
+
+            // This is periodic update when app is inactive
+            Intent intent = new Intent(MainActivity.this, MyLocationHandler.class);
+            Bundle b = new Bundle();
+            bundle.putParcelable("user", user);
+            intent.putExtra("bundle",b);
+            intent.setAction("MyLocationHandler");
+
+            PendingIntent pendingIntent = PendingIntent.getService(MainActivity.this ,0, intent ,PendingIntent.FLAG_UPDATE_CURRENT);
+
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, pendingIntent);
 
         }
     }
 
-}
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkPlayServices();
+        // Resuming the periodic location updates
+        if (mGoogleApiClient.isConnected() && mRequestingLocationUpdates) {
+            startLocationUpdates();
+        }
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
+        }
+    }
+
+    /**
+     * Google api callback methods
+     */
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = "
+                + result.getErrorCode());
+    }
+
+    @Override
+    public void onConnected(Bundle arg0) {
+        // Once connected with google api, get the location
+        if (user != null)
+            getLocation();
+
+        if (mRequestingLocationUpdates) {
+            startLocationUpdates();
+        }
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int arg0) {
+        mGoogleApiClient.connect();
+    }
+
+    /**
+     * Method to display the location on UI
+     */
+    private void getLocation() {
+
+        mLastLocation = LocationServices.FusedLocationApi
+                .getLastLocation(mGoogleApiClient);
+
+        if (mLastLocation != null) {
+            double latitude = mLastLocation.getLatitude();
+            double longitude = mLastLocation.getLongitude();
+
+            user.updateLocation(mLastLocation);
+
+            Log.e("Location", Double.toString(latitude) + ", " + Double.toString(longitude));
+
+        } else {
+            Toast.makeText(MainActivity.this, "Cannot get location", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * Creating google api client object
+     */
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API).build();
+    }
+
+    /**
+     * Method to verify google play services on the device
+     */
+    private boolean checkPlayServices() {
+        int resultCode = GooglePlayServicesUtil
+                .isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                Toast.makeText(getApplicationContext(),
+                        "This device is not supported.", Toast.LENGTH_LONG)
+                        .show();
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        // Assign the new location
+        mLastLocation = location;
+
+        //Toast.makeText(getApplicationContext(), "Location changed!",
+        //        Toast.LENGTH_SHORT).show();
+
+        // Update the latest location to server
+        getLocation();
+    }
+
+    /**
+     * Starting the location updates
+     */
+    protected void startLocationUpdates() {
+        LocationServices.FusedLocationApi.requestLocationUpdates(
+                mGoogleApiClient, mLocationRequest, this);
+
+    }
+
+    /**
+     * Stopping location updates
+     */
+    protected void stopLocationUpdates() {
+        LocationServices.FusedLocationApi.removeLocationUpdates(
+                mGoogleApiClient, this);
+    }
+
+    /**
+     * Creating location request object
+     */
+    protected void createLocationRequest() {
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(LONG_INTERVAL);
+        mLocationRequest.setFastestInterval(SHORT_INTERVAL);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        //mLocationRequest.setSmallestDisplacement(DISPLACEMENT); // 10 meters
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mGoogleApiClient!= null){
+            stopLocationUpdates();
+        }
+    }
+
+    /**
+     * Method to toggle periodic location updates
+     */
+    private void togglePeriodicLocationUpdates() {
+        if (!mRequestingLocationUpdates) {
+
+            mRequestingLocationUpdates = true;
+            // Starting the location updates
+            startLocationUpdates();
+
+            Log.d(TAG, "Periodic location updates started!");
+
+        } else {
+            mRequestingLocationUpdates = false;
+            // Stopping the location updates
+            stopLocationUpdates();
+            Log.d(TAG, "Periodic location updates stopped!");
+        }
+    }
+
+    // Building pendingIntent
+    //private PendingIntent buildRequestPendingIntent(Intent theIntent) {
+        //Log.w(TAG, "building pending intent");
+      //  return PendingIntent.getBroadcast(MainActivity.this, 0, theIntent, 0);
+    //}
+
+}

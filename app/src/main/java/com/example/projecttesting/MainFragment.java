@@ -145,12 +145,6 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         final Location location = locationManager.getLastKnownLocation(bestProvider);
         currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-        //final FrameLayout mapLayout = (FrameLayout) getActivity().findViewById(R.id.map);
-
-		/*mMapFragment = new SupportMapFragment();
-		android.support.v4.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
-		fragmentTransaction.add(R.id.map, mMapFragment).commit();*/
-
         if (location != null) {
             onLocationChanged(location);
             locationManager.removeUpdates(mLocationListener);
