@@ -9,6 +9,7 @@ import java.util.prefs.PreferenceChangeEvent;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.support.v4.app.ActivityCompat;
@@ -53,6 +54,9 @@ import com.facebook.HttpMethod;
 import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.Result;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.location.LocationListener;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
@@ -415,13 +419,12 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
             // This is periodic update when app is inactive
             Intent intent = new Intent(MainActivity.this, MyLocationHandler.class);
             Bundle b = new Bundle();
-            bundle.putParcelable("user", user);
-            intent.putExtra("bundle",b);
-            intent.setAction("MyLocationHandler");
+            b.putParcelable("user", user);
+            intent.putExtras(b);
 
-            PendingIntent pendingIntent = PendingIntent.getService(MainActivity.this ,0, intent ,PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, pendingIntent);
+            PendingResult pendingResult = LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, pendingIntent);
 
         }
     }
@@ -573,7 +576,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
     @Override
     protected void onPause() {
         super.onPause();
-        if (mGoogleApiClient!= null){
+        if (mGoogleApiClient != null) {
             stopLocationUpdates();
         }
     }
@@ -597,11 +600,4 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
             Log.d(TAG, "Periodic location updates stopped!");
         }
     }
-
-    // Building pendingIntent
-    //private PendingIntent buildRequestPendingIntent(Intent theIntent) {
-        //Log.w(TAG, "building pending intent");
-      //  return PendingIntent.getBroadcast(MainActivity.this, 0, theIntent, 0);
-    //}
-
 }

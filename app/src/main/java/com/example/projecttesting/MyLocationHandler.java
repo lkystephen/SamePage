@@ -12,11 +12,15 @@ import android.os.IBinder;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 
+import com.google.android.gms.location.ActivityRecognitionResult;
 import com.google.android.gms.location.FusedLocationProviderApi;
+import com.google.android.gms.location.LocationResult;
 
 public class MyLocationHandler extends IntentService {
 
     User user;
+
+    private String TAG = this.getClass().getSimpleName();
 
     public MyLocationHandler() {
         super("MyLocationHandler");
@@ -26,17 +30,17 @@ public class MyLocationHandler extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        Bundle bundle = intent.getBundleExtra("bundle");
+        Bundle bundle = intent.getExtras();
         bundle.setClassLoader(User.class.getClassLoader());
         user = (User) bundle.getParcelable("user");
-        if (user == null){
-            Log.i("Location user","null");
+        if (user == null) {
+            Log.e(TAG, "user is null");
         }
 
-
-        final Location location = intent.getParcelableExtra(FusedLocationProviderApi.KEY_LOCATION_CHANGED);
-        if (location != null) {
-            Log.i("Off", Double.toString(location.getLatitude()) + ", " + Double.toString(location.getLongitude()));
+        if (LocationResult.hasResult(intent)) {
+            LocationResult locationResult = LocationResult.extractResult(intent);
+            Location location = locationResult.getLastLocation();
+            Log.i(TAG, Double.toString(location.getLatitude()) + ", " + Double.toString(location.getLongitude()));
             user.updateLocation(location);
 
             // Test to see if it works
@@ -50,11 +54,11 @@ public class MyLocationHandler extends IntentService {
             // notificationID allows you to update the notification later on.
             mNotificationManager.notify(1, mBuilder.build());
 
-        } else {
-            Log.e("Location API", "Null object for location");
-        }
-
+        } else
+            Log.e(TAG, "Null object returned for location API");
     }
+
 }
+
 
 
