@@ -12,6 +12,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
@@ -360,6 +361,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
             ColorStateList colorStateList = new ColorStateList(states, colors);
 
             FloatingActionButton actionButton = new FloatingActionButton.Builder(MainActivity.this).setContentView(add_icon).build();
+
             actionButton.setBackgroundTintList(colorStateList);
 
             // Create sub menu items
@@ -452,7 +454,8 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         Intent intent = new Intent(MainActivity.this, MyLocationHandler.class);
         Bundle b = new Bundle();
         b.putParcelable("user", user);
-        //intent.putExtra("bundle", b);
+        //intent.putExtras(b);
+        intent.putExtra("bundle",b);
 
         PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -597,5 +600,6 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
             Log.d(TAG, "Periodic location updates stopped!");
         }
     }
+
 
 }

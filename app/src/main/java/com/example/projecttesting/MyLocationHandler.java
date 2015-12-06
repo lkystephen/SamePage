@@ -33,21 +33,25 @@ public class MyLocationHandler extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
-       // Bundle bundle = intent.getBundleExtra("bundle");
-        Bundle bundle = intent.getExtras();
-        bundle.setClassLoader(User.class.getClassLoader());
+         Bundle bundle = intent.getBundleExtra("bundle");
+        //Bundle bundle = intent.getExtras();
+        if (bundle == null) {
+            Log.e(TAG, "bundle is null");
+        } else {
+            bundle.setClassLoader(User.class.getClassLoader());
+        }
         user = (User) bundle.getParcelable("user");
 
-  //      if (user == null) {
-    //        Log.e(TAG, "user is null");
-      //  }
+        if (user == null) {
+            Log.e(TAG, "user is null");
+        }
 
-        if (LocationResult.hasResult(intent)){
+        if (LocationResult.hasResult(intent)) {
             LocationResult locationResult = LocationResult.extractResult(intent);
             Location location = locationResult.getLastLocation();
             Log.i(TAG, Double.toString(location.getLatitude()) + ", " + Double.toString(location.getLongitude()));
 
-           if (user != null) {
+            if (user != null) {
                 user.updateLocation(location);
 
                 // Test to see if it works
