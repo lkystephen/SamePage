@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
     // Toggle periodic location updates
     private boolean mRequestingLocationUpdates = false; //boolean flag to toggle periodic location updates
     private static int LONG_INTERVAL = 960000; // 16mins
-    private static int SHORT_INTERVAL = 60000; // 1 min if other app also supply location
+    private static int SHORT_INTERVAL = 360000; // 6 min if other app also supply location
 
     // user
     public User user;
@@ -266,7 +266,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
                 fbid = Profile.getCurrentProfile().getId();
                 Log.i("name", Profile.getCurrentProfile().getName());
                 username = Profile.getCurrentProfile().getName();
-                fbid = Profile.getCurrentProfile().getId();
+                //fbid = Profile.getCurrentProfile().getId();
 
                 user = new User(fbid, username, regId_input, MainActivity.this);
                 user.execute();

@@ -3326,7 +3326,6 @@ containing a value of this type.
         public static final int mFragment=0x7f0e00a2;
         public static final int main_display_bg=0x7f0e00a1;
         public static final int main_listview=0x7f0e00f6;
-        public static final int main_seekbar=0x7f0e011f;
         public static final int map_more_details_arrow=0x7f0e00cc;
         public static final int master_search=0x7f0e00f7;
         public static final int match_parent=0x7f0e0050;
@@ -3388,6 +3387,7 @@ containing a value of this type.
         public static final int search_plate=0x7f0e009a;
         public static final int search_src_text=0x7f0e009b;
         public static final int search_voice_btn=0x7f0e009f;
+        public static final int seekbar=0x7f0e011f;
         public static final int seekbar_dialog=0x7f0e011e;
         public static final int select_dialog_listview=0x7f0e00a0;
         public static final int selectedFriendDisplay=0x7f0e00c7;

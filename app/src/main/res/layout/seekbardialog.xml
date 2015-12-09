@@ -1,13 +1,15 @@
 <!-- res/layout/list_item.xml -->
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/tools"
     android:id="@+id/seekbar_dialog"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <SeekBar
-        android:id="@+id/main_seekbar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"></SeekBar>
+    <com.appyvet.rangebar.RangeBar
+        android:layout_width="wrap_content"
+        android:layout_height="100dp    "
+        android:id="@+id/seekbar"
+        android:layout_marginStart="15dp"
+        custom:rangeBar="false"/>
 
 </RelativeLayout>

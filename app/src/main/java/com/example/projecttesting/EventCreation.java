@@ -43,6 +43,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.appyvet.rangebar.RangeBar;
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 import com.google.android.gms.maps.GoogleMap;
@@ -224,6 +225,17 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
                 LayoutInflater inflater = (LayoutInflater)EventCreation.this.getSystemService(LAYOUT_INFLATER_SERVICE);
                 View layout = inflater.inflate(R.layout.seekbardialog, (ViewGroup)findViewById(R.id.seekbar_dialog));
                 dialog.setContentView(layout);
+                dialog.show();
+
+                RangeBar rangeBar = (RangeBar) layout.findViewById(R.id.seekbar);
+
+                rangeBar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
+                    @Override
+                    public void onRangeChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex,
+                                                      String leftPinValue, String rightPinValue) {
+
+                    }
+                });
             }
         });
 

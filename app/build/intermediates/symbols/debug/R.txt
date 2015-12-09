@@ -1057,7 +1057,6 @@ int id logo_only 0x7f0e0057
 int id mFragment 0x7f0e00a2
 int id main_display_bg 0x7f0e00a1
 int id main_listview 0x7f0e00f6
-int id main_seekbar 0x7f0e011f
 int id map_more_details_arrow 0x7f0e00cc
 int id master_search 0x7f0e00f7
 int id match_parent 0x7f0e0050
@@ -1119,6 +1118,7 @@ int id search_mag_icon 0x7f0e0099
 int id search_plate 0x7f0e009a
 int id search_src_text 0x7f0e009b
 int id search_voice_btn 0x7f0e009f
+int id seekbar 0x7f0e011f
 int id seekbar_dialog 0x7f0e011e
 int id select_dialog_listview 0x7f0e00a0
 int id selectedFriendDisplay 0x7f0e00c7
