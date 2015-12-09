@@ -143,14 +143,14 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 
         String bestProvider = locationManager.NETWORK_PROVIDER;
         final Location location = locationManager.getLastKnownLocation(bestProvider);
-        currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+        //currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
 
         if (location != null) {
             onLocationChanged(location);
             locationManager.removeUpdates(mLocationListener);
         }
 
-        locationManager.requestLocationUpdates(bestProvider, 50000, 50, mLocationListener);
+        //locationManager.requestLocationUpdates(bestProvider, 50000, 50, mLocationListener);
 /*
 		// EditText delete button
 		delButton = (ImageButton) rootView.findViewById(R.id.deletetextbutton);

@@ -12,6 +12,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
@@ -56,9 +57,13 @@ import com.facebook.login.widget.ProfilePictureView;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.Result;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.ResultCallbacks;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.internal.FusedLocationProviderResult;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
@@ -100,8 +105,8 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
 
     // Toggle periodic location updates
     private boolean mRequestingLocationUpdates = false; //boolean flag to toggle periodic location updates
-    private static int LONG_INTERVAL = 30000; // 30 sec
-    private static int SHORT_INTERVAL = 20000; // 20 sec
+    private static int LONG_INTERVAL = 900000; // 15mins
+    private static int SHORT_INTERVAL = 60000; // 1 min if other app also supply location
 
     // user
     public User user;
@@ -122,16 +127,20 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
     public FloatingActionMenu actionMenu;
 
     public void handleLoginResults(boolean isNewUser, Users users) {
-        getLocation();
+
+        // User should be received, get to work on location
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect(); // This triggers on and off screen updates
+        }
 
         // Retrieve display photos
         RetrieveFBPhotos retrieve = new RetrieveFBPhotos();
         retrieve.execute(null, null, null);
     }
 
-    @Override
-    public void handleGetFrdsLocResults(final HashMap<String, OtherUser> masterListwLoc) {
-    }
+//@Override
+//public void handleGetFrdsLocResults(final HashMap<String, OtherUser> masterListwLoc) {
+//}
 
     public class mOnClickListener implements View.OnClickListener {
         int type;
@@ -334,7 +343,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         }
 
         protected void onPostExecute(Integer result) {
-            //Log.i("come on", "dude");
+
             setContentView(R.layout.activity_main);
 
             PACKAGE_NAME = getApplicationContext().getPackageName();
@@ -352,6 +361,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
             ColorStateList colorStateList = new ColorStateList(states, colors);
 
             FloatingActionButton actionButton = new FloatingActionButton.Builder(MainActivity.this).setContentView(add_icon).build();
+
             actionButton.setBackgroundTintList(colorStateList);
 
             // Create sub menu items
@@ -401,32 +411,13 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
             fragmentTransaction.add(R.id.mFragment, mainFragment);
             fragmentTransaction.commit();
 
-            //LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            // update user location
-            //LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            //String bestProvider = locationManager.NETWORK_PROVIDER;
-            //final Location location = locationManager.getLastKnownLocation(bestProvider);
-
             button1.setOnClickListener(new mOnClickListener(1, MainActivity.this));
             button2.setOnClickListener(new mOnClickListener(2, MainActivity.this));
             button3.setOnClickListener(new mOnClickListener(3, MainActivity.this));
             button4.setOnClickListener(new mOnClickListener(4, MainActivity.this));
 
-            // After everything is said and done, time to toggle periodic update for location
-            togglePeriodicLocationUpdates();  // this is periodic update when app is active
-
-            // This is periodic update when app is inactive
-            Intent intent = new Intent(MainActivity.this, MyLocationHandler.class);
-            Bundle b = new Bundle();
-            b.putParcelable("user", user);
-            intent.putExtras(b);
-
-            PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            PendingResult pendingResult = LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, pendingIntent);
-
         }
+
     }
 
     @Override
@@ -434,7 +425,8 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         super.onResume();
         checkPlayServices();
         // Resuming the periodic location updates
-        if (mGoogleApiClient.isConnected() && mRequestingLocationUpdates) {
+        if (mGoogleApiClient.isConnected()) {
+            // && mRequestingLocationUpdates) {
             startLocationUpdates();
         }
     }
@@ -442,9 +434,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
     @Override
     protected void onStart() {
         super.onStart();
-        if (mGoogleApiClient != null) {
-            mGoogleApiClient.connect();
-        }
+
     }
 
     /**
@@ -456,26 +446,36 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
                 + result.getErrorCode());
     }
 
+    // onConnected is triggered by .connect() after asynctask
     @Override
     public void onConnected(Bundle arg0) {
-        // Once connected with google api, get the location
-        if (user != null)
-            getLocation();
 
-        if (mRequestingLocationUpdates) {
-            startLocationUpdates();
-        }
+        // This is for creating the intent that is used for handler class
+        Intent intent = new Intent(MainActivity.this, MyLocationHandler.class);
+        Bundle b = new Bundle();
+        b.putParcelable("user", user);
+        //intent.putExtras(b);
+        intent.putExtra("bundle",b);
+
+        PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        //if (mGoogleApiClient.isConnected()) { // this should be connected
+
+        // Then the off screen periodic update
+        PendingResult pendingResult = LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+              mLocationRequest, pendingIntent);
+
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 
     }
+
 
     @Override
     public void onConnectionSuspended(int arg0) {
         mGoogleApiClient.connect();
     }
 
-    /**
-     * Method to display the location on UI
-     */
     private void getLocation() {
 
         mLastLocation = LocationServices.FusedLocationApi
@@ -487,7 +487,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
 
             user.updateLocation(mLastLocation);
 
-            Log.e("Location", Double.toString(latitude) + ", " + Double.toString(longitude));
+            Log.i("Location", Double.toString(latitude) + ", " + Double.toString(longitude));
 
         } else {
             Toast.makeText(MainActivity.this, "Cannot get location", Toast.LENGTH_LONG).show();
@@ -530,11 +530,9 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         // Assign the new location
         mLastLocation = location;
 
-        //Toast.makeText(getApplicationContext(), "Location changed!",
-        //        Toast.LENGTH_SHORT).show();
+        //PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0,
+          //      intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        // Update the latest location to server
-        getLocation();
     }
 
     /**
@@ -576,9 +574,11 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
     @Override
     protected void onPause() {
         super.onPause();
-        if (mGoogleApiClient != null) {
-            stopLocationUpdates();
-        }
+        /*if (mGoogleApiClient != null) {
+
+            if (mGoogleApiClient.isConnected())
+                stopLocationUpdates();
+        }*/
     }
 
     /**
@@ -600,4 +600,6 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
             Log.d(TAG, "Periodic location updates stopped!");
         }
     }
+
+
 }

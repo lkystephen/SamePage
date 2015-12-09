@@ -82,10 +82,10 @@ public class EventFragment extends Fragment implements MainAct {
 
     }
 
-    @Override
-    public void handleGetFrdsLocResults(HashMap<String, OtherUser> masterListwLoc) {
+    //@Override
+    //public void handleGetFrdsLocResults(HashMap<String, OtherUser> masterListwLoc) {
 
-    }
+    //}
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {

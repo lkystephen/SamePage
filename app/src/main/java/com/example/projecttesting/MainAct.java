@@ -13,5 +13,5 @@ public interface MainAct {
     public void handleLoginResults(boolean isNewUser, Users users) ;
 
     //returning hashmap w loc data, key is fbid
-    public void handleGetFrdsLocResults(HashMap<String, OtherUser> masterListwLoc);
+    //public void handleGetFrdsLocResults(HashMap<String, OtherUser> masterListwLoc);
 }
