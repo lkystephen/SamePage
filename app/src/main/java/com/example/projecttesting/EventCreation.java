@@ -43,7 +43,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.appyvet.rangebar.RangeBar;
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 import com.google.android.gms.maps.GoogleMap;
@@ -79,7 +78,7 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
         Bundle bundle = getIntent().getExtras();
         final User user = bundle.getParcelable("user");
 
-        Typeface typeface = FontCache.getFont(this, "sf_reg.ttf");
+        final Typeface typeface = FontCache.getFont(this, "sf_reg.ttf");
 
         List masterList = user.getMasterList();
 
@@ -224,18 +223,37 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
                 Dialog dialog = new Dialog(EventCreation.this);
                 LayoutInflater inflater = (LayoutInflater)EventCreation.this.getSystemService(LAYOUT_INFLATER_SERVICE);
                 View layout = inflater.inflate(R.layout.seekbardialog, (ViewGroup)findViewById(R.id.seekbar_dialog));
-                dialog.setContentView(layout);
-                dialog.show();
+                SeekArc seekArc = (SeekArc) layout.findViewById(R.id.seekArc);
+                final TextView seekArc_progress = (TextView) layout.findViewById(R.id.seekArc_progress);
+                seekArc_progress.setTypeface(typeface);
 
-                RangeBar rangeBar = (RangeBar) layout.findViewById(R.id.seekbar);
-
-                rangeBar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
+                seekArc.setOnSeekArcChangeListener(new SeekArc.OnSeekArcChangeListener() {
                     @Override
-                    public void onRangeChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex,
-                                                      String leftPinValue, String rightPinValue) {
+                    public void onProgressChanged(SeekArc seekArc, int progress, boolean fromUser) {
+                        int real_hour = progress + 1;
+                        String display;
+                        if (real_hour == 1){
+                            display = "1 hour";
+                        } else {
+                            display = real_hour + " hours";
+                        }
+                        seekArc_progress.setText(display);
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekArc seekArc) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekArc seekArc) {
 
                     }
                 });
+
+                dialog.setContentView(layout);
+                dialog.show();
+
             }
         });
 

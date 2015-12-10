@@ -1,15 +1,40 @@
 <!-- res/layout/list_item.xml -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/tools"
+    xmlns:seekarc="http://schemas.android.com/apk/res-auto"
     android:id="@+id/seekbar_dialog"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.appyvet.rangebar.RangeBar
-        android:layout_width="wrap_content"
-        android:layout_height="100dp    "
-        android:id="@+id/seekbar"
-        android:layout_marginStart="15dp"
-        custom:rangeBar="false"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp">
+
+        <com.example.projecttesting.SeekArc
+            android:id="@+id/seekArc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="70dp"
+            seekarc:arcWidth="3dp"
+            seekarc:max="22"
+            seekarc:rotation="180"
+            seekarc:thumb="@drawable/seek_arc_control_selector"
+            seekarc:startAngle="30"
+            seekarc:sweepAngle="300" />
+
+
+        <TextView
+            android:id="@+id/seekArc_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="1 hour"
+            android:textSize="16sp" />
+    </FrameLayout>
+
+
 
 </RelativeLayout>

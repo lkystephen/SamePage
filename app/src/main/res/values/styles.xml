@@ -16,12 +16,12 @@
 
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowSharedElementEnterTransition">
-            @transition/change_people_or_event_input</item>
+            @transition/change_people_or_event_input
+        </item>
 
     </style>
 
-    <style
-        name="dialog_animation_fade" >
+    <style name="dialog_animation_fade">
         <item name="android:windowEnterAnimation">@transition/fade_in_dialog</item>
         <item name="android:windowExitAnimation">@transition/fade_out_dialog</item>
     </style>
@@ -72,6 +72,14 @@
         <item name="android:layout_marginLeft">55dp</item>
         <item name="android:layout_marginStart">55dp</item>
         <item name="android:gravity">center_vertical</item>
+    </style>
+    <!-- SeekArc styles -->
+    <style name="SeekArc">
+        <item name="arcColor">@color/progress_gray_dark</item>
+    </style>
+
+    <style name="SeekArcLight">
+        <item name="arcColor">@color/progress_gray</item>
     </style>
 
 </resources>
