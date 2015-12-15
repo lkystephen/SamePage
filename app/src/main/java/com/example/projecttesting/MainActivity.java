@@ -132,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("id",user.getUserId());
+        Log.i("did i get frds", user.getMasterList().toString());
         editor.apply();
 
         // User should be received, get to work on location
@@ -365,7 +366,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
 
             FloatingActionButton actionButton = new FloatingActionButton.Builder(MainActivity.this).setContentView(add_icon).build();
 
-            actionButton.setBackgroundTintList(colorStateList);
+      //      actionButton.setBackgroundTintList(colorStateList);
 
             // Create sub menu items
             SubActionButton.Builder itemBuilder = new SubActionButton.Builder(MainActivity.this);
@@ -389,10 +390,10 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
             int size2 = (int) Math.round(size * 1.3);
             LayoutParams params = new LayoutParams(size2, size2, 51);
 
-            button1.setBackgroundTintList(colorStateList);
-            button2.setBackgroundTintList(colorStateList);
-            button3.setBackgroundTintList(colorStateList);
-            button4.setBackgroundTintList(colorStateList);
+//            button1.setBackgroundTintList(colorStateList);
+  //          button2.setBackgroundTintList(colorStateList);
+    //        button3.setBackgroundTintList(colorStateList);
+      //      button4.setBackgroundTintList(colorStateList);
 
             // Enlarge the sub action buttons
             button1.setLayoutParams(params);
@@ -411,7 +412,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
             bundle.putParcelable("user", user);
 
             bundle.putParcelable("location", mLastLocation);
-            Log.i("location",mLastLocation.toString());
+        //    Log.i("location",mLastLocation.toString());
             mainFragment.setArguments(bundle);
             fragmentTransaction.add(R.id.mFragment, mainFragment);
             fragmentTransaction.commit();
