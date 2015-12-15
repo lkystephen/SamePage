@@ -39,6 +39,9 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
     private SupportMapFragment fragment;
     LatLng latLng;
     String fbid, organiser_name, organiser_fbid;
+    LinearLayout mapLoadingLayout;
+    FrameLayout mapLayout;
+
 
     public EventDisplayDialog() {
         fragment = new SupportMapFragment();
@@ -48,6 +51,10 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.event_details_display, container, false);
+
+
+        // Set up the loading animation
+        mapLoadingLayout = (LinearLayout) view.findViewById(R.id.loadingLayout);
 
         // Remove title
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -77,7 +84,7 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
         TextView rsvp_response = (TextView) view.findViewById(R.id.rsvp_response);
         View rsvp_line = view.findViewById(R.id.rsvp_line);
 
-        final FrameLayout mapLayout = (FrameLayout) view.findViewById(R.id.event_map);
+        mapLayout = (FrameLayout) view.findViewById(R.id.event_map);
         final LinearLayout ind_bubbles = (LinearLayout) view.findViewById(R.id.invited_circles_display);
 
         // Set typeface
@@ -180,7 +187,8 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        //final LatLng test_QC_location = new LatLng(22.2814,114.1916);
+        mapLoadingLayout.setVisibility(View.GONE);
+        mapLayout.setVisibility(View.VISIBLE);
         MapObjectControl control = new MapObjectControl();
         control.AddSearchedMarker(latLng, googleMap, 14);
     }

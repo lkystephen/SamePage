@@ -49,6 +49,9 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
     int hour, minute, year, month, day;
     TextView event_start_date, event_start_time;
     ImageView event_date_edit;
+    LinearLayout mapLoadingLayout;
+    FrameLayout mapLayout;
+
 
 
     public EventOrganisingDialog() {
@@ -65,6 +68,8 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
         Typeface normal = FontCache.getFont(getContext(), "sf_reg.ttf");
         Typeface bold = FontCache.getFont(getContext(), "sf_bold.ttf");
 
+        // Set up the loading animation
+        mapLoadingLayout = (LinearLayout) view.findViewById(R.id.loadingLayout);
 
         // Remove title
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -141,7 +146,7 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
         TextView eventInvitedNumber = (TextView) view.findViewById(R.id.invited_text);
         eventInvitedNumber.setTypeface(normal);
 
-        final FrameLayout mapLayout = (FrameLayout) view.findViewById(R.id.event_map);
+        mapLayout = (FrameLayout) view.findViewById(R.id.event_map);
         final LinearLayout ind_bubbles = (LinearLayout) view.findViewById(R.id.invited_circles_display);
 
         // Get event position from user
@@ -237,6 +242,8 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+        mapLoadingLayout.setVisibility(View.GONE);
+        mapLayout.setVisibility(View.VISIBLE);
         MapObjectControl control = new MapObjectControl();
         control.AddSearchedMarker(latLng, googleMap, 14);
     }

@@ -46,6 +46,11 @@ public class StarredFriendsFragment extends Fragment {
         listView = (ListView) rootView.findViewById(R.id.starredfriendslist);
         no_star_text = (TextView) rootView.findViewById(R.id.nostarfriendstext);
 
+        Typeface face_r, face_b;
+        face_b = FontCache.getFont(getContext(), "sf_bold.ttf");
+        face_r = FontCache.getFont(getContext(), "sf_reg.ttf");
+        no_star_text.setTypeface(face_b);
+
         LoadingFriendsList load = new LoadingFriendsList(rowItems);
         load.execute();
 
