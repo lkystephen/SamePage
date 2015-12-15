@@ -105,8 +105,8 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
 
     // Toggle periodic location updates
     private boolean mRequestingLocationUpdates = false; //boolean flag to toggle periodic location updates
-    private static int LONG_INTERVAL = 900000; // 15mins
-    private static int SHORT_INTERVAL = 60000; // 1 min if other app also supply location
+    private static int LONG_INTERVAL = 960000; // 16mins
+    private static int SHORT_INTERVAL = 600000; // 10 min if other app also supply location
 
     // user
     public User user;
@@ -128,14 +128,17 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
 
     public void handleLoginResults(boolean isNewUser, Users users) {
 
+        // Save userid in sharedpreference
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("id",user.getUserId());
+        editor.apply();
+
         // User should be received, get to work on location
         if (mGoogleApiClient != null) {
             mGoogleApiClient.connect(); // This triggers on and off screen updates
         }
 
-        // Retrieve display photos
-        RetrieveFBPhotos retrieve = new RetrieveFBPhotos();
-        retrieve.execute(null, null, null);
     }
 
 //@Override
@@ -263,7 +266,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
                 fbid = Profile.getCurrentProfile().getId();
                 Log.i("name", Profile.getCurrentProfile().getName());
                 username = Profile.getCurrentProfile().getName();
-                fbid = Profile.getCurrentProfile().getId();
+                //fbid = Profile.getCurrentProfile().getId();
 
                 user = new User(fbid, username, regId_input, MainActivity.this);
                 user.execute();
@@ -406,7 +409,9 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
             MainFragment mainFragment = new MainFragment();
             Bundle bundle = new Bundle();
             bundle.putParcelable("user", user);
-            Log.i("Number of friends", Integer.toString(user.getMasterList().size()));
+
+            bundle.putParcelable("location", mLastLocation);
+            Log.i("location",mLastLocation.toString());
             mainFragment.setArguments(bundle);
             fragmentTransaction.add(R.id.mFragment, mainFragment);
             fragmentTransaction.commit();
@@ -450,12 +455,15 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
     @Override
     public void onConnected(Bundle arg0) {
 
+        // Update current location
+        getLocation();
+
         // This is for creating the intent that is used for handler class
         Intent intent = new Intent(MainActivity.this, MyLocationHandler.class);
-        Bundle b = new Bundle();
-        b.putParcelable("user", user);
+        //Bundle b = new Bundle();
+        //b.putParcelable("user", user);
         //intent.putExtras(b);
-        intent.putExtra("bundle",b);
+        //intent.putExtra("bundle",b);
 
         PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -467,6 +475,11 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
               mLocationRequest, pendingIntent);
 
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+
+
+        // Retrieve display photos
+        RetrieveFBPhotos retrieve = new RetrieveFBPhotos();
+        retrieve.execute(null, null, null);
 
     }
 
@@ -484,8 +497,6 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         if (mLastLocation != null) {
             double latitude = mLastLocation.getLatitude();
             double longitude = mLastLocation.getLongitude();
-
-            user.updateLocation(mLastLocation);
 
             Log.i("Location", Double.toString(latitude) + ", " + Double.toString(longitude));
 

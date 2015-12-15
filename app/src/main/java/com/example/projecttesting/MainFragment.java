@@ -13,6 +13,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -72,6 +73,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
     //public static GoogleMap googleMap;
     public static Marker selectedMarker;
     public LatLng myPosition;
+    Location mLocation;
     public String distance, destination;
     int travelTime;
     public AutoCompleteTextView autoCompView;
@@ -95,7 +97,9 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 
         Bundle bundle = getArguments();
         user = bundle.getParcelable("user");
-        LocationListener mLocationListener = this;
+        mLocation = bundle.getParcelable("location");
+        if (mLocation == null)
+            Log.e("MainFragment", "mLocation is null");
 
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.mainmap, container, false);
@@ -119,7 +123,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         ConstructNewsFeedItem item = new ConstructNewsFeedItem(user);
         ArrayList<HashMap<String, Integer>> result = item.setEventsFeedPriority();
 
-        Log.i("result size",Integer.toString(result.size()));
+        Log.i("result size", Integer.toString(result.size()));
 
         adapter = new MainPageAdapter(getActivity(), R.layout.newsfeed_list_display, result, user);
         listView.setAdapter(adapter);
@@ -138,34 +142,9 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         // Get names of friends
         final List<OtherUser> master_list = user.getMasterList();
 
-        LocationManager locationManager = (LocationManager) context
-                .getSystemService(Context.LOCATION_SERVICE);
-
-        String bestProvider = locationManager.NETWORK_PROVIDER;
-        final Location location = locationManager.getLastKnownLocation(bestProvider);
-        currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-
-        if (location != null) {
-            onLocationChanged(location);
-            locationManager.removeUpdates(mLocationListener);
-        }
-
-        locationManager.requestLocationUpdates(bestProvider, 50000, 50, mLocationListener);
-/*
-		// EditText delete button
-		delButton = (ImageButton) rootView.findViewById(R.id.deletetextbutton);
-		delButton.setVisibility(View.INVISIBLE);
-		delButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				autoCompView.setText("");
-			}
-		});
-
-		autoCompView.addTextChangedListener(this);
-		*/
         // Calculating location now
         // Getting URL to the Google Directions API
+        myPosition = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
         String url = getDirectionsUrl(myPosition, test_QC_location);
         DownloadTask downloadTask = new DownloadTask(user);
 
@@ -200,7 +179,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
                     //owner.removeView(view);
                     //test_button.setVisibility(View.VISIBLE);
                     Toast.makeText(getActivity(), "Oh yeah", Toast.LENGTH_LONG).show();
-                    int[] coordinates = {0,0};
+                    int[] coordinates = {0, 0};
                     //test_button2.getLocationOnScreen(coordinates);
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
@@ -229,8 +208,8 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 
     @Override
     public void onLocationChanged(Location location) {
-        double latitude = location.getLatitude();
-        double longitude = location.getLongitude();
+        double latitude = mLocation.getLatitude();
+        double longitude = mLocation.getLongitude();
         myPosition = new LatLng(latitude, longitude);
         // destroy the old marker to prevent duplicated markers when new
         // location is received
@@ -322,6 +301,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         }
         return data;
     }
+
     @Override
     public void afterTextChanged(Editable arg0) {
     }
@@ -343,14 +323,14 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 
 
     //this override the implemented method from asyncTask
-    public void processFinish(ArrayList<String> output){
+    public void processFinish(ArrayList<String> output) {
         String name = output.get(0);
         String distance = output.get(1);
         String destination = output.get(2);
 
         // Set the distance measured in minutes
         closest_location.setText(name + " is closest to you");
-        closest_location_details.setText("@ "+destination);
+        closest_location_details.setText("@ " + destination);
         closest_location_details2.setText(distance + " away");
 
     }

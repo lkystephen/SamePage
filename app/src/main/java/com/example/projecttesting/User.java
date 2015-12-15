@@ -56,6 +56,9 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
 
     //  private List<String> idsOfFriends;
 
+    public User (){
+
+    }
 
     //backdoor constructor
     public User (String password) {
@@ -630,7 +633,71 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
             }.execute(null,null,null);
         }
 
-        @Override
+
+    public void updateLocation(Location currentLoc, String userId) {
+        // TODO Auto-generated method stub
+        final double userLat = currentLoc.getLatitude();
+        final double userLong = currentLoc.getLongitude();
+        final String id = userId;
+
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                Log.i("Location", "(User) Updating location ");
+
+                String link = "http://letshangout.netau.net/updateloc.php";
+                HttpURLConnection urlConnection = null;
+
+                try {
+                    URL url = new URL(link);
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                    urlConnection.setDoOutput(true);
+                    urlConnection.setRequestMethod("POST");
+                    urlConnection.setRequestProperty("Content-Type", "application/json");
+                    urlConnection.setRequestProperty("Accept", "application/json");
+
+                    JSONObject json_toSend = new JSONObject();
+                    json_toSend.put("userid", id);
+                    json_toSend.put("userLat", userLat);
+                    json_toSend.put("userLong", userLong);
+
+                    //send the POST out
+                    //sending out the POST
+                    PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
+                    out.print(json_toSend.toString());
+                    Log.i("json", json_toSend.toString());
+                    out.flush();
+                    out.close();
+
+                    // read
+                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+                    // Read Server Response
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line);
+                        break;
+                    }
+                    return sb.toString();
+                } catch (Exception ex) {
+                    Log.i("User", "Error :" + ex.getMessage());
+                    return ex.toString();
+                }
+            }
+            @Override
+            protected void onPostExecute(String result) {
+                // get with db
+                Log.i("Location" ,"Updated successfully. Result is "+result);
+            }
+
+        }.execute(null,null,null);
+    }
+
+
+
+
+    @Override
         public String addUserToDB() {
             // TODO Auto-generated method stub
             return null;
