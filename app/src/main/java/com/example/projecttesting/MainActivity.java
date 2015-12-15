@@ -19,7 +19,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.NotificationCompat;
+import android.support.v7.widget.AppCompatButton;
 import android.widget.FrameLayout.LayoutParams;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -132,7 +134,6 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("id",user.getUserId());
-        Log.i("did i get frds", user.getMasterList().toString());
         editor.apply();
 
         // User should be received, get to work on location
@@ -149,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
     public class mOnClickListener implements View.OnClickListener {
         int type;
         Context context;
+        Location location;
         FragmentManager fm;
 
         public mOnClickListener(int type, Context context) {
@@ -163,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
 
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
             Bundle bundle = new Bundle();
+            bundle.putParcelable("location",mLastLocation);
             bundle.putParcelable("user", user);
             actionMenu.close(true);
 
@@ -366,7 +369,6 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
 
             FloatingActionButton actionButton = new FloatingActionButton.Builder(MainActivity.this).setContentView(add_icon).build();
 
-      //      actionButton.setBackgroundTintList(colorStateList);
 
             // Create sub menu items
             SubActionButton.Builder itemBuilder = new SubActionButton.Builder(MainActivity.this);
@@ -390,10 +392,21 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
             int size2 = (int) Math.round(size * 1.3);
             LayoutParams params = new LayoutParams(size2, size2, 51);
 
-//            button1.setBackgroundTintList(colorStateList);
-  //          button2.setBackgroundTintList(colorStateList);
-    //        button3.setBackgroundTintList(colorStateList);
-      //      button4.setBackgroundTintList(colorStateList);
+
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && actionButton instanceof FloatingActionButton) {
+                actionButton.setBackgroundColor(Color.parseColor("#ff4f6069"));
+                button1.setBackgroundColor(Color.parseColor("#ff4f6069"));
+                button2.setBackgroundColor(Color.parseColor("#ff4f6069"));
+                button3.setBackgroundColor(Color.parseColor("#ff4f6069"));
+                button4.setBackgroundColor(Color.parseColor("#ff4f6069"));
+            } else {
+                ViewCompat.setBackgroundTintList(actionButton, colorStateList);
+                button1.setBackgroundTintList(colorStateList);
+                button2.setBackgroundTintList(colorStateList);
+                button3.setBackgroundTintList(colorStateList);
+                button4.setBackgroundTintList(colorStateList);
+            }
+
 
             // Enlarge the sub action buttons
             button1.setLayoutParams(params);
@@ -412,7 +425,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
             bundle.putParcelable("user", user);
 
             bundle.putParcelable("location", mLastLocation);
-        //    Log.i("location",mLastLocation.toString());
+            Log.i("location",mLastLocation.toString());
             mainFragment.setArguments(bundle);
             fragmentTransaction.add(R.id.mFragment, mainFragment);
             fragmentTransaction.commit();
@@ -457,14 +470,10 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
     public void onConnected(Bundle arg0) {
 
         // Update current location
-        getLocation();
+        //getLocation();
 
         // This is for creating the intent that is used for handler class
         Intent intent = new Intent(MainActivity.this, MyLocationHandler.class);
-        //Bundle b = new Bundle();
-        //b.putParcelable("user", user);
-        //intent.putExtras(b);
-        //intent.putExtra("bundle",b);
 
         PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -476,11 +485,6 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
               mLocationRequest, pendingIntent);
 
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-
-
-        // Retrieve display photos
-        RetrieveFBPhotos retrieve = new RetrieveFBPhotos();
-        retrieve.execute(null, null, null);
 
     }
 
@@ -541,6 +545,11 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
     public void onLocationChanged(Location location) {
         // Assign the new location
         mLastLocation = location;
+
+        // Retrieve display photos
+        RetrieveFBPhotos retrieve = new RetrieveFBPhotos();
+        retrieve.execute(null, null, null);
+
 
         //PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0,
           //      intent, PendingIntent.FLAG_UPDATE_CURRENT);

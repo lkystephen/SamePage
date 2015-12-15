@@ -160,12 +160,6 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
                     bundle.putStringArrayList("selectedId", selectedPeople);
                     bundle.putParcelable("user", user);
                     intent.putExtras(bundle);
-                    //Pair<View, String> p1 = Pair.create(v, "People");
-                    //Pair<View, String> p2 = Pair.create(v, "PeopleImage");
-                    //Pair<View, String> p3 = Pair.create(v, "PeopleLine");
-                    //ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(EventCreation.this, p1, p3);
-
-                    //startActivityForResult(intent, 2, options.toBundle());
                     startActivityForResult(intent, 2);
 
                 }
@@ -187,9 +181,6 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
 
                     Intent intent = new Intent(EventCreation.this,
                             EventLocationInput.class);
-                    //Pair<View, String> p1 = Pair.create(v, "Place");
-                    //Pair<View, String> p2 = Pair.create(v, "PlaceLine");
-                    //ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(EventCreation.this, p1, p2);
 
                     startActivityForResult(intent, 1);
 
@@ -199,12 +190,6 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
         };
 
         placeInputET.setOnFocusChangeListener(locationOnClickListener);
-
-        //SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager()
-        //		.findFragmentById(R.id.eventCreateMap);
-
-        //eventGoogleMap = supportMapFragment.getMap();
-        //supportMapFragment.getView().setVisibility(View.GONE);
 
         // Setting buttons view
         button1 = (RadioButton) findViewById(R.id.end1);
@@ -217,6 +202,7 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
         button3.setTypeface(typeface);
         button4.setTypeface(typeface);
 
+        // Custom time end button
         button4.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -242,9 +228,7 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
 
                     @Override
                     public void onStartTrackingTouch(SeekArc seekArc) {
-
                     }
-
                     @Override
                     public void onStopTrackingTouch(SeekArc seekArc) {
 

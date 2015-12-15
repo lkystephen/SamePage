@@ -152,7 +152,7 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
                             // get loc as well
                             Log.i("User", "getting friend" + Integer.toString(i) + "'s location");
 
-                            String link = "http://letshangout.netau.net/getloc.php";
+                            String link = "http://letshangout.netau.net/getfrdsloc.php";
                             HttpURLConnection urlConnection = null;
 
                             try {
