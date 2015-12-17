@@ -28,8 +28,10 @@ import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -170,7 +172,7 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
                                 //sending out the POST
                                 PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
                                 out.print(json_toSend.toString());
-                                Log.i("jsonfuck", json_toSend.toString());
+                             //   Log.i("jsonfuck", json_toSend.toString());
                                 out.flush();
                                 out.close();
 
@@ -185,13 +187,18 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
                                     break;
                                 }
                                 JSONObject json_fromServer= new JSONObject(sb.toString());
+                            //    Log.i("jsonfuck", json_fromServer.toString());
                                 double lat_tmp = json_fromServer.getDouble("lat");
                                 double long_tmp = json_fromServer.getDouble("longitude");
                                 double lat_o_tmp = json_fromServer.getDouble("lat_old");
                                 double long_o_tmp = json_fromServer.getDouble("long_old");
                                 String uid_tmp = json_fromServer.getString("userid");
-                                long timestamp_tmp = json_fromServer.getLong("timestamp");
-                                long timestamp_o_tmp = json_fromServer.getLong("timestamp_old");
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                Date date1_tmp = sdf.parse(json_fromServer.getString("timestamp"));
+                                Date date2_tmp = sdf.parse(json_fromServer.getString("timestamp_old"));
+                                long timestamp_tmp = date1_tmp.getTime();
+                                long timestamp_o_tmp = date2_tmp.getTime();
+                                Log.i("did i get frds", fbid_tmp);
                                 friends.add(new OtherUser(fbid_tmp,uid_tmp,username_tmp, lat_tmp,long_tmp,lat_o_tmp,long_o_tmp,timestamp_tmp,timestamp_o_tmp));
                             } catch (Exception ex) {
                                 Log.i("getting frds' loc", "Error :" + ex.getMessage());
@@ -461,6 +468,7 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
         @Override
         public List<OtherUser> getMasterList() {
             // TODO Auto-generated method stub
+        //    Log.i("did i get frds",friends.get(0).username);
             return friends;
         }
 
