@@ -89,9 +89,12 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
                 if (temp > 60 && temp < 1440){
                     int temp3 = Math.round(temp / 60);
                     holder.last_update.setText(Integer.toString(temp3) + " hours ago");
-                } else if (temp > 1440){
+                } else if (temp > 1440 && temp < 525600){
                     int temp4 = Math.round(temp / 1440);
                     holder.last_update.setText(Integer.toString(temp4) + " days ago");
+                } else if (temp > 525600){
+                    int temp5 = Math.round(temp / 525600);
+                    holder.last_update.setText(Integer.toString(temp5) + " years ago");
                 }
             }
         } else
