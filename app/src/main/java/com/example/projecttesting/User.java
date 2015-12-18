@@ -370,7 +370,7 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
                 eventsMap.put("Rejected",eventsRejected);
                 eventsMap.put("Invited",eventsInvited);
                 eventsMap.put("Organised",eventsOrganised); */
-              //  Log.i(TAG, "into onpostexecute");
+                Log.i(TAG, "onPostExecute");
                 userHandler.handleLoginResults(newUser, null);
                 return;
             }

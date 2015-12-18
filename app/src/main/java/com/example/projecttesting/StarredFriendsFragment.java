@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Typeface;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ public class StarredFriendsFragment extends Fragment {
     //public int[] friendsStarredStatus = new int[]{1, 1};
 
     ListView listView;
+    Location mLastLocation;
     ArrayList<FriendsRowItem> rowItems;
     User user;
     FriendsListAdapter adapter;
@@ -41,6 +43,7 @@ public class StarredFriendsFragment extends Fragment {
 
         Bundle bundle = getArguments();
         user = bundle.getParcelable("user");
+        mLastLocation = bundle.getParcelable("location");
 
         // Get names of friends
         listView = (ListView) rootView.findViewById(R.id.starredfriendslist);
@@ -99,8 +102,32 @@ public class StarredFriendsFragment extends Fragment {
                     }
                 });
                 for (int i = 0; i < star_list.size(); i++) {
+                    String distance = new String();
+                String diff_time = new String();
+
+
+                // Get friends last location's distance from you
+                OtherUser otheruser = star_list.get(i);
+                if (otheruser.hasLoc){
+                    Location location = new Location("TEST");
+                    location.setLongitude(otheruser.longitude);
+                    location.setLatitude(otheruser.lat);
+                    distance = Integer.toString(Math.round(mLastLocation.distanceTo(location)));
+
+                    // Time
+                    long lastUpdate = otheruser.timestamp;
+                    long time = System.currentTimeMillis();
+                    long difference = time - lastUpdate;
+                    int diff_min = Math.round(difference / 60000);
+                    diff_time = Integer.toString(diff_min);
+
+                } else{
+                    distance = "NULL";
+                    diff_time = "NULL";
+                }
+
                     FriendsRowItem item = new FriendsRowItem(
-                            user.getStarList().get(i).username, 0, user.getStarList().get(i).fbid);
+                            user.getStarList().get(i).username, 0, user.getStarList().get(i).fbid, distance, diff_time);
                     rowItems.add(item);
                 }
             }

@@ -82,11 +82,11 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
     CircularImageView closest_friend_image;
     //ImageButton delButton;
     LatLng currentLatLng;
-    TextView closest_location, closest_location_details, closest_location_details2;
+    TextView closest_friend_name, closest_location_details, closest_location_details2;
     public static SupportMapFragment mMapFragment;
     User user;
     // Testing data
-    String id = "106808403007880";
+    //String id = "106808403007880";
 
     // Define testing location data
     final LatLng test_QC_location = new LatLng(22.2814, 114.1916);
@@ -109,16 +109,25 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 
         listView = (ListView) rootView.findViewById(R.id.main_listview);
 
-        closest_location = (TextView) rootView.findViewById(R.id.closest_location);
+        closest_friend_name = (TextView) rootView.findViewById(R.id.closest_friend_name);
         closest_location_details = (TextView) rootView.findViewById(R.id.closest_location_details);
         closest_location_details2 = (TextView) rootView.findViewById(R.id.closest_location_details2);
         closest_friend_image = (CircularImageView) rootView.findViewById(R.id.closest_friend_image);
 
-        closest_location.setTypeface(typeface_reg);
+        closest_friend_name.setTypeface(typeface_reg);
         closest_location_details.setTypeface(typeface_reg);
         closest_location_details2.setTypeface(typeface_reg);
 
-        closest_friend_image.setImageBitmap(BitmapFactory.decodeFile(Utility.getImage(id).getPath()));
+        // Compare my location with friends
+        String position = searchClosestFriend(user);
+
+        if (!position.equals("NULL")) {
+            String id = user.getMasterList().get(Integer.parseInt(position)).fbid;
+            closest_friend_image.setImageBitmap(BitmapFactory.decodeFile(Utility.getImage(id).getPath()));
+            closest_friend_name.setText(user.getMasterList().get(Integer.parseInt(position)).username);
+        } else {
+            // set any image here
+        }
 
         ConstructNewsFeedItem item = new ConstructNewsFeedItem(user);
         ArrayList<HashMap<String, Integer>> result = item.setEventsFeedPriority();
@@ -127,17 +136,6 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 
         adapter = new MainPageAdapter(getActivity(), R.layout.newsfeed_list_display, result, user);
         listView.setAdapter(adapter);
-
-        //ImageView image = (ImageView) rootView.findViewById(R.id.welcome_image);
-
-        //Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(user.getFBId()).getPath());
-        //if(bitmap == null) {
-        //	Log.i("Image returned","null");
-        //}
-        //image.setImageBitmap(bitmap);
-
-        Context context;
-        context = this.getActivity().getApplicationContext();
 
         // Get names of friends
         final List<OtherUser> master_list = user.getMasterList();
@@ -151,10 +149,6 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         downloadTask.delegate = this;
         // Start downloading json data from Google Directions API
         downloadTask.execute(url);
-
-        // Set drag and drop listener for the main button
-        //test_button.setOnTouchListener(new MyTouchListener());
-        //drop_zone_test.setOnDragListener(new MyDragListener());
 
         return rootView;
     }
@@ -329,9 +323,32 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         String destination = output.get(2);
 
         // Set the distance measured in minutes
-        closest_location.setText(name + " is closest to you");
+        //closest_location.setText(name + " is closest to you");
         closest_location_details.setText("@ " + destination);
         closest_location_details2.setText(distance + " away");
 
     }
+
+    public String searchClosestFriend(User user) {
+        String id = "NULL";
+        int meter = 999999;
+        int size = user.getMasterList().size();
+        Location closestLocation = new Location("TEST");
+
+        for (int i = 0; i < size; i++) {
+            if (user.getMasterList().get(i).hasLoc) {
+
+                closestLocation.setLatitude(user.getMasterList().get(i).lat);
+                closestLocation.setLongitude(user.getMasterList().get(i).longitude);
+                int temp = Math.round(mLocation.distanceTo(closestLocation));
+                if (temp < meter) {
+                    meter = temp;
+                }
+                id = Integer.toString(i);
+            }
+        }
+
+        return id;
+    }
+
 }

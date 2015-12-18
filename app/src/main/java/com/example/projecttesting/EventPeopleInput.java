@@ -33,7 +33,7 @@ import java.util.List;
 public class EventPeopleInput extends AppCompatActivity {
 
     ListView list;
-    public int[] friends_image = {R.drawable.edmund, R.drawable.wilson};
+    //public int[] friends_image = {R.drawable.edmund, R.drawable.wilson};
 
     Activity mActivity;
     TextView submitButton;
