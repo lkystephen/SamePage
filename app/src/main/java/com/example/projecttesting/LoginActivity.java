@@ -28,9 +28,11 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookAuthorizationException;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
@@ -128,8 +130,14 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onError(FacebookException exception) {
-                        Log.i("LoginAct", exception.toString());
+                    public void onError(FacebookException e) {
+                        if (e instanceof FacebookAuthorizationException){
+                            if (AccessToken.getCurrentAccessToken() != null){
+                                LoginManager.getInstance().logOut();
+                                Toast.makeText(getApplicationContext(),"Please close the app and login again.",Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        Log.i("LoginAct", e.toString());
                     }
                 });
 

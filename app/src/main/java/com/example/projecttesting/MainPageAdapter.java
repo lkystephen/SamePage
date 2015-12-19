@@ -159,12 +159,12 @@ public class MainPageAdapter extends ArrayAdapter<HashMap<String, Integer>> {
         final View ind_layout = m.inflate(R.layout.event_displayed_friend_bubble, null);
 
         ImageView invitees_bubble = (ImageView) ind_layout.findViewById(R.id.individual_bubble2);
-        int image2 = R.drawable.wilson;
-        Bitmap bm = BitmapFactory.decodeResource(context.getResources(), image2);
-        RoundImage displayImage = new RoundImage(bm);
+        //int image2 = R.drawable.wilson;
+        //Bitmap bm = BitmapFactory.decodeResource(context.getResources(), image2);
+        //RoundImage displayImage = new RoundImage(bm);
 
 
-        invitees_bubble.setImageDrawable(displayImage);
+        //invitees_bubble.setImageDrawable(displayImage);
 
         return ind_layout;
 

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 
 import android.graphics.Typeface;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ public class MasterListFriendsFragment extends Fragment {
     // friendsStarredStatus, 1 = starred, 0 is normal
     ListView listView;
     ArrayList<FriendsRowItem> rowItems;
+    Location mLastLocation;
     User user;
     FriendsListAdapter adapter;
 
@@ -46,8 +48,9 @@ public class MasterListFriendsFragment extends Fragment {
 
         Bundle bundle = getArguments();
         user = bundle.getParcelable("user");
+        mLastLocation = bundle.getParcelable("location");
 
-        Log.i("Number of friends",Integer.toString(user.getMasterList().size()));
+        Log.i("Number of friends", Integer.toString(user.getMasterList().size()));
 
         final EditText search = (EditText) rootView.findViewById(R.id.master_search);
         search.setTypeface(face);
@@ -117,13 +120,36 @@ public class MasterListFriendsFragment extends Fragment {
             List<OtherUser> master_list = user.getMasterList();
 
             // Getting the location information of friends in another async task
-            ParseLocation parserTask = new ParseLocation(user);
+            //ParseLocation parserTask = new ParseLocation(user);
 
 
             // Establish data here
             rowItems = new ArrayList<>();
             for (int i = 0; i < master_list.size(); i++) {
-                FriendsRowItem item = new FriendsRowItem(master_list.get(i).username, 0, master_list.get(i).fbid);
+                String distance = new String();
+                String diff_time = new String();
+
+
+                // Get friends last location's distance from you
+                OtherUser otheruser = master_list.get(i);
+                if (otheruser.hasLoc) {
+                    Location location = new Location("TEST");
+                    location.setLongitude(otheruser.longitude);
+                    location.setLatitude(otheruser.lat);
+                    distance = Integer.toString(Math.round(mLastLocation.distanceTo(location)));
+
+                    // Time
+                    long lastUpdate = otheruser.timestamp;
+                    long time = System.currentTimeMillis();
+                    long difference = time - lastUpdate;
+                    int diff_min = Math.round(difference / 60000);
+                    diff_time = Integer.toString(diff_min);
+
+                } else {
+                    distance = "NULL";
+                    diff_time = "NULL";
+                }
+                FriendsRowItem item = new FriendsRowItem(master_list.get(i).username, 0, master_list.get(i).fbid, distance, diff_time);
                 rowItems.add(item);
             }
 

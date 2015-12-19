@@ -26,6 +26,9 @@ import java.util.Date;
 
 public class Utility {
 
+
+    private static final String TAG = Utility.class.getSimpleName();
+
     public static float convertPixelToDp(float px, Context context) {
 
         float density = context.getResources().getDisplayMetrics().density;
@@ -95,30 +98,81 @@ public class Utility {
     public static String storeImage(Bitmap bitmap, String filename) {
         String stored = null;
         String folder_main = "Samepage";
-        File folder = new File(Environment.getExternalStorageDirectory(),folder_main);
-        //Log.i("External directory",folder.toString());
+        String root = Environment.getExternalStorageDirectory().toString();
+        String state = Environment.getExternalStorageState();
+        Log.i(TAG,"Storage state is " + state);
+        File folder = new File(root + "/Samepage");
+        File folder0 = new File("/sdcard" + "/Samepage");
+        Log.i(TAG, folder.toString());
 
-        if (!folder.exists()){
-            folder.mkdirs();
-        Log.i("External created","created");
+        if (!Environment.MEDIA_MOUNTED.equals(state)) {
+            Log.e(TAG,"Storage is not mounted!");
+        }
+
+        if (folder.canWrite()) {
+            Log.i(TAG, "External storage is accessible");
+
+            if (!folder.exists()) {
+                folder.mkdirs();
+                //Log.i(TAG, "External directory is created");
+            }
+        } else {
+            Log.e(TAG, "Default storage is not accessible");
+            if (folder0.canWrite()){
+
+                if (!folder0.exists()) {
+                    folder0.mkdirs();
+                    if (folder0.exists()) {
+                        Log.i(TAG, "Alternative location is writable");
+                    } else {
+                        Log.e(TAG, "Alternative location failed to create at " + folder0.getPath());
+                    }
+                }
+            } else {
+                Log.e(TAG,"Alternative storage is also not accessible");
+            }
+
         }
 
         File sdcard = Environment.getExternalStorageDirectory();
-        File file = new File(sdcard+"/Samepage", filename + ".png");
+        if (folder.exists()) {
+            File file = new File(root, filename + ".png");
+            if (file.exists())
+                file.delete();
 
-        if (file.exists())
-            file.delete();
-
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            //Log.i("okok","k");
-            bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
-            out.flush();
-            out.close();
-            stored = "success";
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                FileOutputStream out = new FileOutputStream(file);
+                //Log.i("okok","k");
+                bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+                out.flush();
+                out.close();
+                stored = "success";
+                Log.i(TAG, "User image created successfully");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        if (folder0.exists()) {
+            File file = new File("/sdcard", filename + ".png");
+            if (file.exists())
+                file.delete();
+
+            try {
+                FileOutputStream out = new FileOutputStream(file);
+                //Log.i("okok","k");
+                bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
+                out.flush();
+                out.close();
+                stored = "success";
+                Log.i(TAG, "User image created successfully");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        //File file = new File(sdcard + "/Samepage", filename + ".png");
+
+
         return stored;
     }
 
@@ -127,12 +181,19 @@ public class Utility {
         try {
             String root = Environment.getExternalStorageDirectory().toString();
             File myDir = new File(root);
-            if (!myDir.exists()){
-                Log.i("my Dir","Error, does not exist");
-                return null;}
-            if (myDir.getPath() != null){
-            mediaImage = new File(myDir.getPath()+"/Samepage/" + imageName+ ".png");
-                Log.i("Image retrieved from",mediaImage.toString());
+            if (!myDir.exists()) {
+                //Log.i("my Dir", "Error, does not exist");
+                File newDir = new File("sdcard");
+                if (newDir.exists()) {
+                    mediaImage = new File(newDir.getPath() + "/Samepage/" + imageName + ".png");
+                    Log.i("Image retrieved from", mediaImage.toString());
+                } else {
+                    return null;
+                }
+            }
+            if (myDir.getPath() != null) {
+                mediaImage = new File(myDir.getPath() + "/Samepage/" + imageName + ".png");
+                Log.i("Image retrieved from", mediaImage.toString());
             }
 
         } catch (Exception e) {
@@ -149,14 +210,14 @@ public class Utility {
             //Log.i("Image URL",img_value.toString());
             img = BitmapFactory.decodeStream(img_value.openConnection().getInputStream());
             if (img == null) {
-                Log.i("Image download","failed, returns null");
+                Log.i("Image download", "failed, returns null");
             } else {
-                Log.i("Image download","success!");
+                Log.i("Image download", "success!");
             }
         } catch (MalformedURLException e) {
-            Log.e("MalformedURL","Error");
-        } catch (IOException e){
-            Log.e("IOException","Error");
+            Log.e("MalformedURL", "Error");
+        } catch (IOException e) {
+            Log.e("IOException", "Error");
         }
         return img;
     }

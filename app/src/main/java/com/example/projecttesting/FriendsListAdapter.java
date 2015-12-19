@@ -44,7 +44,7 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
 
     /*private view holder school*/
     private class ViewHolder {
-        TextView name, location, last_update;
+        TextView name, last_update, distance;
         ImageView image;
     }
 
@@ -62,11 +62,11 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
             holder = new ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.friends_display_list);
             holder.last_update = (TextView) convertView.findViewById(R.id.friends_display_last_update);
-            holder.location = (TextView) convertView.findViewById(R.id.friends_display_loc);
+            holder.distance = (TextView) convertView.findViewById(R.id.friends_display_loc);
             holder.image = (ImageView) convertView.findViewById(R.id.display_image);
 
             holder.name.setTypeface(face_b);
-            holder.location.setTypeface(face_r);
+            holder.distance.setTypeface(face_r);
             holder.last_update.setTypeface(face_r);
 
             convertView.setTag(holder);
@@ -78,12 +78,39 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
         FriendsRowItem rowItem = filteredData.get(position);
 
         holder.name.setText(rowItem.getName());
-        if (!holder.last_update.equals("")){
-            int time_in_seconds = rowItem.getLastOnline();
-            int time_in_minutes = Math.round(time_in_seconds / 60);
-            holder.last_update.setText(time_in_minutes + " mins ago");
+
+        if (!rowItem.getTimeDifference().equals("NULL")){
+            String time = rowItem.getTimeDifference();
+            int temp = Integer.parseInt(time);
+            // time is already in minutes
+            if (temp < 60){
+                holder.last_update.setText(Integer.toString(temp) + " mins ago");
+            } else {
+                if (temp > 60 && temp < 1440){
+                    int temp3 = Math.round(temp / 60);
+                    holder.last_update.setText(Integer.toString(temp3) + " hours ago");
+                } else if (temp > 1440 && temp < 525600){
+                    int temp4 = Math.round(temp / 1440);
+                    holder.last_update.setText(Integer.toString(temp4) + " days ago");
+                } else if (temp > 525600){
+                    int temp5 = Math.round(temp / 525600);
+                    holder.last_update.setText(Integer.toString(temp5) + " years ago");
+                }
+            }
         } else
         holder.last_update.setText("Unknown");
+
+        // Set distance
+        if (!rowItem.getDistance().equals("NULL")){
+            int temp = Integer.parseInt(rowItem.getDistance());
+            if (temp < 1000){
+                holder.distance.setText(rowItem.getDistance() + " m away");
+            } else{
+                int temp2 = Math.round(temp / 1000);
+                holder.distance.setText(Integer.toString(temp2) + " km away");
+            }
+        } else
+        holder.distance.setText("Unknown");
 
         // Set image
         String fbid = rowItem.getFbId();
