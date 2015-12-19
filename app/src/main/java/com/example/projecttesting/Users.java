@@ -43,7 +43,7 @@ public interface Users {
     //Adding friends; update DB automatically
 	public void addFrds(Users frdsToAdd);
 	//Adding friends to Star List; update DB automatically
-	public void addFrdsToStar(OtherUser frdsToStar);
+	public void addFrdsToStar(List<OtherUser> frdsToStar);
 	
 	//IV. Location services
 	public Location getLocation();
