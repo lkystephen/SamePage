@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
@@ -21,13 +23,18 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuAdapter;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.facebook.Profile;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 public class MasterListFriendsFragment extends Fragment {
 
     // friendsStarredStatus, 1 = starred, 0 is normal
-    ListView listView;
+    SwipeMenuListView listView;
     ArrayList<FriendsRowItem> rowItems;
     Location mLastLocation;
     User user;
@@ -73,7 +80,76 @@ public class MasterListFriendsFragment extends Fragment {
 
         //final FragmentManager fm = getActivity().getSupportFragmentManager();
 
-        listView = (ListView) rootView.findViewById(R.id.starredfriendslist);
+        listView = (SwipeMenuListView) rootView.findViewById(R.id.starredfriendslist);
+
+        SwipeMenuCreator creator = new SwipeMenuCreator() {
+            @Override
+            public void create(SwipeMenu menu) {
+
+                //              Utility utility = new Utility();
+//                float width = utility.convertDpToPixel(90, getContext());
+                // Create open menu
+                SwipeMenuItem starItem = new SwipeMenuItem(getContext());
+                // set item background
+                starItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
+                        0xCE)));
+                // set item width
+                starItem.setWidth(200);
+                // set item title fontsize
+                starItem.setTitleSize(18);
+                starItem.setIcon(R.drawable.star60);
+                // add to menu
+                menu.addMenuItem(starItem);
+
+                // create "delete" item
+                SwipeMenuItem deleteItem = new SwipeMenuItem(getContext());
+                // set item background
+                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
+                        0x3F, 0x25)));
+                // set item width
+                deleteItem.setWidth(200);
+                // set a icon
+                deleteItem.setIcon(R.drawable.star60);
+                // add to menu
+                menu.addMenuItem(deleteItem);
+
+            }
+        };
+
+        // set creator
+        listView.setMenuCreator(creator);
+
+        listView.setOnSwipeListener(new SwipeMenuListView.OnSwipeListener() {
+
+            @Override
+            public void onSwipeStart(int position) {
+                // swipe start
+            }
+
+            @Override
+            public void onSwipeEnd(int position) {
+                // swipe end
+            }
+        });
+
+        // Right
+        listView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
+
+        listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index) {
+                    case 0:
+                        // open
+                        break;
+                    case 1:
+                        // delete
+                        break;
+                }
+                // false : close the menu; true : not close the menu
+                return false;
+            }
+        });
 
         // Load friends list with Asynctask
         LoadingFriendsList load = new LoadingFriendsList(rowItems);
@@ -122,7 +198,6 @@ public class MasterListFriendsFragment extends Fragment {
             // Getting the location information of friends in another async task
             //ParseLocation parserTask = new ParseLocation(user);
 
-
             // Establish data here
             rowItems = new ArrayList<>();
             for (int i = 0; i < master_list.size(); i++) {
@@ -167,6 +242,5 @@ public class MasterListFriendsFragment extends Fragment {
 
         }
     }
-
 
 }
