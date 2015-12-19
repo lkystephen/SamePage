@@ -364,12 +364,7 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
 
         protected void onPostExecute(Boolean yesorno){
             if (yesorno) {
-               /* HashMap eventsMap = new HashMap();
-                eventsMap.put("Attend",eventsAttending);
-                eventsMap.put("Rejected",eventsRejected);
-                eventsMap.put("Invited",eventsInvited);
-                eventsMap.put("Organised",eventsOrganised); */
-              //  Log.i(TAG, "into onpostexecute");
+              //  addFrdsToStar(this.getMasterList());
                 userHandler.handleLoginResults(newUser, null);
                 return;
             }
@@ -570,7 +565,7 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
 
         @Override
         public void addFrdsToStar(final List<OtherUser> frdsToStar) {
-            stars.addAll(frdsToStar);
+//            stars.addAll(frdsToStar);
             //update server
             new AsyncTask<Void, Void, Boolean>() {
                 @Override
@@ -612,6 +607,8 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
                             sb.append(line);
                             break;
                         }
+                        Log.i("Adding Frds" , sb.toString());
+
                         if (sb.toString().matches("OK_wahid")) {
                             return true;
                         } else{
@@ -619,14 +616,19 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
                         }
 
                     } catch (Exception ex) {
-                        Log.i("User", "Add Frds Error :" + ex.getMessage());
+                        Log.i("User", "Adding Frds Error :" + ex.getMessage());
                         return false;
                     }
                 }
 
                 @Override
                 protected void onPostExecute(Boolean results) {
-                    // get with db
+                    if (results) {
+                        Log.i("Adding Frds to Stars","success!");
+                    }
+                    else {
+                        Log.i("Adding Frds to Stars", "fucking failed!");
+                    }
                 }
             }.execute(null, null, null);
 
