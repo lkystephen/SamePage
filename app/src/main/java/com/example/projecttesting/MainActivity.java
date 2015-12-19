@@ -149,7 +149,6 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         PendingResult pendingResult = LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
                 mLocationRequest, pendingIntent);
 
-        // Permission is granted
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 
     }
@@ -397,26 +396,13 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         super.onResume();
         checkPlayServices();
 
-        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Show explanation
-            //if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-            //      Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-            //Explain to the user why we need to read the contacts
-            //}
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 99);
-
-
-        } else {
-            // Resuming the periodic location updates
-            if (mGoogleApiClient.isConnected()) {
-                // && mRequestingLocationUpdates) {
-                startLocationUpdates();
-            }
+        // Resuming the periodic location updates
+        if (mGoogleApiClient.isConnected()) {
+            // && mRequestingLocationUpdates) {
+            startLocationUpdates();
         }
     }
+
 
     @Override
     protected void onStart() {
@@ -439,52 +425,39 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
 
         Log.i(TAG, "onConnected");
 
-        // Check for location permission
-        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
+        //get RegId
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                Log.i("GCM", "starting");
 
-            Log.i(TAG, "Permission for location is not granted. Now will ask for permission.");
-
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_LOCATION);
-
-        } else {
-
-            //get RegId
-            new AsyncTask<Void, Void, String>() {
-                @Override
-                protected String doInBackground(Void... params) {
-                    Log.i("GCM", "starting");
-
-                    try {
-                        if (gcm == null) {
-                            gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
-                        }
-                        regid = gcm.register(PROJECT_NUMBER);
-                        // msg = "Device registered, registration ID=" + regid;
-                        Log.i("GCM", regid);
-
-                    } catch (IOException ex) {
-                        Log.i("GCM", "Error :" + ex.getMessage());
+                try {
+                    if (gcm == null) {
+                        gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
                     }
-                    return regid;
+                    regid = gcm.register(PROJECT_NUMBER);
+                    // msg = "Device registered, registration ID=" + regid;
+                    Log.i("GCM", regid);
+
+                } catch (IOException ex) {
+                    Log.i("GCM", "Error :" + ex.getMessage());
                 }
+                return regid;
+            }
 
-                @Override
-                protected void onPostExecute(String regId_input) {
-                    // get with db
-                    fbid = Profile.getCurrentProfile().getId();
-                    Log.i("name", Profile.getCurrentProfile().getName());
-                    username = Profile.getCurrentProfile().getName();
+            @Override
+            protected void onPostExecute(String regId_input) {
+                // get with db
+                fbid = Profile.getCurrentProfile().getId();
+                Log.i("name", Profile.getCurrentProfile().getName());
+                username = Profile.getCurrentProfile().getName();
 
-                    user = new User(fbid, username, regId_input, MainActivity.this);
-                    user.execute();
-                }
-            }.execute(null, null, null);
-
-        }
+                user = new User(fbid, username, regId_input, MainActivity.this);
+                user.execute();
+            }
+        }.execute(null, null, null);
 
     }
-
 
     @Override
     public void onConnectionSuspended(int arg0) {
@@ -613,66 +586,4 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
             Log.d(TAG, "Periodic location updates stopped!");
         }
     }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case 1: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                    //get RegId
-                    new AsyncTask<Void, Void, String>() {
-                        @Override
-                        protected String doInBackground(Void... params) {
-                            Log.i("GCM", "starting");
-
-                            try {
-                                if (gcm == null) {
-                                    gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
-                                }
-                                regid = gcm.register(PROJECT_NUMBER);
-                                // msg = "Device registered, registration ID=" + regid;
-                                Log.i("GCM", regid);
-
-                            } catch (IOException ex) {
-                                Log.i("GCM", "Error :" + ex.getMessage());
-                            }
-                            return regid;
-                        }
-
-                        @Override
-                        protected void onPostExecute(String regId_input) {
-                            // get with db
-                            fbid = Profile.getCurrentProfile().getId();
-                            Log.i("name", Profile.getCurrentProfile().getName());
-                            username = Profile.getCurrentProfile().getName();
-
-                            user = new User(fbid, username, regId_input, MainActivity.this);
-                            user.execute();
-                        }
-                    }.execute(null, null, null);
-
-                } else {
-                    // Permission is blocked, show alert
-                    Log.i(TAG, "Location request has been denied");
-                    new AlertDialog.Builder(MainActivity.this)
-                            .setTitle("Location permission denied")
-                            .setMessage("Permission for location has been denied. The app will now close. Please note that for the current version, location permission must be granted.")
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    Intent a = new Intent(Intent.ACTION_MAIN);
-                                    a.addCategory(Intent.CATEGORY_HOME);
-                                    startActivity(a);
-                                }
-                            }).show();
-
-                }
-                return;
-            }
-        }
-    }
-
 }
