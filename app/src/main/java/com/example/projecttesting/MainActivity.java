@@ -6,13 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.prefs.PreferenceChangeEvent;
 
-import android.*;
-import android.Manifest;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.os.Build;
@@ -25,7 +22,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.AppCompatButton;
-import android.view.WindowManager;
 import android.widget.FrameLayout.LayoutParams;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -49,6 +45,11 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+//fb imports
+import com.astuetz.PagerSlidingTabStrip;
+import com.astuetz.PagerSlidingTabStrip.IconTabProvider;
+import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
 import com.facebook.CallbackManager;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -108,8 +109,6 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
     private boolean mRequestingLocationUpdates = false; //boolean flag to toggle periodic location updates
     private static int LONG_INTERVAL = 960000; // 16mins
     private static int SHORT_INTERVAL = 600000; // 10 min if other app also supply location
-    public static int MY_PERMISSION_LOCATION = 1;
-    public static int MY_PERMISSION_WRITE_EXTERNAL = 2;
 
     // user
     public User user;
@@ -131,27 +130,22 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
 
     public void handleLoginResults(boolean isNewUser, Users users) {
 
-        Log.i("MainActivity", "handleLoginResults done");
-
         // Save userid in sharedpreference
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("id", user.getUserId());
+        editor.putString("id",user.getUserId());
         editor.apply();
 
-        // This is for creating the intent that is used for handler class
-        Intent intent = new Intent(MainActivity.this, MyLocationHandler.class);
-
-        PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0,
-                intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        // Then the off screen periodic update
-        PendingResult pendingResult = LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
-                mLocationRequest, pendingIntent);
-
-        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+        // User should be received, get to work on location
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect(); // This triggers on and off screen updates
+        }
 
     }
+
+//@Override
+//public void handleGetFrdsLocResults(final HashMap<String, OtherUser> masterListwLoc) {
+//}
 
     public class mOnClickListener implements View.OnClickListener {
         int type;
@@ -171,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
 
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
             Bundle bundle = new Bundle();
-            bundle.putParcelable("location", mLastLocation);
+            bundle.putParcelable("location",mLastLocation);
             bundle.putParcelable("user", user);
             actionMenu.close(true);
 
@@ -211,7 +205,6 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         super.onCreate(savedInstanceState);
 
-        Log.i(TAG, "onCreate");
         // Set loading screen
         setContentView(R.layout.loading);
 
@@ -225,10 +218,65 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
             createLocationRequest();
         }
 
-        // Connect to GoogleAPIClient!
-        if (mGoogleApiClient != null) {
-            mGoogleApiClient.connect(); // This triggers on and off screen updates
-        }
+        // Check permission for dangerous permissions
+        /*if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_CONTACTS)) {
+
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_CONTACTS},
+                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }*/
+
+        //get RegId
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                Log.i("GCM", "starting");
+
+                try {
+                    if (gcm == null) {
+                        gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
+                    }
+                    regid = gcm.register(PROJECT_NUMBER);
+                    // msg = "Device registered, registration ID=" + regid;
+                    Log.i("GCM", regid);
+
+                } catch (IOException ex) {
+                    Log.i("GCM", "Error :" + ex.getMessage());
+                }
+                return regid;
+            }
+
+            @Override
+            protected void onPostExecute(String regId_input) {
+                // get with db
+                fbid = Profile.getCurrentProfile().getId();
+                Log.i("name", Profile.getCurrentProfile().getName());
+                username = Profile.getCurrentProfile().getName();
+                //fbid = Profile.getCurrentProfile().getId();
+
+                user = new User(fbid, username, regId_input, MainActivity.this);
+                user.execute();
+            }
+        }.execute(null, null, null);
+
 
     }
 
@@ -272,13 +320,15 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
                 temp2 = temp3;
             }
             Log.i("Generated dl indicator", temp2);
+            //int last_number = preferences.getInt("friends",0);
+            //int this_number = user.getMasterList().size();
             if (downloaded.equals("yes") && temp2.equals(old_list)) {
                 // photos have been downloaded before and friends unchanged
                 Log.i("FB display", "Have been downloaded before");
                 // Time to move on
                 // user.getMasterList --> all friends
             } else {
-                Log.i(TAG, "Check if storage permission is granted");
+                Log.i("FB display", "Will download photos now");
                 Utility utility = new Utility();
 
                 // Download your own image first
@@ -343,22 +393,20 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
             LayoutParams params = new LayoutParams(size2, size2, 51);
 
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && actionButton instanceof FloatingActionButton) {
-
-                ViewCompat.setBackgroundTintList(actionButton, colorStateList);
-                button1.setBackgroundTintList(colorStateList);
-                button2.setBackgroundTintList(colorStateList);
-                button3.setBackgroundTintList(colorStateList);
-                button4.setBackgroundTintList(colorStateList);
-            } else {
-
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && actionButton instanceof FloatingActionButton) {
                 actionButton.setBackgroundColor(Color.parseColor("#ff4f6069"));
                 button1.setBackgroundColor(Color.parseColor("#ff4f6069"));
                 button2.setBackgroundColor(Color.parseColor("#ff4f6069"));
                 button3.setBackgroundColor(Color.parseColor("#ff4f6069"));
                 button4.setBackgroundColor(Color.parseColor("#ff4f6069"));
-
+            } else {
+                ViewCompat.setBackgroundTintList(actionButton, colorStateList);
+                button1.setBackgroundTintList(colorStateList);
+                button2.setBackgroundTintList(colorStateList);
+                button3.setBackgroundTintList(colorStateList);
+                button4.setBackgroundTintList(colorStateList);
             }
+
 
             // Enlarge the sub action buttons
             button1.setLayoutParams(params);
@@ -377,7 +425,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
             bundle.putParcelable("user", user);
 
             bundle.putParcelable("location", mLastLocation);
-            Log.i("location", mLastLocation.toString());
+            Log.i("location",mLastLocation.toString());
             mainFragment.setArguments(bundle);
             fragmentTransaction.add(R.id.mFragment, mainFragment);
             fragmentTransaction.commit();
@@ -395,14 +443,12 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
     protected void onResume() {
         super.onResume();
         checkPlayServices();
-
         // Resuming the periodic location updates
         if (mGoogleApiClient.isConnected()) {
             // && mRequestingLocationUpdates) {
             startLocationUpdates();
         }
     }
-
 
     @Override
     protected void onStart() {
@@ -423,41 +469,25 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
     @Override
     public void onConnected(Bundle arg0) {
 
-        Log.i(TAG, "onConnected");
+        // Update current location
+        //getLocation();
 
-        //get RegId
-        new AsyncTask<Void, Void, String>() {
-            @Override
-            protected String doInBackground(Void... params) {
-                Log.i("GCM", "starting");
+        // This is for creating the intent that is used for handler class
+        Intent intent = new Intent(MainActivity.this, MyLocationHandler.class);
 
-                try {
-                    if (gcm == null) {
-                        gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
-                    }
-                    regid = gcm.register(PROJECT_NUMBER);
-                    // msg = "Device registered, registration ID=" + regid;
-                    Log.i("GCM", regid);
+        PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-                } catch (IOException ex) {
-                    Log.i("GCM", "Error :" + ex.getMessage());
-                }
-                return regid;
-            }
+        //if (mGoogleApiClient.isConnected()) { // this should be connected
 
-            @Override
-            protected void onPostExecute(String regId_input) {
-                // get with db
-                fbid = Profile.getCurrentProfile().getId();
-                Log.i("name", Profile.getCurrentProfile().getName());
-                username = Profile.getCurrentProfile().getName();
+        // Then the off screen periodic update
+        PendingResult pendingResult = LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+              mLocationRequest, pendingIntent);
 
-                user = new User(fbid, username, regId_input, MainActivity.this);
-                user.execute();
-            }
-        }.execute(null, null, null);
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 
     }
+
 
     @Override
     public void onConnectionSuspended(int arg0) {
@@ -520,6 +550,10 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         RetrieveFBPhotos retrieve = new RetrieveFBPhotos();
         retrieve.execute(null, null, null);
 
+
+        //PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0,
+          //      intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
     }
 
     /**
@@ -528,6 +562,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
     protected void startLocationUpdates() {
         LocationServices.FusedLocationApi.requestLocationUpdates(
                 mGoogleApiClient, mLocationRequest, this);
+
     }
 
     /**
@@ -586,4 +621,6 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
             Log.d(TAG, "Periodic location updates stopped!");
         }
     }
+
+
 }
