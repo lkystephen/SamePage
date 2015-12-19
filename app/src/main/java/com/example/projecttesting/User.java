@@ -374,7 +374,6 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
         protected void onPostExecute(Boolean yesorno){
             if (yesorno) {
               //  addFrdsToStar(this.getMasterList());
-                Log.i("getting star frds results", friends.toString());
                 userHandler.handleLoginResults(newUser, null);
                 return;
             }
