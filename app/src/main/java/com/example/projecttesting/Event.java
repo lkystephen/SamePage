@@ -55,6 +55,7 @@ public class Event extends AsyncTask<Void,Void,Void> implements Events {
     Integer status = 0;
     String eventOrganiser;
     EventAct eventhandler;
+    Boolean isRepeat;
     double venueLat;
     double venueLong;
     private static final String TAG = "EventCreation";
@@ -90,6 +91,7 @@ public class Event extends AsyncTask<Void,Void,Void> implements Events {
         venueLat = eventBundle.getDouble("LAT");
         venueLong = eventBundle.getDouble("LONG");
         address = (String)eventBundle.get("ADDRESS");
+        isRepeat = (Boolean)eventBundle.get("ISREPEAT");
 
         // testing
         /*
@@ -356,6 +358,7 @@ public class Event extends AsyncTask<Void,Void,Void> implements Events {
             json_toSend.put("venueLong",venueLong);
             json_toSend.put("endTime",endTime);
             json_toSend.put("address",address);
+            json_toSend.put("repeat", isRepeat);
 
            // JSONArray json_invitees = new JSONArray(invitees);
       //      Log.i("JSONdiudiu",json_invitees.toString());
