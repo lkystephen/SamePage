@@ -140,6 +140,7 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
 
             // var to store friends
             friends = new ArrayList<OtherUser>();
+            stars = new ArrayList<OtherUser>();
             //setup a general callback for each graph request sent, this callback will launch the next request if exists.
             final GraphRequest.Callback graphCallback = new GraphRequest.Callback() {
                 @Override
@@ -166,6 +167,7 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
 
                                 JSONObject json_toSend = new JSONObject();
                                 json_toSend.put("fbid", fbid_tmp);
+                                json_toSend.put("uid",userId);
 
                                 //send the POST out
                                 //sending out the POST
@@ -186,19 +188,32 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
                                     break;
                                 }
                                 JSONObject json_fromServer= new JSONObject(sb.toString());
-                            //    Log.i("jsonfuck", json_fromServer.toString());
-                                double lat_tmp = json_fromServer.getDouble("lat");
-                                double long_tmp = json_fromServer.getDouble("longitude");
-                                double lat_o_tmp = json_fromServer.getDouble("lat_old");
-                                double long_o_tmp = json_fromServer.getDouble("long_old");
-                                String uid_tmp = json_fromServer.getString("userid");
-                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                                Date date1_tmp = sdf.parse(json_fromServer.getString("timestamp"));
-                                Date date2_tmp = sdf.parse(json_fromServer.getString("timestamp_old"));
-                                long timestamp_tmp = date1_tmp.getTime();
-                                long timestamp_o_tmp = date2_tmp.getTime();
-                                Log.i("did i get frds", fbid_tmp);
-                                friends.add(new OtherUser(fbid_tmp,uid_tmp,username_tmp, lat_tmp,long_tmp,lat_o_tmp,long_o_tmp,timestamp_tmp,timestamp_o_tmp));
+                                if (json_fromServer.getBoolean("hasLoc")) {
+                                    double lat_tmp = json_fromServer.getDouble("lat");
+                                    double long_tmp = json_fromServer.getDouble("longitude");
+                                    double lat_o_tmp = json_fromServer.getDouble("lat_old");
+                                    double long_o_tmp = json_fromServer.getDouble("long_old");
+                                    String uid_tmp = json_fromServer.getString("userid");
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                    Date date1_tmp = sdf.parse(json_fromServer.getString("timestamp"));
+                                    Date date2_tmp = sdf.parse(json_fromServer.getString("timestamp_old"));
+                                    long timestamp_tmp = date1_tmp.getTime();
+                                    long timestamp_o_tmp = date2_tmp.getTime();
+                                    Log.i("did i get frds", fbid_tmp);
+                                    OtherUser otherUser_tmp = new OtherUser(fbid_tmp,uid_tmp,username_tmp, lat_tmp,long_tmp,lat_o_tmp,long_o_tmp,timestamp_tmp,timestamp_o_tmp);
+                                    friends.add(otherUser_tmp);
+                                    if(json_fromServer.getBoolean("isStar")){
+                                        stars.add(otherUser_tmp);
+                                    }
+                                }
+                                else {
+                                    String uid_tmp = json_fromServer.getString("userid");
+                                    OtherUser otherUser_tmp = new OtherUser(fbid_tmp,uid_tmp,username_tmp);
+                                    friends.add(otherUser_tmp);
+                                    if(json_fromServer.getBoolean("isStar")){
+                                        stars.add(otherUser_tmp);
+                                    }
+                                }
                             } catch (Exception ex) {
                                 Log.i("getting frds' loc", "Error :" + ex.getMessage());
                             }
@@ -224,7 +239,6 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
                 Log.i ("Get Friends", friends.get(i).toString());
 
             }
-
             //	String toOutput;
             //get regid
             String link = "http://letshangout.netau.net/main.php";
