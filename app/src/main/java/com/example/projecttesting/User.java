@@ -7,7 +7,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
@@ -25,7 +24,6 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -53,7 +51,8 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
         public List<EventTypes> eventsRejected;
         public MainAct userHandler;
         private String regID;
-        public ArrayList<OtherUser> friends;
+    public ArrayList<OtherUser> friends;
+    public ArrayList<OtherUser> stars;
         HashMap<String, OtherUser>  mapOfFrds;
 
     //  private List<String> idsOfFriends;
@@ -473,7 +472,7 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
         }
 
         @Override
-        public List<OtherUser> getStarList() {
+        public ArrayList<OtherUser> getStarList() {
             // TODO Auto-generated method stub
             return null;
         }
@@ -570,8 +569,66 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
         }
 
         @Override
-        public void addFrdsToStar(OtherUser frdsToStar) {
-            // TODO Auto-generated method stub
+        public void addFrdsToStar(final List<OtherUser> frdsToStar) {
+            stars.addAll(frdsToStar);
+            //update server
+            new AsyncTask<Void, Void, Boolean>() {
+                @Override
+                protected Boolean doInBackground(Void... params) {
+                    Log.i("User", "adding frds to star");
+                    String link = "http://letshangout.netau.net/addfrds.php";
+                    HttpURLConnection urlConnection = null;
+                    try {
+                        URL url = new URL(link);
+                        urlConnection = (HttpURLConnection) url.openConnection();
+                        urlConnection.setDoOutput(true);
+                        urlConnection.setRequestMethod("POST");
+                        urlConnection.setRequestProperty("Content-Type", "application/json");
+                        urlConnection.setRequestProperty("Accept", "application/json");
+
+                        JSONObject json_toSend = new JSONObject();
+                        json_toSend.put("uid", userId);
+                        JSONArray arrayOfFrds = new JSONArray();
+                        for (int i = 0; i < frdsToStar.size(); i++) {
+                            arrayOfFrds.put(frdsToStar.get(i).userId);
+                        }
+                        json_toSend.put("frds",arrayOfFrds);
+
+                        //send the POST out
+                        //sending out the POST
+                        PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
+                        out.print(json_toSend.toString());
+                        //   Log.i("jsonfuck", json_toSend.toString());
+                        out.flush();
+                        out.close();
+
+                        // read
+                        InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                        StringBuilder sb = new StringBuilder();
+                        String line = null;
+                        // Read Server Response
+                        while ((line = reader.readLine()) != null) {
+                            sb.append(line);
+                            break;
+                        }
+                        if (sb.toString().matches("OK_wahid")) {
+                            return true;
+                        } else{
+                            return false;
+                        }
+
+                    } catch (Exception ex) {
+                        Log.i("User", "Add Frds Error :" + ex.getMessage());
+                        return false;
+                    }
+                }
+
+                @Override
+                protected void onPostExecute(Boolean results) {
+                    // get with db
+                }
+            }.execute(null, null, null);
 
         }
 
