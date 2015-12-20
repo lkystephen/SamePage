@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -21,25 +22,14 @@ import com.astuetz.PagerSlidingTabStrip;
 import java.util.HashMap;
 
 public class FriendsFragment extends Fragment {
-
-	/*Toolbar toolbar; (it is not used for now; activate toolbar.xml when needed:
-    <include
-    android:id="@+id/tool_bar"
-    layout="@layout/toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
-    */
     User user;
     PagerSlidingTabStrip tabs;
     HashMap<String, OtherUser> loc;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.friends_main, container, false);
-
-
     }
 
     @Override
@@ -54,7 +44,7 @@ public class FriendsFragment extends Fragment {
         Typeface face;
         face = Typeface.createFromAsset(getActivity().getAssets(), "sf_reg.ttf");
 
-        ViewPager mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
+        NonSwipeableViewPager mViewPager = (NonSwipeableViewPager) view.findViewById(R.id.viewPager);
 
         mViewPager
                 .setAdapter(new FriendsViewAdapter(getChildFragmentManager(), bundle));
@@ -116,4 +106,5 @@ public class FriendsFragment extends Fragment {
         }
 
     }
+
 }

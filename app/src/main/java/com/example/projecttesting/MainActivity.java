@@ -58,10 +58,6 @@ import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.Result;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.ResultCallbacks;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationResult;
@@ -143,10 +139,6 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
 
     }
 
-//@Override
-//public void handleGetFrdsLocResults(final HashMap<String, OtherUser> masterListwLoc) {
-//}
-
     public class mOnClickListener implements View.OnClickListener {
         int type;
         Context context;
@@ -210,39 +202,11 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
 
         // Check availability of play services
         if (checkPlayServices()) {
-
             // Building the GoogleApi client
             buildGoogleApiClient();
-
             // Create periodic request
             createLocationRequest();
         }
-
-        // Check permission for dangerous permissions
-        /*if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.READ_CONTACTS)) {
-
-                // Show an expanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-            } else {
-                // No explanation needed, we can request the permission.
-
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.READ_CONTACTS},
-                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
-        }*/
 
         //get RegId
         new AsyncTask<Void, Void, String>() {
@@ -270,13 +234,11 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
                 fbid = Profile.getCurrentProfile().getId();
                 Log.i("name", Profile.getCurrentProfile().getName());
                 username = Profile.getCurrentProfile().getName();
-                //fbid = Profile.getCurrentProfile().getId();
 
                 user = new User(fbid, username, regId_input, MainActivity.this);
                 user.execute();
             }
         }.execute(null, null, null);
-
 
     }
 
@@ -320,8 +282,6 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
                 temp2 = temp3;
             }
             Log.i("Generated dl indicator", temp2);
-            //int last_number = preferences.getInt("friends",0);
-            //int this_number = user.getMasterList().size();
             if (downloaded.equals("yes") && temp2.equals(old_list)) {
                 // photos have been downloaded before and friends unchanged
                 Log.i("FB display", "Have been downloaded before");
@@ -469,16 +429,11 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
     @Override
     public void onConnected(Bundle arg0) {
 
-        // Update current location
-        //getLocation();
-
         // This is for creating the intent that is used for handler class
         Intent intent = new Intent(MainActivity.this, MyLocationHandler.class);
 
         PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        //if (mGoogleApiClient.isConnected()) { // this should be connected
 
         // Then the off screen periodic update
         PendingResult pendingResult = LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,

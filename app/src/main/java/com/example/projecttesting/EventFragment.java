@@ -58,7 +58,7 @@ public class EventFragment extends Fragment implements MainAct {
     OrganizingEventFragment m;
     ProgressDialog dialog;
     Context mContext;
-    ViewPager mViewPager;
+    NonSwipeableViewPager mViewPager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -121,7 +121,7 @@ public class EventFragment extends Fragment implements MainAct {
         createText.setTypeface(face);
         rsvpText.setTypeface(face);
 
-        mViewPager = (ViewPager) view.findViewById(R.id.event_viewPager);
+        mViewPager = (NonSwipeableViewPager) view.findViewById(R.id.event_viewPager);
 
         mPagerAdapter = new EventViewAdapter(getChildFragmentManager(), bundle);
 

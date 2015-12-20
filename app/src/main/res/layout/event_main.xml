@@ -81,7 +81,7 @@
             </LinearLayout>
         </com.cjj.MaterialRefreshLayout>
 
-        <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+        <com.example.projecttesting.NonSwipeableViewPager xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/event_viewPager"
             android:layout_width="match_parent"
             android:layout_height="fill_parent" />

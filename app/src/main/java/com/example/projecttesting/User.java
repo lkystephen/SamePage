@@ -187,7 +187,10 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
                                     sb.append(line);
                                     break;
                                 }
+                                Log.i("user get frds", sb.toString());
+
                                 JSONObject json_fromServer= new JSONObject(sb.toString());
+                                Log.i("user get frds", json_fromServer.toString());
                                 if (json_fromServer.getBoolean("hasLoc")) {
                                     double lat_tmp = json_fromServer.getDouble("lat");
                                     double long_tmp = json_fromServer.getDouble("longitude");
@@ -351,7 +354,7 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
 
                     //events rejected
                     if (json_fromServer.isNull("2")) {
-                        Log.i("json","no events rejceted");
+                        Log.i("json","no events rejected");
                     } else {
                         JSONArray json_events_rejected = json_fromServer.getJSONArray("2");
                         int arrSize_r = json_events_rejected.length();
@@ -378,7 +381,7 @@ public class User extends AsyncTask<Void,Void,Boolean> implements Users, Parcela
 
         protected void onPostExecute(Boolean yesorno){
             if (yesorno) {
-              //  addFrdsToStar(this.getMasterList());
+                Log.i(TAG,"onPostExecute");
                 userHandler.handleLoginResults(newUser, null);
                 return;
             }

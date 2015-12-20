@@ -103,6 +103,7 @@ public class LoginActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE}
                     , MY_PERMISSION_LOCATION);
         } else {
+            Log.i(TAG, "Initialize Facebook");
             initializeFaceBook();
         }
 
@@ -212,7 +213,6 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                     }
-
                     @Override
                     public void onCancel() {
                         // App code
@@ -229,8 +229,6 @@ public class LoginActivity extends AppCompatActivity {
                         Log.i(TAG, e.toString());
                     }
                 });
-
     }
-
 }
 
