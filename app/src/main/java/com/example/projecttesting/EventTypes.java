@@ -41,6 +41,7 @@ public interface EventTypes extends Comparable<EventTypes>,Parcelable{
     //III. get Event details
     //return event details
     public Boolean isOptional();
+    public Boolean isRepeat();
     public String getEventid();
     public String getEventType();
     public String getEventName();

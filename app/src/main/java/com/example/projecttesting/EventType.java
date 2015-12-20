@@ -46,6 +46,7 @@ public class EventType implements EventTypes {
     List<String> rejectees;
     List<String> pendingInvitees;
     String organiser;
+    Boolean isRepeated;
     Boolean isOptional;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     int status = 0;
@@ -98,6 +99,7 @@ public class EventType implements EventTypes {
             address = input.getString("address");
             String date_tmp = input.getString("datetime");
             dateTime = Calendar.getInstance();
+            isRepeated = input.getBoolean("isRepeat");
             try {
                 dateTime.setTime(sdf.parse(date_tmp));
             } catch (ParseException e) {
@@ -238,6 +240,11 @@ public class EventType implements EventTypes {
     @Override
     public Boolean isOptional() {
         return null;
+    }
+
+    @Override
+    public Boolean isRepeat() {
+        return isRepeated;
     }
 
     @Override
