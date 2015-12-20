@@ -109,7 +109,7 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
         event_Name.setText(event_name.toUpperCase());
 
         // Set up event organiser facebook photo
-        Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(organiser_fbid).getPath());
+        Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(organiser_fbid, getContext()).getPath());
         event_organiser_photo.setImageBitmap(bitmap);
 
         // Set up start date

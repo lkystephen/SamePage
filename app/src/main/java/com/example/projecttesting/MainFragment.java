@@ -123,7 +123,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 
         if (!position.equals("NULL")) {
             String id = user.getMasterList().get(Integer.parseInt(position)).fbid;
-            closest_friend_image.setImageBitmap(BitmapFactory.decodeFile(Utility.getImage(id).getPath()));
+            closest_friend_image.setImageBitmap(BitmapFactory.decodeFile(Utility.getImage(id, getContext()).getPath()));
             closest_friend_name.setText(user.getMasterList().get(Integer.parseInt(position)).username);
         } else {
             // set any image here

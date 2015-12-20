@@ -293,11 +293,11 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
 
                 // Download your own image first
                 Bitmap photo = utility.downloadImage(user.getFBId());
-                utility.storeImage(photo, user.getFBId());
+                utility.storeImage(photo, user.getFBId(),MainActivity.this);
 
                 for (int i = 0; i < temp.size(); i++) {
                     Bitmap frd_photo = utility.downloadImage(temp.get(i).fbid);
-                    utility.storeImage(frd_photo, temp.get(i).fbid);
+                    utility.storeImage(frd_photo, temp.get(i).fbid, MainActivity.this);
                 }
                 // Update value in sharedpref
                 SharedPreferences.Editor editor = preferences.edit();

@@ -116,7 +116,7 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
         String fbid = rowItem.getFbId();
 
         if (fbid != null) {
-            Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(fbid).getPath());
+            Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(fbid, context).getPath());
             //RoundImage roundImage = new RoundImage(bitmap);
 
             holder.image.setImageBitmap(bitmap);

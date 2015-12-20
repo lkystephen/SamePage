@@ -157,7 +157,7 @@ public class EventOrganisingDialog extends DialogFragment implements OnMapReadyC
         // Set up event name
         event_Name.setText(mArgs.getString("event_name").toUpperCase());
 
-        Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(organiser_fbid).getPath());
+        Bitmap bitmap = BitmapFactory.decodeFile(Utility.getImage(organiser_fbid, getContext()).getPath());
         //int image = allocate.EventTypeDetermine(event_details.getTitle());
 
         event_organiser_photo.setImageBitmap(bitmap);

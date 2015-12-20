@@ -43,7 +43,7 @@ public class SettingsFragment extends Fragment {
 		TextView logged=  (TextView) view.findViewById(R.id.logged_text);
 		TextView fb_name = (TextView) view.findViewById(R.id.facebook_name);
 		CircularImageView logged_image = (CircularImageView) view.findViewById(R.id.logged_image);
-		logged_image.setImageBitmap(BitmapFactory.decodeFile(Utility.getImage(fbid).getPath()));
+		logged_image.setImageBitmap(BitmapFactory.decodeFile(Utility.getImage(fbid, getContext()).getPath()));
 
 		logged.setTypeface(face);
 		fb_name.setTypeface(face);

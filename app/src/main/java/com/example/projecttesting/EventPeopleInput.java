@@ -274,7 +274,7 @@ public class EventPeopleInput extends AppCompatActivity {
 
                 // Get the image from fbid
                 String id = item.getId();
-                Bitmap image = BitmapFactory.decodeFile(Utility.getImage(id).getPath());
+                Bitmap image = BitmapFactory.decodeFile(Utility.getImage(id, context).getPath());
                 holder.image.setImageBitmap(image);
 
             return convertView;
@@ -339,7 +339,7 @@ public class EventPeopleInput extends AppCompatActivity {
 
             // Get the image from fbid
             String id = item.getId();
-            Bitmap image = BitmapFactory.decodeFile(Utility.getImage(id).getPath());
+            Bitmap image = BitmapFactory.decodeFile(Utility.getImage(id, context).getPath());
             holder.image.setImageBitmap(image);
 
             if (item.getSelection().equals("Y")){

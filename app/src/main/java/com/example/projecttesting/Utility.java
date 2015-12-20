@@ -95,110 +95,69 @@ public class Utility {
         return monthText;
     }
 
-    public static String storeImage(Bitmap bitmap, String filename) {
+    public static String storeImage(Bitmap bitmap, String filename, Context context) {
         String stored = null;
-        String folder_main = "Samepage";
-        String root = Environment.getExternalStorageDirectory().toString();
         String state = Environment.getExternalStorageState();
-        Log.i(TAG,"Storage state is " + state);
-        File folder = new File(root + "/Samepage");
-        File folder0 = new File("/sdcard" + "/Samepage");
-        Log.i(TAG, folder.toString());
+        File folder = context.getExternalCacheDir();
+        //File folder = new File(folder2 + "/Samepage");
+        Log.i(TAG, "Storage state is " + state+ ", path is " + folder.toString());
 
         if (!Environment.MEDIA_MOUNTED.equals(state)) {
-            Log.e(TAG,"Storage is not mounted!");
+            Log.e(TAG, "Storage is not mounted!");
         }
 
         if (folder.canWrite()) {
-            Log.i(TAG, "External storage is accessible");
+            //Log.i(TAG, "External storage is accessible");
 
             if (!folder.exists()) {
                 folder.mkdirs();
-                //Log.i(TAG, "External directory is created");
+                if (folder.exists()) {
+                    Log.i(TAG, "Directory is created");
+                }
             }
         } else {
-            Log.e(TAG, "Default storage is not accessible");
-            if (folder0.canWrite()){
-
-                if (!folder0.exists()) {
-                    folder0.mkdirs();
-                    if (folder0.exists()) {
-                        Log.i(TAG, "Alternative location is writable");
-                    } else {
-                        Log.e(TAG, "Alternative location failed to create at " + folder0.getPath());
-                    }
-                }
-            } else {
-                Log.e(TAG,"Alternative storage is also not accessible");
-            }
-
+            Log.e(TAG, "Directory is not available");
         }
 
         File sdcard = Environment.getExternalStorageDirectory();
         if (folder.exists()) {
-            File file = new File(root, filename + ".png");
+            File file = new File(folder, filename + ".png");
             if (file.exists())
                 file.delete();
 
             try {
                 FileOutputStream out = new FileOutputStream(file);
-                //Log.i("okok","k");
                 bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
                 out.flush();
                 out.close();
                 stored = "success";
-                Log.i(TAG, "User image created successfully");
+                Log.i(TAG, "User image created at " + file.toString());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        if (folder0.exists()) {
-            File file = new File("/sdcard", filename + ".png");
-            if (file.exists())
-                file.delete();
-
-            try {
-                FileOutputStream out = new FileOutputStream(file);
-                //Log.i("okok","k");
-                bitmap.compress(Bitmap.CompressFormat.PNG, 90, out);
-                out.flush();
-                out.close();
-                stored = "success";
-                Log.i(TAG, "User image created successfully");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }
-        //File file = new File(sdcard + "/Samepage", filename + ".png");
-
 
         return stored;
     }
 
-    public static File getImage(String imageName) {
+    public static File getImage(String imageName, Context context) {
         File mediaImage = null;
         try {
-            String root = Environment.getExternalStorageDirectory().toString();
-            File myDir = new File(root);
-            if (!myDir.exists()) {
-                //Log.i("my Dir", "Error, does not exist");
-                File newDir = new File("sdcard");
-                if (newDir.exists()) {
-                    mediaImage = new File(newDir.getPath() + "/Samepage/" + imageName + ".png");
-                    Log.i("Image retrieved from", mediaImage.toString());
-                } else {
-                    return null;
-                }
-            }
-            if (myDir.getPath() != null) {
-                mediaImage = new File(myDir.getPath() + "/Samepage/" + imageName + ".png");
+            File myDir = context.getExternalCacheDir();
+            //File myDir = new File(myDir2 + "/Samepage");
+            if (myDir.exists()) {
+                //File newDir = new File("sdcard");
+                mediaImage = new File(myDir, imageName + ".png");
                 Log.i("Image retrieved from", mediaImage.toString());
+
+            } else {
+                Log.e(TAG, "Directory does not exist when reading");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return mediaImage;
     }
 

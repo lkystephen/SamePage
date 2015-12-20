@@ -23,7 +23,7 @@ public class CreateFriendsBubble{
         CircularImageView invitees_bubble = (CircularImageView) ind_layout.findViewById(R.id.individual_bubble);
         invitees_bubble.setLayoutParams(new LinearLayout.LayoutParams(pixels, pixels));
         //int image2 = R.drawable.edmund;
-        Bitmap bm = BitmapFactory.decodeFile(Utility.getImage(id).getPath());
+        Bitmap bm = BitmapFactory.decodeFile(Utility.getImage(id, context).getPath());
         //RoundImage displayImage = new RoundImage(bm);
 
 
