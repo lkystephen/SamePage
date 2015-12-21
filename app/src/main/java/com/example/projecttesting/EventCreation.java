@@ -422,10 +422,13 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
     @Override
     public void handleEventCreation(boolean success, String eventid) {
 
-
-        refreshLayout.finishRefresh();
-        Toast.makeText(EventCreation.this, "Event added successfully", Toast.LENGTH_LONG).show();
-
+        if (success = true) {
+            refreshLayout.finishRefresh();
+            Toast.makeText(EventCreation.this, "Event added successfully", Toast.LENGTH_LONG).show();
+        } else {
+            refreshLayout.finishRefresh();
+            Toast.makeText(EventCreation.this, "Server error. Event cannot be added", Toast.LENGTH_LONG).show();
+        }
         // Pass the things back to event display
         Intent intent = new Intent(EventCreation.this, EventFragment.class);
         intent.putExtra("data", item);

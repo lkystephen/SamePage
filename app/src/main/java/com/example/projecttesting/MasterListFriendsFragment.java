@@ -1,37 +1,32 @@
 package com.example.projecttesting;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
-import com.baoyz.swipemenulistview.SwipeMenuAdapter;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
-import com.facebook.Profile;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
 
-public class MasterListFriendsFragment extends Fragment {
+public class MasterListFriendsFragment extends Fragment implements UpdateResult {
 
     // friendsStarredStatus, 1 = starred, 0 is normal
     SwipeMenuListView listView;
@@ -39,6 +34,8 @@ public class MasterListFriendsFragment extends Fragment {
     Location mLastLocation;
     User user;
     FriendsListAdapter adapter;
+    ArrayList<String> list1;
+    ArrayList<OtherUser> list;
 
     public MasterListFriendsFragment() {
     }
@@ -50,14 +47,20 @@ public class MasterListFriendsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.master_friends, container,
                 false);
 
-        Typeface face;
+        final Typeface face;
         face = FontCache.getFont(getContext(), "sf_reg.ttf");
 
         Bundle bundle = getArguments();
         user = bundle.getParcelable("user");
         mLastLocation = bundle.getParcelable("location");
+        list = new ArrayList<>();
+        list1 = new ArrayList<>();
 
-        Log.i("Number of friends", Integer.toString(user.getMasterList().size()));
+        for (int i = 0; i < user.getMasterList().size(); i++) {
+            list1.add("N");
+        }
+
+        final LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.friends_overall);
 
         final EditText search = (EditText) rootView.findViewById(R.id.master_search);
         search.setTypeface(face);
@@ -80,38 +83,34 @@ public class MasterListFriendsFragment extends Fragment {
 
         //final FragmentManager fm = getActivity().getSupportFragmentManager();
 
-        listView = (SwipeMenuListView) rootView.findViewById(R.id.starredfriendslist);
+        listView = (SwipeMenuListView) rootView.findViewById(R.id.friendslist);
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
             @Override
             public void create(SwipeMenu menu) {
 
-                //              Utility utility = new Utility();
-//                float width = utility.convertDpToPixel(90, getContext());
                 // Create open menu
                 SwipeMenuItem starItem = new SwipeMenuItem(getContext());
                 // set item background
-                starItem.setBackground(new ColorDrawable(Color.rgb(0xC9, 0xC9,
-                        0xCE)));
+                ColorDrawable color = new ColorDrawable(Color.parseColor("#f9f9f9"));
+                color.setAlpha(40);
+                starItem.setBackground(color);
                 // set item width
-                starItem.setWidth(200);
-                // set item title fontsize
-                starItem.setTitleSize(18);
-                starItem.setIcon(R.drawable.star60);
+                starItem.setWidth(160);
                 // add to menu
+                starItem.setIcon(R.drawable.fav_yellow);
                 menu.addMenuItem(starItem);
 
                 // create "delete" item
                 SwipeMenuItem deleteItem = new SwipeMenuItem(getContext());
                 // set item background
-                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9,
-                        0x3F, 0x25)));
+                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9, 0x3F, 0x25)));
                 // set item width
-                deleteItem.setWidth(200);
+                deleteItem.setWidth(150);
                 // set a icon
                 deleteItem.setIcon(R.drawable.star60);
                 // add to menu
-                menu.addMenuItem(deleteItem);
+                //menu.addMenuItem(deleteItem);
 
             }
         };
@@ -140,11 +139,42 @@ public class MasterListFriendsFragment extends Fragment {
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        // open
+                        //List<OtherUser> tempList = new ArrayList<OtherUser>();
+                        list1.set(position, "Y");
+                        int temp = 0;
+                        for (int i = 0; i < list1.size(); i++) {
+                            if (list1.get(i).equals("Y")) {
+                                temp++;
+                            }
+                        }
+                        String snackBarDisplay = "TEST";
+                        if (temp == 1) {
+                            snackBarDisplay = temp + " friend is added to favorite";
+                        } else if (temp > 1) {
+                            snackBarDisplay = temp + " friends are added to favorite";
+                        }
+                        Snackbar snackbar = Snackbar.make(linearLayout, snackBarDisplay, Snackbar.LENGTH_INDEFINITE)
+                                .setAction("CONFIRM", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        for (int i = 0; i < list1.size(); i++) {
+                                            if (list1.get(i).equals("Y")) {
+                                                list.add(user.getMasterList().get(i));
+                                            }
+                                        }
+
+                                        user.addFrdsToStar(list, MasterListFriendsFragment.this);
+                                    }
+                                });
+                        View sbView = snackbar.getView();
+                        TextView text = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+                        text.setTypeface(face);
+
+                        snackbar.show();
                         break;
-                    case 1:
-                        // delete
-                        break;
+                    //case 1:
+                    // delete
+                    //  break;
                 }
                 // false : close the menu; true : not close the menu
                 return false;
@@ -243,4 +273,21 @@ public class MasterListFriendsFragment extends Fragment {
         }
     }
 
+    public void getArrayOfStar(User user) {
+        //List<OtherUser> temp = user.getMasterList();
+        //for (int i = 0; i < temp.size(); i++) {
+        //temp.get(i).
+    }
+
+    @Override
+    public void handleUpdateResults(int result) {
+        if (result == 0) {
+            Toast.makeText(getContext(), "Friends are added to your favorite list successfully.", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getContext(), "Server error. Failed to add friends to favorite list.", Toast.LENGTH_LONG).show();
+        }
+    }
+
 }
+
+

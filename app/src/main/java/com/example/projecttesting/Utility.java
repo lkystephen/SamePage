@@ -98,28 +98,24 @@ public class Utility {
     public static String storeImage(Bitmap bitmap, String filename, Context context) {
         String stored = null;
         String state = Environment.getExternalStorageState();
-        File folder = context.getExternalCacheDir();
-        //File folder = new File(folder2 + "/Samepage");
-        Log.i(TAG, "Storage state is " + state+ ", path is " + folder.toString());
+        File folder2 = context.getExternalCacheDir();
+        File folder = new File(folder2 + "/Samepage");
+        Log.i(TAG, "Storage state is " + state + ", path is " + folder.toString());
 
         if (!Environment.MEDIA_MOUNTED.equals(state)) {
             Log.e(TAG, "Storage is not mounted!");
         }
 
-        if (folder.canWrite()) {
-            //Log.i(TAG, "External storage is accessible");
+        if (!folder.exists()) {
+            folder.mkdirs();
+            Log.i(TAG, "Directory is created");
+        }
 
-            if (!folder.exists()) {
-                folder.mkdirs();
-                if (folder.exists()) {
-                    Log.i(TAG, "Directory is created");
-                }
-            }
-        } else {
+        if (!folder.canWrite()) {
             Log.e(TAG, "Directory is not available");
         }
 
-        File sdcard = Environment.getExternalStorageDirectory();
+        //   File sdcard = Environment.getExternalStorageDirectory();
         if (folder.exists()) {
             File file = new File(folder, filename + ".png");
             if (file.exists())
@@ -143,8 +139,8 @@ public class Utility {
     public static File getImage(String imageName, Context context) {
         File mediaImage = null;
         try {
-            File myDir = context.getExternalCacheDir();
-            //File myDir = new File(myDir2 + "/Samepage");
+            File myDir2 = context.getExternalCacheDir();
+            File myDir = new File(myDir2 + "/Samepage");
             if (myDir.exists()) {
                 //File newDir = new File("sdcard");
                 mediaImage = new File(myDir, imageName + ".png");

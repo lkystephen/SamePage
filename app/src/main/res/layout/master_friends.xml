@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@null"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:id="@+id/friends_overall">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -43,7 +44,7 @@
         </LinearLayout>
 
         <com.baoyz.swipemenulistview.SwipeMenuListView
-            android:id="@+id/starredfriendslist"
+            android:id="@+id/friendslist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@null"

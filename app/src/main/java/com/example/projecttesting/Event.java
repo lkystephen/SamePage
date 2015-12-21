@@ -61,6 +61,7 @@ public class Event extends AsyncTask<Void,Void,Void> implements Events {
     private static final String TAG = "EventCreation";
     private static final String TAG2 = "Retrieving event";
     TextView testing = null;
+    Integer result;
 
 
     //Constructor 1 - for new events
@@ -467,8 +468,10 @@ public class Event extends AsyncTask<Void,Void,Void> implements Events {
                 rejectees.add(userid_tmp);
             }
             Log.i(TAG,"2");
+            result = 0;
         }catch (Exception e){
             Log.i(TAG2, "the error is " + e.toString());
+            result = 1;
         }finally {
             urlConnection.disconnect();
         }
@@ -478,7 +481,13 @@ public class Event extends AsyncTask<Void,Void,Void> implements Events {
     @Override
     protected void onPostExecute(Void v) {
         Log.i(TAG,"done");
-        eventhandler.handleEventCreation(true,eventId);
+        boolean fin;
+        if (result == 0 ){
+            fin = true;
+        } else {
+            fin = false;
+        }
+        eventhandler.handleEventCreation(fin,eventId);
      //   Testing t = new Testing(this, rootView);
         //Testing testing = new Testing(this, rootView);
 

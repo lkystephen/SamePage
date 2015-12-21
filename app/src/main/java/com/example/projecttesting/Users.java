@@ -5,8 +5,6 @@ import java.util.List;
 import android.location.Location;
 import android.widget.ImageView;
 
-import org.json.JSONObject;
-
 public interface Users {
 	//I. Basic info
 	public String getUserId();
@@ -43,7 +41,7 @@ public interface Users {
     //Adding friends; update DB automatically
 	public void addFrds(Users frdsToAdd);
 	//Adding friends to Star List; update DB automatically
-	public void addFrdsToStar(List<OtherUser> frdsToStar);
+	public void addFrdsToStar(List<OtherUser> frdsToStar, UpdateResult handler);
 	
 	//IV. Location services
 	public Location getLocation();

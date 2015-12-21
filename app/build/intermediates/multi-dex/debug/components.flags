@@ -1,0 +1,82 @@
+-injars 'C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\multi-dex\debug\allclasses.jar'
+-outjars 'C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\multi-dex\debug\componentClasses.jar'
+
+-libraryjars 'C:\Users\Stephen Lau\AppData\Local\Android\sdk1\build-tools\22.0.1\lib\shrinkedAndroid.jar'
+
+-forceprocessing
+-dontoptimize
+-dontobfuscate
+-dontpreverify
+-dontwarn
+-printconfiguration 'C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\multi-dex\debug\components.flags'
+
+
+-keep class null {
+    <init>();
+    void attachBaseContext(android.content.Context);
+}
+
+-keep class com.example.projecttesting.LoginActivity {
+    <init>();
+}
+
+-keep class com.example.projecttesting.MainActivity {
+    <init>();
+}
+
+-keep class com.example.projecttesting.EventLocationInput {
+    <init>();
+}
+
+-keep class com.example.projecttesting.EventPeopleInput {
+    <init>();
+}
+
+-keep class com.example.projecttesting.EventCreation {
+    <init>();
+}
+
+-keep class com.example.projecttesting.MyLocationHandler {
+    <init>();
+}
+
+-keep class com.facebook.FacebookActivity {
+    <init>();
+}
+
+-keep class com.example.projecttesting.GcmBroadcastReceiver {
+    <init>();
+}
+
+-keep class com.example.projecttesting.GcmMessageHandler {
+    <init>();
+}
+
+-keep class com.google.android.gms.ads.AdActivity {
+    <init>();
+}
+
+-keep class com.google.android.gms.ads.purchase.InAppPurchaseActivity {
+    <init>();
+}
+
+-keep class com.google.android.gms.measurement.AppMeasurementContentProvider {
+    <init>();
+}
+
+-keep class com.google.android.gms.measurement.AppMeasurementReceiver {
+    <init>();
+}
+
+-keep class com.google.android.gms.measurement.AppMeasurementService {
+    <init>();
+}
+
+-keep public class * extends android.app.backup.BackupAgent {
+    <init>();
+}
+
+-keep public class * extends java.lang.annotation.Annotation {
+    <fields>;
+    <methods>;
+}

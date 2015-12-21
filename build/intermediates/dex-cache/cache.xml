@@ -2,11 +2,11 @@
 <items version="2" >
 
     <item
-        jar="/Users/edmundlee/Documents/SamePage/app/build/intermediates/exploded-aar/com.baoyz.swipemenulistview/library/1.3.0/jars/classes.jar"
+        jar="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\exploded-aar\com.android.support\design\23.0.1\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="8ec8378e8d7aa3104f60823e6350f2728d3609ba">
-        <dex dex="/Users/edmundlee/Documents/SamePage/app/build/intermediates/pre-dexed/debug/classes-be39823f3aaa864fd4fa466921b49797a9f2753e.jar" />
+        sha1="e5c61a3169221a89654ffcaaed47bba51cf071ad">
+        <dex dex="C:\Users\Stephen Lau\StudioProjects\SamePage\app\build\intermediates\pre-dexed\debug\classes-095229ffce22667797a03df4eae9c504c6a8622a.jar" />
     </item>
 
 </items>
