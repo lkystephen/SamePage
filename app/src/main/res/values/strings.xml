@@ -16,5 +16,10 @@
 
     <string name="place_details">&lt;b&gt;%1$s&lt;/b&gt;&lt;br/&gt;&lt;i&gt;Place Id: %2$s&lt;/i&gt;&lt;br/&gt;Address: %3$s&lt;br/&gt;Phone: %4$s&lt;br/&gt;Website: %5$s</string>
 
+    <string name="notify_friend_nearby">Notify when a friend is nearby</string>
+    <string name="notify_event_soon">Notify when an event starts soon</string>
+    <string name="set_all_star">Add all friends to favorite</string>
+    <string name="set_all_unstar">Remove all friends from favorite</string>
+
 
 </resources>

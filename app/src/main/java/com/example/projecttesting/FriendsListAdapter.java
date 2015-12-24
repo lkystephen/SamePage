@@ -45,7 +45,7 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
     /*private view holder school*/
     private class ViewHolder {
         TextView name, last_update, distance;
-        ImageView image;
+        ImageView image, next_arrow;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -64,6 +64,7 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
             holder.last_update = (TextView) convertView.findViewById(R.id.friends_display_last_update);
             holder.distance = (TextView) convertView.findViewById(R.id.friends_display_loc);
             holder.image = (ImageView) convertView.findViewById(R.id.display_image);
+            holder.next_arrow = (ImageView) convertView.findViewById(R.id.arrow_next);
 
             holder.name.setTypeface(face_b);
             holder.distance.setTypeface(face_r);
@@ -109,9 +110,11 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
                 int temp2 = Math.round(temp / 1000);
                 holder.distance.setText(Integer.toString(temp2) + " km away");
             }
-        } else
-        holder.distance.setText("Unknown");
-
+        } else {
+            holder.distance.setText("Unknown");
+            // Set arrow visibility
+            holder.next_arrow.setVisibility(View.INVISIBLE);
+        }
         // Set image
         String fbid = rowItem.getFbId();
 
@@ -124,10 +127,8 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
             holder.image.setImageResource(R.drawable.fb_display_male);
         }
 
-
         return convertView;
     }
-
 
     private class CustomFilter extends Filter {
         @Override

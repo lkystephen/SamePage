@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import android.app.Activity;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -38,7 +37,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -63,11 +61,12 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
     ArrayList<String> selectedPeople, selectedPeopleName;
     int minYear, minMonth, minDate, minMinute, minHour;
     RadioButton button1, button2, button3, button4;
-    public static GoogleMap eventGoogleMap;
     long minMillis, lengthMillis;
     String address;
     EventEntryItem item;
     double lat, lng;
+
+    private static final String TAG = EventCreation.class.getSimpleName();
 
 
     @Override
@@ -299,6 +298,7 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
         try {
             minMillis = dateConvert.ReturnMillis(minYear, minMonth, minDate, minHour, minMinute);
         } catch (ParseException e){
+            Log.e(TAG,"Error parsing date");
         }
 
         mStartTime.setOnClickListener(new View.OnClickListener() {

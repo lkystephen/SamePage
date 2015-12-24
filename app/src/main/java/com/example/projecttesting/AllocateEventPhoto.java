@@ -24,7 +24,7 @@ public class AllocateEventPhoto {
         Boolean control_boolean = false;
         int image_result = R.drawable.event;
         for (int a = 0; a < index; a++) {
-            if (control_boolean == false) {
+            if (!control_boolean) {
                 image_result = this.AllocateEventPhoto(split[a]);
                 if (image_result != R.drawable.event) {
                     control_boolean = true;
@@ -64,16 +64,16 @@ public class AllocateEventPhoto {
                 resourceId = R.drawable.picnic;
                 break;
             case "trekking":
-                resourceId = R.drawable.hill;
+                resourceId = R.drawable.trek;
                 break;
             case "hiking":
-                resourceId = R.drawable.hill;
+                resourceId = R.drawable.trek;
                 break;
             case "mountain":
-                resourceId = R.drawable.hill;
+                resourceId = R.drawable.trek;
                 break;
             case "hill":
-                resourceId = R.drawable.hill;
+                resourceId = R.drawable.trek;
                 break;
             case "movie":
                 resourceId = R.drawable.movie;
@@ -168,9 +168,6 @@ public class AllocateEventPhoto {
             case "mcdonalds":
                 resourceId = R.drawable.mcdonalds;
                 break;
-            case "mcd":
-                resourceId = R.drawable.mcdonalds;
-                break;
             case "breakfast":
                 resourceId = R.drawable.breakfast;
                 break;
@@ -181,22 +178,10 @@ public class AllocateEventPhoto {
                 resourceId = R.drawable.lunch;
                 break;
             case "shopping":
-                resourceId = R.drawable.shopping2;
+                resourceId = R.drawable.shopping;
                 break;
             case "shop":
                 resourceId = R.drawable.shopping;
-                break;
-            case "shopaholic":
-                resourceId = R.drawable.shopping2;
-                break;
-            case "pay":
-                resourceId = R.drawable.pay;
-                break;
-            case "visa":
-                resourceId = R.drawable.pay;
-                break;
-            case "paid":
-                resourceId = R.drawable.pay;
                 break;
             case "bank":
                 resourceId = R.drawable.bank;

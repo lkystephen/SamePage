@@ -12,7 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.facebook.login.widget.ProfilePictureView;
@@ -44,11 +47,49 @@ public class SettingsFragment extends Fragment {
 		TextView fb_name = (TextView) view.findViewById(R.id.facebook_name);
 		CircularImageView logged_image = (CircularImageView) view.findViewById(R.id.logged_image);
 		logged_image.setImageBitmap(BitmapFactory.decodeFile(Utility.getImage(fbid, getContext()).getPath()));
+		TextView set_all_star = (TextView) view.findViewById(R.id.set_all_star);
+		TextView set_all_unstar = (TextView) view.findViewById(R.id.set_all_unstar);
+		TextView notify_event = (TextView) view.findViewById(R.id.notify_event_soon);
+		TextView notify_friend = (TextView) view.findViewById(R.id.friend_notify_nearby);
+
+		// Settings buttons
+		Switch friends_nearby = (Switch) view.findViewById(R.id.friends_nearby_switch);
+		Switch event_soon = (Switch) view.findViewById(R.id.notify_event_switch);
 
 		logged.setTypeface(face);
 		fb_name.setTypeface(face);
+		set_all_star.setTypeface(face);
+		set_all_unstar.setTypeface(face);
+		notify_event.setTypeface(face);
+		notify_friend.setTypeface(face);
 
 		fb_name.setText(name);
+
+		friends_nearby.setOnCheckedChangeListener(new mOnCheckedChangedListener(1));
+		event_soon.setOnCheckedChangeListener(new mOnCheckedChangedListener(2));
+	}
+
+	public class mOnCheckedChangedListener implements CompoundButton.OnCheckedChangeListener {
+
+		int select;
+
+		public mOnCheckedChangedListener(int i){
+			select = i;
+		}
+
+		@Override
+		public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+			switch (select) {
+				case 1:
+					Toast.makeText(getContext(),"FRIENDS TOGGLE TEST",Toast.LENGTH_SHORT).show();
+					break;
+
+				case 2:
+					Toast.makeText(getContext(),"EVENT TOGGLE TEST",Toast.LENGTH_SHORT).show();
+					break;
+			}
+
+		}
 	}
 
 }

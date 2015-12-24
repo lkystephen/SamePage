@@ -10,29 +10,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="240dp"
-        android:background="#15000000"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@null">
-
-            <ImageView
-                android:id="@+id/friend_detail_image"
-                android:layout_width="wrap_content"
-                android:layout_height="75dp"
-                android:gravity="center"
-                android:adjustViewBounds="true" />
-        </LinearLayout>
 
         <com.example.projecttesting.MyTextView
             android:id="@+id/friend_detail_username"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center"
-            android:textSize="25sp"
-            custom:fontName="sf_reg.ttf" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 

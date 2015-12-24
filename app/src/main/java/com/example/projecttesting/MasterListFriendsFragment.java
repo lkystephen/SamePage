@@ -11,11 +11,13 @@ import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,6 +38,7 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
     FriendsListAdapter adapter;
     ArrayList<String> list1;
     ArrayList<OtherUser> list;
+    FragmentManager fm;
 
     public MasterListFriendsFragment() {
     }
@@ -81,7 +84,7 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
             }
         });
 
-        //final FragmentManager fm = getActivity().getSupportFragmentManager();
+        fm = getActivity().getSupportFragmentManager();
 
         listView = (SwipeMenuListView) rootView.findViewById(R.id.friendslist);
 
@@ -185,21 +188,6 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
         LoadingFriendsList load = new LoadingFriendsList(rowItems);
         load.execute();
 
-/*
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-				Bundle bundle = new Bundle();
-				bundle.putString("username", master_list.get(i).username);
-				bundle.putInt("image",friends_image[i]);
-				bundle.putInt("online", friendsLastOnlineTime[i]);
-
-				FriendsDisplayDialog dialog = new FriendsDisplayDialog();
-				dialog.setArguments(bundle);
-				dialog.show(fm, "");
-			}
-		});
-*/
         return rootView;
     }
 
@@ -270,13 +258,30 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
                     rowItems);
             listView.setAdapter(adapter);
 
-        }
-    }
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-    public void getArrayOfStar(User user) {
-        //List<OtherUser> temp = user.getMasterList();
-        //for (int i = 0; i < temp.size(); i++) {
-        //temp.get(i).
+                    Boolean hasLoc = user.getMasterList().get(i).hasLoc;
+
+                    if (hasLoc) {
+                        Bundle bundle = new Bundle();
+                        double lat = user.getMasterList().get(i).lat;
+                        double lng = user.getMasterList().get(i).longitude;
+                        Location location = new Location("TEST");
+                        location.setLatitude(lat);
+                        location.setLongitude(lng);
+
+                        bundle.putParcelable("location",location);
+                        FriendsDisplayDialog dialog = new FriendsDisplayDialog();
+                        dialog.setArguments(bundle);
+                        dialog.show(fm, "");
+                    }
+                }
+            });
+
+
+        }
     }
 
     @Override
