@@ -480,7 +480,7 @@ public class User extends AsyncTask<Void, Void, Boolean> implements Users, Parce
     @Override
     public ArrayList<OtherUser> getStarList() {
         // TODO Auto-generated method stub
-        return null;
+        return stars;
     }
 /*
     @Override
