@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -133,6 +134,7 @@ public class EventListAdapter extends ArrayAdapter<EventTypes> {
         holder.event_image.setImageResource(allocated);
 
         int organise_number = rowItem.getEventInvitees().size();
+        Log.i("EventListAdapter","Number of invitees: "+Integer.toString(organise_number));
 
         if (organise_number != 0) {
             for (int i = 0; i < organise_number; i++) {

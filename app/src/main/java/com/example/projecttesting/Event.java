@@ -92,7 +92,7 @@ public class Event extends AsyncTask<Void,Void,Void> implements Events {
         venueLat = eventBundle.getDouble("LAT");
         venueLong = eventBundle.getDouble("LONG");
         address = (String)eventBundle.get("ADDRESS");
-        isRepeat = (Boolean)eventBundle.get("ISREPEAT");
+        isRepeat = (Boolean)eventBundle.getBoolean("ISREPEAT");
 
         // testing
         /*
