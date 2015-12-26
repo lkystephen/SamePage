@@ -109,6 +109,7 @@ public class User extends AsyncTask<Void, Void, Boolean> implements Users, Parce
         eventsOrganised = new ArrayList<EventTypes>();
         eventsRejected = new ArrayList<EventTypes>();
         friends = new ArrayList<OtherUser>();
+        stars = new ArrayList<OtherUser>();
         in.readList(eventsAttending, EventType.class.getClassLoader());
         in.readList(eventsInvited, EventType.class.getClassLoader());
         in.readList(eventsOrganised, EventType.class.getClassLoader());

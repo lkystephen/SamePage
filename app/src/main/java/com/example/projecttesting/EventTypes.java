@@ -1,6 +1,7 @@
 package com.example.projecttesting;
 
 import android.location.Location;
+import android.os.Bundle;
 import android.os.Parcelable;
 
 import java.text.SimpleDateFormat;
@@ -25,12 +26,7 @@ public interface EventTypes extends Comparable<EventTypes>,Parcelable{
     public void setEventVenue(String venue, Location location);
 
     // update event details
-    public void updateName (String name, EventHandler handler);
-    public void updateType (String type, EventHandler handler);
-    public void updateVenue (String venue, EventHandler handler);
-    public void updateDateTime(Calendar dateTime, EventHandler handler);
-    public void updateEventDetails(String details, EventHandler handler);
-    public void updateVenueLoc(Location location, EventHandler handler);
+    public void edit (Bundle eventBundle, EventAct handler);
 
 
     //delete an event

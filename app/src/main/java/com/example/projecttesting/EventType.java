@@ -2,6 +2,7 @@ package com.example.projecttesting;
 
 import android.location.Location;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
@@ -203,34 +204,86 @@ public class EventType implements EventTypes {
     }
 
     @Override
-    public void updateName(String name, EventHandler handler) {
-        handler.handleEventUpdates();
+    public void edit(Bundle eventBundle, EventAct handler) {
+        String eName = (String) eventBundle.get("EVENT_NAME");
+        String eType = (String) eventBundle.get("EVENT_TYPE");
+        String eDetails = (String) eventBundle.get("EVENT_DETAILS");
+        String eVenue = (String) eventBundle.get("VENUE");
+        ArrayList eInvitees = eventBundle.getStringArrayList("INVITEES");
+        String dateTime = (String) eventBundle.get("DATETIME");
+        String eOrganiser = (String) eventBundle.get("ORGANISER");
+        //stage 2 implementation
+        String endTime = (String) eventBundle.get("ENDTIME");
+        Double eVenueLat = eventBundle.getDouble("LAT");
+        Double eVenueLong = eventBundle.getDouble("LONG");
+        String eAddress = (String)eventBundle.get("ADDRESS");
+        Boolean isRepeat = (Boolean)eventBundle.get("ISREPEAT");
+
+        // update server
+        // for event creation
+        HttpURLConnection urlConnection = null;
+        try {
+
+            URL url = new URL("http://letshangout.netau.net/createevent.php");
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setDoOutput(true);
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setRequestProperty("Content-Type", "application/json");
+            urlConnection.setRequestProperty("Accept", "application/json");
+
+            //convert data types
+            //Date date = dateTime.getTime();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //convert location to lat and log (to be implemented)
+            //double venueLat = venueLoc.getLatitude();
+            //	double venueLong = venueLoc.getLongitude();
+
+            //creating JSON to send to server
+            JSONObject json_toSend = new JSONObject();
+            json_toSend.put("eventType", eventType);
+            json_toSend.put("eventName", eventName);
+            json_toSend.put("eventDetails", eventDetails);
+            json_toSend.put("venue", venue);
+            json_toSend.put("date", dateTime);
+            json_toSend.put("organiser", organiser);
+            json_toSend.put("invitees", new JSONArray(invitees));
+            json_toSend.put("venueLat", venueLat);
+            json_toSend.put("venueLong",venueLong);
+            json_toSend.put("endTime",endTime);
+            json_toSend.put("address",address);
+            json_toSend.put("repeat", isRepeat);
+
+            // JSONArray json_invitees = new JSONArray(invitees);
+            //      Log.i("JSONdiudiu",json_invitees.toString());
+            //    json_toSend.put("invitees", json_invitees);
+            Log.i("JSON INVITEE",json_toSend.toString());
+            //sending out the POST
+            PrintWriter out = new PrintWriter(urlConnection.getOutputStream());
+            out.print(json_toSend.toString());
+            out.flush();
+            out.close();
+
+            // read response from server
+            InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            BufferedReader reader = new BufferedReader (new InputStreamReader(in));
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            // Read Server Response
+            while((line = reader.readLine()) != null)
+            {
+                sb.append(line);
+                break;
+            }
+            Log.i(TAG, sb.toString());
+            eventId = sb.toString();
+        }catch (Exception e){
+            Log.i(TAG, "the error is " + e.toString());
+        }finally {
+            urlConnection.disconnect();
+        }
+
     }
 
-    @Override
-    public void updateType(String type, EventHandler handler) {
-        handler.handleEventUpdates();
-    }
-
-    @Override
-    public void updateVenue(String venue, EventHandler handler) {
-        handler.handleEventUpdates();
-    }
-
-    @Override
-    public void updateDateTime(Calendar dateTime, EventHandler handler) {
-        handler.handleEventUpdates();
-    }
-
-    @Override
-    public void updateEventDetails(String details, EventHandler handler) {
-        handler.handleEventUpdates();
-    }
-
-    @Override
-    public void updateVenueLoc(Location location, EventHandler handler) {
-        handler.handleEventUpdates();
-    }
 
     @Override
     public void deleteEvent() {
