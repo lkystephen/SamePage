@@ -54,6 +54,7 @@ public class OtherUser implements Parcelable {
 
     protected OtherUser(Parcel in) {
         hasLoc = in.readByte() != 0;
+        hasLoc_old = in.readByte() != 0;
         fbid = in.readString();
         userId = in.readString();
         username = in.readString();
@@ -108,6 +109,7 @@ public class OtherUser implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeByte((byte) (hasLoc ? 1 : 0));
+        parcel.writeByte((byte) (hasLoc_old ? 1 : 0));
         parcel.writeString(fbid);
         parcel.writeString(userId);
         parcel.writeString(username);
