@@ -287,7 +287,7 @@ public class EventType implements EventTypes {
             protected Boolean doInBackground(Void... params) {
                 HttpURLConnection urlConnection = null;
                 try {
-                    URL url = new URL("http://letshangout.netau.net/createevent.php");
+                    URL url = new URL("http://letshangout.netau.net/addinvites.php");
                     urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setDoOutput(true);
                     urlConnection.setRequestMethod("POST");
@@ -297,6 +297,7 @@ public class EventType implements EventTypes {
                     //creating JSON to send to server
                     JSONObject json_toSend = new JSONObject();
                     json_toSend.put("eid", eventId);
+                    json_toSend.put("organiser", organiser);
                     JSONArray arrayOfInvites = new JSONArray();
                     for (int i = 0; i < newInvites.size(); i++) {
                         arrayOfInvites.put(newInvites.get(i).userId);
