@@ -27,6 +27,7 @@ public interface EventTypes extends Comparable<EventTypes>,Parcelable{
 
     // update event details
     public void edit (Bundle eventBundle, EventAct handler);
+    public void inviteMorePpl (List<OtherUser> newInvites);
 
 
     //delete an event
