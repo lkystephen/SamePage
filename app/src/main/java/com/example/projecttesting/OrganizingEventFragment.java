@@ -1,6 +1,8 @@
 package com.example.projecttesting;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,8 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 import org.joda.time.DateTime;
 
@@ -21,7 +27,7 @@ import java.util.List;
 
 public class OrganizingEventFragment extends Fragment implements UpdateableFragment {
 
-    ListView listview;
+    SwipeMenuListView listview;
     List<EventTypes> data;
     User user;
     //ArrayList<EventEntryItem> bigdata;
@@ -53,7 +59,7 @@ public class OrganizingEventFragment extends Fragment implements UpdateableFragm
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.pending_event, container,
+        View rootView = inflater.inflate(R.layout.event_main_list, container,
                 false);
 
         Bundle bundle = getArguments();
@@ -75,13 +81,48 @@ public class OrganizingEventFragment extends Fragment implements UpdateableFragm
 
 
         // Set up list view
-        listview = (ListView) rootView.findViewById(R.id.event_main_list);
+        listview = (SwipeMenuListView) rootView.findViewById(R.id.event_main_list);
 
-        // Set up drag zone buttons
-        LinearLayout rsvp_attending = (LinearLayout) rootView.findViewById(R.id.rsvp_attending);
-        LinearLayout rsvp_rejecting = (LinearLayout) rootView.findViewById(R.id.rsvp_rejecting);
-        rsvp_attending.setVisibility(View.GONE);
-        rsvp_rejecting.setVisibility(View.GONE);
+
+        SwipeMenuCreator creator = new SwipeMenuCreator() {
+            @Override
+            public void create(SwipeMenu menu) {
+
+                // Create open menu
+                SwipeMenuItem starItem = new SwipeMenuItem(getContext());
+                // set item background
+                ColorDrawable color = new ColorDrawable(Color.parseColor("#f9f9f9"));
+                color.setAlpha(40);
+                starItem.setBackground(color);
+                // set item width
+                starItem.setWidth(160);
+                // add to menu
+                starItem.setIcon(R.drawable.del_event_red);
+                menu.addMenuItem(starItem);
+
+            }
+        };
+
+        // set creator
+        listview.setMenuCreator(creator);
+
+
+        // Right
+        listview.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
+
+        listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index) {
+                    case 0:
+                        break;
+                    //case 1:
+                    //  break;
+                }
+                // false : close the menu; true : not close the menu
+                return false;
+            }
+        });
 
         LoadingAdapter loading = new LoadingAdapter(user.getEventsOrganised());
         loading.execute();

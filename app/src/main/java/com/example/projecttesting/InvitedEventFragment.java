@@ -1,7 +1,9 @@
 package com.example.projecttesting;
 
 import android.content.ClipData;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,22 +15,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
+
 import org.joda.time.DateTime;
 
-import java.net.Inet4Address;
 import java.util.ArrayList;
 import java.util.List;
 
 public class InvitedEventFragment extends Fragment {
 
-    ListView listview;
+    SwipeMenuListView listview;
     User user;
     //ArrayList<EventEntryItem> bigdata;
     String fbid;
@@ -44,7 +49,7 @@ public class InvitedEventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.pending_event, container,
+        View rootView = inflater.inflate(R.layout.event_main_list, container,
                 false);
 
         Bundle bundle = getArguments();
@@ -54,17 +59,54 @@ public class InvitedEventFragment extends Fragment {
         Typeface typeface_reg = FontCache.getFont(getContext(), "sf_reg.ttf");
         Typeface typeface_bold = FontCache.getFont(getContext(), "sf_bold.ttf");
 
-        // Load animation
-        vibrate = AnimationUtils.loadAnimation(getContext(), R.anim.vibrate);
-
         // Get data
         List<EventTypes> list = user.getEventsInvited();
 
         // Set up list view
-        listview = (ListView) rootView.findViewById(R.id.event_main_list);
+        listview = (SwipeMenuListView) rootView.findViewById(R.id.event_main_list);
         if (user.getEventsInvited().size() == 0) {
             listview.setVisibility(View.GONE);
         }
+
+        SwipeMenuCreator creator = new SwipeMenuCreator() {
+            @Override
+            public void create(SwipeMenu menu) {
+
+                // Create open menu
+                SwipeMenuItem starItem = new SwipeMenuItem(getContext());
+                // set item background
+                ColorDrawable color = new ColorDrawable(Color.parseColor("#f9f9f9"));
+                color.setAlpha(40);
+                starItem.setBackground(color);
+                // set item width
+                starItem.setWidth(160);
+                // add to menu
+                starItem.setIcon(R.drawable.accept_green);
+                menu.addMenuItem(starItem);
+
+            }
+        };
+
+        // set creator
+        listview.setMenuCreator(creator);
+
+        // Right
+        listview.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
+
+        listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                switch (index) {
+                    case 0:
+                        break;
+                    //case 1:
+                    //  break;
+                }
+                // false : close the menu; true : not close the menu
+                return false;
+            }
+        });
+
 
         // Set up textview if no pending events
         no_pending = (TextView) rootView.findViewById(R.id.no_pending);
@@ -74,10 +116,6 @@ public class InvitedEventFragment extends Fragment {
             no_pending.setVisibility(View.VISIBLE);
         }
 
-        // Set up drag zone buttons
-        rsvp_attending = (LinearLayout) rootView.findViewById(R.id.rsvp_attending);
-        rsvp_rejecting = (LinearLayout) rootView.findViewById(R.id.rsvp_rejecting);
-        rsvp = (LinearLayout) rootView.findViewById(R.id.rsvp);
 
         if (user.getEventsInvited().size() != 0) {
             LoadingAdapter loading = new LoadingAdapter(list);
@@ -129,27 +167,6 @@ public class InvitedEventFragment extends Fragment {
 
             } else {
                 listview.setAdapter(adapter);
-
-                rsvp_attending.setOnDragListener(new MyDragListener(1, user.getUserId()));
-                rsvp_rejecting.setOnDragListener(new MyDragListener(2, user.getUserId()));
-
-                // Set onTouchListener for each item
-                listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                        rsvp_rejecting.setVisibility(View.VISIBLE);
-                        rsvp_attending.setVisibility(View.VISIBLE);
-
-                        ClipData data = ClipData.newPlainText("", "");
-                        View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
-                        view.startDrag(data, shadowBuilder, view, 0);
-                        rsvp.setVisibility(View.VISIBLE);
-                        // Set the current event selected
-                        eventTypes = user.getEventsInvited().get(i);
-                        return true;
-                    }
-                });
 
                 // Set pop up dialog
                 listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -206,61 +223,4 @@ public class InvitedEventFragment extends Fragment {
         }
     }
 
-    class MyDragListener implements View.OnDragListener {
-        Drawable enterShape = getResources().getDrawable(R.drawable.circle_dropzone, null);
-        Drawable normalShape = getResources().getDrawable(R.drawable.circle_dropzone, null);
-        int response;
-        String userid;
-
-        public MyDragListener(int response, String userid) {
-            this.response = response;
-            this.userid = userid;
-        }
-
-        @Override
-        public boolean onDrag(View v, DragEvent event) {
-
-            int action = event.getAction();
-            View view = (View) event.getLocalState();
-
-            switch (event.getAction()) {
-                case DragEvent.ACTION_DRAG_STARTED:
-                    // both accept and reject will vibrate
-                    v.startAnimation(vibrate);
-                    break;
-                case DragEvent.ACTION_DRAG_ENTERED:
-
-                    break;
-                case DragEvent.ACTION_DRAG_EXITED:
-                    //rsvp_attending.getAnimation().cancel();
-                    //rsvp_rejecting.getAnimation().cancel();
-
-                    //rsvp_attending.setVisibility(View.GONE);
-                    //rsvp_rejecting.setVisibility(View.GONE);
-                    break;
-                case DragEvent.ACTION_DROP:
-
-                    view.setVisibility(View.VISIBLE);
-                    if (response == 1) {
-                        Toast.makeText(getContext(), "You are going", Toast.LENGTH_LONG).show();
-                        eventTypes.rsvp(userid, 1);
-                    }
-                    if (response == 2) {
-                        eventTypes.rsvp(userid, 2);
-                        Toast.makeText(getContext(), "You are rejecting", Toast.LENGTH_LONG).show();
-                    }
-
-                    break;
-                case DragEvent.ACTION_DRAG_ENDED:
-
-                    rsvp.setVisibility(View.GONE);
-                    break;
-                //v.setBackground(normalShape);
-                default:
-                    break;
-            }
-            return true;
-        }
-
-    }
 }

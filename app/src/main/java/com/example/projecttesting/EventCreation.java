@@ -123,6 +123,7 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
                         event_bundle.putDouble("LAT", lat);
                         event_bundle.putDouble("LONG", lng);
                         event_bundle.putString("ADDRESS", address);
+                        event_bundle.putBoolean("ISREPEAT",false);
 
                         Event event_new = new Event(event_bundle, EventCreation.this);
                         event_new.createEventAtServer();
