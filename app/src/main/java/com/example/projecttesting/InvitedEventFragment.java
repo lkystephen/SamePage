@@ -65,20 +65,29 @@ public class InvitedEventFragment extends Fragment {
         }
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
+
             @Override
             public void create(SwipeMenu menu) {
 
-                // Create open menu
-                SwipeMenuItem starItem = new SwipeMenuItem(getContext());
+                // Create accept icon
+                SwipeMenuItem acceptItem = new SwipeMenuItem(getContext());
                 // set item background
                 ColorDrawable color = new ColorDrawable(Color.parseColor("#f9f9f9"));
                 color.setAlpha(40);
-                starItem.setBackground(color);
+                acceptItem.setBackground(color);
                 // set item width
-                starItem.setWidth(160);
+                acceptItem.setWidth(160);
                 // add to menu
-                starItem.setIcon(R.drawable.accept_green);
-                menu.addMenuItem(starItem);
+                acceptItem.setIcon(R.drawable.accept_green);
+                menu.addMenuItem(acceptItem);
+
+                // Create reject icon
+                SwipeMenuItem rejectItem = new SwipeMenuItem(getContext());
+                rejectItem.setBackground(color);// set item width
+                rejectItem.setWidth(160);
+                // add to menu
+                rejectItem.setIcon(R.drawable.reject_red);
+                menu.addMenuItem(rejectItem);
 
             }
         };
@@ -92,15 +101,16 @@ public class InvitedEventFragment extends Fragment {
         listview.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
+                String id = user.userId;
+                EventTypes eventTypes = user.getEventsInvited().get(position);
                 switch (index) {
                     case 0:
-                        String id = user.userId;
-                        EventTypes eventTypes = user.getEventsInvited().get(position);
                         eventTypes.rsvp(id,1); // 1 is attending, 2 is reject, 3 is organize
-
                         break;
-                    //case 1:
-                    //  break;
+                    case 1:
+                        Toast.makeText(getContext(),"TESTING REJECT",Toast.LENGTH_SHORT);
+                        //eventTypes.rsvp(id,2);
+                      break;
                 }
                 // false : close the menu; true : not close the menu
                 return false;

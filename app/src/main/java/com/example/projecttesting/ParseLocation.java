@@ -28,12 +28,12 @@ public class ParseLocation extends AsyncTask<String, Integer, List<List<HashMap<
 
     String distance, destination;
     User user;
-    public LocationAsyncResponse delegate = null;
+    public ParseLocationHandler delegate = null;
 
     // Testing data
     String id = "106808403007880";
 
-    public ParseLocation(User user){
+    public ParseLocation(User user) {
         this.user = user;
     }
 
@@ -76,9 +76,6 @@ public class ParseLocation extends AsyncTask<String, Integer, List<List<HashMap<
     @Override
     protected void onPostExecute(List<List<HashMap<String, String>>> result) {
         ArrayList<String> output = new ArrayList<>();
-        //ArrayList<LatLng> points = null;
-        //PolylineOptions lineOptions = null;
-        //MarkerOptions markerOptions = new MarkerOptions();
 
         // Get the list of OtherUser
         List<OtherUser> otherUsers = user.getMasterList();
@@ -99,80 +96,8 @@ public class ParseLocation extends AsyncTask<String, Integer, List<List<HashMap<
         output.add(distance);
         output.add(destination);
 
-        delegate.processFinish(output);
+        delegate.update(output, result);
 
-        // Set the distance measured in minutes
-        //closest_location.setText(name + " is closest to you");
-        //closest_location_details.setText("@ "+destination);
-        //closest_location_details2.setText(distance + " away");
-
-            /*
-            // Traversing through all the routes
-            for (int i = 0; i < result.size(); i++) {
-                points = new ArrayList<LatLng>();
-                lineOptions = new PolylineOptions();
-
-                // Fetching i-th route
-                List<HashMap<String, String>> path = result.get(i);
-
-                // Fetching all the points in i-th route
-                for (int j = 0; j < path.size(); j++) {
-                    HashMap<String, String> point = path.get(j);
-
-                    double lat = Double.parseDouble(point.get("lat"));
-                    double lng = Double.parseDouble(point.get("lng"));
-                    LatLng position = new LatLng(lat, lng);
-
-                    points.add(position);
-                }
-
-                // Adding all the points in the route to LineOptions
-                lineOptions.addAll(points);
-                lineOptions.width(8);
-                lineOptions.color(Color.RED);
-                */
-    }
-
-    // Drawing polyline in the Google Map for the i-th route
-    //mMapFragment.getMap().addPolyline(lineOptions);
-    //}
-
-    private String downloadUrl(String strUrl) throws IOException {
-        String data = "";
-        InputStream iStream = null;
-        HttpURLConnection urlConnection = null;
-        try {
-            URL url = new URL(strUrl);
-
-            // Creating an http connection to communicate with url
-            urlConnection = (HttpURLConnection) url.openConnection();
-
-            // Connecting to url
-            urlConnection.connect();
-
-            // Reading data from url
-            iStream = urlConnection.getInputStream();
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
-
-            StringBuffer sb = new StringBuffer();
-
-            String line = "";
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
-            }
-
-            data = sb.toString();
-
-            br.close();
-
-        } catch (Exception e) {
-            Log.d("Exception dl-ing url", e.toString());
-        } finally {
-            iStream.close();
-            urlConnection.disconnect();
-        }
-        return data;
     }
 
 

@@ -46,7 +46,6 @@ public class OrganizingEventFragment extends Fragment implements UpdateableFragm
             Log.i("event name",this.data.get(i).getEventName());
         }
 
-        //this.mContext = context;
         Log.i("Organising Fragment", "Number of events retrieved is " + Integer.toString(data.size()));
         //adapter = new EventListAdapter(context, R.layout.event_list_display, data);
         adapter.clear();
@@ -75,30 +74,26 @@ public class OrganizingEventFragment extends Fragment implements UpdateableFragm
             int temp = user.getEventsOrganised().get(i).getEventInvitees().size();
             Log.i("asf size",Integer.toString(temp));
         }
-        //int i = list.get(0).getEventInvitees().size();
-        //Log.i("size",Integer.toString(i));
-        //bigdata = fetch.FetchDetails(list);
-
 
         // Set up list view
         listview = (SwipeMenuListView) rootView.findViewById(R.id.event_main_list);
 
-
         SwipeMenuCreator creator = new SwipeMenuCreator() {
+
             @Override
             public void create(SwipeMenu menu) {
 
                 // Create open menu
-                SwipeMenuItem starItem = new SwipeMenuItem(getContext());
+                SwipeMenuItem cancelItem = new SwipeMenuItem(getContext());
                 // set item background
                 ColorDrawable color = new ColorDrawable(Color.parseColor("#f9f9f9"));
                 color.setAlpha(40);
-                starItem.setBackground(color);
+                cancelItem.setBackground(color);
                 // set item width
-                starItem.setWidth(160);
+                cancelItem.setWidth(160);
                 // add to menu
-                starItem.setIcon(R.drawable.del_event_red);
-                menu.addMenuItem(starItem);
+                cancelItem.setIcon(R.drawable.del_event_red);
+                menu.addMenuItem(cancelItem);
 
             }
         };

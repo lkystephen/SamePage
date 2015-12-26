@@ -68,7 +68,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MainFragment extends Fragment implements LocationListener, TextWatcher, LocationAsyncResponse {
+public class MainFragment extends Fragment implements LocationListener, TextWatcher, ParseLocationHandler {
 
     //public static GoogleMap googleMap;
     public static Marker selectedMarker;
@@ -143,7 +143,8 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         // Calculating location now
         // Getting URL to the Google Directions API
         myPosition = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
-        String url = getDirectionsUrl(myPosition, test_QC_location);
+        DirectionFromLatLng getDirection = new DirectionFromLatLng();
+        String url = getDirection.execute(myPosition, test_QC_location);
         DownloadTask downloadTask = new DownloadTask(user);
 
         downloadTask.delegate = this;
@@ -226,76 +227,6 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         // TODO Auto-generated method stub
 
     }
-
-    private String getDirectionsUrl(LatLng origin, LatLng dest) {
-
-        // Origin of route
-        String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
-
-        // Destination of route
-        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
-
-        // Sensor enabled
-        String sensor = "sensor=false";
-
-        // Default the mode of transportation to public transit
-        String mode_transit = "mode=transit";
-
-
-        // Building the parameters to the web service
-        String parameters = str_origin + "&" + str_dest + "&" + mode_transit + "&" + sensor;
-
-        // Output format
-        String output = "json";
-
-        // Building the url to the web service
-        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
-
-        Log.i("Download URL", url);
-        return url;
-    }
-
-    /**
-     * A method to download json data from url
-     */
-    private String downloadUrl(String strUrl) throws IOException {
-        String data = "";
-        InputStream iStream = null;
-        HttpURLConnection urlConnection = null;
-        try {
-            URL url = new URL(strUrl);
-
-            // Creating an http connection to communicate with url
-            urlConnection = (HttpURLConnection) url.openConnection();
-
-            // Connecting to url
-            urlConnection.connect();
-
-            // Reading data from url
-            iStream = urlConnection.getInputStream();
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
-
-            StringBuffer sb = new StringBuffer();
-
-            String line = "";
-            while ((line = br.readLine()) != null) {
-                sb.append(line);
-            }
-
-            data = sb.toString();
-
-            br.close();
-
-        } catch (Exception e) {
-            Log.d("Exception dl-ing url", e.toString());
-        } finally {
-            iStream.close();
-            urlConnection.disconnect();
-        }
-        return data;
-    }
-
     @Override
     public void afterTextChanged(Editable arg0) {
     }
@@ -317,7 +248,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 
 
     //this override the implemented method from asyncTask
-    public void processFinish(ArrayList<String> output) {
+    public void update(ArrayList<String> output,List<List<HashMap<String, String>>> result) {
         String name = output.get(0);
         String distance = output.get(1);
         String destination = output.get(2);

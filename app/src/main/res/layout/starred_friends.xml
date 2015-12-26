@@ -2,27 +2,65 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="wrap_content"
     android:background="@null"
-    android:orientation="horizontal"
-    android:id="@+id/linearLayout">
+    android:orientation="horizontal">
 
-    <com.baoyz.swipemenulistview.SwipeMenuListView
-        android:id="@+id/starredfriendslist"
-        android:layout_width="match_parent"
+
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null" />
+        android:orientation="vertical">
 
-    <com.example.projecttesting.MyTextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="#ffffff"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="No starred friends. Add them!"
-        android:textSize="18sp"
-        android:visibility="gone"
-        android:id="@+id/nostarfriendstext"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#15000000"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="6dp"
+                android:adjustViewBounds="true"
+                android:background="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/search_w" />
+
+            <EditText
+                android:id="@+id/master_search"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="5dp"
+                android:background="@null"
+                android:hint="Search..."
+                android:singleLine="true"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+        <com.baoyz.swipemenulistview.SwipeMenuListView
+            android:id="@+id/starredfriendslist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null" />
+
+        <com.example.projecttesting.MyTextView
+            android:id="@+id/nostarfriendstext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="No starred friends. Add them!"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:visibility="gone" />
+    </LinearLayout>
 </LinearLayout>

@@ -11,9 +11,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,12 +32,6 @@ import org.w3c.dom.Text;
 
 public class StarredFriendsFragment extends Fragment {
 
-    //public int[] friendsLastOnlineTime = new int[]{1, 10};
-    //public int[] friends_image = {R.drawable.nigel, R.drawable.avery};
-
-    // friendsStarredStatus, 1 = starred, 0 is normal
-    //public int[] friendsStarredStatus = new int[]{1, 1};
-
     SwipeMenuListView listView;
     Location mLastLocation;
     ArrayList<FriendsRowItem> rowItems;
@@ -41,7 +40,7 @@ public class StarredFriendsFragment extends Fragment {
     TextView no_star_text;
     ArrayList<String> list1;
     ArrayList<OtherUser> list;
-
+    FragmentManager fm;
 
     public StarredFriendsFragment() {
     }
@@ -59,7 +58,9 @@ public class StarredFriendsFragment extends Fragment {
         list = new ArrayList<>();
         list1 = new ArrayList<>();
 
-        final Typeface face;
+        fm = getActivity().getSupportFragmentManager();
+
+        final Typeface face, face_b;
         face = FontCache.getFont(getContext(), "sf_reg.ttf");
 
         for (int i = 0; i < user.getStarList().size(); i++) {
@@ -71,11 +72,27 @@ public class StarredFriendsFragment extends Fragment {
 
         final LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.linearLayout);
 
-        Typeface face_r, face_b;
         face_b = FontCache.getFont(getContext(), "sf_bold.ttf");
-        face_r = FontCache.getFont(getContext(), "sf_reg.ttf");
         no_star_text.setTypeface(face_b);
 
+        final EditText search = (EditText) rootView.findViewById(R.id.master_search);
+        search.setTypeface(face);
+
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence word, int i, int i1, int i2) {
+                adapter.getFilter().filter(word.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
 
         SwipeMenuCreator creator = new SwipeMenuCreator() {
             @Override
@@ -142,9 +159,6 @@ public class StarredFriendsFragment extends Fragment {
 
                         snackbar.show();
                         break;
-                    //case 1:
-                    // delete
-                    //  break;
                 }
                 // false : close the menu; true : not close the menu
                 return false;
@@ -187,7 +201,6 @@ public class StarredFriendsFragment extends Fragment {
                     @Override
                     public void run() {
                         no_star_text.setVisibility(View.VISIBLE);
-                        listView.setVisibility(View.GONE);
                     }
                 });
             } else {
@@ -195,40 +208,38 @@ public class StarredFriendsFragment extends Fragment {
                     @Override
                     public void run() {
                         no_star_text.setVisibility(View.GONE);
-                        listView.setVisibility(View.VISIBLE);
                     }
                 });
                 for (int i = 0; i < star_list.size(); i++) {
                     String distance = new String();
-                String diff_time = new String();
+                    String diff_time = new String();
 
 
-                // Get friends last location's distance from you
-                OtherUser otheruser = star_list.get(i);
-                if (otheruser.hasLoc){
-                    Location location = new Location("TEST");
-                    location.setLongitude(otheruser.longitude);
-                    location.setLatitude(otheruser.lat);
-                    distance = Integer.toString(Math.round(mLastLocation.distanceTo(location)));
+                    // Get friends last location's distance from you
+                    OtherUser otheruser = star_list.get(i);
+                    if (otheruser.hasLoc) {
+                        Location location = new Location("TEST");
+                        location.setLongitude(otheruser.longitude);
+                        location.setLatitude(otheruser.lat);
+                        distance = Integer.toString(Math.round(mLastLocation.distanceTo(location)));
 
-                    // Time
-                    long lastUpdate = otheruser.timestamp;
-                    long time = System.currentTimeMillis();
-                    long difference = time - lastUpdate;
-                    int diff_min = Math.round(difference / 60000);
-                    diff_time = Integer.toString(diff_min);
+                        // Time
+                        long lastUpdate = otheruser.timestamp;
+                        long time = System.currentTimeMillis();
+                        long difference = time - lastUpdate;
+                        int diff_min = Math.round(difference / 60000);
+                        diff_time = Integer.toString(diff_min);
 
-                } else{
-                    distance = "NULL";
-                    diff_time = "NULL";
-                }
+                    } else {
+                        distance = "NULL";
+                        diff_time = "NULL";
+                    }
 
                     FriendsRowItem item = new FriendsRowItem(
                             user.getStarList().get(i).username, 0, user.getStarList().get(i).fbid, distance, diff_time);
                     rowItems.add(item);
                 }
             }
-
 
             return rowItems;
         }
@@ -241,6 +252,32 @@ public class StarredFriendsFragment extends Fragment {
                     .getApplicationContext(), R.layout.friendslistdisplay,
                     rowItems);
             listView.setAdapter(adapter);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    Boolean hasLoc = user.getMasterList().get(i).hasLoc;
+
+                    if (hasLoc) {
+                        Bundle bundle = new Bundle();
+                        double lat = user.getMasterList().get(i).lat;
+                        double lng = user.getMasterList().get(i).longitude;
+                        Location location = new Location("TEST");
+                        location.setLatitude(lat);
+                        location.setLongitude(lng);
+
+                        bundle.putParcelable("location", location);
+                        bundle.putParcelable("mLocation",mLastLocation);
+                        bundle.putParcelable("user",user);
+                        bundle.putString("name",user.getMasterList().get(i).username);
+                        FriendsDisplayDialog dialog = new FriendsDisplayDialog();
+                        dialog.setArguments(bundle);
+                        dialog.show(fm, "");
+                    }
+                }
+            });
+
 
         }
     }

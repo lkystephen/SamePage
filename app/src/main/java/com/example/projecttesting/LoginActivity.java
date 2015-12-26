@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.loading);
+//        setContentView(R.layout.loading);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

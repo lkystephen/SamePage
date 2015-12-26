@@ -9,7 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <com.wang.avi.AVLoadingIndicatorView
             android:layout_width="wrap_content"
@@ -17,6 +18,11 @@
             android:layout_gravity="center"
             app:indicator="BallClipRotate"
             app:indicator_color="#000000"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="19sp"
+            android:id="@+id/loading_text"/>
 
     </LinearLayout>
 </LinearLayout>

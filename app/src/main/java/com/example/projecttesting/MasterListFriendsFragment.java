@@ -92,28 +92,36 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
             @Override
             public void create(SwipeMenu menu) {
 
-                // Create open menu
-                SwipeMenuItem starItem = new SwipeMenuItem(getContext());
-                // set item background
-                ColorDrawable color = new ColorDrawable(Color.parseColor("#f9f9f9"));
-                color.setAlpha(40);
-                starItem.setBackground(color);
-                // set item width
-                starItem.setWidth(160);
-                // add to menu
-                starItem.setIcon(R.drawable.fav_yellow);
-                menu.addMenuItem(starItem);
+                switch(menu.getViewType()){
+                    case 0:
+                        // Create menu type for normal friends
+                        SwipeMenuItem unstarItem = new SwipeMenuItem(getContext());
+                        // set item background
+                        ColorDrawable color = new ColorDrawable(Color.parseColor("#f9f9f9"));
+                        color.setAlpha(40);
+                        unstarItem.setBackground(color);
+                        // set item width
+                        unstarItem.setWidth(160);
+                        // add to menu
+                        unstarItem.setIcon(R.drawable.unfav_red);
+                        menu.addMenuItem(unstarItem);
+                        break;
 
-                // create "delete" item
-                SwipeMenuItem deleteItem = new SwipeMenuItem(getContext());
-                // set item background
-                deleteItem.setBackground(new ColorDrawable(Color.rgb(0xF9, 0x3F, 0x25)));
-                // set item width
-                deleteItem.setWidth(150);
-                // set a icon
-                deleteItem.setIcon(R.drawable.star60);
-                // add to menu
-                //menu.addMenuItem(deleteItem);
+                    case 1:
+                        // Create menu type for favorite friends
+                     //   SwipeMenuItem unstarItem = new SwipeMenuItem(getContext());
+                        // set item background
+                       // ColorDrawable color2 = new ColorDrawable(Color.parseColor("#f9f9f9"));
+                        //color2.setAlpha(40);
+                        //unstarItem.setBackground(color2);
+                        // set item width
+                        //unstarItem.setWidth(160);
+                        // add to menu
+                        //unstarItem.setIcon(R.drawable.unfav_red);
+                        //menu.addMenuItem(unstarItem);
+                        //break;
+                }
+
 
             }
         };
@@ -176,9 +184,6 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
 
                         snackbar.show();
                         break;
-                    //case 1:
-                    // delete
-                    //  break;
                 }
                 // false : close the menu; true : not close the menu
                 return false;
@@ -243,7 +248,8 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
                     distance = "NULL";
                     diff_time = "NULL";
                 }
-                FriendsRowItem item = new FriendsRowItem(master_list.get(i).username, 0, master_list.get(i).fbid, distance, diff_time);
+                FriendsRowItem item = new FriendsRowItem(master_list.get(i).username, 0, master_list.get(i).fbid,
+                        distance, diff_time);
                 rowItems.add(item);
             }
 
@@ -274,6 +280,9 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
                         location.setLongitude(lng);
 
                         bundle.putParcelable("location",location);
+                        bundle.putParcelable("mLocation",mLastLocation);
+                        bundle.putParcelable("user",user);
+                        bundle.putString("name",user.getMasterList().get(i).username);
                         FriendsDisplayDialog dialog = new FriendsDisplayDialog();
                         dialog.setArguments(bundle);
                         dialog.show(fm, "");

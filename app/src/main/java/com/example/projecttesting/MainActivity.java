@@ -12,6 +12,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
@@ -43,6 +44,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 //fb imports
@@ -113,7 +115,8 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
 
     String selection_locationID;
     int temp;
-    //public static ArrayList<String> placeID = new ArrayList<String>();
+
+    public TextView loadingText;
 
     public static final String API_KEY = "AIzaSyCDY8ulp1VGKwGdaRU19G4sfuXsymZGgoY";
 
@@ -199,6 +202,11 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
 
         // Set loading screen
         setContentView(R.layout.loading);
+        final Typeface face;
+        face = FontCache.getFont(this, "sf_reg.ttf");
+
+        loadingText = (TextView) findViewById(R.id.loading_text);
+        loadingText.setTypeface(face);
 
         // Check availability of play services
         if (checkPlayServices()) {
@@ -234,6 +242,9 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
                 fbid = Profile.getCurrentProfile().getId();
                 Log.i("name", Profile.getCurrentProfile().getName());
                 username = Profile.getCurrentProfile().getName();
+
+                // Loading text
+                loadingText.setText("Getting friends information...");
 
                 user = new User(fbid, username, regId_input, MainActivity.this);
                 user.execute();
@@ -435,6 +446,9 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        // Loading loading text
+        loadingText.setText("Setting location...");
+
         // Then the off screen periodic update
         PendingResult pendingResult = LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
               mLocationRequest, pendingIntent);
@@ -500,6 +514,9 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
     public void onLocationChanged(Location location) {
         // Assign the new location
         mLastLocation = location;
+
+        // Loading
+        loadingText.setText("Getting cached photos..");
 
         // Retrieve display photos
         RetrieveFBPhotos retrieve = new RetrieveFBPhotos();

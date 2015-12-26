@@ -12,10 +12,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
-public class DownloadTask extends AsyncTask<String, Void, String> implements LocationAsyncResponse {
+public class DownloadTask extends AsyncTask<String, Void, String> implements ParseLocationHandler {
 
-    public LocationAsyncResponse delegate = null;
+    public ParseLocationHandler delegate = null;
 
     User user;
 
@@ -94,9 +96,9 @@ public class DownloadTask extends AsyncTask<String, Void, String> implements Loc
         return data;
     }
 
-    public void processFinish(ArrayList<String> output) {
+    public void update(ArrayList<String> output,List<List<HashMap<String, String>>> result) {
 
-        delegate.processFinish(output);
+        delegate.update(output, result); //Send result to the original triggering activity
 
     }
 }

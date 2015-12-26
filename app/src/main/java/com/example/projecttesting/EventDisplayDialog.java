@@ -70,7 +70,6 @@ public class EventDisplayDialog extends DialogFragment implements OnMapReadyCall
         Typeface typeface_reg = FontCache.getFont(getContext(), "sf_reg.ttf");
         Typeface typeface_bold = FontCache.getFont(getContext(), "sf_bold.ttf");
 
-
         // Refer to Ids in view
         TextView organiser = (TextView) view.findViewById(R.id.organiser_info);
         TextView event_Name = (TextView) view.findViewById(R.id.event_name);

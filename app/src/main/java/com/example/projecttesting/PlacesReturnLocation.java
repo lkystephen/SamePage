@@ -108,17 +108,6 @@ public class PlacesReturnLocation {
 
 				selectedLocation = new LatLng(lat, lng);
 
-				// Make Marker on map
-				if (MainFragment.selectedMarker != null) {
-					MainFragment.selectedMarker.remove();
-				}
-				MainFragment.selectedMarker = MainFragment.mMapFragment.getMap()
-						.addMarker(new MarkerOptions().position(
-								selectedLocation).title("Selected place"));
-				CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(
-						selectedLocation, 15);
-				MainFragment.mMapFragment.getMap().animateCamera(cameraUpdate);
-
 			} catch (JSONException e) {
 				Log.e("JSON Parser", "Error parsing data " + e.toString());
 			}

@@ -51,6 +51,7 @@ public class SettingsFragment extends Fragment {
 		TextView set_all_unstar = (TextView) view.findViewById(R.id.set_all_unstar);
 		TextView notify_event = (TextView) view.findViewById(R.id.notify_event_soon);
 		TextView notify_friend = (TextView) view.findViewById(R.id.friend_notify_nearby);
+		TextView auto_cal_ETA = (TextView) view.findViewById(R.id.set_auto_load_location);
 
 		// Settings buttons
 		Switch friends_nearby = (Switch) view.findViewById(R.id.friends_nearby_switch);
@@ -62,6 +63,7 @@ public class SettingsFragment extends Fragment {
 		set_all_unstar.setTypeface(face);
 		notify_event.setTypeface(face);
 		notify_friend.setTypeface(face);
+		auto_cal_ETA.setTypeface(face);
 
 		fb_name.setText(name);
 

@@ -42,6 +42,25 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
         this.filter = new CustomFilter();
     }
 
+    // This is for the type of swipeable items returned
+    @Override
+    public int getViewTypeCount() {
+        // menu type count
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        int type = 0;
+
+        if (filteredData.get(position).getDistance().equals("NULL")){
+            // Not a favorite
+            type = 1;
+        }
+
+        return type;
+    }
+
     /*private view holder school*/
     private class ViewHolder {
         TextView name, last_update, distance;
@@ -53,8 +72,8 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         Typeface face_r, face_b;
-        face_r = FontCache.getFont(getContext(),"sf_reg.ttf");
-        face_b = FontCache.getFont(getContext(),"sf_bold.ttf");
+        face_r = FontCache.getFont(getContext(), "sf_reg.ttf");
+        face_b = FontCache.getFont(getContext(), "sf_bold.ttf");
 
         if (convertView == null) {
 
@@ -80,33 +99,33 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
 
         holder.name.setText(rowItem.getName());
 
-        if (!rowItem.getTimeDifference().equals("NULL")){
+        if (!rowItem.getTimeDifference().equals("NULL")) {
             String time = rowItem.getTimeDifference();
             int temp = Integer.parseInt(time);
             // time is already in minutes
-            if (temp < 60){
+            if (temp < 60) {
                 holder.last_update.setText(Integer.toString(temp) + " mins ago");
             } else {
-                if (temp > 60 && temp < 1440){
+                if (temp > 60 && temp < 1440) {
                     int temp3 = Math.round(temp / 60);
                     holder.last_update.setText(Integer.toString(temp3) + " hours ago");
-                } else if (temp > 1440 && temp < 525600){
+                } else if (temp > 1440 && temp < 525600) {
                     int temp4 = Math.round(temp / 1440);
                     holder.last_update.setText(Integer.toString(temp4) + " days ago");
-                } else if (temp > 525600){
+                } else if (temp > 525600) {
                     int temp5 = Math.round(temp / 525600);
                     holder.last_update.setText(Integer.toString(temp5) + " years ago");
                 }
             }
         } else
-        holder.last_update.setText("Unknown");
+            holder.last_update.setText("Unknown");
 
         // Set distance
-        if (!rowItem.getDistance().equals("NULL")){
+        if (!rowItem.getDistance().equals("NULL")) {
             int temp = Integer.parseInt(rowItem.getDistance());
-            if (temp < 1000){
+            if (temp < 1000) {
                 holder.distance.setText(rowItem.getDistance() + " m away");
-            } else{
+            } else {
                 int temp2 = Math.round(temp / 1000);
                 holder.distance.setText(Integer.toString(temp2) + " km away");
             }
@@ -143,7 +162,7 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
             int count = list.size();
 
 
-            if (input != null && input.length() > 0) {
+            if (input.length() > 0) {
                 ArrayList<FriendsRowItem> filtered = new ArrayList<FriendsRowItem>();
 
                 for (int i = 0; i < count; i++) {

@@ -48,7 +48,7 @@
                         android:id="@+id/update_status2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Drag here to create event"
+                        android:text="Drag down to create event"
                         android:textColor="#ffffff"
                         android:textSize="13sp" />
 
@@ -56,7 +56,7 @@
                         android:id="@+id/update_status3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Long press to RSVP / delete"
+                        android:text="Swipe left to RSVP / cancel"
                         android:textColor="#ffffff"
                         android:textSize="13sp" />
                 </LinearLayout>

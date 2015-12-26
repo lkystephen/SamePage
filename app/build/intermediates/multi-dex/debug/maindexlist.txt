@@ -39,6 +39,7 @@ android/support/v4/app/FragmentManagerImpl$3.class
 com/google/android/gms/internal/zzay.class
 com/google/ads/mediation/customevent/CustomEvent.class
 com/google/android/gms/drive/DriveApi.class
+android/support/v7/widget/RecyclerView$Adapter.class
 org/joda/time/MutableDateTime.class
 android/support/annotation/DimenRes.class
 android/support/v4/view/ViewCompat$HCViewCompatImpl.class
@@ -48,6 +49,7 @@ com/google/android/gms/gcm/GoogleCloudMessaging.class
 android/support/v4/media/MediaDescriptionCompat$Builder.class
 com/wang/avi/indicator/LineScalePartyIndicator.class
 android/support/v4/app/FragmentManager$OnBackStackChangedListener.class
+android/support/v7/widget/RecyclerView$State.class
 com/google/android/gms/internal/zzez.class
 -keep class com.google.android.gms.ads.AdActivity { <init>(); }
 com/google/android/gms/location/places/internal/PlaceImpl.class
@@ -73,19 +75,27 @@ android/support/v4/app/TaskStackBuilder.class
 android/support/v4/app/NavUtils.class
 com/google/android/gms/ads/internal/zzf.class
 android/support/design/widget/AppBarLayout$ScrollingViewBehavior.class
+android/support/v7/widget/RecyclerView$1.class
 com/google/android/gms/measurement/AppMeasurementReceiver.class
+android/support/v7/widget/RecyclerView$6.class
 com/google/android/gms/ads/internal/zzk.class
 com/google/android/gms/ads/internal/zzc.class
 com/google/android/gms/ads/internal/overlay/zzd$zzc.class
 android/support/v7/graphics/drawable/DrawerArrowDrawable$ArrowDirection.class
 android/support/v4/media/session/MediaSessionCompat$OnActiveChangeListener.class
 android/support/v7/app/ActionBar$OnMenuVisibilityListener.class
+android/support/v7/widget/RecyclerView$OnItemTouchListener.class
+android/support/design/widget/Snackbar$SnackbarLayout$OnAttachStateChangeListener.class
+android/support/v7/widget/RecyclerView$Recycler.class
 android/support/v4/view/ViewCompat$EclairMr1ViewCompatImpl.class
 android/support/v4/view/ViewCompat$ViewCompatImpl.class
 com/google/android/gms/internal/zzdl$zza.class
+android/support/v7/widget/RecyclerView$ViewHolder.class
+android/support/v7/widget/ChildHelper$Callback.class
 android/support/v4/widget/MaterialProgressDrawable.class
 bolts/WebViewAppLinkResolver$2$2.class
 android/support/annotation/DrawableRes.class
+android/support/v7/recyclerview/R$styleable.class
 com/wang/avi/indicator/BallTrianglePathIndicator.class
 android/support/v4/app/LoaderManager.class
 com/google/android/gms/ads/internal/zzn.class
@@ -99,7 +109,9 @@ com/google/android/gms/ads/internal/request/zzb$zza.class
 android/support/v4/widget/SwipeRefreshLayout.class
 android/support/v4/media/MediaMetadataCompat$LongKey.class
 com/example/projecttesting/EventCreation$6.class
+android/support/v7/widget/RecyclerView$OnChildAttachStateChangeListener.class
 android/support/v4/widget/MaterialProgressDrawable$Ring.class
+android/support/v7/widget/DefaultItemAnimator.class
 com/google/ads/mediation/customevent/CustomEventInterstitial.class
 com/google/android/gms/maps/MapFragment.class
 android/support/v7/app/ActionBarDrawerToggle$Delegate.class
@@ -115,6 +127,7 @@ com/google/gson/JsonNull.class
 android/support/design/widget/TabLayout$Tab.class
 com/example/projecttesting/PlacesAutoCompleteAdapter.class
 android/support/design/widget/ViewOffsetHelper.class
+android/support/design/widget/HeaderBehavior$FlingRunnable.class
 android/support/design/widget/CoordinatorLayout$SavedState.class
 android/support/v4/app/FragmentManager$BackStackEntry.class
 android/support/v4/view/NestedScrollingChild.class
@@ -145,6 +158,7 @@ android/support/annotation/StyleableRes.class
 com/google/android/gms/internal/zzgd.class
 android/support/design/widget/TabLayout$TabView.class
 com/google/android/gms/common/GooglePlayServicesUtil.class
+android/support/v4/view/ViewConfigurationCompat.class
 com/google/android/gms/ads/internal/zzp.class
 com/wang/avi/indicator/PacmanIndicator.class
 android/support/design/widget/FloatingActionButton.class
@@ -188,12 +202,15 @@ android/support/annotation/CallSuper.class
 com/google/android/gms/location/places/NearbyAlertRequest.class
 com/google/android/gms/cast/Cast$CastApi.class
 com/google/android/gms/internal/zzk.class
+android/support/v4/view/VelocityTrackerCompat.class
 com/google/android/gms/plus/internal/model/people/PersonEntity$UrlsEntity.class
 com/google/android/gms/internal/zzgn.class
 android/support/v7/app/ActionBarDrawerToggle$DelegateProvider.class
 com/google/android/gms/ads/internal/client/zzb.class
 com/google/android/gms/common/internal/zzf.class
 -keep class null {
+android/support/design/widget/ThemeUtils.class
+android/support/v7/widget/StaggeredGridLayoutManager.class
 com/google/android/gms/maps/SupportStreetViewPanoramaFragment.class
 android/support/v4/media/session/MediaSessionCompat.class
 com/google/android/gms/internal/zzgi.class
@@ -209,7 +226,6 @@ com/google/android/gms/ads/internal/request/zzd$zzb.class
 android/support/v4/view/ViewCompatMarshmallow.class
 com/google/android/gms/nearby/messages/Messages.class
 com/example/projecttesting/EventPeopleInput$3.class
-android/support/design/widget/AppBarLayout$Behavior$FlingRunnable.class
 android/support/v4/media/VolumeProviderCompatApi21.class
 com/google/android/gms/internal/zzja.class
 com/google/android/gms/internal/zzlc.class
@@ -227,10 +243,13 @@ android/support/design/widget/Snackbar$4.class
 com/google/ads/mediation/EmptyNetworkExtras.class
 android/support/v4/app/FragmentManagerImpl.class
 com/google/android/gms/internal/zzhp.class
+android/support/v7/widget/RecyclerView$ItemAnimator$ItemHolderInfo.class
 com/wang/avi/indicator/SemiCircleSpinIndicator.class
 com/wang/avi/indicator/BallScaleMultipleIndicator.class
+android/support/v7/widget/RecyclerView$SavedState.class
 com/google/android/gms/ads/internal/request/zzd.class
 com/google/android/gms/games/achievement/Achievement.class
+android/support/v7/widget/ChildHelper.class
 com/google/android/gms/ads/internal/client/zzy$zza.class
 android/support/design/widget/TabLayout$SlidingTabStrip.class
 com/example/projecttesting/TimeConvertToText.class
@@ -286,6 +305,7 @@ android/support/v7/widget/LinearLayoutCompat$LayoutParams.class
 com/google/android/gms/ads/internal/zzi.class
 android/support/v4/widget/MaterialProgressDrawable$2.class
 com/google/android/gms/ads/internal/request/AdRequestInfoParcel.class
+android/support/v7/widget/RecyclerView$3.class
 com/google/android/gms/internal/zzff.class
 android/support/v4/media/RatingCompatApi21.class
 android/support/v4/media/RatingCompat$1.class
@@ -307,6 +327,7 @@ com/google/android/gms/ads/internal/reward/mediation/client/RewardItemParcel.cla
 com/facebook/R.class
 com/google/android/gms/ads/internal/reward/mediation/client/zzb.class
 android/support/v4/app/FragmentManagerImpl$1.class
+android/support/v7/widget/AdapterHelper$Callback.class
 android/support/annotation/AttrRes.class
 org/joda/time/Duration.class
 com/google/android/gms/internal/zzeh.class
@@ -323,6 +344,7 @@ android/support/v4/media/session/MediaSessionCompat$MediaSessionImplBase.class
 com/google/android/gms/analytics/HitBuilders$ItemBuilder.class
 com/google/android/gms/ads/internal/request/AdResponseParcel.class
 android/support/v4/app/FragmentTabHost.class
+android/support/design/widget/HeaderScrollingViewBehavior.class
 com/google/ads/mediation/MediationBannerAdapter.class
 android/support/v4/app/FragmentState.class
 android/support/v4/widget/CursorAdapter.class
@@ -332,27 +354,34 @@ android/support/annotation/LayoutRes.class
 android/support/design/widget/TabLayout$2.class
 com/google/android/gms/internal/zzdn.class
 com/google/android/gms/ads/mediation/admob/AdMobExtras.class
+android/support/design/R$dimen.class
 com/google/android/gms/ads/internal/zze$zzb.class
 com/google/android/gms/location/LocationListener.class
 com/example/projecttesting/EventPeopleInput$SelectedFriendAdapter.class
+android/support/v7/widget/RecyclerView$ItemAnimator.class
 android/support/design/widget/Snackbar$9.class
 com/google/android/gms/drive/query/Query$Builder.class
+android/support/design/widget/Snackbar$10.class
 android/support/annotation/MainThread.class
 com/wang/avi/indicator/LineScaleIndicator.class
 com/google/android/gms/ads/internal/reward/client/RewardedVideoAdRequestParcel.class
 android/support/design/widget/Snackbar$7.class
+android/support/v7/widget/RecyclerView.class
 com/google/android/gms/internal/zzjd$zza.class
 com/google/android/gms/games/multiplayer/Participant.class
 org/joda/time/MonthDay.class
 android/support/v4/app/NotificationCompat$Builder.class
 com/google/android/gms/maps/GoogleMap.class
 com/example/projecttesting/MainActivity$RetrieveFBPhotos.class
+android/support/v7/widget/RecyclerView$ItemDecoration.class
 android/support/v4/media/session/MediaSessionCompat$SessionFlags.class
 com/google/android/gms/common/data/DataBuffer.class
 com/google/android/gms/location/places/Place.class
 com/google/android/gms/location/places/GeoDataApi.class
 com/google/android/gms/ads/internal/client/zzd.class
+android/support/v7/widget/OpReorderer$Callback.class
 com/google/android/gms/internal/zzgl.class
+android/support/v7/widget/ViewInfoStore$ProcessCallback.class
 com/google/android/gms/cast/Cast$CastOptions.class
 com/google/android/gms/internal/zzin.class
 android/support/v4/app/SuperNotCalledException.class
@@ -397,6 +426,7 @@ android/support/design/widget/CoordinatorLayout$Behavior.class
 com/google/android/gms/ads/internal/zzb.class
 com/google/android/gms/internal/zzfz.class
 android/support/annotation/Keep.class
+android/support/v7/widget/RecyclerView$5.class
 org/joda/time/format/DateTimeParserBucket.class
 com/google/android/gms/internal/zzfk.class
 com/wang/avi/indicator/LineSpinFadeLoaderIndicator.class
@@ -427,6 +457,7 @@ com/google/android/gms/internal/zzgv.class
 com/google/android/gms/ads/internal/formats/zzc.class
 android/support/v7/app/ActionBar.class
 com/google/android/gms/internal/zzet.class
+android/support/v7/widget/RecyclerView$ViewFlinger.class
 android/support/annotation/TransitionRes.class
 android/support/annotation/PluralsRes.class
 android/support/v4/media/RatingCompat$Style.class
@@ -444,8 +475,10 @@ android/support/v4/app/FragmentActivity$1.class
 android/support/design/widget/AnimationUtils.class
 android/support/v4/app/BackStackRecord.class
 android/support/v4/widget/SlidingPaneLayout.class
+android/support/v7/recyclerview/R.class
 android/support/v4/media/session/MediaSessionCompat$MediaSessionImpl.class
 com/google/android/gms/internal/zzhn.class
+android/support/v4/view/accessibility/AccessibilityEventCompat.class
 com/google/android/gms/internal/zzdu.class
 android/support/v7/app/ActionBar$NavigationMode.class
 com/google/android/gms/location/GeofencingApi.class
@@ -487,6 +520,7 @@ com/example/projecttesting/EventLocationInput$2.class
 android/support/v4/view/ViewPropertyAnimatorCompat.class
 com/wang/avi/indicator/BallScaleIndicator.class
 android/support/design/widget/Snackbar$6.class
+android/support/v4/widget/EdgeEffectCompat.class
 android/support/v4/app/FragmentHostCallback.class
 android/support/v4/app/NoSaveStateFrameLayout.class
 com/google/ads/mediation/MediationInterstitialListener.class
@@ -496,9 +530,11 @@ android/support/annotation/StringRes.class
 android/support/v4/widget/MaterialProgressDrawable$1.class
 com/google/android/gms/auth/GoogleAuthUtil.class
 com/google/android/gms/internal/zzjh.class
+android/support/v7/widget/AdapterHelper.class
 android/support/design/widget/SnackbarManager.class
 com/google/android/gms/wallet/WalletConstants.class
 com/google/android/gms/appindexing/AppIndexApi$ActionResult.class
+android/support/v7/widget/RecyclerView$ItemAnimator$ItemAnimatorListener.class
 com/google/android/gms/internal/zzfg.class
 android/support/v4/media/MediaBrowserCompat$ItemCallback.class
 com/google/android/gms/internal/zzft.class
@@ -508,6 +544,7 @@ android/support/v4/media/MediaBrowserCompat.class
 android/support/design/widget/TabLayout$TabLayoutOnPageChangeListener.class
 org/joda/time/base/AbstractPeriod.class
 com/google/ads/mediation/customevent/CustomEventBannerListener.class
+android/support/v7/widget/RecyclerView$SmoothScroller.class
 com/google/android/gms/internal/zzbc.class
 com/google/android/gms/internal/zzbk.class
 android/support/v7/app/ActionBar$OnNavigationListener.class
@@ -539,6 +576,7 @@ com/google/android/gms/cast/CastMediaControlIntent.class
 android/support/v4/widget/ScrollerCompat.class
 com/google/android/gms/ads/internal/purchase/zzb.class
 com/google/android/gms/internal/zzmx.class
+android/support/v7/widget/RecyclerView$RecycledViewPool.class
 com/google/android/gms/ads/internal/client/zzk.class
 com/google/android/gms/internal/zzid.class
 com/google/android/gms/internal/zzlo.class
@@ -551,11 +589,13 @@ com/google/android/gms/ads/internal/overlay/AdOverlayInfoParcel.class
 com/google/android/gms/analytics/Logger$LogLevel.class
 com/google/android/gms/wearable/ChannelApi$CloseReason.class
 android/support/v4/util/ArrayMap$1.class
+android/support/v7/widget/RecyclerView$ItemAnimator$ItemAnimatorFinishedListener.class
 android/support/annotation/IntegerRes.class
 android/support/v4/media/VolumeProviderCompatApi21$Delegate.class
 com/google/android/gms/internal/zzdp.class
 android/support/v4/view/ViewCompatJellybeanMr1.class
 android/support/annotation/MenuRes.class
+android/support/v7/widget/RecyclerViewAccessibilityDelegate.class
 android/support/design/widget/Snackbar$1.class
 com/google/android/gms/internal/zzhi.class
 com/cjj/MaterialRefreshLayout.class
@@ -573,6 +613,7 @@ com/example/projecttesting/EventPeopleInput$2.class
 com/google/android/gms/ads/internal/client/ThinAdSizeParcel.class
 com/google/ads/mediation/MediationBannerListener.class
 org/joda/time/TimeOfDay$Property.class
+android/support/v7/widget/RecyclerView$ChildDrawingOrderCallback.class
     *;
 com/wang/avi/indicator/BaseIndicatorController.class
 android/support/design/widget/SwipeDismissBehavior.class
@@ -582,6 +623,7 @@ com/google/android/gms/internal/zzij.class
 android/support/v7/appcompat/R$attr.class
 com/google/android/gms/ads/internal/overlay/zza.class
 com/google/android/gms/ads/internal/client/zzh.class
+android/support/v7/widget/RecyclerView$AdapterDataObservable.class
 com/facebook/CallbackManager.class
 com/wang/avi/indicator/BallBeatIndicator.class
 com/google/android/gms/maps/StreetViewPanoramaFragment.class
@@ -617,9 +659,11 @@ com/google/android/gms/measurement/internal/zzu.class
 android/support/v7/widget/LinearLayoutCompat$DividerMode.class
 com/google/android/gms/ads/internal/zze.class
 org/joda/time/Minutes.class
+android/support/v7/widget/RecyclerView$2.class
 com/google/android/gms/internal/zzfb.class
 com/google/android/gms/ads/internal/zzj.class
 com/google/gson/annotations/Since.class
+android/support/v7/widget/RecyclerView$OnScrollListener.class
 android/support/v4/view/ViewCompat$BaseViewCompatImpl.class
 android/support/v4/util/SimpleArrayMap.class
 org/joda/time/DateMidnight.class
@@ -641,6 +685,7 @@ com/google/android/gms/ads/AdRequest.class
 com/google/android/gms/ads/internal/formats/zzf.class
 android/support/v4/view/PagerAdapter.class
 com/example/projecttesting/GcmBroadcastReceiver.class
+android/support/v7/widget/RecyclerView$RecyclerViewDataObserver.class
 android/support/v4/view/ViewCompat.class
 android/support/v4/view/WindowInsetsCompat.class
 com/google/android/gms/common/ConnectionResult.class
@@ -650,11 +695,14 @@ android/support/v4/util/ArrayMap.class
 com/example/projecttesting/EventCreation$2.class
 com/google/android/gms/drive/MetadataBuffer.class
 org/joda/time/base/AbstractDateTime.class
+android/support/v7/widget/RecyclerView$RecyclerListener.class
 com/google/android/gms/internal/zzhl.class
 com/google/android/gms/plus/Account.class
 android/support/design/widget/TabLayout$1.class
+android/support/v4/view/NestedScrollingChildHelper.class
 android/support/v4/view/ViewCompatJellybeanMr2.class
 com/google/android/gms/ads/internal/purchase/zzi.class
+android/support/v7/widget/RecyclerView$ViewCacheExtension.class
 com/google/android/gms/internal/zzhd.class
 android/support/v4/media/session/PlaybackStateCompatApi21.class
 android/support/v4/view/LayoutInflaterFactory.class
@@ -680,6 +728,7 @@ com/google/android/gms/maps/model/LatLng.class
 com/wang/avi/AVLoadingIndicatorView$Indicator.class
 com/google/android/gms/ads/MobileAds.class
 com/google/android/gms/ads/internal/client/zze.class
+android/support/v7/widget/RecyclerView$SimpleOnItemTouchListener.class
 com/google/android/gms/internal/zzgk.class
 com/google/android/gms/internal/zzdl$zzc.class
 android/support/v7/app/ActionBar$TabListener.class
@@ -687,6 +736,7 @@ com/google/android/gms/internal/zzie.class
 com/google/android/gms/plus/PlusShare.class
 com/google/android/gms/internal/zzgc.class
 com/google/android/gms/wearable/internal/zza.class
+android/support/v7/widget/RecyclerView$LayoutParams.class
 android/support/v4/media/session/PlaybackStateCompat$State.class
 com/google/android/gms/analytics/Logger.class
 android/support/v4/app/FragmentController.class
@@ -709,6 +759,7 @@ android/support/annotation/AnimRes.class
 com/google/android/gms/internal/zzfy.class
 com/google/android/gms/measurement/internal/zzv.class
 android/support/v4/app/FragmentActivity$NonConfigurationInstances.class
+android/support/v7/widget/RecyclerView$4.class
 com/facebook/login/LoginFragment.class
 com/google/android/gms/ads/internal/zza.class
 android/support/design/widget/CoordinatorLayoutInsetsHelper.class
@@ -724,6 +775,7 @@ com/google/android/gms/common/data/Freezable.class
 android/support/v7/appcompat/R$styleable.class
 com/wang/avi/indicator/BallRotateIndicator.class
 com/google/android/gms/internal/zzjb.class
+android/support/design/widget/HeaderBehavior.class
 com/google/gson/annotations/Expose.class
 com/google/android/gms/gcm/OneoffTask.class
 android/support/v4/media/MediaBrowserCompat$MediaItem.class
@@ -735,6 +787,8 @@ com/google/android/gms/internal/zzgr.class
 android/support/v4/media/MediaMetadataCompat$BitmapKey.class
 com/google/android/gms/common/api/GoogleApiClient$ConnectionCallbacks.class
 org/joda/time/DateTimeZone.class
+android/support/v4/os/TraceCompat.class
+android/support/design/widget/AppBarLayout$Behavior$DragCallback.class
 com/wang/avi/indicator/BallZigZagDeflectIndicator.class
 com/google/android/gms/ads/internal/formats/NativeAdOptionsParcel.class
 com/google/android/gms/internal/zzex.class
@@ -815,7 +869,9 @@ com/google/android/gms/internal/zzei.class
 com/google/android/gms/ads/internal/formats/zzd.class
 android/support/design/widget/CoordinatorLayout$OnPreDrawListener.class
 android/support/annotation/IntRange.class
+android/support/v7/widget/ViewInfoStore.class
 android/support/annotation/AnimatorRes.class
+android/support/v7/widget/RecyclerView$AdapterDataObserver.class
 android/support/v4/view/AccessibilityDelegateCompat.class
 android/support/design/widget/SnackbarManager$Callback.class
 com/google/android/gms/internal/zzeu.class
@@ -823,10 +879,12 @@ android/support/design/widget/TabLayout$Mode.class
 com/google/android/gms/common/api/GoogleApiClient$OnConnectionFailedListener.class
 com/google/android/gms/games/Game.class
 android/support/design/widget/CoordinatorLayout.class
+android/support/v7/widget/RecyclerView$LayoutManager.class
 com/google/android/gms/games/multiplayer/turnbased/LoadMatchesResponse.class
 com/google/android/gms/ads/internal/request/zza.class
 com/wang/avi/indicator/SquareSpinIndicator.class
 com/google/android/gms/ads/internal/overlay/zzm.class
+android/support/v7/widget/RecyclerView$ItemAnimator$AdapterChanges.class
 com/facebook/CallbackManager$Factory.class
 android/support/v4/view/ViewCompat$ScrollIndicators.class
 android/support/v7/internal/view/menu/MenuItemImpl.class
@@ -834,6 +892,7 @@ com/google/android/gms/location/LocationServices.class
 android/support/annotation/NonNull.class
 com/google/android/gms/internal/zzji.class
 com/google/android/gms/gcm/PeriodicTask.class
+android/support/v7/widget/RecyclerView$ItemAnimatorRestoreListener.class
 android/support/design/R$anim.class
 com/example/projecttesting/EventCreation.class
 android/support/design/widget/CoordinatorLayoutInsetsHelperLollipop.class
@@ -852,6 +911,7 @@ com/google/android/gms/internal/zzfe.class
 com/google/android/gms/internal/zzfj.class
 com/google/android/gms/ads/internal/zzh.class
 android/support/annotation/Size.class
+android/support/v7/widget/SimpleItemAnimator.class
 com/wang/avi/indicator/BallScaleRippleMultipleIndicator.class
 com/google/android/gms/wallet/fragment/WalletLogoImageType.class
 com/google/android/gms/internal/zzga.class

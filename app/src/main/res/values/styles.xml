@@ -73,13 +73,5 @@
         <item name="android:layout_marginStart">55dp</item>
         <item name="android:gravity">center_vertical</item>
     </style>
-    <!-- SeekArc styles -->
-    <style name="SeekArc">
-        <item name="arcColor">@color/progress_gray_dark</item>
-    </style>
-
-    <style name="SeekArcLight">
-        <item name="arcColor">@color/progress_gray</item>
-    </style>
 
 </resources>

@@ -1,10 +1,7 @@
 package com.example.projecttesting;
 
-import java.sql.Time;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -12,15 +9,9 @@ import android.app.Activity;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.preference.PreferenceManager;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -43,10 +34,9 @@ import android.widget.Toast;
 
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
-import com.google.android.gms.maps.GoogleMap;
 
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 import org.joda.time.DateTime;
-import org.w3c.dom.Text;
 
 
 public class EventCreation extends FragmentActivity implements OnDateSetListener, OnTimeSetListener, EventAct {
@@ -65,6 +55,7 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
     String address;
     EventEntryItem item;
     double lat, lng;
+    int custom_duration;
 
     private static final String TAG = EventCreation.class.getSimpleName();
 
@@ -113,7 +104,7 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
                         } else if (button3.isChecked()){
                             lengthMillis = 1000 * 60 * 60 *2;
                         } else if (button4.isChecked()){
-                            lengthMillis = 1000 *60;
+                            lengthMillis = 1000 *60 * 60 * custom_duration;
                         }
                         String event_end_submit = dateConvert.MillisToStringForServer(minMillis + lengthMillis);
                         event_bundle.putString("DATETIME", event_start_submit);
@@ -131,11 +122,6 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
 
                     }
                 });
-
-
-        //TransitionInflater inflater = TransitionInflater.from(this);
-        //Transition transition = inflater.inflateTransition(R.transition.change_people_or_event_input);
-        //getWindow().setSharedElementEnterTransition(transition);
 
         update_status = (TextView) findViewById(R.id.update_status);
         update_status.setTypeface(typeface);
@@ -206,32 +192,40 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
         button4.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Dialog dialog = new Dialog(EventCreation.this);
+                final Dialog dialog = new Dialog(EventCreation.this);
+                dialog.setTitle("Set custom end time");
+                custom_duration = 3;
                 LayoutInflater inflater = (LayoutInflater)EventCreation.this.getSystemService(LAYOUT_INFLATER_SERVICE);
-                View layout = inflater.inflate(R.layout.seekbardialog, (ViewGroup)findViewById(R.id.seekbar_dialog));
-                SeekArc seekArc = (SeekArc) layout.findViewById(R.id.seekArc);
-                final TextView seekArc_progress = (TextView) layout.findViewById(R.id.seekArc_progress);
-                seekArc_progress.setTypeface(typeface);
+                View layout = inflater.inflate(R.layout.end_time_dialog, (ViewGroup)findViewById(R.id.endtime_dialog));
+                DiscreteSeekBar seekBar = (DiscreteSeekBar) layout.findViewById(R.id.seekbar);
+                final ImageView confirm = (ImageView) layout.findViewById(R.id.confirm_time_button);
+                final TextView duration = (TextView) layout.findViewById(R.id.duration);
+                duration.setTypeface(typeface);
 
-                seekArc.setOnSeekArcChangeListener(new SeekArc.OnSeekArcChangeListener() {
+                seekBar.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
                     @Override
-                    public void onProgressChanged(SeekArc seekArc, int progress, boolean fromUser) {
-                        int real_hour = progress + 1;
-                        String display;
-                        if (real_hour == 1){
-                            display = "1 hour";
-                        } else {
-                            display = real_hour + " hours";
-                        }
-                        seekArc_progress.setText(display);
+                    public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
+                        String temp = "Duration: " + Integer.toString(value) + " hours";
+                        custom_duration = value;
+                        duration.setText(temp);
+                        button4.setText(Integer.toString(value) + " hours");
                     }
 
                     @Override
-                    public void onStartTrackingTouch(SeekArc seekArc) {
-                    }
-                    @Override
-                    public void onStopTrackingTouch(SeekArc seekArc) {
+                    public void onStartTrackingTouch(DiscreteSeekBar seekBar) {
 
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
+
+                    }
+                });
+
+                confirm.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
                     }
                 });
 
@@ -426,7 +420,8 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
         if (success) {
             refreshLayout.finishRefresh();
             Toast.makeText(EventCreation.this, "Event added successfully", Toast.LENGTH_LONG).show();
-        } else {
+        }
+        if (!success){
             refreshLayout.finishRefresh();
             Toast.makeText(EventCreation.this, "Server error. Event cannot be added", Toast.LENGTH_LONG).show();
         }
