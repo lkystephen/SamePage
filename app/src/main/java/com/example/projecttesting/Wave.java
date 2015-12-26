@@ -168,14 +168,6 @@ class Wave extends View {
         mAboveWavePath.moveTo(left, bottom);
         for (float x = 0; x <= mMaxRight; x += X_SPACE) {
             y = (float) (mWaveHeight * Math.sin(omega * x + mAboveOffset) + mWaveHeight);
-            // Code by Stephen. This part is to measure the float y to insert an additional layout/object on the upper wave
-            // the float x of the object is fixed at about 80% of the total width (to the left)
-            if (x / Math.round(mMaxRight) < 0.82 && x / Math.round(mMaxRight) > 0.8) {
-        //        Log.i("Float x",Float.toString(x) + ", " + Float.toString(mMaxRight));
-                y_object = y;
-                x_object = x;
-            }
-            // End of Stephen's code
             mAboveWavePath.lineTo(x, y);
         }
         mAboveWavePath.lineTo(right, bottom);
@@ -186,7 +178,7 @@ class Wave extends View {
             mBlowWavePath.lineTo(x, y);
         }
         mBlowWavePath.lineTo(right, bottom);
-
+/*
 
         LayoutInflater inflater =
                 (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -200,7 +192,7 @@ class Wave extends View {
         Log.e("draw2",Integer.toString(text.getMeasuredWidth()));
         text.setX(x_object);
         text.setY(y_object);
-
+*/
 
 
     }

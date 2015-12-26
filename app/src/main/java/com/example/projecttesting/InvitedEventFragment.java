@@ -35,12 +35,8 @@ public class InvitedEventFragment extends Fragment {
 
     SwipeMenuListView listview;
     User user;
-    //ArrayList<EventEntryItem> bigdata;
     String fbid;
-    LinearLayout rsvp_attending, rsvp_rejecting, rsvp;
     TextView no_pending;
-    Animation vibrate;
-    EventTypes eventTypes;
 
     public InvitedEventFragment() {
     }
@@ -98,6 +94,10 @@ public class InvitedEventFragment extends Fragment {
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
+                        String id = user.userId;
+                        EventTypes eventTypes = user.getEventsInvited().get(position);
+                        eventTypes.rsvp(id,1); // 1 is attending, 2 is reject, 3 is organize
+
                         break;
                     //case 1:
                     //  break;
