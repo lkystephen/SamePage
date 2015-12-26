@@ -92,7 +92,7 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
             @Override
             public void create(SwipeMenu menu) {
 
-                switch(menu.getViewType()){
+                switch (menu.getViewType()) {
                     case 0:
                         // Create menu type for normal friends
                         SwipeMenuItem unstarItem = new SwipeMenuItem(getContext());
@@ -103,15 +103,15 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
                         // set item width
                         unstarItem.setWidth(160);
                         // add to menu
-                        unstarItem.setIcon(R.drawable.unfav_red);
+                        unstarItem.setIcon(R.drawable.fav_yellow);
                         menu.addMenuItem(unstarItem);
                         break;
 
                     case 1:
-                        // Create menu type for favorite friends
-                     //   SwipeMenuItem unstarItem = new SwipeMenuItem(getContext());
-                        // set item background
-                       // ColorDrawable color2 = new ColorDrawable(Color.parseColor("#f9f9f9"));
+                        //Create menu type for favorite friends
+                        //SwipeMenuItem unstarItem = new SwipeMenuItem(getContext());
+                        //set item background
+                        //ColorDrawable color2 = new ColorDrawable(Color.parseColor("#f9f9f9"));
                         //color2.setAlpha(40);
                         //unstarItem.setBackground(color2);
                         // set item width
@@ -119,7 +119,7 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
                         // add to menu
                         //unstarItem.setIcon(R.drawable.unfav_red);
                         //menu.addMenuItem(unstarItem);
-                        //break;
+                        break;
                 }
 
 
@@ -279,10 +279,10 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
                         location.setLatitude(lat);
                         location.setLongitude(lng);
 
-                        bundle.putParcelable("location",location);
-                        bundle.putParcelable("mLocation",mLastLocation);
-                        bundle.putParcelable("user",user);
-                        bundle.putString("name",user.getMasterList().get(i).username);
+                        bundle.putParcelable("location", location);
+                        bundle.putParcelable("mLocation", mLastLocation);
+                        bundle.putParcelable("user", user);
+                        bundle.putString("name", user.getMasterList().get(i).username);
                         FriendsDisplayDialog dialog = new FriendsDisplayDialog();
                         dialog.setArguments(bundle);
                         dialog.show(fm, "");
