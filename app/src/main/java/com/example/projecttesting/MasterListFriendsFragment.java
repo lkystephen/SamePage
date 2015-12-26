@@ -166,8 +166,8 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
                                                 list.add(user.getMasterList().get(i));
                                             }
                                         }
-
                                         user.addFrdsToStar(list, MasterListFriendsFragment.this);
+                                        list1.clear();
                                     }
                                 });
                         View sbView = snackbar.getView();
