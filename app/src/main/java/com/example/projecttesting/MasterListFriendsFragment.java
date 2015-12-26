@@ -160,6 +160,7 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
                                 .setAction("CONFIRM", new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
+                                        list.clear();
                                         for (int i = 0; i < list1.size(); i++) {
                                             if (list1.get(i).equals("Y")) {
                                                 list.add(user.getMasterList().get(i));
