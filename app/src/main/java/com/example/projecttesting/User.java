@@ -114,6 +114,7 @@ public class User extends AsyncTask<Void, Void, Boolean> implements Users, Parce
         in.readList(eventsOrganised, EventType.class.getClassLoader());
         in.readList(eventsRejected, EventType.class.getClassLoader());
         in.readList(friends, OtherUser.class.getClassLoader());
+        in.readList(stars, OtherUser.class.getClassLoader());
         //public Boolean newUser;
     }
 
@@ -827,6 +828,7 @@ public class User extends AsyncTask<Void, Void, Boolean> implements Users, Parce
         parcel.writeList(this.eventsOrganised);
         parcel.writeList(this.eventsRejected);
         parcel.writeList(this.friends);
+        parcel.writeList(this.stars);
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
