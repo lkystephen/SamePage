@@ -35,19 +35,6 @@ public class MyLocationHandler extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        // Bundle bundle = intent.getBundleExtra("bundle");
-        //Bundle bundle = intent.getExtras();
-        //if (bundle == null) {
-         //   Log.e(TAG, "bundle is null");
-        //} else {
-        //    bundle.setClassLoader(User.class.getClassLoader());
-        //}
-        //user = (User) bundle.getParcelable("user");
-
-        //if (user == null) {
-        //    Log.e(TAG, "user is null");
-        //}
-
         // Get user id from sharedpref manager
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String id = preferences.getString("id","DEFAULT");
@@ -62,16 +49,6 @@ public class MyLocationHandler extends IntentService {
                 User user = new User();
                 user.updateLocation(location,id);
 
-                // Test to see if it works
-                /*NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
-                mBuilder.setSmallIcon(R.drawable.ic_launcher);
-                mBuilder.setContentTitle("Location");
-                mBuilder.setContentText(Double.toString(location.getLatitude()) + ", " + Double.toString(location.getLongitude()));
-
-                NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-*/
-                // notificationID allows you to update the notification later on.
-                //mNotificationManager.notify(1, mBuilder.build());
             }
         } else
             Log.e(TAG, "Null object returned for location API");

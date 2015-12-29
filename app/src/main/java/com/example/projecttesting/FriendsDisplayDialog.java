@@ -35,7 +35,7 @@ public class FriendsDisplayDialog extends DialogFragment implements OnMapReadyCa
     FrameLayout map_frame;
     LinearLayout mapLoadingLayout;
     LatLng latLng, mLatLng;
-    TextView friend_location, friend_direction;
+    TextView friend_location, last_update, friend_direction;
     Location mLastLocation;
     User user;
     SupportMapFragment mMapFragment;
@@ -53,6 +53,7 @@ public class FriendsDisplayDialog extends DialogFragment implements OnMapReadyCa
         Location location = bundle.getParcelable("location");
         String name = bundle.getString("name");
         mLastLocation = bundle.getParcelable("mLocation");
+        long time = bundle.getLong("updatetime");
         user = bundle.getParcelable("user");
         latLng = new LatLng(location.getLatitude(), location.getLongitude());
         mLatLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
@@ -63,6 +64,7 @@ public class FriendsDisplayDialog extends DialogFragment implements OnMapReadyCa
         TextView friend_name = (TextView) view.findViewById(R.id.friend_name);
         friend_location = (TextView) view.findViewById(R.id.friend_location);
         friend_direction = (TextView) view.findViewById(R.id.friend_direction);
+        last_update = (TextView) view.findViewById(R.id.update_time);
 
         Typeface face_r = FontCache.getFont(getContext(), "sf_reg.ttf");
         Typeface face_b = FontCache.getFont(getContext(), "sf_bold.ttf");
@@ -70,6 +72,7 @@ public class FriendsDisplayDialog extends DialogFragment implements OnMapReadyCa
         friend_name.setTypeface(face_r);
         friend_location.setTypeface(face_r);
         friend_direction.setTypeface(face_r);
+        last_update.setTypeface(face_r);
 
         friend_name.setText(name);
 
@@ -79,6 +82,10 @@ public class FriendsDisplayDialog extends DialogFragment implements OnMapReadyCa
         android.support.v4.app.FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.map2, mMapFragment).commit();
         mMapFragment.getMapAsync(FriendsDisplayDialog.this);
+
+        // Timestamp
+        Utility utility = new Utility();
+        last_update.setText(utility.timeLapsedFromNow(time));
 
         // Address (if not default to load)
         friend_location.setText("Loading map..");

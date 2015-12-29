@@ -281,6 +281,7 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
 
                         bundle.putParcelable("location", location);
                         bundle.putParcelable("mLocation", mLastLocation);
+                        bundle.putLong("updatetime",user.getMasterList().get(i).timestamp);
                         bundle.putParcelable("user", user);
                         bundle.putString("name", user.getMasterList().get(i).username);
                         FriendsDisplayDialog dialog = new FriendsDisplayDialog();

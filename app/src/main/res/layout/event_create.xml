@@ -220,6 +220,36 @@
             style="@style/EventDivider"
             android:transitionName="PeopleLine" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="55dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/repeat_black"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/eventRepeat"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Event does not repeat"
+                android:textSize="16sp" />
+        </LinearLayout>
+
 
     </LinearLayout>
 

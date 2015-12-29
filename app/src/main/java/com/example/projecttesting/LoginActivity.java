@@ -4,6 +4,8 @@ import android.*;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,6 +27,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -56,7 +59,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 @SuppressWarnings("unused")
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements ConnectionDialogFragment.ConnectionDialogListener {
 
     // Facebook information
     CallbackManager callbackManager;
@@ -68,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
     public static int MY_PERMISSION_LOCATION = 1;
     public static int MY_PERMISSION_WRITE_EXTERNAL = 2;
 
-    // Sharedpreference manager
+    // Shared preference manager
     public static final String PREFS_NAME = "MyPrefsFile";
 
     //for GCM
@@ -91,20 +94,26 @@ public class LoginActivity extends AppCompatActivity {
 
         lala = printKeyHash(this);
 
-        // Check for permission
-        int locPerm = ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION);
-        int locStorage = ActivityCompat.checkSelfPermission(getApplication(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        // Check for internet connection
+        Utility util = new Utility();
+        boolean connect = util.haveNetworkConnection(this); // True for internet connection, false for none
+        if (connect) {
 
-        // Ask for permission
-        if (locPerm != PackageManager.PERMISSION_GRANTED || locStorage != PackageManager.PERMISSION_GRANTED) {
+            boolean result = checkSelfPermission(this);
 
-            Log.i(TAG, "Permission for either storage or location is not granted. Now will ask for permission.");
+            if (!result) {
 
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE}
-                    , MY_PERMISSION_LOCATION);
+                Log.i(TAG, "Permission for either storage or location is not granted. Now will ask for permission.");
+
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE}
+                        , MY_PERMISSION_LOCATION);
+            } else {
+                Log.i(TAG, "Initializing Facebook");
+                initializeFaceBook();
+            }
         } else {
-            Log.i(TAG, "Initialize Facebook");
-            initializeFaceBook();
+            // Show error dialog
+            showErrorDialog();
         }
 
     }
@@ -156,7 +165,7 @@ public class LoginActivity extends AppCompatActivity {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                initializeFaceBook();
+                    initializeFaceBook();
 
                 } else {
                     // Permission is blocked, show alert
@@ -172,14 +181,13 @@ public class LoginActivity extends AppCompatActivity {
                                     startActivity(a);
                                 }
                             }).show();
-
                 }
                 return;
             }
         }
     }
 
-    public void initializeFaceBook(){
+    public void initializeFaceBook() {
         //initialising Facebook SDK
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
@@ -213,6 +221,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                     }
+
                     @Override
                     public void onCancel() {
                         // App code
@@ -229,6 +238,52 @@ public class LoginActivity extends AppCompatActivity {
                         Log.i(TAG, e.toString());
                     }
                 });
+    }
+
+    public boolean checkSelfPermission(Context context) {
+        int locPerm = ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION);
+        int locStorage = ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        boolean result = true;
+        if (locPerm != PackageManager.PERMISSION_GRANTED || locStorage != PackageManager.PERMISSION_GRANTED) {
+            result = false;
+        }
+        return result;
+        }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+
+        Utility util = new Utility();
+        boolean checkConnect = util.haveNetworkConnection(getApplicationContext());
+
+        if (checkConnect){
+
+            boolean result = checkSelfPermission(getApplicationContext());
+            // Ask for permission
+            if (!result) {
+
+                Log.i(TAG, "Permission for either storage or location is not granted. Now will ask for permission.");
+
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE}
+                        , MY_PERMISSION_LOCATION);
+            } else {
+                Log.i(TAG, "Initializing Facebook");
+                initializeFaceBook();
+            }
+        } else {
+            Log.i(TAG,"Re-show the error dialog as connection is not available");
+            showErrorDialog();
+        }
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        LoginActivity.this.finish();
+    }
+
+    public void showErrorDialog() {
+        DialogFragment dialog = new ConnectionDialogFragment();
+        dialog.show(getFragmentManager(), "ConnectionDialogFragment");
     }
 }
 

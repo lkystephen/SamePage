@@ -416,7 +416,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         checkPlayServices();
         // Resuming the periodic location updates
         if (mGoogleApiClient.isConnected()) {
-            // && mRequestingLocationUpdates) {
+            // && mRequestingLocationUpdates)
             startLocationUpdates();
         }
     }
@@ -440,18 +440,9 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
     @Override
     public void onConnected(Bundle arg0) {
 
-        // This is for creating the intent that is used for handler class
-        Intent intent = new Intent(MainActivity.this, MyLocationHandler.class);
-
-        PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0,
-                intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
+        Log.i(TAG,"onConnected");
         // Loading loading text
         loadingText.setText("Setting location...");
-
-        // Then the off screen periodic update
-        PendingResult pendingResult = LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
-              mLocationRequest, pendingIntent);
 
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 
@@ -512,8 +503,20 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
 
     @Override
     public void onLocationChanged(Location location) {
+        Log.i(TAG,"onLocationChanged");
+
         // Assign the new location
         mLastLocation = location;
+
+        // This is for creating the intent that is used for handler class
+        Intent intent = new Intent(MainActivity.this, MyLocationHandler.class);
+
+        PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Then the off screen periodic update
+        PendingResult pendingResult = LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+                mLocationRequest, pendingIntent);
 
         // Loading
         loadingText.setText("Getting cached photos..");
@@ -521,10 +524,6 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         // Retrieve display photos
         RetrieveFBPhotos retrieve = new RetrieveFBPhotos();
         retrieve.execute(null, null, null);
-
-
-        //PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0,
-          //      intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
     }
 

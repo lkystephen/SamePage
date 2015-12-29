@@ -20,6 +20,7 @@
     <string name="notify_event_soon">Notify when an event starts soon</string>
     <string name="set_all_star">Add all friends to favorite</string>
     <string name="set_all_unstar">Remove all friends from favorite</string>
+    <string name="error_no_internet_msg">You have no internet connection. SamePage requires working connection to launch.\nPlease check if there is working connection and try again.</string>
 
 
 </resources>

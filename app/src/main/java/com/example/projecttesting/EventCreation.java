@@ -43,7 +43,7 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
 
     final EventDateConvert dateConvert = new EventDateConvert();
     MaterialRefreshLayout refreshLayout;
-    TextView mStartDate, mStartTime, update_status;
+    TextView mStartDate, mStartTime, update_status, event_repeat;
     EditText eventName;
     LinearLayout update_status_bg;
     AutoCompleteTextView placeInputET;
@@ -234,6 +234,11 @@ public class EventCreation extends FragmentActivity implements OnDateSetListener
 
             }
         });
+
+        // Event repeat or not
+        event_repeat = (TextView) findViewById(R.id.eventRepeat);
+        event_repeat.setTypeface(typeface);
+
 
         // Defaulting the start/finish date of the event as today
         java.util.Date juDate = new Date();

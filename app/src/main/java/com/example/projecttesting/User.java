@@ -378,6 +378,7 @@ public class User extends AsyncTask<Void, Void, Boolean> implements Users, Parce
     protected void onPostExecute(Boolean yesorno) {
         if (yesorno) {
             //  addFrdsToStar(this.getMasterList());
+            Log.i(TAG,"Finish User onPostExecute");
             userHandler.handleLoginResults(newUser, null);
             return;
         } else {

@@ -271,6 +271,7 @@ public class StarredFriendsFragment extends Fragment {
                         bundle.putParcelable("mLocation",mLastLocation);
                         bundle.putParcelable("user",user);
                         bundle.putString("name",user.getMasterList().get(i).username);
+                        bundle.putLong("updatetime",user.getMasterList().get(i).timestamp);
                         FriendsDisplayDialog dialog = new FriendsDisplayDialog();
                         dialog.setArguments(bundle);
                         dialog.show(fm, "");

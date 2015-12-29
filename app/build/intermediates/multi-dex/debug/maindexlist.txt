@@ -203,6 +203,7 @@ com/google/android/gms/location/places/NearbyAlertRequest.class
 com/google/android/gms/cast/Cast$CastApi.class
 com/google/android/gms/internal/zzk.class
 android/support/v4/view/VelocityTrackerCompat.class
+com/example/projecttesting/ConnectionDialogFragment$ConnectionDialogListener.class
 com/google/android/gms/plus/internal/model/people/PersonEntity$UrlsEntity.class
 com/google/android/gms/internal/zzgn.class
 android/support/v7/app/ActionBarDrawerToggle$DelegateProvider.class
@@ -253,6 +254,7 @@ android/support/v7/widget/ChildHelper.class
 com/google/android/gms/ads/internal/client/zzy$zza.class
 android/support/design/widget/TabLayout$SlidingTabStrip.class
 com/example/projecttesting/TimeConvertToText.class
+com/example/projecttesting/Utility.class
 com/google/android/gms/internal/zzht.class
 com/google/android/gms/appinvite/AppInviteInvitation$IntentBuilder$PlatformMode.class
 com/google/android/gms/ads/internal/purchase/zze.class
@@ -415,6 +417,7 @@ com/google/android/gms/internal/zzfp.class
 android/support/annotation/IntDef.class
 com/google/android/gms/common/GoogleApiAvailability.class
 com/cjj/MaterialRefreshListener.class
+com/example/projecttesting/ConnectionDialogFragment.class
 com/google/android/gms/analytics/internal/zzae.class
 com/google/android/gms/internal/zzbq.class
 com/google/android/gms/internal/zzbv.class

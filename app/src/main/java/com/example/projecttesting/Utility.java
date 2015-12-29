@@ -8,6 +8,9 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.DialogFragment;
@@ -43,14 +46,6 @@ public class Utility {
 
     }
 
-    /*
-        public static float getHeightofLowerActionBar (Activity baseActivity) {
-            LinearLayout bottomActionBar = (LinearLayout) baseActivity.findViewById(R.id.bottom_actionbar);
-            float heightOfActionBar = bottomActionBar.getHeight();
-
-            return heightOfActionBar;
-        }
-    */
     public static String getMonthTextFromInt(int month) {
         String monthText = new String();
 
@@ -177,5 +172,49 @@ public class Utility {
         return img;
     }
 
+    public String timeLapsedFromNow(long millis) {
+
+        long currentMillis = System.currentTimeMillis();
+        long a = currentMillis - millis;
+        int b = Math.round(a / 1000);
+        String result = new String();
+
+        if (b < 60) {
+            result = Integer.toString(b) + " mins ago";
+        } else {
+            if (b > 60 && b < 1440) {
+                int c = Math.round(b / 60);
+                result = Integer.toString(c) + " hours ago";
+            } else if (b > 1440 && b < 525600) {
+                int d = Math.round(b / 1440);
+                result = Integer.toString(d) + " days ago";
+            } else if (b > 525600) {
+                int e = Math.round(b / 525600);
+               result = Integer.toString(e) + " years ago";
+            }
+        }
+
+        return result;
+    }
+
+    public boolean haveNetworkConnection(Context context){
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = cm.getActiveNetworkInfo();
+
+        if (activeNetworkInfo != null){ // Connected to internet
+            if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_MOBILE){
+                Log.i(TAG,"Mobile connection available");
+                haveConnectedMobile = true;
+            }
+            if (activeNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI){
+                Log.i(TAG,"Wifi connection available");
+                haveConnectedWifi = true;
+            }
+        }
+        return haveConnectedMobile || haveConnectedWifi;
+    }
 
 }
