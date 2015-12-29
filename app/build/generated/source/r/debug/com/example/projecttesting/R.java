@@ -3664,7 +3664,7 @@ containing a value of this type.
         public static final int mr_ic_settings_light=0x7f020109;
         public static final int musical=0x7f02010a;
         public static final int next_arrow=0x7f02010b;
-        public static final int notification_template_icon_bg=0x7f02013a;
+        public static final int notification_template_icon_bg=0x7f02013b;
         public static final int party=0x7f02010c;
         public static final int pay=0x7f02010d;
         public static final int pending=0x7f02010e;
@@ -3705,12 +3705,13 @@ containing a value of this type.
         public static final int text_field_clear_btn=0x7f020131;
         public static final int theatre=0x7f020132;
         public static final int time7=0x7f020133;
-        public static final int trek=0x7f020134;
-        public static final int unfav_red=0x7f020135;
-        public static final int user77=0x7f020136;
-        public static final int vertical5=0x7f020137;
-        public static final int volleyball=0x7f020138;
-        public static final int yoga=0x7f020139;
+        public static final int time_deepb=0x7f020134;
+        public static final int trek=0x7f020135;
+        public static final int unfav_red=0x7f020136;
+        public static final int user77=0x7f020137;
+        public static final int vertical5=0x7f020138;
+        public static final int volleyball=0x7f020139;
+        public static final int yoga=0x7f02013a;
     }
     public static final class id {
         public static final int BallBeat=0x7f0e000c;

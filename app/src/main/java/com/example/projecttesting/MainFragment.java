@@ -154,53 +154,6 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         return rootView;
     }
 
-    class MyDragListener implements View.OnDragListener {
-        @Override
-        public boolean onDrag(View v, DragEvent event) {
-            int action = event.getAction();
-            switch (event.getAction()) {
-                case DragEvent.ACTION_DRAG_STARTED:
-                    // Do nothing
-                    break;
-                case DragEvent.ACTION_DRAG_ENTERED:
-                    // Do nothing
-                    break;
-                case DragEvent.ACTION_DRAG_EXITED:
-                    // Do nothing
-                    break;
-                case DragEvent.ACTION_DROP:
-                    //   View view = (View) event.getLocalState();
-                    //  ViewGroup owner = (ViewGroup) view.getParent();
-                    //owner.removeView(view);
-                    //test_button.setVisibility(View.VISIBLE);
-                    Toast.makeText(getActivity(), "Oh yeah", Toast.LENGTH_LONG).show();
-                    int[] coordinates = {0, 0};
-                    //test_button2.getLocationOnScreen(coordinates);
-                    break;
-                case DragEvent.ACTION_DRAG_ENDED:
-                    // Do nothing
-                default:
-                    break;
-            }
-            return true;
-        }
-    }
-
-    private final class MyTouchListener implements View.OnTouchListener {
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                ClipData data = ClipData.newPlainText("", "");
-                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
-                view.startDrag(data, shadowBuilder, view, 0);
-                view.setVisibility(View.INVISIBLE);
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-
-
     @Override
     public void onLocationChanged(Location location) {
         double latitude = mLocation.getLatitude();
@@ -254,7 +207,6 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         String destination = output.get(2);
 
         // Set the distance measured in minutes
-        //closest_location.setText(name + " is closest to you");
         closest_location_details.setText("@ " + destination);
         closest_location_details2.setText(distance + " away");
 

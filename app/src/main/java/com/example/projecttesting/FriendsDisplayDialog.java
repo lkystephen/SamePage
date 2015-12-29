@@ -125,9 +125,10 @@ public class FriendsDisplayDialog extends DialogFragment implements OnMapReadyCa
     @Override
     public void update(ArrayList<String> output,List<List<HashMap<String, String>>> result) {
         String name = output.get(0);
-        String distance = output.get(1);
+        String time_needed = output.get(1);
         String destination = output.get(2);
         friend_location.setText(destination);
+        friend_direction.setText(time_needed + "by transit");
         ParsePolyLines parsePolyLines = new ParsePolyLines(result);
         mMapFragment.getMap().addPolyline(parsePolyLines.parseLine());
 

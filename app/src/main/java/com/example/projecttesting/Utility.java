@@ -176,7 +176,7 @@ public class Utility {
 
         long currentMillis = System.currentTimeMillis();
         long a = currentMillis - millis;
-        int b = Math.round(a / 1000);
+        int b = Math.round(a / 60000); // present the difference in minutes
         String result = new String();
 
         if (b < 60) {
