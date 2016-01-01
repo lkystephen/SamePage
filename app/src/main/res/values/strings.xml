@@ -21,6 +21,10 @@
     <string name="set_all_star">Add all friends to favorite</string>
     <string name="set_all_unstar">Remove all friends from favorite</string>
     <string name="error_no_internet_msg">You have no internet connection. SamePage requires working connection to launch.\nPlease check if there is working connection and try again.</string>
+    <string name="error_no_location_msg">No location is available. This may be due to the following reasons:
+        \n1. You have turned off the Location availability\n2. You have allowed GPS-only and you are in an indoor setting
+    \n\nWhile SamePage would work without location information, you may not be able to access full features of the app.
+    Please check your location settings and try again, or proceed with the application.</string>
 
 
 </resources>

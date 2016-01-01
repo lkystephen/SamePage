@@ -177,6 +177,9 @@ public class Utility {
         long currentMillis = System.currentTimeMillis();
         long a = currentMillis - millis;
         int b = Math.round(a / 60000); // present the difference in minutes
+        Log.i(TAG,"Last update from user is " + Long.toString(millis));
+        Log.i(TAG,"Current time is " + Long.toString(currentMillis));
+        Log.i(TAG,"Last update difference from now is " + Integer.toString(b)+ "mins");
         String result = new String();
 
         if (b < 60) {

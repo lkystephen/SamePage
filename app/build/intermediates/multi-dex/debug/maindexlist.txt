@@ -302,6 +302,7 @@ android/support/design/widget/CoordinatorLayout$LayoutParams.class
 com/google/android/gms/internal/zzbx.class
 android/support/v4/content/WakefulBroadcastReceiver.class
 android/support/v4/app/BackStackRecord$TransitionState.class
+com/example/projecttesting/LocationDialogFragment.class
 com/facebook/login/LoginManager.class
 android/support/v7/widget/LinearLayoutCompat$LayoutParams.class
 com/google/android/gms/ads/internal/zzi.class
@@ -555,6 +556,7 @@ com/google/android/gms/common/api/ResultCallback.class
 com/google/android/gms/ads/internal/request/zzd$zza.class
 com/google/android/gms/internal/zzcd.class
 com/google/android/gms/ads/doubleclick/PublisherAdRequest$Builder.class
+com/example/projecttesting/MainActivity$2.class
 com/google/android/gms/ads/internal/InterstitialAdParameterParcel.class
 com/example/projecttesting/R$layout.class
 com/google/android/gms/ads/internal/util/client/zzb.class
@@ -613,6 +615,7 @@ com/google/android/gms/ads/internal/purchase/GInAppPurchaseManagerInfoParcel.cla
 android/support/v4/view/ViewCompat$JbMr2ViewCompatImpl.class
 -keep class com.google.android.gms.measurement.AppMeasurementService { <init>(); }
 com/example/projecttesting/EventPeopleInput$2.class
+com/example/projecttesting/LocationDialogFragment$LocationDialogListener.class
 com/google/android/gms/ads/internal/client/ThinAdSizeParcel.class
 com/google/ads/mediation/MediationBannerListener.class
 org/joda/time/TimeOfDay$Property.class

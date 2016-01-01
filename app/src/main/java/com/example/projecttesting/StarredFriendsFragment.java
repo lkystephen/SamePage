@@ -212,8 +212,7 @@ public class StarredFriendsFragment extends Fragment {
                 });
                 for (int i = 0; i < star_list.size(); i++) {
                     String distance = new String();
-                    String diff_time = new String();
-
+                    long lastUpdate;
 
                     // Get friends last location's distance from you
                     OtherUser otheruser = star_list.get(i);
@@ -222,21 +221,16 @@ public class StarredFriendsFragment extends Fragment {
                         location.setLongitude(otheruser.longitude);
                         location.setLatitude(otheruser.lat);
                         distance = Integer.toString(Math.round(mLastLocation.distanceTo(location)));
-
                         // Time
-                        long lastUpdate = otheruser.timestamp;
-                        long time = System.currentTimeMillis();
-                        long difference = time - lastUpdate;
-                        int diff_min = Math.round(difference / 60000);
-                        diff_time = Integer.toString(diff_min);
+                        lastUpdate = otheruser.timestamp;
 
                     } else {
                         distance = "NULL";
-                        diff_time = "NULL";
+                        lastUpdate = 0;
                     }
 
                     FriendsRowItem item = new FriendsRowItem(
-                            user.getStarList().get(i).username, 0, user.getStarList().get(i).fbid, distance, diff_time);
+                            user.getStarList().get(i).username, 0, user.getStarList().get(i).fbid, distance, lastUpdate);
                     rowItems.add(item);
                 }
             }

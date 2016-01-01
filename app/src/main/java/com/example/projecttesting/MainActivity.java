@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.prefs.PreferenceChangeEvent;
 
 import android.app.AlertDialog;
+import android.app.DialogFragment;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -14,6 +15,7 @@ import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
@@ -48,14 +50,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 //fb imports
-import com.astuetz.PagerSlidingTabStrip;
-import com.astuetz.PagerSlidingTabStrip.IconTabProvider;
-import com.facebook.AccessToken;
-import com.facebook.FacebookSdk;
 import com.facebook.CallbackManager;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.HttpMethod;
 import com.facebook.Profile;
 import com.facebook.login.widget.ProfilePictureView;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -78,7 +73,7 @@ import com.google.android.gms.location.LocationServices;
 
 @SuppressWarnings("unused")
 public class MainActivity extends AppCompatActivity implements MainAct, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, LocationListener {
+        GoogleApiClient.OnConnectionFailedListener, LocationListener, LocationDialogFragment.LocationDialogListener {
 
     // Backpress setting
     private long backPressedTime = 0;
@@ -111,6 +106,9 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
     // user
     public User user;
 
+    Runnable runnable;
+    Handler onLocationFailed;
+
     public static String PACKAGE_NAME;
 
     String selection_locationID;
@@ -132,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         // Save userid in sharedpreference
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("id",user.getUserId());
+        editor.putString("id", user.getUserId());
         editor.apply();
 
         // User should be received, get to work on location
@@ -160,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
 
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
             Bundle bundle = new Bundle();
-            bundle.putParcelable("location",mLastLocation);
+            bundle.putParcelable("location", mLastLocation);
             bundle.putParcelable("user", user);
             actionMenu.close(true);
 
@@ -304,7 +302,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
 
                 // Download your own image first
                 Bitmap photo = utility.downloadImage(user.getFBId());
-                utility.storeImage(photo, user.getFBId(),MainActivity.this);
+                utility.storeImage(photo, user.getFBId(), MainActivity.this);
 
                 for (int i = 0; i < temp.size(); i++) {
                     Bitmap frd_photo = utility.downloadImage(temp.get(i).fbid);
@@ -395,8 +393,10 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
             Bundle bundle = new Bundle();
             bundle.putParcelable("user", user);
 
-            bundle.putParcelable("location", mLastLocation);
-            Log.i("location",mLastLocation.toString());
+            if (mLastLocation != null) {
+                bundle.putParcelable("location", mLastLocation);
+                Log.i("location", mLastLocation.toString());
+            }
             mainFragment.setArguments(bundle);
             fragmentTransaction.add(R.id.mFragment, mainFragment);
             fragmentTransaction.commit();
@@ -440,11 +440,26 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
     @Override
     public void onConnected(Bundle arg0) {
 
-        Log.i(TAG,"onConnected");
+        Log.i(TAG, "onConnected");
         // Loading loading text
-        loadingText.setText("Setting location...");
+        loadingText.setText("Requesting location...");
 
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+
+        Handler onLocationFailed = new Handler();
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                // Save the current status as 'not connected in location' in shared preference
+                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putBoolean("connect", false);
+                editor.apply();
+
+                showErrorDialog();
+            }
+        };
+        onLocationFailed.postDelayed(runnable, 12000); // 12 seconds if no response, launch the runnable
 
     }
 
@@ -503,7 +518,15 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.i(TAG,"onLocationChanged");
+        Log.i(TAG, "onLocationChanged");
+
+        // Cancel the previous runnable
+        onLocationFailed.removeCallbacks(runnable);
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("connect", true);
+        editor.apply();
 
         // Assign the new location
         mLastLocation = location;
@@ -593,5 +616,41 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         }
     }
 
+    public void showErrorDialog() {
+        DialogFragment dialog = new LocationDialogFragment();
+        dialog.show(getFragmentManager(), "LocationDialogFragment");
+    }
 
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+
+        mLastLocation = null;
+
+        // This is for creating the intent that is used for handler class
+        Intent intent = new Intent(MainActivity.this, MyLocationHandler.class);
+
+        PendingIntent pendingIntent = PendingIntent.getService(getApplicationContext(), 0,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // Then the off screen periodic update
+        PendingResult pendingResult = LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+                mLocationRequest, pendingIntent);
+
+        // Loading
+        loadingText.setText("Getting cached photos..");
+
+        // Retrieve display photos
+        RetrieveFBPhotos retrieve = new RetrieveFBPhotos();
+        retrieve.execute(null, null, null);
+
+    }
 }

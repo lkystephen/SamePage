@@ -99,24 +99,12 @@ public class FriendsListAdapter extends ArrayAdapter<FriendsRowItem> implements 
 
         holder.name.setText(rowItem.getName());
 
-        if (!rowItem.getTimeDifference().equals("NULL")) {
-            String time = rowItem.getTimeDifference();
-            int temp = Integer.parseInt(time);
-            // time is already in minutes
-            if (temp < 60) {
-                holder.last_update.setText(Integer.toString(temp) + " mins ago");
-            } else {
-                if (temp > 60 && temp < 1440) {
-                    int temp3 = Math.round(temp / 60);
-                    holder.last_update.setText(Integer.toString(temp3) + " hours ago");
-                } else if (temp > 1440 && temp < 525600) {
-                    int temp4 = Math.round(temp / 1440);
-                    holder.last_update.setText(Integer.toString(temp4) + " days ago");
-                } else if (temp > 525600) {
-                    int temp5 = Math.round(temp / 525600);
-                    holder.last_update.setText(Integer.toString(temp5) + " years ago");
-                }
-            }
+        if (rowItem.getUpdateTime() != 0) {
+            long updateTime = rowItem.getUpdateTime();
+            Utility util = new Utility();
+            String display = util.timeLapsedFromNow(updateTime);
+            holder.last_update.setText(display);
+
         } else
             holder.last_update.setText("Unknown");
 

@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -219,15 +220,11 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
 
             List<OtherUser> master_list = user.getMasterList();
 
-            // Getting the location information of friends in another async task
-            //ParseLocation parserTask = new ParseLocation(user);
-
             // Establish data here
             rowItems = new ArrayList<>();
             for (int i = 0; i < master_list.size(); i++) {
                 String distance = new String();
-                String diff_time = new String();
-
+                long lastUpdate;
 
                 // Get friends last location's distance from you
                 OtherUser otheruser = master_list.get(i);
@@ -238,18 +235,14 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
                     distance = Integer.toString(Math.round(mLastLocation.distanceTo(location)));
 
                     // Time
-                    long lastUpdate = otheruser.timestamp;
-                    long time = System.currentTimeMillis();
-                    long difference = time - lastUpdate;
-                    int diff_min = Math.round(difference / 60000);
-                    diff_time = Integer.toString(diff_min);
+                    lastUpdate = otheruser.timestamp;
 
                 } else {
                     distance = "NULL";
-                    diff_time = "NULL";
+                    lastUpdate = 0;
                 }
                 FriendsRowItem item = new FriendsRowItem(master_list.get(i).username, 0, master_list.get(i).fbid,
-                        distance, diff_time);
+                        distance, lastUpdate);
                 rowItems.add(item);
             }
 
@@ -281,6 +274,7 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
 
                         bundle.putParcelable("location", location);
                         bundle.putParcelable("mLocation", mLastLocation);
+                        Log.i("WT",Long.toString(user.getMasterList().get(i).timestamp));
                         bundle.putLong("updatetime",user.getMasterList().get(i).timestamp);
                         bundle.putParcelable("user", user);
                         bundle.putString("name", user.getMasterList().get(i).username);

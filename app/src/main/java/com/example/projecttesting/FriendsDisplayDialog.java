@@ -39,6 +39,7 @@ public class FriendsDisplayDialog extends DialogFragment implements OnMapReadyCa
     Location mLastLocation;
     User user;
     SupportMapFragment mMapFragment;
+    String TAG = FriendsDisplayDialog.class.getSimpleName();
 
     public FriendsDisplayDialog() {
 
@@ -54,6 +55,7 @@ public class FriendsDisplayDialog extends DialogFragment implements OnMapReadyCa
         String name = bundle.getString("name");
         mLastLocation = bundle.getParcelable("mLocation");
         long time = bundle.getLong("updatetime");
+        Log.i(TAG,"Last update time: " + Long.toString(time));
         user = bundle.getParcelable("user");
         latLng = new LatLng(location.getLatitude(), location.getLongitude());
         mLatLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
@@ -128,7 +130,7 @@ public class FriendsDisplayDialog extends DialogFragment implements OnMapReadyCa
         String time_needed = output.get(1);
         String destination = output.get(2);
         friend_location.setText(destination);
-        friend_direction.setText(time_needed + "by transit");
+        friend_direction.setText(time_needed + " by transit");
         ParsePolyLines parsePolyLines = new ParsePolyLines(result);
         mMapFragment.getMap().addPolyline(parsePolyLines.parseLine());
 

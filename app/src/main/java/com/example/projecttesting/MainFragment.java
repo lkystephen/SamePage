@@ -119,16 +119,17 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         closest_location_details2.setTypeface(typeface_reg);
 
         // Compare my location with friends
-        String position = searchClosestFriend(user);
+        if (mLocation != null) {
+            String position = searchClosestFriend(user);
 
-        if (!position.equals("NULL")) {
-            String id = user.getMasterList().get(Integer.parseInt(position)).fbid;
-            closest_friend_image.setImageBitmap(BitmapFactory.decodeFile(Utility.getImage(id, getContext()).getPath()));
-            closest_friend_name.setText(user.getMasterList().get(Integer.parseInt(position)).username);
-        } else {
-            // set any image here
+            if (!position.equals("NULL")) {
+                String id = user.getMasterList().get(Integer.parseInt(position)).fbid;
+                closest_friend_image.setImageBitmap(BitmapFactory.decodeFile(Utility.getImage(id, getContext()).getPath()));
+                closest_friend_name.setText(user.getMasterList().get(Integer.parseInt(position)).username);
+            } else {
+                // set any image here
+            }
         }
-
         ConstructNewsFeedItem item = new ConstructNewsFeedItem(user);
         ArrayList<HashMap<String, Integer>> result = item.setEventsFeedPriority();
 
@@ -180,6 +181,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
         // TODO Auto-generated method stub
 
     }
+
     @Override
     public void afterTextChanged(Editable arg0) {
     }
@@ -201,7 +203,7 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 
 
     //this override the implemented method from asyncTask
-    public void update(ArrayList<String> output,List<List<HashMap<String, String>>> result) {
+    public void update(ArrayList<String> output, List<List<HashMap<String, String>>> result) {
         String name = output.get(0);
         String distance = output.get(1);
         String destination = output.get(2);
@@ -223,11 +225,14 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 
                 closestLocation.setLatitude(user.getMasterList().get(i).lat);
                 closestLocation.setLongitude(user.getMasterList().get(i).longitude);
+
+
                 int temp = Math.round(mLocation.distanceTo(closestLocation));
                 if (temp < meter) {
                     meter = temp;
                 }
                 id = Integer.toString(i);
+
             }
         }
 
