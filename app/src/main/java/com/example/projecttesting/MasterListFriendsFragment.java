@@ -3,11 +3,13 @@ package com.example.projecttesting;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -51,6 +53,8 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
         View rootView = inflater.inflate(R.layout.master_friends, container,
                 false);
 
+        final LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.friends_overall);
+
         final Typeface face;
         face = FontCache.getFont(getContext(), "sf_reg.ttf");
 
@@ -60,11 +64,11 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
         list = new ArrayList<>();
         list1 = new ArrayList<>();
 
+
         for (int i = 0; i < user.getMasterList().size(); i++) {
             list1.add("N");
         }
 
-        final LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.friends_overall);
 
         final EditText search = (EditText) rootView.findViewById(R.id.master_search);
         search.setTypeface(face);
@@ -228,7 +232,7 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
 
                 // Get friends last location's distance from you
                 OtherUser otheruser = master_list.get(i);
-                if (otheruser.hasLoc) {
+                if (otheruser.hasLoc && mLastLocation !=null) {
                     Location location = new Location("TEST");
                     location.setLongitude(otheruser.longitude);
                     location.setLatitude(otheruser.lat);
@@ -264,7 +268,7 @@ public class MasterListFriendsFragment extends Fragment implements UpdateResult 
 
                     Boolean hasLoc = user.getMasterList().get(i).hasLoc;
 
-                    if (hasLoc) {
+                    if (hasLoc && mLastLocation!= null) {
                         Bundle bundle = new Bundle();
                         double lat = user.getMasterList().get(i).lat;
                         double lng = user.getMasterList().get(i).longitude;

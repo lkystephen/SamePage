@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
@@ -58,10 +59,24 @@ public class StarredFriendsFragment extends Fragment {
         list = new ArrayList<>();
         list1 = new ArrayList<>();
 
-        fm = getActivity().getSupportFragmentManager();
+        final LinearLayout layout = (LinearLayout) rootView.findViewById(R.id.linearLayout);
 
         final Typeface face, face_b;
         face = FontCache.getFont(getContext(), "sf_reg.ttf");
+
+        if (mLastLocation == null){
+            String msg = "No location is available as your location service is off.";
+            Toast.makeText(getContext(),msg,Toast.LENGTH_SHORT).show();
+            //Snackbar snackbar = Snackbar.make(layout, msg, Snackbar.LENGTH_SHORT);
+            //View sbView = snackbar.getView();
+            //TextView text = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+            //text.setTypeface(face);
+
+            //snackbar.show();
+        }
+
+        fm = getActivity().getSupportFragmentManager();
+
 
         for (int i = 0; i < user.getStarList().size(); i++) {
             list1.add("N");
@@ -70,7 +85,6 @@ public class StarredFriendsFragment extends Fragment {
         listView = (SwipeMenuListView) rootView.findViewById(R.id.starredfriendslist);
         no_star_text = (TextView) rootView.findViewById(R.id.nostarfriendstext);
 
-        final LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.linearLayout);
 
         face_b = FontCache.getFont(getContext(), "sf_bold.ttf");
         no_star_text.setTypeface(face_b);
@@ -139,7 +153,7 @@ public class StarredFriendsFragment extends Fragment {
                         } else if (temp > 1) {
                             snackBarDisplay = temp + " friends are set to be removed from favorite";
                         }
-                        Snackbar snackbar = Snackbar.make(linearLayout, snackBarDisplay, Snackbar.LENGTH_INDEFINITE)
+                        Snackbar snackbar = Snackbar.make(layout, snackBarDisplay, Snackbar.LENGTH_INDEFINITE)
                                 .setAction("CONFIRM", new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
@@ -216,7 +230,7 @@ public class StarredFriendsFragment extends Fragment {
 
                     // Get friends last location's distance from you
                     OtherUser otheruser = star_list.get(i);
-                    if (otheruser.hasLoc) {
+                    if (otheruser.hasLoc && mLastLocation != null) {
                         Location location = new Location("TEST");
                         location.setLongitude(otheruser.longitude);
                         location.setLatitude(otheruser.lat);
@@ -253,7 +267,7 @@ public class StarredFriendsFragment extends Fragment {
 
                     Boolean hasLoc = user.getMasterList().get(i).hasLoc;
 
-                    if (hasLoc) {
+                    if (hasLoc && mLastLocation != null) {
                         Bundle bundle = new Bundle();
                         double lat = user.getMasterList().get(i).lat;
                         double lng = user.getMasterList().get(i).longitude;

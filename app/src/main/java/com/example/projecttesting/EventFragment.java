@@ -82,11 +82,6 @@ public class EventFragment extends Fragment implements MainAct {
 
     }
 
-    //@Override
-    //public void handleGetFrdsLocResults(HashMap<String, OtherUser> masterListwLoc) {
-
-    //}
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -173,11 +168,6 @@ public class EventFragment extends Fragment implements MainAct {
                     // Publish progress
                     protected void onPreExecute() {
 
-                       /* dialog = new ProgressDialog(mContext);
-                        dialog.setMessage("Adding event");
-                        Log.i("dialog msg", "YES");
-                        dialog.show();
-*/
                     }
 
 

@@ -38,9 +38,6 @@ public class FriendsFragment extends Fragment {
 
         Bundle bundle = getArguments();
 
-        //loc =  (HashMap<String,OtherUser>) bundle.getSerializable("location");
-        //OtherUser tmp111 = loc.get("10153147789760449");
-        //Log.i("serial loc",Double.toString(tmp111.lat));
         Typeface face;
         face = Typeface.createFromAsset(getActivity().getAssets(), "sf_reg.ttf");
 

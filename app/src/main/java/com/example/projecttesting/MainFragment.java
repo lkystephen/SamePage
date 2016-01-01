@@ -143,15 +143,16 @@ public class MainFragment extends Fragment implements LocationListener, TextWatc
 
         // Calculating location now
         // Getting URL to the Google Directions API
-        myPosition = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
-        DirectionFromLatLng getDirection = new DirectionFromLatLng();
-        String url = getDirection.execute(myPosition, test_QC_location);
-        DownloadTask downloadTask = new DownloadTask(user);
+        if (mLocation != null) {
+            myPosition = new LatLng(mLocation.getLatitude(), mLocation.getLongitude());
+            DirectionFromLatLng getDirection = new DirectionFromLatLng();
+            String url = getDirection.execute(myPosition, test_QC_location);
+            DownloadTask downloadTask = new DownloadTask(user);
 
-        downloadTask.delegate = this;
-        // Start downloading json data from Google Directions API
-        downloadTask.execute(url);
-
+            downloadTask.delegate = this;
+            // Start downloading json data from Google Directions API
+            downloadTask.execute(url);
+        }
         return rootView;
     }
 

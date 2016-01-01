@@ -521,6 +521,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         Log.i(TAG, "onLocationChanged");
 
         // Cancel the previous runnable
+        if (onLocationFailed != null)
         onLocationFailed.removeCallbacks(runnable);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -632,6 +633,8 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
+
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, MainActivity.this).cancel();
 
         mLastLocation = null;
 
