@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         }
     }
 
-    public class RetrieveFBPhotos extends AsyncTask<Void, Void, Integer> {
+    public class DownloadFriends extends AsyncTask<Void, Void, Integer> {
         protected Integer doInBackground(Void... params) {
 
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
@@ -291,6 +291,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
                 temp2 = temp3;
             }
             Log.i("Generated dl indicator", temp2);
+
             if (downloaded.equals("yes") && temp2.equals(old_list)) {
                 // photos have been downloaded before and friends unchanged
                 Log.i("FB display", "Have been downloaded before");
@@ -315,15 +316,16 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
                 editor.apply();
 
             }
+
             return 1;
         }
 
         protected void onPostExecute(Integer result) {
 
+
             setContentView(R.layout.activity_main);
 
-            PACKAGE_NAME = getApplicationContext().getPackageName();
-
+            //PACKAGE_NAME = getApplicationContext().getPackageName();
             Bundle abc = new Bundle();
             abc.putParcelable("user", user);
 
@@ -383,6 +385,11 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
             button3.setLayoutParams(params);
             button4.setLayoutParams(params);
 
+            button1.setOnClickListener(new mOnClickListener(1, MainActivity.this));
+            button2.setOnClickListener(new mOnClickListener(2, MainActivity.this));
+            button3.setOnClickListener(new mOnClickListener(3, MainActivity.this));
+            button4.setOnClickListener(new mOnClickListener(4, MainActivity.this));
+
             actionMenu = new FloatingActionMenu.Builder(MainActivity.this).addSubActionView(button1)
                     .addSubActionView(button2).addSubActionView(button3).addSubActionView(button4).attachTo(actionButton).build();
 
@@ -398,13 +405,12 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
                 Log.i("location", mLastLocation.toString());
             }
             mainFragment.setArguments(bundle);
-            fragmentTransaction.add(R.id.mFragment, mainFragment);
+            if (runnable != null) {
+                fragmentTransaction.add(R.id.mFragment, mainFragment);
+            } else {
+                fragmentTransaction.replace(R.id.mFragment, mainFragment);
+            }
             fragmentTransaction.commit();
-
-            button1.setOnClickListener(new mOnClickListener(1, MainActivity.this));
-            button2.setOnClickListener(new mOnClickListener(2, MainActivity.this));
-            button3.setOnClickListener(new mOnClickListener(3, MainActivity.this));
-            button4.setOnClickListener(new mOnClickListener(4, MainActivity.this));
 
         }
 
@@ -459,7 +465,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
                 showErrorDialog();
             }
         };
-        onLocationFailed.postDelayed(runnable, 12000); // 12 seconds if no response, launch the runnable
+        onLocationFailed.postDelayed(runnable, 9000); // 9 seconds if no response, launch the runnable
 
     }
 
@@ -521,13 +527,9 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         Log.i(TAG, "onLocationChanged");
 
         // Cancel the previous runnable
-        if (onLocationFailed != null)
-        onLocationFailed.removeCallbacks(runnable);
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putBoolean("connect", true);
-        editor.apply();
+        if (runnable != null) {
+            onLocationFailed.removeCallbacks(runnable);
+        }
 
         // Assign the new location
         mLastLocation = location;
@@ -546,7 +548,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         loadingText.setText("Getting cached photos..");
 
         // Retrieve display photos
-        RetrieveFBPhotos retrieve = new RetrieveFBPhotos();
+        DownloadFriends retrieve = new DownloadFriends();
         retrieve.execute(null, null, null);
 
     }
@@ -652,7 +654,7 @@ public class MainActivity extends AppCompatActivity implements MainAct, GoogleAp
         loadingText.setText("Getting cached photos..");
 
         // Retrieve display photos
-        RetrieveFBPhotos retrieve = new RetrieveFBPhotos();
+        DownloadFriends retrieve = new DownloadFriends();
         retrieve.execute(null, null, null);
 
     }

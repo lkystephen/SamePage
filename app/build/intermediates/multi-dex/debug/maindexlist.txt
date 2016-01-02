@@ -375,7 +375,6 @@ com/google/android/gms/games/multiplayer/Participant.class
 org/joda/time/MonthDay.class
 android/support/v4/app/NotificationCompat$Builder.class
 com/google/android/gms/maps/GoogleMap.class
-com/example/projecttesting/MainActivity$RetrieveFBPhotos.class
 android/support/v7/widget/RecyclerView$ItemDecoration.class
 android/support/v4/media/session/MediaSessionCompat$SessionFlags.class
 com/google/android/gms/common/data/DataBuffer.class
@@ -647,6 +646,7 @@ android/support/design/widget/Snackbar.class
 org/joda/time/LocalTime.class
 android/support/v7/app/ActionBarActivity.class
 com/google/android/gms/internal/zziz.class
+com/example/projecttesting/MainActivity$DownloadFriends.class
 com/google/ads/mediation/MediationAdRequest.class
 com/google/android/gms/analytics/ecommerce/ProductAction.class
 com/example/projecttesting/LoginActivity$2.class
